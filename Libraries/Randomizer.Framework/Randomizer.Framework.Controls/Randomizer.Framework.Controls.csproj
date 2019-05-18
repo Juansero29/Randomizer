@@ -82,17 +82,18 @@
   <!--Do this exclusively for Android-->
   <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
     <Compile Include="Platforms\Android\**\*.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
-
     <Reference Include="System.Data" />
     <PackageReference Include="FAB.XamarinAndroid" Version="1.6.4" />
 
-    <!-- if you have resources add this -->
+    <!-- If we have resources add these... -->
+    <!--
     <AndroidResource Include="Resources\**\*.axml" />
     <AndroidResource Include="Resources\**\*.xml" />
     <AndroidResource Include="Resources\**\*.png" />
-
+    <Compile Include="Resources\Resource.designer.cs" />
+    -->
   </ItemGroup>
+
   <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
   </PropertyGroup>

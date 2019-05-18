@@ -1,9 +1,10 @@
 before_script:
+  - nuget restore
   - dotnet restore
 
 
 build:
   stage: build
   script:
-    - dotnet build -c Debug -c --no-restore
-    - dotnet build -c Release -c --no-restore
+    - MSBuild Randomizer.sln -p:Configuration=Debug
+    - MSBuild Randomizer.sln -p:Configuration=Release
