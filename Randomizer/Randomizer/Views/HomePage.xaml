@@ -1,16 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
              BackgroundColor="Black"
              x:Class="Randomizer.Views.HomePage">
+    
+    <!--This page's ViewModel-->
+    <ContentPage.BindingContext>
+        <ViewModels:HomePageViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout>
             <Label
                 TextColor="White"
                 HorizontalTextAlignment="Center"
-                Text="Randomizer's HomePage. Work in progress..."
+                Text="Randomizer's HomePage. Work in progress. Come back later!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
+    
 </ContentPage>
