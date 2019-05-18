@@ -3,9 +3,9 @@ stages:
   - deploy
 
 before_script:
+  - start "android-emu" "emulator" "-avd" %EMULATOR_NAME% # We start the emulator before building so we can deploy to it once the build stage finishes"
   - nuget restore
   - dotnet restore
-
 
 build:
   stage: build
@@ -16,8 +16,15 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "deploying..."
-  environment:
-    name: staging
-    url: https://staging.example.com
+    - echo "Deploying on Android Emulator %EMULATOR_NAME%"
+    - MSBuild /t:Install /t:SignAndroidPackage .\Randomizer\Randomizer.Android\Randomizer.Android.csproj /p:AdbTarget="-e %EMULATOR_NAME%" # Install the app on the launched emulator
+    - adb -s emulator-5554 shell monkey -p fr.ClubInfo.Randomizer -c android.intent.category.LAUNCHER 1 # Simulate a click on the app's icon from the launcher
+    
+after_script:
+  - adb -s emulator-5554 uninstall fr.ClubInfo.Randomizer # Uninstall the app from the emulator
+  - adb -s emulator-5554 emu kill # Kill the emulator
+  
+environment:
+  name: staging
+  url: https://staging.example.com
 
