@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceAssemblyReference>true</ProduceAssemblyReference>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.ApiManager\Randomizer.Framework.ApiManager.csproj" />
+    <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
+    <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
+    <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.ViewModels\Randomizer.Framework.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

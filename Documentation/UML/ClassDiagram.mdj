@@ -63,7 +63,7 @@
 											"top": 686,
 											"width": 303,
 											"height": 13,
-											"text": "Randomizer.ApiManager"
+											"text": "Randomizer.Framework.ApiManager"
 										},
 										{
 											"_type": "LabelView",
@@ -169,7 +169,7 @@
 											"top": 46,
 											"width": 1127,
 											"height": 13,
-											"text": "Randomizer.Models"
+											"text": "Randomizer.Framework.Models"
 										},
 										{
 											"_type": "LabelView",
@@ -292,9 +292,9 @@
 											"font": "Arial;13;0",
 											"left": 464,
 											"top": 32,
-											"width": 153.15625,
+											"width": 221.7744140625,
 											"height": 13,
-											"text": "(from Randomizer.Models)"
+											"text": "(from Randomizer.Framework.Models)"
 										},
 										{
 											"_type": "LabelView",
@@ -486,9 +486,9 @@
 											"font": "Arial;13;0",
 											"left": 448,
 											"top": 48,
-											"width": 153.15625,
+											"width": 221.7744140625,
 											"height": 13,
-											"text": "(from Randomizer.Models)"
+											"text": "(from Randomizer.Framework.Models)"
 										},
 										{
 											"_type": "LabelView",
@@ -681,9 +681,9 @@
 											"font": "Arial;13;0",
 											"left": -688,
 											"top": -184,
-											"width": 153.15625,
+											"width": 221.7744140625,
 											"height": 13,
-											"text": "(from Randomizer.Models)"
+											"text": "(from Randomizer.Framework.Models)"
 										},
 										{
 											"_type": "LabelView",
@@ -1359,9 +1359,9 @@
 											"font": "Arial;13;0",
 											"left": 288,
 											"top": -592,
-											"width": 153.15625,
+											"width": 221.7744140625,
 											"height": 13,
-											"text": "(from Randomizer.Models)"
+											"text": "(from Randomizer.Framework.Models)"
 										},
 										{
 											"_type": "LabelView",
@@ -1559,9 +1559,9 @@
 											"font": "Arial;13;0",
 											"left": 416,
 											"top": -240,
-											"width": 153.15625,
+											"width": 221.7744140625,
 											"height": 13,
-											"text": "(from Randomizer.Models)"
+											"text": "(from Randomizer.Framework.Models)"
 										},
 										{
 											"_type": "LabelView",
@@ -1816,7 +1816,7 @@
 											"top": 502,
 											"width": 951,
 											"height": 13,
-											"text": "Randomizer.Persitence"
+											"text": "Randomizer.Framework.Persitence"
 										},
 										{
 											"_type": "LabelView",
@@ -1936,9 +1936,9 @@
 											"font": "Arial;13;0",
 											"left": 240,
 											"top": -288,
-											"width": 172.6689453125,
+											"width": 241.287109375,
 											"height": 13,
-											"text": "(from Randomizer.Persitence)"
+											"text": "(from Randomizer.Framework.Persitence)"
 										},
 										{
 											"_type": "LabelView",
@@ -2202,9 +2202,9 @@
 											"font": "Arial;13;0",
 											"left": 296,
 											"top": -400,
-											"width": 172.6689453125,
+											"width": 241.287109375,
 											"height": 13,
-											"text": "(from Randomizer.Persitence)"
+											"text": "(from Randomizer.Framework.Persitence)"
 										},
 										{
 											"_type": "LabelView",
@@ -2955,9 +2955,9 @@
 											"font": "Arial;13;0",
 											"left": -608,
 											"top": 344,
-											"width": 181.34619140625,
+											"width": 249.96435546875,
 											"height": 13,
-											"text": "(from Randomizer.ApiManager)"
+											"text": "(from Randomizer.Framework.ApiManager)"
 										},
 										{
 											"_type": "LabelView",
@@ -3154,9 +3154,9 @@
 											"font": "Arial;13;0",
 											"left": 800,
 											"top": -1664,
-											"width": 172.6689453125,
+											"width": 221.7744140625,
 											"height": 13,
-											"text": "(from Randomizer.Models)"
+											"text": "(from Randomizer.Framework.Models)"
 										},
 										{
 											"_type": "LabelView",
@@ -3400,7 +3400,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Randomizer.Models",
+					"name": "Randomizer.Framework.Models",
 					"ownedElements": [
 						{
 							"_type": "UMLClass",
@@ -3681,7 +3681,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Randomizer.Persitence",
+					"name": "Randomizer.Framework.Persitence",
 					"ownedElements": [
 						{
 							"_type": "UMLInterface",
@@ -4070,7 +4070,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Randomizer.ApiManager",
+					"name": "Randomizer.Framework.ApiManager",
 					"ownedElements": [
 						{
 							"_type": "UMLClass",
