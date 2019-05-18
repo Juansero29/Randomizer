@@ -24,7 +24,7 @@ deploy:
   stage: deploy
   script:
     - echo "Deploying on Android Emulator %EMULATOR_NAME%"
-    - MSBuild /t:Install /t:SignAndroidPackage .\Randomizer\Randomizer.Android\Randomizer.Android.csproj /p:AdbTarget="-e %EMULATOR_NAME%" # Install the app on the launched emulator
+#    - MSBuild /t:Install /t:SignAndroidPackage .\Randomizer\Randomizer.Android\Randomizer.Android.csproj /p:AdbTarget="-e %EMULATOR_NAME%" # Install the app on the launched emulator
 #    - adb -s emulator-5554 shell monkey -p fr.ClubInfo.Randomizer -c android.intent.category.LAUNCHER 1 # Simulate a click on the app's icon from the launcher
   environment:
     name: staging
