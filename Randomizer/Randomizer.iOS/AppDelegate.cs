@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 using Foundation;
 using UIKit;
@@ -23,6 +26,7 @@ namespace Randomizer.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
+            AppCenter.Start("a297d040-a412-45e8-845a-7d0794e1342c", typeof(Analytics), typeof(Crashes));
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
