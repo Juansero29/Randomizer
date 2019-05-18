@@ -3,7 +3,7 @@ stages:
   - deploy
 
 before_script:
-  - start "android-emu" "emulator" "-avd" %EMULATOR_NAME% # We start the emulator before building so we can deploy to it once the build stage finishes"
+  - start /B "android-emu" "emulator" "-avd" %EMULATOR_NAME% # We start the emulator before building so we can deploy to it once the build stage finishes"
   - nuget restore
   - dotnet restore
   
