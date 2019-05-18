@@ -1,10 +1,11 @@
 before_script:
-  - "C:\NuGet\nuget" restore
+  windows_path:
+  - 'C:\NuGet\nuget' restore
   - dotnet restore
 
 
 build:
   stage: build
   script:
-    - "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" Randomizer.sln -p:Configuration=Debug
-    - "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" Randomizer.sln -p:Configuration=Release
+    - 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe' Randomizer.sln -p:Configuration=Debug
+    - 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe' Randomizer.sln -p:Configuration=Release
