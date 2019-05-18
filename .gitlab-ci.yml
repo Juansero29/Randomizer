@@ -1,5 +1,4 @@
 before_script:
-  - nuget restore
   - dotnet restore
 
 
