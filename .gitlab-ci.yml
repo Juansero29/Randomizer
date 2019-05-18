@@ -1,5 +1,4 @@
 before_script:
-  windows_path:
   - nuget restore
   - dotnet restore
 
