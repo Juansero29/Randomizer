@@ -1,37 +1,48 @@
-# We can't start an android emulator on the Gitlab runner. It stays blocked once they emulator starts and doesn't continue with other commands...
-
 stages:
   - build
-  - deploy
+  - deployandroid
+  - deployios
 
 before_script:
-#  - start /B "android-emu" "emulator" "-avd" %EMULATOR_NAME% # We start the emulator before building so we can deploy to it once the build stage finishes"
   - nuget restore
   - dotnet restore
-  
-after_script:
-#  - adb -s emulator-5554 uninstall fr.ClubInfo.Randomizer # Uninstall the app from the emulator
-#  - adb -s emulator-5554 emu kill # Kill the emulator
 
 build:
   stage: build
   script:
     - MSBuild Randomizer.sln /t:restore
     - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Debug 
-    - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Release
     
-deploy:
-  stage: deploy
+deployandroid:
+  stage: deployandroid
   script:
-    - echo "Deploying on Android Emulator %EMULATOR_NAME%"
-#    - MSBuild /t:Install /t:SignAndroidPackage .\Randomizer\Randomizer.Android\Randomizer.Android.csproj /p:AdbTarget="-e %EMULATOR_NAME%" # Install the app on the launched emulator
-#    - adb -s emulator-5554 shell monkey -p fr.ClubInfo.Randomizer -c android.intent.category.LAUNCHER 1 # Simulate a click on the app's icon from the launcher
+    - MSBuild /t:SignAndroidPackage .\Randomizer\Randomizer.Android\Randomizer.Android.csproj -p:Configuration=Release
+    - curl -X POST "https://api.appcenter.ms/v0.1/apps/juansero29/%ANDROID_APP_NAME%/release_uploads" -H "accept: application/json" -H "X-API-Token: 8d270ac0ccd9f8650a15658a87ccaa7d8d490a22" -H "Content-Type: application/json" -d "{ \"release_id\": 0}" > json
+    - for /f "tokens=*" %t in ('type json ^| jq -r .upload_url') do set upload_url=%t
+    - for /f "tokens=*" %t in ('type json ^| jq -r .upload_id') do set upload_id=%t
+    - curl -F "ipa=@.\Randomizer\Randomizer.Android\bin\Release\fr.ClubInfo.Randomizer-Signed.apk" %upload_url%
+    - curl -X PATCH --header "Content-Type: application/json" --header "Accept: application/json" --header "X-API-Token: %APP_CENTER_TOKEN%" -d "{ \"status\": \"committed\"  }" "https://api.appcenter.ms/v0.1/apps/juansero29/%ANDROID_APP_NAME%/release_uploads/%upload_id%" > json2
+    - for /f "tokens=*" %t in ('type json ^| jq -r .release_id') do set release_id=%t
+    - for /f "tokens=*" %t in ('type json ^| jq -r .release_url') do set release_url=%t
+    - curl -X PATCH --header "Content-Type: application/json" --header "Accept: application/json" --header "X-API-Token: %APP_CENTER_TOKEN%" -d "{ \"destination_name\": \"Testers\", \"release_notes\": \"%CI_COMMIT_MESSAGE%" }" "https://api.appcenter.ms/%release_url%"
+
   environment:
-    name: staging
-    url: https://staging.example.com
+    name: stagingandroid
+    url: https://api.appcenter.ms/%release_url%
     
-
-  
-
-
-
+deployios:
+  stage: deployios
+  script:
+    - MSbuild /p:Configuration="Release" /p:Platform="iPhone" /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% /p:IpaPackageDir="./ipa" /t:Build Randomizer.sln
+    - curl -X POST "https://api.appcenter.ms/v0.1/apps/juansero29/%IOS_APP_NAME%/release_uploads" -H "accept: application/json" -H "X-API-Token: 8d270ac0ccd9f8650a15658a87ccaa7d8d490a22" -H "Content-Type: application/json" -d "{ \"release_id\": 0}" > json
+    - for /f "tokens=*" %t in ('type json ^| jq -r .upload_url') do set upload_url=%t
+    - for /f "tokens=*" %t in ('type json ^| jq -r .upload_id') do set upload_id=%t
+    - curl -F "ipa=@.\Randomizer\Randomizer.iOS\ipa\Randomizer.iOS.ipa" %upload_url%
+    - curl -X PATCH --header "Content-Type: application/json" --header "Accept: application/json" --header "X-API-Token: %APP_CENTER_TOKEN%" -d "{ \"status\": \"committed\"  }" "https://api.appcenter.ms/v0.1/apps/juansero29/%IOS_APP_NAME%/release_uploads/%upload_id%" > json2
+    - for /f "tokens=*" %t in ('type json ^| jq -r .release_id') do set release_id=%t
+    - for /f "tokens=*" %t in ('type json ^| jq -r .release_url') do set release_url=%t
+    - curl -X PATCH --header "Content-Type: application/json" --header "Accept: application/json" --header "X-API-Token: %APP_CENTER_TOKEN%" -d "{ \"destination_name\": \"Testers\", \"release_notes\": \"%CI_COMMIT_MESSAGE%" }" "https://api.appcenter.ms/%release_url%"
+  environment:
+    name: stagingios
+    url: https://api.appcenter.ms/%release_url%
+    
