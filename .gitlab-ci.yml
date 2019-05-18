@@ -11,8 +11,8 @@ build:
   stage: build
   script:
     - MSBuild Randomizer.sln /t:restore
-    - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Debug 
-    - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Release
+    - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Debug 
+    - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Release
 deploy:
   stage: deploy
   script:
