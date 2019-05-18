@@ -3,6 +3,10 @@ stages:
   - deploy
 
 before_script:
+  - echo %MAC_ADRESS%
+  - echo "%MAC_ADRESS"
+  - echo $env:MAC_ADRESS
+  - echo "$env:MAC_ADRESS"
   - nuget restore
   - dotnet restore
 
