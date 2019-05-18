@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.202
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Android", "Randomizer\Randomizer.Android\Randomizer.Android.csproj", "{F463B4A7-28AC-4BD0-9187-81FEF1BC660F}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Framework.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Framework.ViewModels", "Libraries\Randomizer.Framework\Randomizer.Framework.ViewModels\Randomizer.Framework.ViewModels.csproj", "{85AD9EA1-8075-47ED-816E-6746CAB77CEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Framework.Controls", "Libraries\Randomizer.Framework\Randomizer.Framework.Controls\Randomizer.Framework.Controls.csproj", "{4F38E398-EDB3-4BC2-A33C-DBEC273C1FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Framework.Controls", "Libraries\Randomizer.Framework\Randomizer.Framework.Controls\Randomizer.Framework.Controls.csproj", "{4F38E398-EDB3-4BC2-A33C-DBEC273C1FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,7 +60,6 @@ Global
 		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Debug|iPhone.Build.0 = Debug|iPhone
 		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Debug|iPhone.Deploy.0 = Debug|iPhone
 		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Debug|iPhoneSimulator.Deploy.0 = Debug|iPhoneSimulator
 		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Release|Any CPU.ActiveCfg = Release|iPhone
 		{8D0AB41F-C5AC-41AC-838C-B360B08BAACF}.Release|Any CPU.Build.0 = Release|iPhone
