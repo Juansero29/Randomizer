@@ -1,6 +1,7 @@
 before_script:
   - nuget restore
   - dotnet restore
+  - MSBuild .\Randomizer.sln /t:restore
 
 build:
   stage: build
