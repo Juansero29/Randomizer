@@ -1,7 +1,4 @@
 before_script:
-
-  - dir
-  - tree /F
   - dotnet restore
 
 
