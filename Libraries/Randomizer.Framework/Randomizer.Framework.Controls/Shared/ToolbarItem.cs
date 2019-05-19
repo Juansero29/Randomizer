@@ -16,7 +16,7 @@ namespace Randomizer.Framework.Controls.Shared
 
         private async void InitVisibility()
         {
-            await Task.Delay(100);
+            await Task.Delay(30);
             OnIsVisibleChanged(this, false, IsVisible);
         }
 

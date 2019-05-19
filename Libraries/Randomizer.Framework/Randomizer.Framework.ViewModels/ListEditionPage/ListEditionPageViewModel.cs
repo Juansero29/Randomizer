@@ -12,6 +12,8 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
 
         public Command AddItemCommand { get; }
         public Command SaveListCommand { get; }
+        public Command EditListCommand { get; }
+        public Command DeleteListCommand { get; }
         public Command RandomizeCommand { get; }
 
         public ListEditionPageViewModel(IRandomizerList model)
@@ -19,9 +21,10 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
             _Model = model;
             AddItemCommand = new Command<string>(AddItem);
             SaveListCommand = new Command(SaveList);
+            EditListCommand = new Command(EnterListEditionMode);
+            DeleteListCommand = new Command(DeleteList);
             RandomizeCommand = new Command(Randomize);
         }
-
 
         #region Model properties
 
@@ -56,12 +59,24 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
         }
 
         private bool _IsEditMode;
-
         public bool IsEditMode
         {
             get => _IsEditMode;
-            set => SetProperty(ref _IsEditMode, value);
+            set => SetProperty(ref _IsEditMode, value, onChanged: () =>
+            {
+                if (value == false)
+                    IsNew = false;
+                OnPropertyChanged(nameof(IsNew));
+                OnPropertyChanged(nameof(ShowDeleteListToolbarItem));
+            });
         }
+
+        public bool IsNew
+        {
+            get; set;
+        }
+
+        public bool ShowDeleteListToolbarItem => !IsNew && IsEditMode;
 
         #endregion
 
@@ -78,6 +93,16 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
         {
             ToolbarTitle = Name;
             IsEditMode = false;
+        }
+
+        private void EnterListEditionMode()
+        {
+            IsEditMode = true;
+        }
+
+        private void DeleteList()
+        {
+            throw new NotImplementedException("TODO");
         }
 
         private void Randomize()
