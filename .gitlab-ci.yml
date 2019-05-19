@@ -24,8 +24,8 @@ deployandroid:
     - for /f "tokens=*" %%t in ('type json ^| jq -r .upload_id') do set upload_id=%%t
     - curl -F "ipa=@.\Randomizer\Randomizer.Android\bin\Release\fr.ClubInfo.Randomizer-Signed.apk" %upload_url%
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"status\":\"committed\"  }" "https://api.appcenter.ms/v0.1/apps/juansero29/%ANDROID_APP_NAME%/release_uploads/%upload_id%" > json2
-    - for /f "tokens=*" %%t in ('type json ^| jq -r .release_id') do set release_id=%%t
-    - for /f "tokens=*" %%t in ('type json ^| jq -r .release_url') do set release_url=%%t
+    - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_id') do set release_id=%%t
+    - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_url') do set release_url=%%t
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" "https://api.appcenter.ms/%release_url%"
     - del "C:\Windows\System32\config\systemprofile\AppData\Local\Xamarin\Mono for Android\debug.keystore"
 
@@ -42,8 +42,8 @@ deployios:
     - for /f "tokens=*" %%t in ('type json ^| jq -r .upload_id') do set upload_id=%%t
     - curl -F "ipa=@.\Randomizer\Randomizer.iOS\ipa\Randomizer.iOS.ipa" %upload_url%
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"status\":\"committed\"  }" "https://api.appcenter.ms/v0.1/apps/juansero29/%IOS_APP_NAME%/release_uploads/%upload_id%" > json2
-    - for /f "tokens=*" %%t in ('type json ^| jq -r .release_id') do set release_id=%%t
-    - for /f "tokens=*" %%t in ('type json ^| jq -r .release_url') do set release_url=%%t
+    - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_id') do set release_id=%%t
+    - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_url') do set release_url=%%t
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%" }" "https://api.appcenter.ms/%release_url%"
   environment:
     name: stagingios
