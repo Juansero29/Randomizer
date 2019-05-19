@@ -36,6 +36,8 @@ deployandroid:
     
 deployios:
   stage: DeployiOS
+  only:
+    - schedules
   script:
     - MSBuild /t:Clean /p:Configuration=Release
     - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% /p:Configuration="Release" /p:Platform="iPhone" /p:IpaPackageDir="./ipa" /t:Build
