@@ -38,6 +38,8 @@
     <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <BuildIpa>true</BuildIpa>
+    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
+    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
