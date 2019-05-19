@@ -37,6 +37,7 @@ deployandroid:
 deployios:
   stage: DeployiOS
   script:
+    - MSBuild /t:Clean /p:Configuration=Release
     - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% /p:Configuration="Release" /p:Platform="iPhone" /p:IpaPackageDir="./ipa" /t:Build
     - curl -X POST "https://api.appcenter.ms/v0.1/apps/juansero29/%IOS_APP_NAME%/release_uploads" -H "accept:application/json" -H "X-API-Token:%APP_CENTER_TOKEN%" -H "Content-Type:application/json" -d "{ \"release_id\":0}" > json
     - for /f "tokens=*" %%t in ('type json ^| jq -r .upload_url') do set upload_url=%%t
