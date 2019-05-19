@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
              xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
+             xmlns:controls="clr-namespace:Randomizer.Framework.Controls.Shared;assembly=Randomizer.Framework.Controls"
              x:Class="Randomizer.Views.ListEditionPage"
              Title="{Binding ToolbarTitle}">
 
@@ -11,6 +12,12 @@
             <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="EditListMenuItem" Order="Primary" IconImageSource="baseline_edit_white_24.png" Text="Edit" Priority="0"  />
+        <ToolbarItem Name="DeleteListMenuItem" Order="Primary" IconImageSource="baseline_delete_outline_white_24.png" Text="Delete" Priority="1"  />
+        <ToolbarItem Name="SaveListMenuItem" Order="Primary" IconImageSource="baseline_check_white_24.png" Text="Save" Priority="2" />
+    </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
         <StackLayout
@@ -76,7 +83,7 @@
                 BackgroundColor="#303030"
                 TextColor="White"
                 BorderColor="White"
-                Command="{Binding SaveListCommand}"
+                Command="{Binding RandomizeCommand}"
                 BorderWidth="1" />
 
         </StackLayout>

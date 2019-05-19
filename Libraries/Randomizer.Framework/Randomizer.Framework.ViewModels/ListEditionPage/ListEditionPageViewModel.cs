@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -11,14 +12,16 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
 
         public Command AddItemCommand { get; }
         public Command SaveListCommand { get; }
+        public Command RandomizeCommand { get; }
 
         public ListEditionPageViewModel(IRandomizerList model)
         {
             _Model = model;
             AddItemCommand = new Command<string>(AddItem);
             SaveListCommand = new Command(SaveList);
-
+            RandomizeCommand = new Command(Randomize);
         }
+
 
         #region Model properties
 
@@ -75,6 +78,11 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
         {
             ToolbarTitle = Name;
             IsEditMode = false;
+        }
+
+        private void Randomize()
+        {
+            throw new NotImplementedException("TODO #9");
         }
 
         #endregion

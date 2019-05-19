@@ -216,4 +216,31 @@
   <ItemGroup>
     <BundleResource Include="Resources\home%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_check_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_check_white_24%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_check_white_24%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_delete_outline_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_delete_outline_white_24%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_delete_outline_white_24%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_edit_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_edit_white_24%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_edit_white_24%403x.png" />
+  </ItemGroup>
 </Project>

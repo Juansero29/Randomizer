@@ -109,10 +109,12 @@
     </Content>-->
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Shared\ToolbarItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Platforms\Android\" />
     <Folder Include="Platforms\iOS\" />
     <Folder Include="Platforms\" />
-    <Folder Include="Shared\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
