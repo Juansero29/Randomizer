@@ -13,6 +13,7 @@ build:
   stage: build
   script:
     #- MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Debug 
+    - echo built
     
 deployandroid:
   stage: deployandroid
