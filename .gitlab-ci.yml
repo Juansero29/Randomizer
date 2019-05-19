@@ -11,7 +11,7 @@ before_script:
 build:
   stage: build
   script:
-    #- MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Debug 
+    - MSBuild Randomizer.sln /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% -p:Configuration=Debug 
     - echo built
     
 deployandroid:
@@ -27,6 +27,7 @@ deployandroid:
     - for /f "tokens=*" %%t in ('type json ^| jq -r .release_id') do set release_id=%%t
     - for /f "tokens=*" %%t in ('type json ^| jq -r .release_url') do set release_url=%%t
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" "https://api.appcenter.ms/%release_url%"
+    - del "C:\Windows\System32\config\systemprofile\AppData\Local\Xamarin\Mono for Android\debug.keystore"
 
   environment:
     name: stagingandroid
