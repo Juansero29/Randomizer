@@ -29,7 +29,7 @@ deployandroid:
     - del "C:\Windows\System32\config\systemprofile\AppData\Local\Xamarin\Mono for Android\debug.keystore"
 
   environment:
-    name: stagingandroid
+    name: App Center Deployment (Android)
     url: https://appcenter.ms/users/juansero29/apps/Randomizer-1/distribute/releases/
     
 deployios:
@@ -45,5 +45,5 @@ deployios:
     - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_url') do set release_url=%%t
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%" }" "https://api.appcenter.ms/%release_url%"
   environment:
-    name: stagingios
+    name: App Center Deployment (iOS)
     url: https://appcenter.ms/users/juansero29/apps/Randomizer/distribute/releases/
