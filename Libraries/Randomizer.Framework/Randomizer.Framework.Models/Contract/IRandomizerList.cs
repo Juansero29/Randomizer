@@ -4,15 +4,15 @@ using System.Text;
 
 namespace Randomizer.Framework.Models.Contract
 {
-    public interface IRandomizerList<T> : IIdentifiable
+    public interface IRandomizerList : IIdentifiable
     {
         string Name { get; set; }
 
-        IEnumerable<IRandomizerItem<T>> Items { get; }
+        IEnumerable<IRandomizerItem> Items { get; }
 
-        void AddItem(IRandomizerItem<T> item);
+        void AddItem(IRandomizerItem item);
 
-        bool RemoveItem(IRandomizerItem<T> item);
+        bool RemoveItem(IRandomizerItem item);
 
     }
 }

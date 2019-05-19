@@ -2,20 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
+             xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
              x:Class="Randomizer.Views.ListEditionPage"
-             Title="New List">
+             Title="{Binding ToolbarTitle}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#303030"
             Padding="16" >
             
-            <Entry Placeholder="Enter your list name..." 
-                   PlaceholderColor="WhiteSmoke" 
-                   TextColor="White"
-                   FontSize="20"
-                   HorizontalOptions="StartAndExpand"
-                   Text="{Binding Name}" />
+            <Entry 
+                IsVisible="{Binding IsEditMode}"
+                Placeholder="Enter your list name..." 
+                PlaceholderColor="WhiteSmoke" 
+                TextColor="White"
+                FontSize="20"
+                HorizontalOptions="StartAndExpand"
+                Text="{Binding Name}" />
 
             <CollectionView 
                 VerticalOptions="Start"
@@ -25,13 +34,14 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10" BackgroundColor="#303030">
-                            <Label Text="{Binding Value}" TextColor="White"/>
+                            <Label Text="{Binding Name}" TextColor="White"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
              </CollectionView>
 
             <Entry x:Name="ItemEntry" 
+                IsVisible="{Binding IsEditMode}"
                 Placeholder="Enter an item..."
                 PlaceholderColor="WhiteSmoke" 
                 TextColor="White"
@@ -50,12 +60,23 @@
             </Entry>
 
             <Button
+                IsVisible="{Binding IsEditMode}"
                 HorizontalOptions="StartAndExpand"
-                Text="Create"
+                Text="Save"
                 BackgroundColor="#303030"
                 TextColor="White"
                 BorderColor="White"
-                Command="{Binding CreateRandomizerListCommand}"
+                Command="{Binding SaveListCommand}"
+                BorderWidth="1" />
+
+            <Button
+                IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}"
+                HorizontalOptions="StartAndExpand"
+                Text="Randomize !"
+                BackgroundColor="#303030"
+                TextColor="White"
+                BorderColor="White"
+                Command="{Binding SaveListCommand}"
                 BorderWidth="1" />
 
         </StackLayout>

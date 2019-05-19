@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Randomizer.Framework.Models.Contract
 {
-    public interface IRandomizerItem<T> : IIdentifiable
+    public interface IRandomizerItem : IIdentifiable
     {
-        T Value { get; set; }
+        
     }
 }

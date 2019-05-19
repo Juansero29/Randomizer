@@ -19,7 +19,7 @@ namespace Randomizer.Framework.ViewModels
         async private void NewRandomizerList()
         {
             var shell = (Application.Current.MainPage as Shell);
-            await shell.GoToAsync("/listedition");
+            await shell.GoToAsync("/listedition?editmode=true");
         }
     }
 }

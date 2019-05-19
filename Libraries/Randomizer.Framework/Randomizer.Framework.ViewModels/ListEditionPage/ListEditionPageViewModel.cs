@@ -1,31 +1,48 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace Randomizer.Framework.ViewModels.ListEditionPage
 {
-    public class ListEditionPageViewModel<T> : BaseViewModel
+    public class ListEditionPageViewModel : BaseViewModel
     {
-        private IRandomizerList<T> _Model;
+        private IRandomizerList _Model;
 
         public Command AddItemCommand { get; }
+        public Command SaveListCommand { get; }
 
-        public ListEditionPageViewModel(IRandomizerList<T> model)
+        public ListEditionPageViewModel(IRandomizerList model)
         {
             _Model = model;
             AddItemCommand = new Command<string>(AddItem);
-            (_Model as IRandomizerList<string>).AddItem(new TextRandomizerItem { Value = "Hiii" });
+            SaveListCommand = new Command(SaveList);
 
         }
 
-        public string Name {
+        #region Model properties
+
+        public string Name
+        {
             get => _Model.Name;
-            set { _Model.Name = value;
+            set
+            {
+                _Model.Name = value;
                 OnPropertyChanged();
-            } 
+            }
+        }
+
+        public IEnumerable<IRandomizerItem> Items => _Model.Items;
+
+        #endregion
+
+        #region View properties
+
+        private string _ToolbarTitle = "New List";
+        public string ToolbarTitle
+        {
+            get => _ToolbarTitle;
+            set => SetProperty(ref _ToolbarTitle, value);
         }
 
         private string _ItemEntryText;
@@ -35,17 +52,32 @@ namespace Randomizer.Framework.ViewModels.ListEditionPage
             set => SetProperty(ref _ItemEntryText, value);
         }
 
-        private void AddItem(string itemName)
+        private bool _IsEditMode;
+
+        public bool IsEditMode
         {
-            (_Model as IRandomizerList<string>).AddItem(new TextRandomizerItem { Value = itemName });
+            get => _IsEditMode;
+            set => SetProperty(ref _IsEditMode, value);
+        }
+
+        #endregion
+
+        #region Command methods
+
+        private void AddItem(string item)
+        {
+            _Model.AddItem(new TextRandomizerItem { Name = item });
             ItemEntryText = "";
             OnPropertyChanged(nameof(Items));
         }
 
-        public IEnumerable<IRandomizerItem<T>> Items
+        private void SaveList()
         {
-            get => _Model.Items;
-        } 
+            ToolbarTitle = Name;
+            IsEditMode = false;
+        }
+
+        #endregion
 
     }
 }
