@@ -16,9 +16,9 @@ build:
 deployandroid:
   stage: deployandroid
   script:
-    - MSBuild /t:Clean /p:Configuration=Release
-    - MSBuild /t:SignAndroidPackage /p:Configuration=Release .\Randomizer\Randomizer.Android\Randomizer.Android.csproj
-    - curl -X POST "https&#58;//api.appcenter.ms/v0.1/apps/juansero29/%ANDROID_APP_NAME%/release_uploads" -H "accept&#58;application/json" -H "X-API-Token&#58; %APP_CENTER_TOKEN%" -H "Content-Type&#58; application/json" -d "{ \"release_id\"&#58; 0}" > json
+#    - MSBuild /t:Clean /p:Configuration=Release
+#    - MSBuild /t:SignAndroidPackage /p:Configuration=Release .\Randomizer\Randomizer.Android\Randomizer.Android.csproj
+    - curl -X POST "https://api.appcenter.ms/v0.1/apps/juansero29/%ANDROID_APP_NAME%/release_uploads" -H "accept&#58;application/json" -H "X-API-Token&#58; %APP_CENTER_TOKEN%" -H "Content-Type&#58; application/json" -d "{ \"release_id\"&#58; 0}" > json
     - for /f "tokens=*" %t in ('type json ^| jq -r .upload_url') do set upload_url=%t
     - for /f "tokens=*" %t in ('type json ^| jq -r .upload_id') do set upload_id=%t
     - curl -F "ipa=@.\Randomizer\Randomizer.Android\bin\Release\fr.ClubInfo.Randomizer-Signed.apk" %upload_url%
@@ -35,7 +35,7 @@ deployios:
   stage: deployios
   script:
     - MSbuild /p:Configuration="Release" /p:Platform="iPhone" /p:ServerAddress=%MAC_ADDRESS% /p:ServerUser=%MAC_USER% /p:ServerPassword=%MAC_PASS% /p:IpaPackageDir="./ipa" /t:Build Randomizer.sln
-    - curl -X POST "https&#58;//api.appcenter.ms/v0.1/apps/juansero29/%IOS_APP_NAME%/release_uploads" -H "accept&#58; application/json" -H "X-API-Token&#58; %APP_CENTER_TOKEN%" -H "Content-Type&#58; application/json" -d "{ \"release_id\"&#58; 0}" > json
+    - curl -X POST "https://api.appcenter.ms/v0.1/apps/juansero29/%IOS_APP_NAME%/release_uploads" -H "accept&#58; application/json" -H "X-API-Token&#58; %APP_CENTER_TOKEN%" -H "Content-Type&#58; application/json" -d "{ \"release_id\"&#58; 0}" > json
     - for /f "tokens=*" %t in ('type json ^| jq -r .upload_url') do set upload_url=%t
     - for /f "tokens=*" %t in ('type json ^| jq -r .upload_id') do set upload_id=%t
     - curl -F "ipa=@.\Randomizer\Randomizer.iOS\ipa\Randomizer.iOS.ipa" %upload_url%
