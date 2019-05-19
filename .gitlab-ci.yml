@@ -1,7 +1,7 @@
 stages:
   - build
-  - deployandroid
-  - deployios
+  - DeployAndroid
+  - DeployiOS
 
 before_script:
   - nuget restore
