@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-       xmlns:local="clr-namespace:Randomizer.Views"
+       xmlns:views="clr-namespace:Randomizer.Views"
        RouteHost="companyname.com"
        RouteScheme="app"
        Route="Randomizer"
@@ -10,25 +10,6 @@
        x:Class="Randomizer.AppShell">
 
     <!--
-        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        XXXXXXXX|                            |XXXXXXXX
-        XXXXXXX'                              'XXXXXXX
-        XXXXXx.                                .xNXXXX
-        XXXNo.        ,ll;.        .;ll,        .oNXXX
-        XXX|.         ,OXNo.      .oNXO,          cXXX
-        XX|            'XXNx.    .xNXX'            |XX
-        X|              .xXXX.  .XXXx.              |X
-        |                .xXXOllOXXx.                |
-        |                .xXXXccXXXx.                |
-        X|              .XXXx.  .xXXX.              |X
-        XXc            ,OXNd.    .dNXO,            cXX
-        XXXl.         ;XXXo.      .oNXX;         .lXXX
-        XXXNd.        'cc,          ,cc'        .dNXXX
-        XXXXXx.                                .xXXXXX
-        XXXXXXO'                              'OXXXXXX
-        XXXXXXXX|                            |XXXXXXXX
-        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
         Shell is an all new way to quickly get started with your application. There are 3 levels to a Shell app:
         * ShellItem: populates the Flyout menu along with special menu items
         * ShellSection: groups of 1 or more ContentPage displayed as bottom tabs
@@ -43,14 +24,13 @@
         https://www.surveymonkey.com/r/VTJNWTM
 
         Thanks for trying out this preview! 
-
         - David Ortinau, Senior Program Manager for Mobile Dev Tools [david.ortinau@microsoft.com]
     -->
 
     <!-- Styles and Resources -->
     <Shell.Resources>
         <ResourceDictionary>
-            <Color x:Key="NavigationPrimary">#000000</Color>
+            <Color x:Key="NavigationPrimary">#212121</Color>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="Shell.ShellForegroundColor" Value="White" />
@@ -67,11 +47,13 @@
     </Shell.Resources>
 
     <!-- Your Pages -->
-    <ShellItem>
-        <ShellSection Title="Home" Icon="home.png">
-            <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
-        </ShellSection>
-    </ShellItem>
+    <ShellContent     
+            Route="home"
+            Title="Home" 
+            Icon="home.png"
+            ContentTemplate="{DataTemplate views:HomePage}">
+    </ShellContent>
+
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

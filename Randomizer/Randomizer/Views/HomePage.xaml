@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
-             BackgroundColor="Black"
+             BackgroundColor="#303030"
              x:Class="Randomizer.Views.HomePage">
     
     <!--This page's ViewModel-->
@@ -18,6 +18,15 @@
                 Text="Randomizer's HomePage. Work in progress. Come back later!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Button 
+                Text="Add a new list"
+                BackgroundColor="#303030"
+                TextColor="White"
+                BorderColor="White"
+                Command="{Binding NewRandomizerListCommand}"
+                BorderWidth="1" />
+            
         </StackLayout>
     </ContentPage.Content>
     

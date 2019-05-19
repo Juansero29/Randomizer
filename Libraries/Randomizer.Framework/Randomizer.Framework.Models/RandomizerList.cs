@@ -8,7 +8,7 @@ namespace Randomizer.Framework.Models
     {
         public Guid Id { get; set; }
 
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         private readonly ICollection<IRandomizerItem<T>> _Items = new List<IRandomizerItem<T>>();
 
@@ -16,6 +16,16 @@ namespace Randomizer.Framework.Models
         {
             get { foreach (var item in _Items) yield return item; }
         }
-       
+
+        public void AddItem(IRandomizerItem<T> item)
+        {
+            _Items.Add(item);
+        }
+
+        public bool RemoveItem(IRandomizerItem<T> item)
+        {
+            return  _Items.Remove(item);
+        }
+        
     }
 }

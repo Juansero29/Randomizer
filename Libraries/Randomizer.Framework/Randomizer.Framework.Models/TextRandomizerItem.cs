@@ -9,8 +9,7 @@ namespace Randomizer.Framework.Models
     {
         public Guid Id { get; set; }
 
-        // The URI of the image ?
-        // TODO Issue #2
-        public string Value { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Value { get; set; }
+
     }
 }
