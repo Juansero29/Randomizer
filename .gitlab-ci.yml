@@ -30,7 +30,7 @@ deployandroid:
     - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_url') do set release_url=%%t
     - echo %release_id%
     - echo %release_url%
-    - set url="https://api.appcenter.ms/"%release_url%
+    - set url=https://api.appcenter.ms/%release_url%
     - echo %url%
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" %url%
   environment:
@@ -53,7 +53,7 @@ deployios:
     - for /f "tokens=*" %%t in ('type json2 ^| jq -r .release_url') do set release_url=%%t
     - echo %release_id%
     - echo %release_url%
-    - set url="https://api.appcenter.ms/"%release_url%
+    - set url=https://api.appcenter.ms/%release_url%
     - echo %url%
     - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" %url%
   environment:
