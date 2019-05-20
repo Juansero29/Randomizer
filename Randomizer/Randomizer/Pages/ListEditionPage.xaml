@@ -3,32 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
              xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
-             xmlns:controls="clr-namespace:Randomizer.Framework.Controls.Shared;assembly=Randomizer.Framework.Controls"
-             x:Class="Randomizer.Views.ListEditionPage"
+             xmlns:Controls="clr-namespace:Randomizer.Framework.Controls.Shared;assembly=Randomizer.Framework.Controls"
+             xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
+             x:Class="Randomizer.Pages.ListEditionPage"
              x:Name="ContentPage"
              Title="{Binding ToolbarTitle}">
 
+    <!--ViewModel-->
+    <ContentPage.BindingContext>
+        <VM:ListEditionPageViewModel />
+    </ContentPage.BindingContext>
+
+    <!--Resources-->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <!--Toolbar items-->
     <ContentPage.ToolbarItems>
         
-        <controls:ToolbarItem Name="EditListMenuItem"   Text="Edit"   Priority="0" Order="Primary"
+        <Controls:ToolbarItem Name="EditListMenuItem"   Text="Edit"   Priority="0" Order="Primary"
                               IconImageSource="baseline_edit_white_24.png" 
                               IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}" 
                               ToolbarParent="{x:Reference ContentPage}"
                               Command="{Binding EditListCommand}"/>
 
-        <controls:ToolbarItem Name="DeleteListMenuItem" Text="Delete" Priority="1" Order="Primary" 
+        <Controls:ToolbarItem Name="DeleteListMenuItem" Text="Delete" Priority="1" Order="Primary" 
                               IconImageSource="baseline_delete_outline_white_24.png"  
                               IsVisible="{Binding ShowDeleteListToolbarItem}" 
                               ToolbarParent="{x:Reference ContentPage}"
                               Command="{Binding DeleteListCommand}"/>
 
-        <controls:ToolbarItem Name="SaveListMenuItem"   Text="Save"   Priority="2" Order="Primary" 
+        <Controls:ToolbarItem Name="SaveListMenuItem"   Text="Save"   Priority="2" Order="Primary" 
                               IconImageSource="baseline_check_white_24.png"  
                               IsVisible="{Binding IsEditMode}" 
                               ToolbarParent="{x:Reference ContentPage}"
@@ -36,6 +44,7 @@
         
     </ContentPage.ToolbarItems>
 
+    <!--Page content-->
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#303030"
@@ -48,13 +57,13 @@
                 TextColor="White"
                 FontSize="20"
                 HorizontalOptions="StartAndExpand"
-                Text="{Binding Name}" />
+                Text="{Binding List.Name}" />
 
             <CollectionView 
                 VerticalOptions="Start"
                 HorizontalOptions="StartAndExpand"
                 BackgroundColor="#424242"
-                ItemsSource="{Binding Items}">
+                ItemsSource="{Binding List.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10" BackgroundColor="#303030">

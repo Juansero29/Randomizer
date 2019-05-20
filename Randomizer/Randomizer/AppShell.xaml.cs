@@ -1,4 +1,4 @@
-﻿using Randomizer.Views;
+﻿using Randomizer.Pages;
 using System;
 using System.Collections.Generic;
 
