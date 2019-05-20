@@ -1,23 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ViewModels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
-             BackgroundColor="#303030"
-             x:Class="Randomizer.Views.HomePage">
+             xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
+             BackgroundColor="Black"
+             x:Class="Randomizer.Pages.HomePage">
     
-    <!--This page's ViewModel-->
+    <!-- ViewModel-->
     <ContentPage.BindingContext>
-        <ViewModels:HomePageViewModel/>
+        <VM:HomePageViewModel/>
     </ContentPage.BindingContext>
     
+    <!--Content-->
     <ContentPage.Content>
         <StackLayout>
             <Label
                 TextColor="White"
                 HorizontalTextAlignment="Center"
-                Text="Randomizer's HomePage. Work in progress. Come back later!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                FontSize="24"
+                Text="Randomizer's HomePage. Work still in progress. You can now play with our 'Add List' page :)"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
 
             <Button 
                 Text="Add a new list"
