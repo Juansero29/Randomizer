@@ -17,7 +17,7 @@
                 TextColor="White"
                 HorizontalTextAlignment="Center"
                 FontSize="24"
-                Text="Randomizer's HomePage. Work still in progress. You can now play with our 'Add List' page :)"
+                Text="Randomizer's HomePage. Work still in progress. You can now play with our 'Add List' page :D"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
 
