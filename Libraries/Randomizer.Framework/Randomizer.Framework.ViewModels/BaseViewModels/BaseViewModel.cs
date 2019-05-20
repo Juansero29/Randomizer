@@ -15,7 +15,7 @@ namespace Randomizer.Framework.ViewModels
     {
 
         #region Fields
-        protected T _Model;
+        private T _Model;
         #endregion
 
         #region Constructor(s)
@@ -37,8 +37,8 @@ namespace Randomizer.Framework.ViewModels
         public T Model
         {
             get => _Model;
-            set => SetValue(ref _Model, value);
-        }
+            set => SetProperty(ref _Model, value);
+        } 
         #endregion
     }
 
@@ -54,33 +54,35 @@ namespace Randomizer.Framework.ViewModels
 
         #region Properties
         /// <summary>
-        /// The title of this page 
+        /// The title of the page 
         /// </summary>
         public string Title
         {
             get => _Title;
-            set => SetValue(ref _Title, value);
+            set => SetProperty(ref _Title, value);
         }
 
         /// <summary>
-        /// Property indicating if the ViewModel is busy loading.
-        /// If it's true, show a visual feedback to the user.
+        /// Property indicating if the ViewModel is busy loading
+        /// something to show a visual feedback to the user.
         /// </summary>
         public bool IsBusy
         {
             get => _IsBusy;
-            set => SetValue(ref _IsBusy, value);
+            set => SetProperty(ref _IsBusy, value);
         }
 
         #endregion
 
         #region Constructor(s)
         /// <summary>
-        /// Initializes a new instance of the <see cref="BasePageViewModel"/> class.
+        /// Initializes a new instance of the <see cref="T:MobileEXPApp.ViewModels.BasePageViewModel"/> class.
         /// </summary>
-        public BasePageViewModel()
+        /// <param name="title">title of this page</param>
+        public BasePageViewModel(string title)
         {
-        }
+            Title = title;
+        } 
         #endregion
     }
 
@@ -89,7 +91,8 @@ namespace Randomizer.Framework.ViewModels
     /// </summary>
     public class BaseViewModel : INotifyPropertyChanged
     {
-        #region SetValue
+
+        #region SetProperty
         /// <summary>
         /// Sets the backing store field to the value and raises <see cref="OnPropertyChanged(string)"/>
         /// if the field has a different value than the property corresponding to 'propertyName'
@@ -100,7 +103,7 @@ namespace Randomizer.Framework.ViewModels
         /// <param name="propertyName">The name of the property to be set (by default we use the <see cref="CallerMemberNameAttribute"/></param>
         /// <param name="onChanged">An action to invoke whenever the property changes</param>
         /// <returns></returns>
-        protected bool SetValue<T>(ref T backingStore, T value,
+        protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
             Action onChanged = null)
         {
@@ -111,40 +114,6 @@ namespace Randomizer.Framework.ViewModels
             onChanged?.Invoke();
             OnPropertyChanged(propertyName);
             return true;
-        }
-
-        /// <summary>
-        /// Sets the value to the model's property of the name only if it is different from the value already stored in the model.
-        /// If the field has a different value than the property corresponding to 'propertyName' we raise <see cref="OnPropertyChanged(string)"/> 
-        /// </summary>
-        /// <typeparam name="T">The type of the property to set</typeparam>
-        /// <typeparam name="M">The type of the model we want to set the new value if it is different</typeparam>
-        /// <param name="newValue">The new value</param>
-        /// <param name="model">The model we want to set</param>
-        /// <param name="propertyName">The name of the property to be set (by default we use the <see cref="CallerMemberNameAttribute"/></param>
-        /// <param name="onChanged">An action to invoke whenever the property changes</param>
-        /// <returns></returns>
-        public bool SetValueOnModel<T, M>(T newValue, M model, [CallerMemberName]string propertyName = "", Action onChanged = null)
-        {
-            var res = false;
-
-            try
-            {
-                var oldValue = (T)model.GetType().GetProperty(propertyName).GetValue(model);
-                if (EqualityComparer<T>.Default.Equals(newValue, oldValue))
-                    return false;
-                model.GetType().GetProperty(propertyName).SetValue(model, newValue);
-                onChanged?.Invoke();
-                OnPropertyChanged(propertyName);
-                res = true;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine($"SetValueOnModel Failed for proprety {propertyName} on model {model}" + e.StackTrace);
-                res = false;
-            }
-
-            return res;
         }
 
         #endregion

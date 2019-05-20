@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-       xmlns:Pages="clr-namespace:Randomizer.Pages"
+       xmlns:views="clr-namespace:Randomizer.Views"
        RouteHost="companyname.com"
        RouteScheme="app"
        Route="Randomizer"
@@ -47,17 +47,12 @@
     </Shell.Resources>
 
     <!-- Your Pages -->
-    <ShellItem>
-        <ShellSection>
-            <ShellContent     
-                Route="home"
-                Title="Home" 
-                Icon="home.png">
-                <Pages:HomePage></Pages:HomePage>
-            </ShellContent>
-        </ShellSection>
-    </ShellItem>
-
+    <ShellContent     
+            Route="home"
+            Title="Home" 
+            Icon="home.png"
+            ContentTemplate="{DataTemplate views:HomePage}">
+    </ShellContent>
 
 
     <!-- Optional Templates 
