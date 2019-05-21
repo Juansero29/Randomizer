@@ -23,7 +23,7 @@
 
     <!--Toolbar items-->
     <ContentPage.ToolbarItems>
-        
+
         <Controls:ToolbarItem Name="EditListMenuItem"   Text="Edit"   Priority="0" Order="Primary"
                               IconImageSource="baseline_edit_white_24.png" 
                               IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}" 
@@ -41,7 +41,7 @@
                               IsVisible="{Binding IsEditMode}" 
                               ToolbarParent="{x:Reference ContentPage}"
                               Command="{Binding SaveListCommand}"/>
-        
+
     </ContentPage.ToolbarItems>
 
     <!--Page content-->
@@ -66,9 +66,10 @@
                 ItemsSource="{Binding List.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10" BackgroundColor="#303030">
-                            <Label Text="{Binding Name}" TextColor="White"/>
-                        </Grid>
+                        <StackLayout Orientation="Horizontal" Padding="8,4,8,4">
+                            <Label Text="{Binding Name}" VerticalOptions="Center" HeightRequest="40" VerticalTextAlignment="Center" TextColor="White" FontSize="30" />
+                            <Image Source="cancel_white.png" Margin="8,0,0,0" VerticalOptions="Center" MinimumHeightRequest="24" WidthRequest="24"/>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -247,4 +247,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\baseline_edit_white_24%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancel_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancel_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancel_white%403x.png" />
+  </ItemGroup>
 </Project>
