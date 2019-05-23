@@ -29,6 +29,8 @@
                 Command="{Binding NewRandomizerListCommand}"
                 BorderWidth="1" />
             
+            
+            
         </StackLayout>
     </ContentPage.Content>
     
