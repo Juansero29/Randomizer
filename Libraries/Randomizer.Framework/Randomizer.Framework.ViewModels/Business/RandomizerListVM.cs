@@ -43,11 +43,17 @@ namespace Randomizer.Framework.ViewModels.Business
         #endregion
 
         #region Methods
-        public void AddItem(string item)
+        public void AddItem(IRandomizerItem item)
         {
-            Model.AddItem(new TextRandomizerItem { Name = item });
+            Model.AddItem(item);
             OnPropertyChanged(nameof(Items));
-        } 
+        }
+
+        public void RemoveItem(IRandomizerItem item)
+        {
+            Model.RemoveItem(item);
+            OnPropertyChanged(nameof(Items));
+        }
         #endregion
     }
 }
