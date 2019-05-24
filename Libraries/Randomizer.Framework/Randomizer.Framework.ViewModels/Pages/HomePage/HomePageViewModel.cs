@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Randomizer.Framework.Models;
+using Randomizer.Framework.Models.Contract;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -12,6 +15,24 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// </summary>
     public class HomePageViewModel : BasePageViewModel
     {
+
+        #region Private Fields
+        private ObservableCollection<IRandomizerList> _Lists = new ObservableCollection<IRandomizerList>();
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The collection of lists to show in the home page
+        /// </summary>
+        public ObservableCollection<IRandomizerList> Lists
+        {
+            get => _Lists;
+            set => SetValue(ref _Lists, value);
+        }
+
+        #endregion
+
         #region Commands
         public ICommand NewRandomizerListCommand { get; }
         #endregion
@@ -19,8 +40,25 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Constructor(s)
         public HomePageViewModel()
         {
+            InitListWithStubData();
+
+            #region Commands Init
             NewRandomizerListCommand = new Command(OnNewRandomizerList);
+            #endregion
         }
+
+        private void InitListWithStubData()
+        {
+            Lists.Add(new RandomizerList() { Name = "List #1", Id = Guid.NewGuid() });
+            Lists.Add(new RandomizerList() { Name = "List #2", Id = Guid.NewGuid() });
+            Lists.Add(new RandomizerList() { Name = "List #3", Id = Guid.NewGuid() });
+            Lists.Add(new RandomizerList() { Name = "List #4", Id = Guid.NewGuid() });
+            Lists.Add(new RandomizerList() { Name = "List #5", Id = Guid.NewGuid() });
+            Lists.Add(new RandomizerList() { Name = "List #6", Id = Guid.NewGuid() });
+        }
+
+
+
         #endregion
 
         #region Methods
@@ -28,7 +66,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             var shell = (Application.Current.MainPage as Shell);
             await shell.GoToAsync("/listedition?new=true&editmode=true");
-        } 
+        }
         #endregion
     }
 }

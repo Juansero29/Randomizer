@@ -3,33 +3,82 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
              BackgroundColor="Black"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Models="clr-namespace:Randomizer.Framework.Models;assembly=Randomizer.Framework.Models"
+             xmlns:Controls="clr-namespace:Randomizer.Framework.Controls;assembly=Randomizer.Framework.Controls"
+             xmlns:DataTemplateSelectors="clr-namespace:Randomizer.Framework.Utils.DataTemplateSelectors;assembly=Randomizer.Framework.Utils"
+             mc:Ignorable="d"
+             
              x:Class="Randomizer.Pages.HomePage">
-    
+
+    <!--Resources-->
+    <ContentPage.Resources>
+        <DataTemplateSelectors:ListItemCardDTS x:Key="listItemCardDTS" />
+    </ContentPage.Resources>
+
     <!-- ViewModel-->
     <ContentPage.BindingContext>
         <VM:HomePageViewModel/>
     </ContentPage.BindingContext>
-    
+
     <!--Content-->
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                TextColor="White"
-                HorizontalTextAlignment="Center"
-                FontSize="24"
-                Text="Randomizer's HomePage. Work still in progress. You can now play with our 'Add List' page :D"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
 
-            <Button 
-                Text="Add a new list"
-                BackgroundColor="#303030"
-                TextColor="White"
-                BorderColor="White"
-                Command="{Binding NewRandomizerListCommand}"
-                BorderWidth="1" />
-            
+
+        <StackLayout>
+
+            <StackLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="16">
+                <Label Text="Your Lists" Style="{DynamicResource RandomizerTitleLabel}" FontAttributes="Bold"/>
+                <BoxView HeightRequest="2" Color="White"/>
+            </StackLayout>
+
+            <CollectionView
+                  ItemsSource="{Binding Lists}"
+                  ItemTemplate="{StaticResource listItemCardDTS}"
+                  Margin="16">
+
+                <!--Design time data to have a preview in the Xamarin.Forms designer-->
+                <d:CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type Models:TextRandomizerItem}">
+                        <Models:TextRandomizerItem Name="Beers"/>
+                        <Models:TextRandomizerItem Name="Who plays next?"/>
+                        <Models:TextRandomizerItem Name="My list with a very long name"/>
+                        <Models:TextRandomizerItem Name="Who opens the door?"/>
+                        <Models:TextRandomizerItem Name="I run out of ideas"/>
+                    </x:Array>
+                </d:CollectionView.ItemsSource>
+
+                <d:CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame Style="{DynamicResource RandomizerListItemCardEven}">
+                                <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </d:CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+
+                <Controls:FAB
+                HasShadow="False"
+                Margin="16"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                ColorNormal="#484848"
+                ColorRipple="LightGray"
+                ColorPressed="Black"
+                ClickedCommand="{Binding NewRandomizerListCommand}"/>
+
+            </AbsoluteLayout>
+
         </StackLayout>
+
+
+
+
     </ContentPage.Content>
-    
+
 </ContentPage>
