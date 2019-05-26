@@ -24,61 +24,63 @@
 
     <!--Content-->
     <ContentPage.Content>
+        <AbsoluteLayout  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
+            <Grid x:Name="grid"             
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                AbsoluteLayout.LayoutFlags="All" >
 
-        <StackLayout>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <StackLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="16">
-                <Label Text="Your Lists" Style="{DynamicResource RandomizerTitleLabel}" FontAttributes="Bold"/>
-                <BoxView HeightRequest="2" Color="White"/>
-            </StackLayout>
+                <StackLayout Grid.Row="0" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="16">
+                    <Label Text="Your Lists" Style="{DynamicResource RandomizerTitleLabel}" FontAttributes="Bold"/>
+                    <BoxView HeightRequest="2" Color="White"/>
+                </StackLayout>
 
-            <CollectionView
-                  ItemsSource="{Binding Lists}"
-                  ItemTemplate="{StaticResource listItemCardDTS}"
-                  Margin="16">
+                <CollectionView
+                    Grid.Row="1"
+                    ItemsSource="{Binding Lists}" 
+                    ItemTemplate="{StaticResource listItemCardDTS}" 
+                    Margin="16">
 
-                <!--Design time data to have a preview in the Xamarin.Forms designer-->
-                <d:CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type Models:TextRandomizerItem}">
-                        <Models:TextRandomizerItem Name="Beers"/>
-                        <Models:TextRandomizerItem Name="Who plays next?"/>
-                        <Models:TextRandomizerItem Name="My list with a very long name"/>
-                        <Models:TextRandomizerItem Name="Who opens the door?"/>
-                        <Models:TextRandomizerItem Name="I run out of ideas"/>
-                    </x:Array>
-                </d:CollectionView.ItemsSource>
+                    <!--Design time data to have a preview in the Xamarin.Forms designer-->
+                    <d:CollectionView.ItemsSource>
+                        <x:Array Type="{x:Type Models:TextRandomizerItem}">
+                            <Models:TextRandomizerItem Name="Beers"/>
+                            <Models:TextRandomizerItem Name="Who plays next?"/>
+                            <Models:TextRandomizerItem Name="My list with a very long name"/>
+                            <Models:TextRandomizerItem Name="Who opens the door?"/>
+                            <Models:TextRandomizerItem Name="I run out of ideas"/>
+                        </x:Array>
+                    </d:CollectionView.ItemsSource>
 
-                <d:CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Frame Style="{DynamicResource RandomizerListItemCardEven}">
-                                <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
-                </d:CollectionView.ItemTemplate>
-            </CollectionView>
+                    <d:CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame Style="{DynamicResource RandomizerListItemCardEven}">
+                                    <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </d:CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <AbsoluteLayout VerticalOptions="FillAndExpand">
+            </Grid>
 
-                <Controls:FAB
-                HasShadow="False"
-                Margin="16"
+            <Controls:FAB 
+                HasShadow="False" 
+                Margin="16" 
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                ColorNormal="#484848"
-                ColorRipple="LightGray"
+                ColorNormal="#484848" 
+                ColorRipple="LightGray" 
                 ColorPressed="Black"
                 ClickedCommand="{Binding NewRandomizerListCommand}"/>
 
-            </AbsoluteLayout>
-
-        </StackLayout>
-
-
-
-
+        </AbsoluteLayout>
     </ContentPage.Content>
 
 </ContentPage>
