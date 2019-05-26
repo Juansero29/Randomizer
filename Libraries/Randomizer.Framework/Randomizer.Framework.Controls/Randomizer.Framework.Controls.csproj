@@ -12,7 +12,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid81;netstandard2.0;Xamarin.iOS10;</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid90;netstandard2.0;Xamarin.iOS10;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>Randomizer.Framework.Controls</RootNamespace>
@@ -131,6 +131,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Platforms\Android\CustomRenderers\FABRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Shared\Themes\Templates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Shared\Themes\Themes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
@@ -99,7 +99,7 @@
       <Name>Randomizer.Framework.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Randomizer\Randomizer.csproj">
-      <Project>{84F1106D-9541-4337-A76D-BF5B50FD63EF}</Project>
+      <Project>{3722fbfc-9c51-490b-8178-519395c4e0d5}</Project>
       <Name>Randomizer</Name>
     </ProjectReference>
   </ItemGroup>
@@ -224,7 +224,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_edit_white_24.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <AndroidResource Include="Resources\drawable-hdpi\settings.png" />
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\information.png" />
-=======
     <AndroidResource Include="Resources\drawable-mdpi\cancel_white.png" />
   </ItemGroup>
   <ItemGroup>
@@ -267,7 +265,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\cancel_white.png" />
->>>>>>> master
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

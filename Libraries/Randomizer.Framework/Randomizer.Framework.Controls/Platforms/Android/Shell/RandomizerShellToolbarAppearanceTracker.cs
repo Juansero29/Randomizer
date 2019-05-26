@@ -24,7 +24,15 @@ namespace Randomizer.Framework.Controls.Platforms.Droid.Shell
         public override void SetAppearance(Toolbar toolbar, IShellToolbarTracker toolbarTracker, ShellAppearance appearance)
         {
             base.SetAppearance(toolbar, toolbarTracker, appearance);
-            toolbar.Visibility = ViewStates.Gone;
+
+            if(toolbarTracker.CanNavigateBack)
+            {
+                toolbar.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                toolbar.Visibility = ViewStates.Gone;
+            }
         }
     }
 }

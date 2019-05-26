@@ -252,7 +252,6 @@
     <BundleResource Include="Resources\baseline_edit_white_24%403x.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <BundleResource Include="Resources\information%402x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -269,7 +268,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\settings%403x.png" />
-=======
     <BundleResource Include="Resources\cancel_white.png" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +275,5 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\cancel_white%403x.png" />
->>>>>>> master
   </ItemGroup>
 </Project>
