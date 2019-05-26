@@ -112,6 +112,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         public ICommand EditListCommand { get; }
         public ICommand DeleteListCommand { get; }
         public ICommand RandomizeCommand { get; }
+        public ICommand RemoveListItemCommand { get; }
         #endregion
 
         #region Constructor(s)
@@ -125,6 +126,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             EditListCommand = new Command(OnEnterListEditionMode);
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
+            RemoveListItemCommand = new Command<IRandomizerItem>(OnRemoveListItem);
             #endregion
         }
 
@@ -132,10 +134,10 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Command Methods
 
-        private void OnAddItem(string item)
+        private void OnAddItem(string itemName)
         {
             ItemEntryText = "";
-            _List.AddItem(item);
+            _List.AddItem(new TextRandomizerItem { Name = itemName });
         }
 
         private void OnSaveList()
@@ -173,6 +175,10 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
         }
 
+        private void OnRemoveListItem(IRandomizerItem item)
+        {
+            _List.RemoveItem(item);
+        }
         #endregion
     }
 }

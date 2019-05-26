@@ -24,6 +24,7 @@
 
     <!--Content-->
     <ContentPage.Content>
+<<<<<<< HEAD
         <AbsoluteLayout  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
             <Grid x:Name="grid"             
@@ -81,6 +82,28 @@
                 ClickedCommand="{Binding NewRandomizerListCommand}"/>
 
         </AbsoluteLayout>
+=======
+        <StackLayout>
+            <Label
+                TextColor="White"
+                HorizontalTextAlignment="Center"
+                FontSize="24"
+                Text="Randomizer's HomePage. Work still in progress. You can now play with our 'Add List' page :D"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Add a new list"
+                BackgroundColor="#303030"
+                TextColor="White"
+                BorderColor="White"
+                Command="{Binding NewRandomizerListCommand}"
+                BorderWidth="1" />
+            
+            
+            
+        </StackLayout>
+>>>>>>> master
     </ContentPage.Content>
 
 </ContentPage>
