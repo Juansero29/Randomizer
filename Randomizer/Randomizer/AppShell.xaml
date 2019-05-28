@@ -2,12 +2,11 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
        xmlns:Pages="clr-namespace:Randomizer.Pages"
-       RouteHost="companyname.com"
-       RouteScheme="app"
-       Route="Randomizer"
        FlyoutBehavior="Disabled"
        Title="Randomizer"
-       x:Class="Randomizer.AppShell">
+       x:Class="Randomizer.AppShell"
+       BackgroundColor="#212121"
+       FlyoutBackgroundColor="#212121">
 
     <!--
         Shell is an all new way to quickly get started with your application. There are 3 levels to a Shell app:
@@ -31,32 +30,64 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Color x:Key="NavigationPrimary">#212121</Color>
+
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="Shell.ShellForegroundColor" Value="White" />
-                <Setter Property="Shell.ShellTitleColor" Value="White" />
-                <Setter Property="Shell.ShellDisabledColor" Value="#B4FFFFFF" />
-                <Setter Property="Shell.ShellUnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.ShellTabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="Shell.ShellTabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.ShellTabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.ShellTabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
             </Style>
-            <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
+
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="Tab" BasedOn="{StaticResource BaseStyle}"/>
         </ResourceDictionary>
     </Shell.Resources>
 
     <!-- Your Pages -->
-    <ShellItem>
-        <ShellSection>
+    <FlyoutItem
+        TabIndex="0">
+
+        <Tab          
+            Title="Home" 
+            Icon="home.png"
+            TabIndex="0">
             <ShellContent     
-                Route="home"
-                Title="Home" 
-                Icon="home.png">
+                Route="home">
                 <Pages:HomePage></Pages:HomePage>
             </ShellContent>
-        </ShellSection>
-    </ShellItem>
+        </Tab>
+
+        
+        <Tab                
+            Title="Settings" 
+            Icon="settings.png"
+            TabIndex="1">
+            <ShellContent     
+                Route="settings">
+                <ContentPage>
+                    <Label Text="Nothing here."/>
+                </ContentPage>
+            </ShellContent>
+        </Tab>
+
+
+        <Tab
+            Title="About" 
+            Icon="information.png"
+            TabIndex="2">
+            <ShellContent 
+                Route="about">
+                <ContentPage>
+                    <Label Text="Nothing here."/>
+                </ContentPage>
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
 
 
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Randomizer.Framework.Controls.Shared
+namespace Randomizer.Framework.Controls
 {
     public class ToolbarItem : Xamarin.Forms.ToolbarItem
     {
