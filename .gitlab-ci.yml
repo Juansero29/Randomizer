@@ -32,7 +32,7 @@ deployandroid:
     - echo %release_url%
     - set url=https://api.appcenter.ms/%release_url%
     - echo %url%
-    - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" %url%
+    - curl --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" -X PATCH  %url% 
   environment:
     name: App Center - Android
     url: https://appcenter.ms/users/juansero29/apps/Randomizer-1/distribute/releases/
@@ -55,7 +55,7 @@ deployios:
     - echo %release_url%
     - set url=https://api.appcenter.ms/%release_url%
     - echo %url%
-    - curl -X PATCH --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }" %url%
+    - curl --header "Content-Type:application/json" --header "Accept:application/json" --header "X-API-Token:%APP_CENTER_TOKEN%" -d "{ \"destination_name\":\"Testers\", \"release_notes\":\"%CI_COMMIT_MESSAGE%\" }"  -X PATCH %url%
   environment:
     name: App Center - iOS
     url: https://appcenter.ms/users/juansero29/apps/Randomizer/distribute/releases/
