@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,13 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Constructor(s)
-        public HomePageViewModel()
+
+        public HomePageViewModel() : this(null)
+        {
+
+        }
+
+        public HomePageViewModel(INavigationService navService = null) : base(navService)
         {
             InitListWithStubData();
 
@@ -64,8 +71,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Methods
         async private void OnNewRandomizerList()
         {
-            var shell = (Application.Current.MainPage as Shell);
-            await shell.GoToAsync("/listedition?new=true&editmode=true");
+            await NavigationService.GoToAsync("/listedition?new=true&editmode=true");
         }
         #endregion
     }
