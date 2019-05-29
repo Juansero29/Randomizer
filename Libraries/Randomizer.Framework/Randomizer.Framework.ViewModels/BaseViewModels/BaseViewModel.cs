@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Randomizer.Framework.Services;
+using Randomizer.Framework.ViewModels.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,7 +11,7 @@ namespace Randomizer.Framework.ViewModels
 {
 
     /// <summary>
-    /// base class for view models, indicating the model
+    /// Base class for view models, indicating the model
     /// </summary>
     public class BaseViewModel<T> : BaseViewModel
     {
@@ -39,50 +41,11 @@ namespace Randomizer.Framework.ViewModels
             get => _Model;
             set => SetValue(ref _Model, value);
         }
+
+
         #endregion
     }
 
-    /// <summary>
-    /// a base view model for a page
-    /// </summary>
-    public class BasePageViewModel : BaseViewModel
-    {
-        #region Fields
-        bool _IsBusy = false;
-        string _Title = string.Empty;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// The title of this page 
-        /// </summary>
-        public string Title
-        {
-            get => _Title;
-            set => SetValue(ref _Title, value);
-        }
-
-        /// <summary>
-        /// Property indicating if the ViewModel is busy loading.
-        /// If it's true, show a visual feedback to the user.
-        /// </summary>
-        public bool IsBusy
-        {
-            get => _IsBusy;
-            set => SetValue(ref _IsBusy, value);
-        }
-
-        #endregion
-
-        #region Constructor(s)
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BasePageViewModel"/> class.
-        /// </summary>
-        public BasePageViewModel()
-        {
-        }
-        #endregion
-    }
 
     /// <summary>
     /// Class serving as the base for any ViewModel
