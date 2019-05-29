@@ -38,6 +38,7 @@ namespace Randomizer.Tests.ViewModels
         [Fact]
         public void NavigateToAddListPageTest()
         {
+            _HomePageViewModel.NewRandomizerListCommand.Should().NotBeNull();
             _HomePageViewModel.NewRandomizerListCommand?.Execute(null);
         }
 

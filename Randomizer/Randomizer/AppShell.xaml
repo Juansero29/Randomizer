@@ -1,32 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-       xmlns:Pages="clr-namespace:Randomizer.Pages"
-       FlyoutBehavior="Disabled"
-       Title="Randomizer"
-       x:Class="Randomizer.AppShell"
-       BackgroundColor="#212121"
-       FlyoutBackgroundColor="#212121">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Randomizer.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Pages="clr-namespace:Randomizer.Pages"
+    xmlns:pages="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
+    xmlns:services="clr-namespace:Randomizer.Framework.ViewModels.Services;assembly=Randomizer.Framework.ViewModels"
+    x:Name="shell"
+    Title="Randomizer"
+    BackgroundColor="#212121"
+    FlyoutBackgroundColor="#212121"
+    FlyoutBehavior="Disabled">
 
     <!--
         Shell is an all new way to quickly get started with your application. There are 3 levels to a Shell app:
         * ShellItem: populates the Flyout menu along with special menu items
         * ShellSection: groups of 1 or more ContentPage displayed as bottom tabs
         * ShellContent: a ContentPage host. Multiple ShellContent within a ShellSection are navigable by top tabs
-
+        
         For more details about building apps with Shell, visit these resources:
         * MSDN Article: https://aka.ms/xf-msdn
         * Preview Documentation: https://aka.ms/xf-shell-docs
         * Blog Introduction: https://aka.ms/xf-40-blog
-
+        
         PLEASE give us feedback on your experience: good, bad, and ugly.
         https://www.surveymonkey.com/r/VTJNWTM
-
-        Thanks for trying out this preview! 
+        
+        Thanks for trying out this preview!
         - David Ortinau, Senior Program Manager for Mobile Dev Tools [david.ortinau@microsoft.com]
     -->
 
-    <!-- Styles and Resources -->
+    <!--  Styles and Resources  -->
     <Shell.Resources>
         <ResourceDictionary>
             <Color x:Key="NavigationPrimary">#212121</Color>
@@ -38,52 +42,48 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
             </Style>
 
-            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
-            <Style TargetType="Tab" BasedOn="{StaticResource BaseStyle}"/>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="Tab" />
         </ResourceDictionary>
     </Shell.Resources>
 
-    <!-- Your Pages -->
-    <FlyoutItem
-        TabIndex="0">
+    <!--  Your Pages  -->
+    <FlyoutItem TabIndex="0">
 
-        <Tab          
-            Title="Home" 
+        <Tab
+            Title="Home"
             Icon="home.png"
             TabIndex="0">
-            <ShellContent     
-                Route="home">
-                <Pages:HomePage></Pages:HomePage>
+            <ShellContent Route="home">
+                <Pages:HomePage />
             </ShellContent>
         </Tab>
 
-        
-        <Tab                
-            Title="Settings" 
+
+        <Tab
+            Title="Settings"
             Icon="settings.png"
             TabIndex="1">
-            <ShellContent     
-                Route="settings">
+            <ShellContent Route="settings">
                 <ContentPage>
-                    <Label Text="Nothing here."/>
+                    <Label Text="Nothing here." />
                 </ContentPage>
             </ShellContent>
         </Tab>
 
 
         <Tab
-            Title="About" 
+            Title="About"
             Icon="information.png"
             TabIndex="2">
-            <ShellContent 
-                Route="about">
+            <ShellContent Route="about">
                 <ContentPage>
-                    <Label Text="Nothing here."/>
+                    <Label Text="Nothing here." />
                 </ContentPage>
             </ShellContent>
         </Tab>
@@ -91,7 +91,7 @@
 
 
 
-    <!-- Optional Templates 
+    <!-- Optional Templates
     // These may be provided inline as below or as separate classes.
 
     // This header appears at the top of the Flyout.
