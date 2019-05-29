@@ -35,7 +35,6 @@ namespace Randomizer.Tests.ViewModels
             homeViewModel.Should().NotBeNull();
         }
 
-
         [Fact]
         public void NavigateToAddListPageTest()
         {
@@ -43,10 +42,15 @@ namespace Randomizer.Tests.ViewModels
         }
 
         [Fact]
-
         public void ListsNotNullTest()
         {
             _HomePageViewModel.Lists.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void TitleNotNullTest()
+        {
+            _HomePageViewModel.Title.Should().NotBeNull();
         }
 
     }
