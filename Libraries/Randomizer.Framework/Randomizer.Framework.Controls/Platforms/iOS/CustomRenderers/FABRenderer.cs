@@ -39,10 +39,12 @@ namespace Randomizer.Framework.Controls.Platforms.iOS.CustomRenderers
                 Color = Element.ColorNormal.ToUIColor(),
                 Responsible = true,
                 UserInteractionEnabled = true,
+                Frame = frame
             };
 
             fab.Touched += Fab_Touched;
 
+            _FAB = fab;
 
             SetNativeControl(fab);
         }
@@ -58,7 +60,6 @@ namespace Randomizer.Framework.Controls.Platforms.iOS.CustomRenderers
         public override UIView HitTest(CGPoint point, UIEvent uievent)
         {
             if (_FAB.Frame.Contains(point)) return _FAB;
-
             return base.HitTest(point, uievent);
         }
 

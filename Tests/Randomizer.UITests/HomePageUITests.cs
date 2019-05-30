@@ -33,11 +33,23 @@ namespace UITests
             app.Tap("FloatingButton");
             app.Screenshot("When I click on the '+' floating action button");
 
-            // We try to get an element containing the text 'New List' and get the Text property inside that element
-            var title = app.Query("New List").Single().Text;
+            if(platform == Platform.iOS)
+            {
+                // We try to get an element containing the text 'New List' and get the Text property inside that element
+                var title = app.Query("New List").Where(t => t.Class.Equals("UILabel")).FirstOrDefault().Text;
+                // We test that the title should be 'New List' because we should be in another page
+                title.Should().Be("New List");
+            }
 
-            // We test that the title should be 'New List' because we should be in another page
-            title.Should().Be("New List");
+            if(platform == Platform.Android)
+            {
+                // We try to get an element containing the text 'New List' and get the Text property inside that element
+                var title = app.Query("New List").First().Text;
+
+                // We test that the title should be 'New List' because we should be in another page
+                title.Should().Be("New List");
+            }
+
         }
     }
 }

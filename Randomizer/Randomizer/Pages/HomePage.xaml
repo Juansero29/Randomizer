@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Randomizer.Pages.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -84,6 +84,7 @@
 
             <Controls:FAB
                 Margin="16"
+                ImageName="plus.png"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AutomationId="FloatingButton"

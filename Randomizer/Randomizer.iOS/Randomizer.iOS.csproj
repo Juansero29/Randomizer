@@ -54,12 +54,13 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <BuildIpa>true</BuildIpa>
     <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
     <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
+    <IpaIncludeArtwork>true</IpaIncludeArtwork>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -70,7 +71,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <BuildIpa>true</BuildIpa>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <BuildIpa>true</BuildIpa>
     <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
@@ -223,12 +224,15 @@
       <Name>Randomizer.Framework.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Randomizer\Randomizer.csproj">
-      <Project>{84F1106D-9541-4337-A76D-BF5B50FD63EF}</Project>
+      <Project>{3722FBFC-9C51-490B-8178-519395C4E0D5}</Project>
       <Name>Randomizer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\home%403x.png" />
+    <BundleResource Include="Resources\plus%403x.png" />
+    <BundleResource Include="Resources\plus.png" />
+    <BundleResource Include="Resources\plus%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\home.png" />
