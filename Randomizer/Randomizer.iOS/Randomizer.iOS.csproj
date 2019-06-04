@@ -20,13 +20,16 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__UNIFIED__;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
+    <BuildIpa>true</BuildIpa>
+    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
+    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -46,7 +49,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__UNIFIED__;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -54,6 +57,9 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
+    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -66,6 +72,9 @@
     <BuildIpa>true</BuildIpa>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
+    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -201,11 +210,18 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes">
       <Version>2.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.394984-pre10" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Xamarin.TestCloud.Agent">
+      <Version>0.21.8</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Controls\Randomizer.Framework.Controls.csproj">
+      <Project>{4f38e398-edb3-4bc2-a33c-dbec273c1fd6}</Project>
+      <Name>Randomizer.Framework.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Randomizer\Randomizer.csproj">
       <Project>{84F1106D-9541-4337-A76D-BF5B50FD63EF}</Project>
       <Name>Randomizer</Name>
@@ -248,6 +264,22 @@
     <BundleResource Include="Resources\baseline_edit_white_24%403x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\information%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\information%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings%403x.png" />
     <BundleResource Include="Resources\cancel_white.png" />
   </ItemGroup>
   <ItemGroup>

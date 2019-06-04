@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+ 
+  <!--FAB style-->
+  <style name="MenuLabelsStyle">
+    <item name="android:background">@drawable/fab_label_background</item>
+    <item name="android:textColor">#FFFFFF</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="MenuButtonsStyle">
+    <item name="fab_shadowColor">#444</item>
+    <item name="fab_colorNormal">#FF4486B6</item>
+    <item name="fab_colorPressed">#F2AB00</item>
+    <item name="fab_colorRipple">#FFD44A65</item>
+  </style>
+
+</resources>

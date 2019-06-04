@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
              xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
-             xmlns:Controls="clr-namespace:Randomizer.Framework.Controls.Shared;assembly=Randomizer.Framework.Controls"
+             xmlns:Controls="clr-namespace:Randomizer.Framework.Controls;assembly=Randomizer.Framework.Controls"
              xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
              x:Class="Randomizer.Pages.ListEditionPage"
              x:Name="this"

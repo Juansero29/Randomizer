@@ -27,7 +27,13 @@ namespace Randomizer.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
             AppCenter.Start("a297d040-a412-45e8-845a-7d0794e1342c", typeof(Analytics), typeof(Crashes));
+            Randomizer.Framework.Controls.Platforms.iOS.Tools.Init();
             global::Xamarin.Forms.Forms.Init();
+
+#if ENABLE_TEST_CLOUD
+            // requires Xamarin Test Cloud Agent
+            Xamarin.Calabash.Start();
+#endif
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
