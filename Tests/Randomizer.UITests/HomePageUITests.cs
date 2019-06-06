@@ -33,7 +33,7 @@ namespace UITests
             app.Tap("FloatingButton");
             app.Screenshot("When I click on the '+' floating action button");
 
-            if(platform == Platform.iOS)
+            if (platform == Platform.iOS)
             {
                 // We try to get an element containing the text 'New List' and get the Text property inside that element
                 var title = app.Query("New List").Where(t => t.Class.Equals("UILabel")).FirstOrDefault().Text;
@@ -41,7 +41,7 @@ namespace UITests
                 title.Should().Be("New List");
             }
 
-            if(platform == Platform.Android)
+            if (platform == Platform.Android)
             {
                 // We try to get an element containing the text 'New List' and get the Text property inside that element
                 var title = app.Query("New List").First().Text;

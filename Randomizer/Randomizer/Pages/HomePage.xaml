@@ -8,6 +8,7 @@
     xmlns:Models="clr-namespace:Randomizer.Framework.Models;assembly=Randomizer.Framework.Models"
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     BackgroundColor="Black"
     mc:Ignorable="d">
@@ -44,7 +45,7 @@
                     <Label
                         FontAttributes="Bold"
                         Style="{DynamicResource RandomizerTitleLabel}"
-                        Text="Your Lists" />
+                        Text="{i18:Translate ResourceKey=YourListsLabel}" />
                     <BoxView HeightRequest="2" Color="White" />
                 </StackLayout>
 
@@ -84,7 +85,6 @@
 
             <Controls:FAB
                 Margin="16"
-                ImageName="plus.png"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AutomationId="FloatingButton"
@@ -92,7 +92,8 @@
                 ColorNormal="#484848"
                 ColorPressed="Black"
                 ColorRipple="LightGray"
-                HasShadow="True" />
+                HasShadow="True"
+                ImageName="plus.png" />
 
         </AbsoluteLayout>
 
