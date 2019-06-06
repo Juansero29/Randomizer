@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Tests.CommonTestData;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,16 +27,8 @@ namespace Randomizer.Tests.Model
             Assert.Empty(randomizerList.Items);
         }
 
-        public static IEnumerable<object[]> TestItems => new[]
-        {
-            new object[]{ new TextRandomizerItem() },
-            new object[]{ new TextRandomizerItem() { Name = "Hi" } },
-            new object[]{ new TextRandomizerItem() { Id = new Guid() } },
-            new object[]{ new TextRandomizerItem() { Id = new Guid(), Name= "Hello" } }
-        };
-
         [Theory]
-        [MemberData(nameof(TestItems))]
+        [ClassData(typeof(RandomizerItemTestData))]
         private void InsertItemTest(IRandomizerItem item)
         {
             _RandomizerList.AddItem(item);
@@ -45,7 +38,7 @@ namespace Randomizer.Tests.Model
         }
 
         [Theory]
-        [MemberData(nameof(TestItems))]
+        [ClassData(typeof(RandomizerItemTestData))]
         private void RemoveItemTest(IRandomizerItem item)
         {
             _RandomizerList.AddItem(item);

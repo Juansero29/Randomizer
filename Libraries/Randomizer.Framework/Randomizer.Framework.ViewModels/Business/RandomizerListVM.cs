@@ -54,6 +54,7 @@ namespace Randomizer.Framework.ViewModels.Business
             Model.RemoveItem(item);
             OnPropertyChanged(nameof(Items));
         }
+
         #endregion
     }
 }
