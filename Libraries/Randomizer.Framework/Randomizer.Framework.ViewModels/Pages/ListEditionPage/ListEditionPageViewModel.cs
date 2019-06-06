@@ -128,6 +128,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
             #endregion
+
         }
 
         #endregion
