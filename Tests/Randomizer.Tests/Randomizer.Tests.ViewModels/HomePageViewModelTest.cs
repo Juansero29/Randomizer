@@ -11,8 +11,7 @@ namespace Randomizer.Tests.ViewModels
     {
 
         private HomePageViewModel _HomePageViewModel;
-
-
+        
         /// <summary>
         /// Constructs the tests. 
         /// </summary>
@@ -26,6 +25,7 @@ namespace Randomizer.Tests.ViewModels
             _HomePageViewModel = new HomePageViewModel(mock.Object);
             _HomePageViewModel.Should().NotBeNull();
         }
+
         [Fact]
         public void ConstructorTest()
         {
@@ -53,6 +53,7 @@ namespace Randomizer.Tests.ViewModels
         {
             _HomePageViewModel.Title.Should().NotBeNull();
         }
+
 
     }
 }
