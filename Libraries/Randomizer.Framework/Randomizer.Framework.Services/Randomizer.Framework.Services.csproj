@@ -112,9 +112,12 @@
   
   <ItemGroup>
 
+    <EmbeddedResource Update="Resources\TextResources.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+
     <EmbeddedResource Update="Resources\TextResources.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MyOtherResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
 
     <EmbeddedResource Update="Resources\TextResources.resx">
