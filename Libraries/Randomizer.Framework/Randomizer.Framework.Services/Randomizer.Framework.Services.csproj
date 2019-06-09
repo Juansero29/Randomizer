@@ -49,7 +49,7 @@
   <ItemGroup>
 
     <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
-    <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="bin\**\*.*;bin;obj;obj\**\*.*" />
+    <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="bin\**\*.*;bin;obj\**\*.*;obj;" />
 
     <!--NuGet packages for all platforms-->
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
@@ -101,9 +101,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>-->
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources.Designer.cs" />
-  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="Resources\TextResources.Designer.cs">
       <DependentUpon>TextResources.resx</DependentUpon>
@@ -111,39 +109,29 @@
       <AutoGen>True</AutoGen>
     </Compile>
   </ItemGroup>
+  
   <ItemGroup>
+
     <EmbeddedResource Update="Resources\TextResources.fr.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <GenFilePath>%(RecursiveDir)%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
-      <_SdkHasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(_SdkLangIdRegEx)'))</_SdkHasLangId>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextResources.fr.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyOtherResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+
     <EmbeddedResource Update="Resources\TextResources.resx">
       <GenFilePath>%(RecursiveDir)%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
       <_SdkHasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(_SdkLangIdRegEx)'))</_SdkHasLangId>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+
   </ItemGroup>
-  
+
   <ItemGroup>
-    <None Update="Resources\TextResources.fr.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TextResources.fr.resx</DependentUpon>
-    </None>
-    
     <None Update="Resources\TextResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TextResources.resx</DependentUpon>
     </None>
   </ItemGroup>
-
-
   
-  <!--<ItemGroup>
-    <ProjectReference Include="Randomizer.Framework.Services.csproj" />
-  </ItemGroup>-->
 </Project>
