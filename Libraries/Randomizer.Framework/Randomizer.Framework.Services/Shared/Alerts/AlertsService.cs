@@ -16,15 +16,16 @@ namespace Randomizer.Framework.Services.Alerts
         /// Consider using a localized string by using the RESX file associated to <see cref="Resources.TextResources"/> 
         /// By default, it uses the text resource <see cref="Resources.TextResources.FeatureNotImplementedMessage"/> which is translated to all supported languages.
         /// </remarks>
-        public Task ShowFeatureNotImplementedAlert(string messageToShow = "")
+        public Task ShowFeatureNotImplementedAlert(string messageToShow = null)
         {
             // If not message is given, use the text resource in the library
-            messageToShow = messageToShow ?? Resources.TextResources.FeatureNotImplementedMessage;
-            return DisplayAlert(Resources.TextResources.OopsMessage, messageToShow, Resources.TextResources.OKMessage);
+            messageToShow = string.IsNullOrWhiteSpace(messageToShow) ? Resources.TextResources.FeatureNotImplementedMessage : messageToShow;
+            return DisplayAlert(Resources.TextResources.OopsMessage, messageToShow);
         }
 
-        public Task DisplayAlert(string title, string message, string cancelMessage)
+        public Task DisplayAlert(string title, string message, string cancelMessage = null)
         {
+            cancelMessage = string.IsNullOrWhiteSpace(cancelMessage) ? Resources.TextResources.OKMessage : cancelMessage;
             return Application.Current.MainPage.DisplayAlert(title, message, cancelMessage);
         }
 

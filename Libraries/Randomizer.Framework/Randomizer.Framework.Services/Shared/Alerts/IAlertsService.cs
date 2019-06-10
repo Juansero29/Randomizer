@@ -15,7 +15,7 @@ namespace Randomizer.Framework.Services.Alerts
         /// Shows a 'feature not implemented' alert to the user. Can be awaited.
         /// </summary>
         /// <param name="messageToShow">Specify a message explaining the reason why the feature isn't available</param>
-        Task ShowFeatureNotImplementedAlert(string messageToShow = "");
+        Task ShowFeatureNotImplementedAlert(string messageToShow = null);
 
         /// <summary>
         /// Displays a simple alert to the user. Can be awaited.
@@ -24,7 +24,7 @@ namespace Randomizer.Framework.Services.Alerts
         /// <param name="message">The message presented to the user</param>
         /// <param name="cancelMessage">The message for the user to validate that he has read the alert</param>
         /// <returns>An empty task</returns>
-        Task DisplayAlert(string title, string message, string cancelMessage);
+        Task DisplayAlert(string title, string message, string cancelMessage = null);
 
         /// <summary>
         /// Displays an alert to the user for making a choice. Can be awaited.

@@ -1,6 +1,5 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.ViewModels.Business;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace Randomizer.Framework.ViewModels.Pages
     {
         #region Fields
         private RandomizerListVM _List;
-        private string _ToolbarTitle = "New List";
+        private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
         private string _ItemEntryText;
         private bool _IsEditMode;
         #endregion

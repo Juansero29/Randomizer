@@ -115,6 +115,15 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New List.
+        /// </summary>
+        public static string NewListPageTitle {
+            get {
+                return ResourceManager.GetString("NewListPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing here....
         /// </summary>
         public static string NothingHereLabel {
@@ -124,7 +133,7 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ok.
+        ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OKMessage {
             get {

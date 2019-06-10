@@ -141,12 +141,16 @@
     <value>Home</value>
     <comment>The title of the home page</comment>
   </data>
+  <data name="NewListPageTitle" xml:space="preserve">
+    <value>New List</value>
+    <comment>The title of the 'New List' page</comment>
+  </data>
   <data name="NothingHereLabel" xml:space="preserve">
     <value>Nothing here...</value>
     <comment>A label indicating there's nothing here</comment>
   </data>
   <data name="OKMessage" xml:space="preserve">
-    <value>Ok</value>
+    <value>OK</value>
     <comment>An OK message</comment>
   </data>
   <data name="OopsMessage" xml:space="preserve">

@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using Randomizer.Framework.Services;
+using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Pages;
 using System;
 using Xunit;
@@ -10,7 +11,7 @@ namespace Randomizer.Tests.ViewModels
     public class HomePageViewModelTest
     {
 
-        private HomePageViewModel _HomePageViewModel;
+        private readonly HomePageViewModel _HomePageViewModel;
 
 
         /// <summary>
