@@ -93,7 +93,7 @@
                 ColorPressed="Black"
                 ColorRipple="LightGray"
                 HasShadow="True"
-                ImageName="plus.png" />
+                ImageName="plus_white.png" />
 
         </AbsoluteLayout>
 
