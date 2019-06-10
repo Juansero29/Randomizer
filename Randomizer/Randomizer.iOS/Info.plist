@@ -37,5 +37,14 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
+  <key>CFBundleLocalizations</key>
+  <array>
+    <string>en</string>
+    <string>es</string>
+    <string>fr</string>
+    <string>nl</string>
+  </array>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
 </dict>
 </plist>

@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Controls\Randomizer.Framework.Controls.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
+    <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Services\Randomizer.Framework.Services.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Utils\Randomizer.Framework.Utils.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.ViewModels\Randomizer.Framework.ViewModels.csproj" />
   </ItemGroup>
@@ -31,5 +32,9 @@
     <EmbeddedResource Update="Pages\ListEditionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

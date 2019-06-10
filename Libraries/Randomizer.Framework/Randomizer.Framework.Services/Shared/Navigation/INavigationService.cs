@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Randomizer.Framework.Services
+namespace Randomizer.Framework.Services.Navigation
 {
     /// <summary>
     /// Interface defining what our NavigationService should do

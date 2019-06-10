@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using Randomizer.Framework.Services;
+using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Pages;
 using System;
 using Xunit;
@@ -53,7 +54,6 @@ namespace Randomizer.Tests.ViewModels
         {
             _HomePageViewModel.Title.Should().NotBeNull();
         }
-
 
     }
 }

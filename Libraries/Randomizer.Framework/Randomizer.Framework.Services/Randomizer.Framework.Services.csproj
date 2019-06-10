@@ -1,7 +1,152 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.24">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!--Don't auto add files for me, I will tell you how to do it -->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <!--The frameworks we're targeting-->
+    <TargetFrameworks>MonoAndroid90;Xamarin.iOS10;netstandard2.0;net461</TargetFrameworks>
+
+    <!--Assembly and Namespace info -->
+    <RootNamespace>Randomizer.Framework.Services</RootNamespace>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0.0</Version>
+    <NeutralLanguage>en</NeutralLanguage>
+
+
+    <!-- Helper to add defines-->
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+
+    <!--Version of C# to use -->
+    <LangVersion>default</LangVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+
+  </PropertyGroup>
+
+  <!-- Define what happens on build and release -->
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <DebugType>pdbonly</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- If we want a nuget package add this -->
+    <!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
+  </PropertyGroup>
+
+
+  <ItemGroup>
+
+    <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
+    <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="bin\**\*.*;bin;obj\**\*.*;obj;" />
+
+    <!--NuGet packages for all platforms-->
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
+
+    <!--Project references for all platforms-->
+    <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
+
+    <!--Update all .xaml files in shared -->
+    <EmbeddedResource Update="Shared\**\*.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+
+    <!--Compile all .xaml files in shared-->
+    <EmbeddedResource Update="Shared\**\*.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+
+    <!--Compile all .cs files in shared-->
+    <Compile Include="Shared\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  </ItemGroup>
+
+  <!--Do this exclusively for Android-->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
+    <Compile Include="Platforms\Android\**\*.cs" />
+
+    <!-- If we have resources add these... -->
+
+    <!--<AndroidResource Include="Resources\**\*.axml" />
+    <AndroidResource Include="Resources\**\*.xml" />
+    <AndroidResource Include="Resources\**\*.png" />
+    <Compile Include="Resources\Resource.designer.cs" />-->
+
+  </ItemGroup>
+
+  <!--<PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+  </PropertyGroup>-->
+
+  <!--Do this exclusively for iOS-->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+    <!--<Reference Include="System.Data" />-->
+    <Compile Include="Platforms\iOS\**\*.cs" />
+    <!--<Copy SourceFiles="$(NuSpecPath)" DestinationFolder="$(PackageSource)\Resources"/>-->
+
+    <!--<Content Include="Resources\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Resources\TextResources.Designer.cs">
+      <DependentUpon>TextResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+
+    <EmbeddedResource Update="Resources\TextResources.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+
+    <EmbeddedResource Update="Resources\TextResources.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+
+    <EmbeddedResource Update="Resources\TextResources.resx">
+      <GenFilePath>%(RecursiveDir)%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+      <_SdkHasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(_SdkLangIdRegEx)'))</_SdkHasLangId>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\TextResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextResources.resx</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Alerts\AlertsService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Alerts\IAlertsService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Navigation\ShellNavigationService.cs" />
+  </ItemGroup>
+  
 </Project>

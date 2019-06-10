@@ -1,20 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Randomizer.Framework.ViewModels;assembly=Randomizer.Framework.ViewModels"
-             xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
-             xmlns:Controls="clr-namespace:Randomizer.Framework.Controls;assembly=Randomizer.Framework.Controls"
-             xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
-             x:Class="Randomizer.Pages.ListEditionPage"
-             x:Name="this"
-             Title="{Binding ToolbarTitle}">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Randomizer.Pages.ListEditionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Controls="clr-namespace:Randomizer.Framework.Controls;assembly=Randomizer.Framework.Controls"
+    xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
+    xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
+    xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    x:Name="this"
+    Title="{Binding ToolbarTitle}">
 
-    <!--ViewModel-->
+    <!--  ViewModel  -->
     <ContentPage.BindingContext>
         <VM:ListEditionPageViewModel />
     </ContentPage.BindingContext>
 
-    <!--Resources-->
+    <!--  Resources  -->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
@@ -22,57 +23,77 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!--Toolbar items-->
+    <!--  Toolbar items  -->
     <ContentPage.ToolbarItems>
 
-        <Controls:ToolbarItem Name="EditListMenuItem"   Text="Edit"   Priority="0" Order="Primary"
-                              IconImageSource="baseline_edit_white_24.png" 
-                              IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}" 
-                              ToolbarParent="{x:Reference this}"
-                              Command="{Binding EditListCommand}"/>
+        <Controls:ToolbarItem
+            Name="EditListMenuItem"
+            Command="{Binding EditListCommand}"
+            IconImageSource="baseline_edit_white_24.png"
+            IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}"
+            Order="Primary"
+            Priority="0"
+            Text="Edit"
+            ToolbarParent="{x:Reference this}" />
 
-        <Controls:ToolbarItem Name="DeleteListMenuItem" Text="Delete" Priority="1" Order="Primary" 
-                              IconImageSource="baseline_delete_outline_white_24.png"  
-                              IsVisible="{Binding ShowDeleteListToolbarItem}" 
-                              ToolbarParent="{x:Reference this}"
-                              Command="{Binding DeleteListCommand}"/>
+        <Controls:ToolbarItem
+            Name="DeleteListMenuItem"
+            Command="{Binding DeleteListCommand}"
+            IconImageSource="baseline_delete_outline_white_24.png"
+            IsVisible="{Binding ShowDeleteListToolbarItem}"
+            Order="Primary"
+            Priority="1"
+            Text="Delete"
+            ToolbarParent="{x:Reference this}" />
 
-        <Controls:ToolbarItem Name="SaveListMenuItem"   Text="Save"   Priority="2" Order="Primary" 
-                              IconImageSource="baseline_check_white_24.png"  
-                              IsVisible="{Binding IsEditMode}" 
-                              ToolbarParent="{x:Reference this}"
-                              Command="{Binding SaveListCommand}"/>
+        <Controls:ToolbarItem
+            Name="SaveListMenuItem"
+            Command="{Binding SaveListCommand}"
+            IconImageSource="baseline_check_white_24.png"
+            IsVisible="{Binding IsEditMode}"
+            Order="Primary"
+            Priority="2"
+            Text="Save"
+            ToolbarParent="{x:Reference this}" />
 
     </ContentPage.ToolbarItems>
 
-    <!--Page content-->
+    <!--  Page content  -->
     <ContentPage.Content>
-        <StackLayout
-            BackgroundColor="#303030"
-            Padding="16" >
+        <StackLayout Padding="16" BackgroundColor="#303030">
 
-            <Entry 
-                IsVisible="{Binding IsEditMode}"
-                Placeholder="Enter your list name..." 
-                PlaceholderColor="WhiteSmoke" 
-                TextColor="White"
+            <Entry
                 FontSize="20"
                 HorizontalOptions="StartAndExpand"
-                Text="{Binding List.Name}" />
+                IsVisible="{Binding IsEditMode}"
+                Placeholder="{i18:Translate ResourceKey=EnterListNamePlaceholder}"
+                PlaceholderColor="WhiteSmoke"
+                Text="{Binding List.Name}"
+                TextColor="White" />
 
             <CollectionView
-                VerticalOptions="Start"
                 HorizontalOptions="StartAndExpand"
-                ItemsSource="{Binding List.Items}">
+                ItemsSource="{Binding List.Items}"
+                VerticalOptions="Start">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Padding="8,4,8,4">
-                            <Label Text="{Binding Name}" VerticalOptions="Center" HeightRequest="40" VerticalTextAlignment="Center" TextColor="White" FontSize="30" />
-                            <Image IsVisible="{Binding BindingContext.IsEditMode, Source={x:Reference this}}" Source="cancel_white.png" Margin="8,0,0,0" VerticalOptions="Center" MinimumHeightRequest="32" WidthRequest="32">
+                        <StackLayout Padding="8,4,8,4" Orientation="Horizontal">
+                            <Label
+                                FontSize="30"
+                                HeightRequest="40"
+                                Text="{Binding Name}"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                            <Image
+                                Margin="8,0,0,0"
+                                IsVisible="{Binding BindingContext.IsEditMode, Source={x:Reference this}}"
+                                MinimumHeightRequest="32"
+                                Source="cancel_white.png"
+                                VerticalOptions="Center"
+                                WidthRequest="32">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        Command="{Binding BindingContext.RemoveListItemCommand, Source={x:Reference this}}" 
-                                        CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.RemoveListItemCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </StackLayout>
@@ -80,16 +101,17 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Entry x:Name="ItemEntry" 
-                IsVisible="{Binding IsEditMode}"
-                Placeholder="Enter an item..."
-                PlaceholderColor="WhiteSmoke" 
-                TextColor="White"
+            <Entry
+                x:Name="ItemEntry"
                 HorizontalOptions="StartAndExpand"
+                IsVisible="{Binding IsEditMode}"
+                Placeholder="{i18:Translate ResourceKey=EnterAnItemPlaceholder}"
+                PlaceholderColor="WhiteSmoke"
+                ReturnCommand="{Binding AddItemCommand}"
+                ReturnCommandParameter="{Binding Source={x:Reference ItemEntry}, Path=Text}"
                 ReturnType="Next"
                 Text="{Binding ItemEntryText}"
-                ReturnCommand="{Binding AddItemCommand}"
-                ReturnCommandParameter="{Binding Source={x:Reference ItemEntry}, Path=Text}">
+                TextColor="White">
                 <Entry.Keyboard>
                     <Keyboard x:FactoryMethod="Create">
                         <x:Arguments>
@@ -100,14 +122,14 @@
             </Entry>
 
             <Button
-                IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}"
-                HorizontalOptions="StartAndExpand"
-                Text="Randomize !"
                 BackgroundColor="#303030"
-                TextColor="White"
                 BorderColor="White"
+                BorderWidth="1"
                 Command="{Binding RandomizeCommand}"
-                BorderWidth="1" />
+                HorizontalOptions="StartAndExpand"
+                IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}"
+                Text="{i18:Translate ResourceKey=RandomizeLabel}"
+                TextColor="White" />
 
         </StackLayout>
     </ContentPage.Content>

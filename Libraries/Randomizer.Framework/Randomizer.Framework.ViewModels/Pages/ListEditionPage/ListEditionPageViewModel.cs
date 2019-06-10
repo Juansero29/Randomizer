@@ -17,7 +17,7 @@ namespace Randomizer.Framework.ViewModels.Pages
     {
         #region Fields
         private RandomizerListVM _List;
-        private string _ToolbarTitle = "New List";
+        private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
         private string _ItemEntryText;
         private bool _IsEditMode;
         #endregion
@@ -165,7 +165,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
             catch (Exception)
             {
-                Application.Current.MainPage.DisplayAlert("Ooops!", "This feature hasn't been implemented yet. Try again later!", "OK");
+                AlertsService.ShowFeatureNotImplementedAlert();
             }
         }
 
@@ -177,7 +177,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
             catch (Exception)
             {
-                Application.Current.MainPage.DisplayAlert("Ooops!", "This feature hasn't been implemented yet. Try again later!", "OK");
+                AlertsService.ShowFeatureNotImplementedAlert();
             }
         }
 

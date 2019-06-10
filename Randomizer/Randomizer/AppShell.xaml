@@ -4,8 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Pages="clr-namespace:Randomizer.Pages"
-    xmlns:pages="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
-    xmlns:services="clr-namespace:Randomizer.Framework.ViewModels.Services;assembly=Randomizer.Framework.ViewModels"
+    xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     x:Name="shell"
     Title="Randomizer"
     BackgroundColor="#212121"
@@ -56,7 +55,7 @@
     <FlyoutItem TabIndex="0">
 
         <Tab
-            Title="Home"
+            Title="{i18:Translate ResourceKey=HomePageTitle}"
             Icon="home.png"
             TabIndex="0">
             <ShellContent Route="home">
@@ -66,24 +65,24 @@
 
 
         <Tab
-            Title="Settings"
+            Title="{i18:Translate ResourceKey=SettingsPageTitle}"
             Icon="settings.png"
             TabIndex="1">
             <ShellContent Route="settings">
                 <ContentPage>
-                    <Label Text="Nothing here." />
+                    <Label Text="{i18:Translate ResourceKey=NothingHereLabel}" />
                 </ContentPage>
             </ShellContent>
         </Tab>
 
 
         <Tab
-            Title="About"
+            Title="{i18:Translate ResourceKey=AboutPageTitle}"
             Icon="information.png"
             TabIndex="2">
             <ShellContent Route="about">
                 <ContentPage>
-                    <Label Text="Nothing here." />
+                    <Label Text="{i18:Translate ResourceKey=NothingHereLabel}" />
                 </ContentPage>
             </ShellContent>
         </Tab>

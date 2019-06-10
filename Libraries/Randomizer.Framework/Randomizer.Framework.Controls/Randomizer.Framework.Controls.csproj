@@ -12,7 +12,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>Xamarin.iOS10;MonoAndroid90;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid90;Xamarin.iOS10;netstandard2.0;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>Randomizer.Framework.Controls</RootNamespace>
@@ -111,9 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Platforms\Android\Shell\RandomizerShellRenderer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Platforms\Android\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Shared\Themes\Templates.xaml">

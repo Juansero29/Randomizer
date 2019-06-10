@@ -1,11 +1,8 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Services;
+using Randomizer.Framework.Services.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
