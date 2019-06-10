@@ -56,7 +56,7 @@
 
         <Tab
             Title="{i18:Translate ResourceKey=HomePageTitle}"
-            Icon="home.png"
+            Icon="home_white.png"
             TabIndex="0">
             <ShellContent Route="home">
                 <Pages:HomePage />
@@ -66,7 +66,7 @@
 
         <Tab
             Title="{i18:Translate ResourceKey=SettingsPageTitle}"
-            Icon="settings.png"
+            Icon="settings_white.png"
             TabIndex="1">
             <ShellContent Route="settings">
                 <ContentPage>
@@ -78,7 +78,7 @@
 
         <Tab
             Title="{i18:Translate ResourceKey=AboutPageTitle}"
-            Icon="information.png"
+            Icon="information_white.png"
             TabIndex="2">
             <ShellContent Route="about">
                 <ContentPage>

@@ -233,67 +233,75 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\home%403x.png" />
-    <BundleResource Include="Resources\plus%403x.png" />
-    <BundleResource Include="Resources\plus.png" />
-    <BundleResource Include="Resources\plus%402x.png" />
+    <BundleResource Include="Resources\check_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\check_white%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\home%402x.png" />
+    <BundleResource Include="Resources\check_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_check_white_24.png" />
+    <BundleResource Include="Resources\closed_circle_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_check_white_24%402x.png" />
+    <BundleResource Include="Resources\closed_circle_white%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_check_white_24%403x.png" />
+    <BundleResource Include="Resources\closed_circle_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_delete_outline_white_24.png" />
+    <BundleResource Include="Resources\delete_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_delete_outline_white_24%402x.png" />
+    <BundleResource Include="Resources\delete_white%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_delete_outline_white_24%403x.png" />
+    <BundleResource Include="Resources\delete_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_edit_white_24.png" />
+    <BundleResource Include="Resources\edit_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_edit_white_24%402x.png" />
+    <BundleResource Include="Resources\edit_white%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\baseline_edit_white_24%403x.png" />
+    <BundleResource Include="Resources\edit_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\information%402x.png" />
+    <BundleResource Include="Resources\home_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\information%403x.png" />
+    <BundleResource Include="Resources\home_white%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\information.png" />
+    <BundleResource Include="Resources\home_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\settings.png" />
+    <BundleResource Include="Resources\information_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\settings%402x.png" />
+    <BundleResource Include="Resources\information_white%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\settings%403x.png" />
-    <BundleResource Include="Resources\cancel_white.png" />
+    <BundleResource Include="Resources\information_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\cancel_white%402x.png" />
+    <BundleResource Include="Resources\plus_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\cancel_white%403x.png" />
+    <BundleResource Include="Resources\plus_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\plus_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings_white%403x.png" />
   </ItemGroup>
 </Project>
