@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Randomizer.Framework.Services.i18n
 {
-    public interface ILocalize
+    public interface ILocalizationService
     {
         CultureInfo GetCurrentCultureInfo();
         void SetLocale(CultureInfo ci);

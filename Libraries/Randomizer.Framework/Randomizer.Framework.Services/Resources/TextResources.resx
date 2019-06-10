@@ -133,6 +133,10 @@
     <value>Enter your list's name...</value>
     <comment>A placeholder label suggesting the user to enter their list's name</comment>
   </data>
+  <data name="FeatureNotImplementedMessage" xml:space="preserve">
+    <value>This feature hasn't been implemented yet. Try again later!</value>
+    <comment>A message that explains to the user the feature he is trying to use it's not yet implemented. It encourages them to try again later at the end.</comment>
+  </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Home</value>
     <comment>The title of the home page</comment>
@@ -140,6 +144,14 @@
   <data name="NothingHereLabel" xml:space="preserve">
     <value>Nothing here...</value>
     <comment>A label indicating there's nothing here</comment>
+  </data>
+  <data name="OKMessage" xml:space="preserve">
+    <value>Ok</value>
+    <comment>An OK message</comment>
+  </data>
+  <data name="OopsMessage" xml:space="preserve">
+    <value>Oops!</value>
+    <comment>An onomatopeaia used typically to express mild apology, surprise, or dismay, can also be (in english) : woops, whoops</comment>
   </data>
   <data name="RandomizeLabel" xml:space="preserve">
     <value>Randomize!</value>

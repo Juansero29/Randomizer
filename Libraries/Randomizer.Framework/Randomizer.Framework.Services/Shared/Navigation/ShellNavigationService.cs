@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Randomizer.Framework.ViewModels.Services
+namespace Randomizer.Framework.Services.Navigation
 {
     public class ShellNavigationService : INavigationService
     {

@@ -133,6 +133,10 @@
     <value>Tapez le nom de votre liste...</value>
     <comment>A placeholder label suggesting the user to enter their list's name</comment>
   </data>
+  <data name="FeatureNotImplementedMessage" xml:space="preserve">
+    <value>Cette fonctionnalité n'a pas encore été implémentée. Réessayez plus tard !</value>
+    <comment>A message that explains to the user the feature he is trying to use it's not yet implemented. It encourages them to try again later at the end.</comment>
+  </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Accueil</value>
     <comment>The title of the home page</comment>
@@ -140,6 +144,14 @@
   <data name="NothingHereLabel" xml:space="preserve">
     <value>Il n'y a rien ici !</value>
     <comment>A label indicating there's nothing here</comment>
+  </data>
+  <data name="OKMessage" xml:space="preserve">
+    <value>OK</value>
+    <comment>An OK message</comment>
+  </data>
+  <data name="OopsMessage" xml:space="preserve">
+    <value>Oups !</value>
+    <comment>An interjunction used typically to express mild apology, surprise, or dismay, can also be (in english) : woops, whoops</comment>
   </data>
   <data name="RandomizeLabel" xml:space="preserve">
     <value>Randomizer !</value>

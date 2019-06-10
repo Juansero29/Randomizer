@@ -1,8 +1,5 @@
-﻿using Randomizer.Framework.Services;
-using Randomizer.Framework.ViewModels.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Randomizer.Framework.Services.Alerts;
+using Randomizer.Framework.Services.Navigation;
 
 namespace Randomizer.Framework.ViewModels
 {
@@ -22,16 +19,13 @@ namespace Randomizer.Framework.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePageViewModel"/> class.
         /// </summary>
-        public BasePageViewModel(INavigationService navService = null)
+        public BasePageViewModel(INavigationService navService = null, IAlertsService alertService = null)
         {
-            if (navService != null)
-            {
-                NavigationService = navService;
-            }
-            else
-            {
-                NavigationService = new ShellNavigationService();
-            }
+            // Instatiate a new navigation service is none is passed in parameters
+            NavigationService = navService ?? new ShellNavigationService();
+
+            // Instatiate a new alerts service is none is passed in parameters
+            AlertsService = alertService ?? new AlertsService();
         }
         #endregion
 
@@ -47,7 +41,7 @@ namespace Randomizer.Framework.ViewModels
 
         /// <summary>
         /// Property indicating if the ViewModel is busy loading.
-        /// If it's true, show a visual feedback to the user.
+        /// If it's true, this should show a visual feedback to the user.
         /// </summary>
         public bool IsBusy
         {
@@ -59,6 +53,15 @@ namespace Randomizer.Framework.ViewModels
         /// Every view model has acces to a NavigationService
         /// </summary>
         public INavigationService NavigationService
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Every view model has acces to an AlertsServices
+        /// </summary>
+        public IAlertsService AlertsService
         {
             get;
             private set;

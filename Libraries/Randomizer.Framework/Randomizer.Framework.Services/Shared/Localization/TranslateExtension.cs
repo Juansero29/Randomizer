@@ -25,8 +25,7 @@ namespace Randomizer.Framework.Services.Shared.Localization
         {
             if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
             {
-                ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
-                ci = Resources.TextResources.Culture = new CultureInfo("es-ES");
+                ci = DependencyService.Get<ILocalizationService>().GetCurrentCultureInfo();
             }
         }
 

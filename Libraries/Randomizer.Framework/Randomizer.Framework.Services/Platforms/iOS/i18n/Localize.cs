@@ -8,7 +8,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(Localize))]
 namespace Randomizer.Framework.Services.Platforms.iOS.i18n
 {
-    public class Localize : ILocalize
+    public class Localize : ILocalizationService
     {
         public void SetLocale(CultureInfo ci)
         {

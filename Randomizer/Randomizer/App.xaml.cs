@@ -17,9 +17,9 @@ namespace Randomizer
 
         private void SetCurrentLanguage()
         {
-            var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+            var ci = DependencyService.Get<ILocalizationService>().GetCurrentCultureInfo();
             Framework.Services.Resources.TextResources.Culture = ci;
-            DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+            DependencyService.Get<ILocalizationService>().SetLocale(ci); // set the Thread for locale-aware methods
         }
 
         protected override void OnStart()

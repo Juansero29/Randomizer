@@ -97,6 +97,15 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feature hasn&apos;t been implemented yet. Try again later!.
+        /// </summary>
+        public static string FeatureNotImplementedMessage {
+            get {
+                return ResourceManager.GetString("FeatureNotImplementedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string HomePageTitle {
@@ -111,6 +120,24 @@ namespace Randomizer.Framework.Services.Resources {
         public static string NothingHereLabel {
             get {
                 return ResourceManager.GetString("NothingHereLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string OKMessage {
+            get {
+                return ResourceManager.GetString("OKMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops!.
+        /// </summary>
+        public static string OopsMessage {
+            get {
+                return ResourceManager.GetString("OopsMessage", resourceCulture);
             }
         }
         

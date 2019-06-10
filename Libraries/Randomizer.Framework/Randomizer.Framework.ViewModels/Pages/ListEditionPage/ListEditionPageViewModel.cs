@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.ViewModels.Business;
 using System;
 using System.Collections.Generic;
@@ -159,7 +160,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
             catch (Exception)
             {
-                Application.Current.MainPage.DisplayAlert("Ooops!", "This feature hasn't been implemented yet. Try again later!", "OK");
+                AlertsService.ShowFeatureNotImplementedAlert();
             }
         }
 
@@ -171,7 +172,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
             catch (Exception)
             {
-                Application.Current.MainPage.DisplayAlert("Ooops!", "This feature hasn't been implemented yet. Try again later!", "OK");
+                AlertsService.ShowFeatureNotImplementedAlert();
             }
         }
 

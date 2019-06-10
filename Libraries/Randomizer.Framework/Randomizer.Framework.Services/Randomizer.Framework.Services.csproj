@@ -136,5 +136,17 @@
       <DependentUpon>TextResources.resx</DependentUpon>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Alerts\AlertsService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Alerts\IAlertsService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Navigation\ShellNavigationService.cs" />
+  </ItemGroup>
   
 </Project>
