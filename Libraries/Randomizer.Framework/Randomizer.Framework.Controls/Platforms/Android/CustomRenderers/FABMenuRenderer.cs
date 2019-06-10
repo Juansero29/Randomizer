@@ -411,7 +411,9 @@ namespace Randomizer.Framework.Controls.Platforms.Droid.CustomRenderers
                 }
                 else
                 {
+#pragma warning disable CS0618 // Type or member is obsolete
                     ViewCompat.SetTranslationY(child, translationY);
+#pragma warning restore CS0618 // Type or member is obsolete
                 }
 
                 _mTranslationY = translationY;
@@ -429,7 +431,9 @@ namespace Randomizer.Framework.Controls.Platforms.Droid.CustomRenderers
                 var view = dependencies[i];
                 if (IsInstanceOf<Snackbar.SnackbarLayout>(view) && parent.DoViewsOverlap(child, view))
                 {
+#pragma warning disable CS0618 // Type or member is obsolete
                     minOffset = Math.Min(minOffset, ViewCompat.GetTranslationY(view) - view.Height);
+#pragma warning restore CS0618 // Type or member is obsolete
                 }
             }
 

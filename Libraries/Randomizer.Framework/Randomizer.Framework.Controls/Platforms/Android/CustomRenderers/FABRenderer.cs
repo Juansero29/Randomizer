@@ -25,7 +25,6 @@ namespace Randomizer.Framework.Controls.Platforms.Droid.CustomRenderers
     {
         #region Fields
         private readonly Context _Context;
-        private FAB _FloatingActionButtonXF;
         #endregion
 
         public FABRenderer(Context context) : base(context)
