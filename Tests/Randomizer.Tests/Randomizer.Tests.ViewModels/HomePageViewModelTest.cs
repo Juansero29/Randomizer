@@ -2,6 +2,7 @@
 using Moq;
 using Randomizer.Framework.Services;
 using Randomizer.Framework.Services.Navigation;
+using Randomizer.Framework.ViewModels.BaseViewModels;
 using Randomizer.Framework.ViewModels.Pages;
 using System;
 using Xunit;
@@ -21,18 +22,14 @@ namespace Randomizer.Tests.ViewModels
         /// </remarks>
         public HomePageViewModelTest()
         {
-            var mock = new Mock<INavigationService>();
-            mock.Setup(m => m.GoToAsync("somewhere"));
-            _HomePageViewModel = new HomePageViewModel(mock.Object);
-            _HomePageViewModel.Should().NotBeNull();
+            ViewModelLocator.RegisterDependencies(true);
+            _HomePageViewModel = new HomePageViewModel();
         }
 
         [Fact]
         public void ConstructorTest()
         {
-            var mock = new Mock<INavigationService>();
-            mock.Setup(m => m.GoToAsync("somewhere"));
-            var homeViewModel = new HomePageViewModel(mock.Object);
+            var homeViewModel = new HomePageViewModel();
             homeViewModel.Should().NotBeNull();
         }
 

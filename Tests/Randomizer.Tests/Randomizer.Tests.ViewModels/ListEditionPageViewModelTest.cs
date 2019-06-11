@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.ViewModels.BaseViewModels;
 using Randomizer.Framework.ViewModels.Pages;
 using Randomizer.Tests.CommonTestData;
 using System;
@@ -15,6 +16,7 @@ namespace Randomizer.Tests.ViewModels
 
         public ListEditionPageViewModelTest()
         {
+            ViewModelLocator.RegisterDependencies(true);
             _ViewModel = new ListEditionPageViewModel();
         }
 

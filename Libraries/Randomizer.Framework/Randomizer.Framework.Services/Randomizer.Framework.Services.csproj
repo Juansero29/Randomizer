@@ -138,15 +138,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Shared\Alerts\AlertsService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Shared\Alerts\IAlertsService.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Shared\Navigation\ShellNavigationService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Navigation\NavigationMockService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Alerts\AlertsMockService.cs" />
   </ItemGroup>
   
 </Project>

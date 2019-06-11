@@ -37,12 +37,8 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Constructor(s)
 
-        public HomePageViewModel() : this(null)
-        {
 
-        }
-
-        public HomePageViewModel(INavigationService navService = null) : base(navService)
+        public HomePageViewModel() : base()
         {
             InitListWithStubData();
 

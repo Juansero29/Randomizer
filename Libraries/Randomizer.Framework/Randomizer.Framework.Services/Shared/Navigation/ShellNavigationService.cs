@@ -13,7 +13,6 @@ namespace Randomizer.Framework.Services.Navigation
         private Shell _Shell;
         #endregion
 
-
         public Shell Shell
         {
             get

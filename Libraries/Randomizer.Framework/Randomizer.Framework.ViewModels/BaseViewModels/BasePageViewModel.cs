@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.Navigation;
+using Randomizer.Framework.ViewModels.BaseViewModels;
 
 namespace Randomizer.Framework.ViewModels
 {
@@ -14,18 +15,16 @@ namespace Randomizer.Framework.ViewModels
 
         #endregion
 
-
         #region Constructor(s)
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePageViewModel"/> class.
         /// </summary>
-        public BasePageViewModel(INavigationService navService = null, IAlertsService alertService = null)
+        public BasePageViewModel()
         {
-            // Instatiate a new navigation service is none is passed in parameters
-            NavigationService = navService ?? new ShellNavigationService();
-
-            // Instatiate a new alerts service is none is passed in parameters
-            AlertsService = alertService ?? new AlertsService();
+            // Resolve the NavigationService instance
+            NavigationService = ViewModelLocator.Resolve<INavigationService>();
+            // Resolve the AlertService instance
+            AlertsService = ViewModelLocator.Resolve<IAlertsService>();
         }
         #endregion
 
