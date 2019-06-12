@@ -16,7 +16,7 @@ namespace Randomizer.Framework.ViewModels.Pages
     public class ListEditionPageViewModel : BasePageViewModel
     {
         #region Fields
-        private RandomizerListVM _List;
+        private RandomizerListVM _ListVM;
         private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
         private string _ItemEntryText;
         private bool _IsEditMode;
@@ -53,8 +53,8 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Properties
         public RandomizerListVM List
         {
-            get => _List;
-            set => SetValue(ref _List, value);
+            get => _ListVM;
+            set => SetValue(ref _ListVM, value);
         }
 
         /// <summary>
@@ -116,9 +116,13 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Constructor(s)
-        public ListEditionPageViewModel()
+        public ListEditionPageViewModel() : this(new RandomizerListVM())
         {
-            _List = new RandomizerListVM();
+        }
+
+        public ListEditionPageViewModel(RandomizerListVM listVM)
+        {
+            _ListVM = listVM;
 
             #region InitCommands
             AddItemCommand = new Command<string>(OnAddItem);
@@ -128,7 +132,6 @@ namespace Randomizer.Framework.ViewModels.Pages
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
             #endregion
-
         }
 
         #endregion
@@ -138,18 +141,19 @@ namespace Randomizer.Framework.ViewModels.Pages
         private void OnAddItem(string itemName)
         {
             ItemEntryText = "";
-            _List.AddItem(new TextRandomizerItem { Name = itemName });
+            _ListVM.AddItem(new TextRandomizerItem { Name = itemName });
         }
 
         private void OnRemoveListItem(IRandomizerItem item)
         {
-            _List.RemoveItem(item);
+            _ListVM.RemoveItem(item);
         }
 
         private void OnSaveList()
         {
-            ToolbarTitle = _List.Name;
+            ToolbarTitle = _ListVM.Name;
             IsEditMode = false;
+            MessagingCenter.Send(this, MessagingCenterConstants.ListSaved, _ListVM.Model);
         }
 
         private void OnEnterListEditionMode()
@@ -181,7 +185,13 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
         }
 
-        
+
         #endregion
+
+        public static class MessagingCenterConstants
+        {
+            public const string ListSaved = "ListSaved";
+        }
+
     }
 }

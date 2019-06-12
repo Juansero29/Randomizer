@@ -3,6 +3,7 @@ using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Services.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -42,6 +43,17 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             InitListWithStubData();
 
+            MessagingCenter.Subscribe<ListEditionPageViewModel, IRandomizerList>(this,
+            ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
+            {
+                var oldItem = _Lists.FirstOrDefault(x => x.Id.Equals(newList.Id));
+                if (oldItem != null)
+                {
+                    _Lists.Remove(oldItem);
+                }
+                _Lists.Add(newList);
+            });
+
             #region Commands Init
             NewRandomizerListCommand = new Command(OnNewRandomizerList);
             #endregion
@@ -56,8 +68,6 @@ namespace Randomizer.Framework.ViewModels.Pages
             Lists.Add(new RandomizerList() { Name = "List #5", Id = Guid.NewGuid() });
             Lists.Add(new RandomizerList() { Name = "List #6", Id = Guid.NewGuid() });
         }
-
-
 
         #endregion
 
