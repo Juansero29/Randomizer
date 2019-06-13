@@ -124,6 +124,12 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             _ListVM = listVM;
 
+            MessagingCenter.Subscribe<HomePageViewModel, IRandomizerList>(this,
+                HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
+                {
+                    _ListVM = new RandomizerListVM(selectedList);
+                });
+
             #region InitCommands
             AddItemCommand = new Command<string>(OnAddItem);
             RemoveListItemCommand = new Command<IRandomizerItem>(OnRemoveListItem);
@@ -166,6 +172,8 @@ namespace Randomizer.Framework.ViewModels.Pages
             try
             {
                 throw new NotImplementedException("TODO");
+                MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM.Model);
+                // TODO navigate to top NavigationService.
             }
             catch (Exception)
             {
@@ -191,6 +199,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         public static class MessagingCenterConstants
         {
             public const string ListSaved = "ListSaved";
+            public const string ListDeleted = "ListDeleted";
         }
 
     }

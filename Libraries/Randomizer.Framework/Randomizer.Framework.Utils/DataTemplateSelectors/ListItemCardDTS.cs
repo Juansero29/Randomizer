@@ -15,23 +15,56 @@ namespace Randomizer.Framework.Utils.DataTemplateSelectors
     {
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var template = default(DataTemplate);
-            if (!(container is CollectionView cv)) return template;
-            if (!(item is IRandomizerList list)) return template;
-            if (!(cv.ItemsSource is Collection<IRandomizerList> lists)) return template;
 
-            if ((lists.IndexOf(list) % 2) == 0)
+            var list = CastOrThrow<IRandomizerList>(item);
+            Collection<IRandomizerList> lists;
+
+            if (container is CollectionView cv)
             {
-                // It is a en even position
-                template = Tools.TryFindResource("RandomizerListItemCardEvenTemplate") as DataTemplate;
+                lists = CastOrThrow<Collection<IRandomizerList>>(cv.ItemsSource);
+            }
+            else if (container is ListView lv)
+            {
+                lists = CastOrThrow<Collection<IRandomizerList>>(lv.ItemsSource);
             }
             else
             {
-                // It is at an odd position
-                template = Tools.TryFindResource("RandomizerListItemCardOddTemplate") as DataTemplate;
+                throw new InvalidOperationException
+                                   ("Unable to load DataTemplate. Please use a CollectionView or a ListView as container.");
             }
 
-            return template;
+            var isEvenPosition = (lists.IndexOf(list) % 2) == 0;
+            string templateResource = null;
+
+            if (isEvenPosition)
+            {
+                if (container is CollectionView)
+                    templateResource = "RandomizerListItemCardEven_CollectionViewTemplate";
+                else if (container is ListView)
+                    templateResource = "RandomizerListItemCardEven_ListViewTemplate";
+            }
+            else
+            {
+                if (container is CollectionView)
+                    templateResource = "RandomizerListItemCardOdd_CollectionViewTemplate";
+                else if (container is ListView)
+                    templateResource = "RandomizerListItemCardOdd_ListViewTemplate";
+            }
+
+            var dataTemplate = Tools.TryFindResource(templateResource) as DataTemplate;
+            return dataTemplate;
+        }
+
+        private T CastOrThrow<T>(object item)
+        {
+            try
+            {
+                return (T)item;
+            }
+            catch (InvalidCastException)
+            {
+                throw new InvalidCastException($"Bad BindableObject. Unable to cast {item} to {typeof(T)}");
+            }
         }
     }
 }

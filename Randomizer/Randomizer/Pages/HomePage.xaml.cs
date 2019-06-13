@@ -16,8 +16,5 @@ namespace Randomizer.Pages
         {
             InitializeComponent();
         }
-
-
-
     }
 }

@@ -34,6 +34,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Commands
         public ICommand NewRandomizerListCommand { get; }
+        public ICommand ListTappedCommand { get; }
         #endregion
 
         #region Constructor(s)
@@ -56,6 +57,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
             #region Commands Init
             NewRandomizerListCommand = new Command(OnNewRandomizerList);
+            ListTappedCommand = new Command<IRandomizerList>(OnListTapped);
             #endregion
         }
 
@@ -76,6 +78,17 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             await NavigationService.GoToAsync("/listedition?new=true&editmode=true");
         }
+
+        async private void OnListTapped(IRandomizerList list)
+        {
+            await NavigationService.GoToAsync("/listedition");
+            MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
+        }
         #endregion
+
+        public class MessagingCenterConstants
+        {
+            public const string SelectedList = "SelectedList";
+        }
     }
 }

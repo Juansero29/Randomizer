@@ -10,12 +10,17 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
+    xmlns:behaviors="clr-namespace:Randomizer.Framework.Utils.Behaviors;assembly=Randomizer.Framework.Utils"
     BackgroundColor="Black"
+    x:Name="this"
     mc:Ignorable="d">
 
     <!--  Resources  -->
     <ContentPage.Resources>
         <DataTemplateSelectors:ListItemCardDTS x:Key="listItemCardDTS" />
+        <converters:DebugConverter x:Key="debugConverter"/>
+        <converters:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
     </ContentPage.Resources>
 
     <!--  ViewModel  -->
@@ -49,11 +54,20 @@
                     <BoxView HeightRequest="2" Color="White" />
                 </StackLayout>
 
-                <CollectionView
+                <ListView x:Name="collectionView"
                     Grid.Row="1"
                     Margin="16"
                     ItemTemplate="{StaticResource listItemCardDTS}"
-                    ItemsSource="{Binding Lists}">
+                    ItemsSource="{Binding Lists}"
+                    SeparatorVisibility="None"
+                    CachingStrategy="RecycleElement"
+                    VerticalOptions="FillAndExpand">
+
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemTapped"                              
+                            EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"
+                            Command="{Binding ListTappedCommand}"/>
+                    </ListView.Behaviors>
 
                     <!--  Design time data to have a preview in the Xamarin.Forms designer  -->
                     <d:CollectionView.ItemsSource>
@@ -65,7 +79,6 @@
                             <Models:TextRandomizerItem Name="I run out of ideas" />
                         </x:Array>
                     </d:CollectionView.ItemsSource>
-
                     <d:CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
@@ -74,12 +87,14 @@
                                         LineBreakMode="TailTruncation"
                                         Style="{DynamicResource RandomizerListItemNameLabel}"
                                         Text="{Binding Name}"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="Center">
+                                    </Label>
                                 </Frame>
                             </StackLayout>
                         </DataTemplate>
                     </d:CollectionView.ItemTemplate>
-                </CollectionView>
+                    
+                </ListView>
 
             </Grid>
 

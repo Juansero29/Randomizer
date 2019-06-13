@@ -5,7 +5,7 @@
 
 
     <!--List Item Cards Templates-->
-    <DataTemplate x:Key="RandomizerListItemCardEvenTemplate">
+    <DataTemplate x:Key="RandomizerListItemCardEven_CollectionViewTemplate">
         <StackLayout>
             <Frame Style="{DynamicResource RandomizerListItemCardEven}">
                 <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
@@ -13,12 +13,33 @@
         </StackLayout>
     </DataTemplate>
 
-    <DataTemplate x:Key="RandomizerListItemCardOddTemplate">
+    <DataTemplate x:Key="RandomizerListItemCardOdd_CollectionViewTemplate">
         <StackLayout>
             <Frame Style="{DynamicResource RandomizerListItemCardOdd}">
                 <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
             </Frame>
         </StackLayout>
     </DataTemplate>
+
+    <DataTemplate x:Key="RandomizerListItemCardEven_ListViewTemplate">
+        <ViewCell>
+            <StackLayout>
+                <Frame Style="{DynamicResource RandomizerListItemCardEven}">
+                    <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
+                </Frame>
+            </StackLayout>
+        </ViewCell>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RandomizerListItemCardOdd_ListViewTemplate">
+        <ViewCell>
+            <StackLayout>
+                <Frame Style="{DynamicResource RandomizerListItemCardOdd}">
+                    <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
+                </Frame>
+            </StackLayout>
+        </ViewCell>
+    </DataTemplate>
+
 
 </ResourceDictionary>
