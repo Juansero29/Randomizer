@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Randomizer.Framework.Services.Navigation;
+using Xamarin.Forms;
 
 namespace Randomizer.Framework.Services.Navigation
 {

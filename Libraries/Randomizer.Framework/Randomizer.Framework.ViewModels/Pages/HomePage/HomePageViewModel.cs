@@ -47,12 +47,21 @@ namespace Randomizer.Framework.ViewModels.Pages
             MessagingCenter.Subscribe<ListEditionPageViewModel, IRandomizerList>(this,
             ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
             {
+                // TODO update titles when saving list (however the id doesnt necessarily change)
+                // TODO navigation from listeditionpage to homepage :
+                //          If navigating back, and page is edited but not saved, show dialog asking to discard or save
+
                 var oldItem = _Lists.FirstOrDefault(x => x.Id.Equals(newList.Id));
                 if (oldItem != null)
                 {
+                    int index = _Lists.IndexOf(oldItem);
                     _Lists.Remove(oldItem);
+                    _Lists.Insert(index, newList);
                 }
-                _Lists.Add(newList);
+                else
+                {
+                    _Lists.Add(newList);
+                }
             });
 
             #region Commands Init

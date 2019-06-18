@@ -64,7 +64,7 @@ namespace Randomizer.Tests.ViewModels
             string itemName = "Blup";
 
             _ViewModel.AddItemCommand.Execute(itemName);
-            _ViewModel.List.Items.Should().NotBeEmpty();
+            _ViewModel.ListVM.Items.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace Randomizer.Tests.ViewModels
             throw new NotImplementedException("TODO");
             _ViewModel.AddItemCommand.Execute(itemName);
             _ViewModel.RemoveListItemCommand.Execute(itemName);
-            _ViewModel.List.Items.Should().BeEmpty();
+            _ViewModel.ListVM.Items.Should().BeEmpty();
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace Randomizer.Tests.ViewModels
             string listTitle = "My list";
 
             _ViewModel.IsEditModeParam = "true";
-            _ViewModel.List.Name = listTitle;
+            _ViewModel.ListVM.Name = listTitle;
             _ViewModel.SaveListCommand.Execute(null);
 
             _ViewModel.ToolbarTitle.Should().Be(listTitle);

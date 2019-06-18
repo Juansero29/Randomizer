@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Randomizer.Framework.Controls.Templates">
 
+    
 
-    <!--List Item Cards Templates-->
+    <!--List Item Cards Templates TODO control-->
     <DataTemplate x:Key="RandomizerListItemCardEven_CollectionViewTemplate">
         <StackLayout>
             <Frame Style="{DynamicResource RandomizerListItemCardEven}">

@@ -1,6 +1,7 @@
 ﻿using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.BaseViewModels;
+using System.Threading.Tasks;
 
 namespace Randomizer.Framework.ViewModels
 {
@@ -67,6 +68,16 @@ namespace Randomizer.Framework.ViewModels
         }
 
         #endregion
+
+        /// <summary>
+        /// Override this method to allow providing navigationData to your ViewModel when navigating
+        /// </summary>
+        /// <param name="navigationData"></param>
+        /// <returns></returns>
+        public virtual Task InitializeAsync(object navigationData)
+        {
+            return Task.FromResult(false);
+        }
 
     }
 

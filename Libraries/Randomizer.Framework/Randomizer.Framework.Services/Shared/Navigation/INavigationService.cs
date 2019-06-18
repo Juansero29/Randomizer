@@ -16,6 +16,7 @@ namespace Randomizer.Framework.Services.Navigation
         /// <param name="uri">The uri where we want to go</param>
         /// <returns>A task that can be awaited</returns>
         Task GoToAsync(string uri);
+
     }
 
 }

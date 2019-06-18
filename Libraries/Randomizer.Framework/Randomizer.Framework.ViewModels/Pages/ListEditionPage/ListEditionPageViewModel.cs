@@ -13,13 +13,14 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// </summary>
     [QueryProperty(nameof(IsEditModeParam), "editmode")]
     [QueryProperty(nameof(IsNewParam), "new")]
-    public class ListEditionPageViewModel : BasePageViewModel
+    public class ListEditionPageViewModel : BasePageViewModel, IDisposable
     {
         #region Fields
         private RandomizerListVM _ListVM;
         private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
         private string _ItemEntryText;
         private bool _IsEditMode;
+        private bool _IsNew;
         #endregion
 
         #region Query Parameters
@@ -28,7 +29,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// </summary>
         public string IsNewParam
         {
-            get => IsNew.ToString();
             set
             {
                 bool.TryParse(value, out bool res);
@@ -41,7 +41,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// </summary>
         public string IsEditModeParam
         {
-            get => IsEditMode.ToString();
             set
             {
                 bool.TryParse(value, out bool res);
@@ -51,10 +50,17 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Properties
-        public RandomizerListVM List
+        public RandomizerListVM ListVM
         {
             get => _ListVM;
-            set => SetValue(ref _ListVM, value);
+            set
+            {
+                SetValue(ref _ListVM, value);
+                if (!IsNew) // If list isn't new, display the list title in the toolbar
+                {
+                    ToolbarTitle = value.Name;
+                }
+            }
         }
 
         /// <summary>
@@ -83,9 +89,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             get => _IsEditMode;
             set => SetValue(ref _IsEditMode, value, onChanged: () =>
             {
-                if (value == false)
-                    IsNew = false;
-                OnPropertyChanged(nameof(IsNew));
+                if (!value) IsNew = value; // If we leave edit mode, IsNew = false
                 OnPropertyChanged(nameof(ShowDeleteListToolbarItem));
             });
         }
@@ -95,8 +99,14 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// </summary>
         public bool IsNew
         {
-            get;
-            set;
+            get => _IsNew;
+            set
+            {
+                SetValue(ref _IsNew, value, onChanged: () =>
+                {
+                    if (value) ListVM = new RandomizerListVM();
+                });
+            }
         }
 
         /// <summary>
@@ -116,19 +126,13 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Constructor(s)
-        public ListEditionPageViewModel() : this(new RandomizerListVM())
+        public ListEditionPageViewModel()
         {
-        }
-
-        public ListEditionPageViewModel(RandomizerListVM listVM)
-        {
-            _ListVM = listVM;
-
             MessagingCenter.Subscribe<HomePageViewModel, IRandomizerList>(this,
                 HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
-                {
-                    _ListVM = new RandomizerListVM(selectedList);
-                });
+            {
+                ListVM = new RandomizerListVM(selectedList);
+            });
 
             #region InitCommands
             AddItemCommand = new Command<string>(OnAddItem);
@@ -193,6 +197,11 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
         }
 
+        // TODO figure out : is this required ? Does subscription to selectedList happen multiple times ? 
+        // public void Dispose()
+        // {
+        //     MessagingCenter.Unsubscribe<HomePageViewModel, IRandomizerList>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
+        // }
 
         #endregion
 

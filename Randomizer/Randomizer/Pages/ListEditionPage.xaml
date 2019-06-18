@@ -68,12 +68,12 @@
                 IsVisible="{Binding IsEditMode}"
                 Placeholder="{i18:Translate ResourceKey=EnterListNamePlaceholder}"
                 PlaceholderColor="WhiteSmoke"
-                Text="{Binding List.Name}"
+                Text="{Binding ListVM.Name, Mode=TwoWay}"
                 TextColor="White" />
 
             <CollectionView
                 HorizontalOptions="StartAndExpand"
-                ItemsSource="{Binding List.Items}"
+                ItemsSource="{Binding ListVM.Items}"
                 VerticalOptions="Start">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -110,7 +110,7 @@
                 ReturnCommand="{Binding AddItemCommand}"
                 ReturnCommandParameter="{Binding Source={x:Reference ItemEntry}, Path=Text}"
                 ReturnType="Next"
-                Text="{Binding ItemEntryText}"
+                Text="{Binding ItemEntryText, Mode=TwoWay}"
                 TextColor="White">
                 <Entry.Keyboard>
                     <Keyboard x:FactoryMethod="Create">

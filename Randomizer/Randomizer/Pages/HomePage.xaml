@@ -61,7 +61,8 @@
                     ItemsSource="{Binding Lists}"
                     SeparatorVisibility="None"
                     CachingStrategy="RecycleElement"
-                    VerticalOptions="FillAndExpand">
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="True"> <!--HasUnevenRows=true : calculates the display size of the rows automatically-->
 
                     <ListView.Behaviors>
                         <behaviors:EventToCommandBehavior EventName="ItemTapped"                              
