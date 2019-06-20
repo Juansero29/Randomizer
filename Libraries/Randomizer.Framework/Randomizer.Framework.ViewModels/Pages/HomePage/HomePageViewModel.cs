@@ -68,7 +68,7 @@ namespace Randomizer.Framework.ViewModels.Pages
            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, IRandomizerList, HomePageViewModel>(this,
            ListEditionPageViewModel.MessagingCenterConstants.ListDeleted, (sender, deletedList) =>
            {
-
+               _Lists.Remove(deletedList);
            });
 
             #region Commands Init

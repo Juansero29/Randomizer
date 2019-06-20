@@ -124,12 +124,13 @@ namespace Randomizer.Framework.ViewModels.Pages
         public ICommand EditListCommand { get; }
         public ICommand DeleteListCommand { get; }
         public ICommand RandomizeCommand { get; }
+        public ICommand DisappearingCommand { get; }
         #endregion
 
         #region Constructor(s)
         public ListEditionPageViewModel()
         {
-            MessagingCenterExtensions.UnitarySubscribe<HomePageViewModel, IRandomizerList, ListEditionPageViewModel>
+            MessagingCenter.Subscribe<HomePageViewModel, IRandomizerList>
                 (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
             {
                 ListVM = new RandomizerListVM(selectedList);
@@ -142,12 +143,8 @@ namespace Randomizer.Framework.ViewModels.Pages
             EditListCommand = new Command(OnEnterListEditionMode);
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
+            DisappearingCommand = new Command<EventArgs>(OnDisappearing);
             #endregion
-        }
-
-        ~ListEditionPageViewModel()
-        {
-            MessagingCenter.Unsubscribe<HomePageViewModel, IRandomizerList>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
         #endregion
@@ -177,18 +174,10 @@ namespace Randomizer.Framework.ViewModels.Pages
             IsEditMode = true;
         }
 
-        private void OnDeleteList()
+        private async void OnDeleteList()
         {
-            try
-            {
-                throw new NotImplementedException("TODO");
-                MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM.Model);
-                // TODO navigate to top NavigationService.
-            }
-            catch (Exception)
-            {
-                AlertsService.ShowFeatureNotImplementedAlert();
-            }
+            MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM.Model);
+            await NavigationService.GoToAsync("///home");
         }
 
         private void OnRandomize()
@@ -201,6 +190,12 @@ namespace Randomizer.Framework.ViewModels.Pages
             {
                 AlertsService.ShowFeatureNotImplementedAlert();
             }
+        }
+
+        private void OnDisappearing(EventArgs args)
+        {
+            MessagingCenter.Unsubscribe<HomePageViewModel, IRandomizerList>
+                (this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
         #endregion

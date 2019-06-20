@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Randomizer.Framework.Utils.Behaviors
 {
-    public class EventToCommandBehavior : BindableBehavior<View>
+    public class EventToCommandBehavior : BindableBehavior<VisualElement>
     {
         public static BindableProperty EventNameProperty =
             BindableProperty.CreateAttached("EventName", typeof(string), typeof(EventToCommandBehavior), null,
@@ -66,7 +66,7 @@ namespace Randomizer.Framework.Utils.Behaviors
             set { SetValue(EventArgsConverterParameterProperty, value); }
         }
 
-        protected override void OnAttachedTo(View visualElement)
+        protected override void OnAttachedTo(VisualElement visualElement)
         {
             base.OnAttachedTo(visualElement);
 
@@ -81,7 +81,7 @@ namespace Randomizer.Framework.Utils.Behaviors
             }
         }
 
-        protected override void OnDetachingFrom(View view)
+        protected override void OnDetachingFrom(VisualElement view)
         {
             if (_handler != null)
                 _eventInfo.RemoveEventHandler(AssociatedObject, _handler);

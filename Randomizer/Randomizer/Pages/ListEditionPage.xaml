@@ -7,6 +7,7 @@
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
     xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    xmlns:behaviors="clr-namespace:Randomizer.Framework.Utils.Behaviors;assembly=Randomizer.Framework.Utils"
     x:Name="this"
     Title="{Binding ToolbarTitle}">
 
@@ -15,6 +16,13 @@
         <VM:ListEditionPageViewModel />
     </ContentPage.BindingContext>
 
+    <!--  Behaviors  -->
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior 
+            EventName="Disappearing"
+            Command="{Binding DisappearingCommand}"/>
+    </ContentPage.Behaviors>
+    
     <!--  Resources  -->
     <ContentPage.Resources>
         <ResourceDictionary>
