@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Utils;
 using Randomizer.Framework.ViewModels.Business;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// </summary>
     [QueryProperty(nameof(IsEditModeParam), "editmode")]
     [QueryProperty(nameof(IsNewParam), "new")]
-    public class ListEditionPageViewModel : BasePageViewModel, IDisposable
+    public class ListEditionPageViewModel : BasePageViewModel
     {
         #region Fields
         private RandomizerListVM _ListVM;
@@ -128,8 +129,8 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Constructor(s)
         public ListEditionPageViewModel()
         {
-            MessagingCenter.Subscribe<HomePageViewModel, IRandomizerList>(this,
-                HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
+            MessagingCenterExtensions.UnitarySubscribe<HomePageViewModel, IRandomizerList, ListEditionPageViewModel>
+                (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
             {
                 ListVM = new RandomizerListVM(selectedList);
             });
@@ -142,6 +143,11 @@ namespace Randomizer.Framework.ViewModels.Pages
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
             #endregion
+        }
+
+        ~ListEditionPageViewModel()
+        {
+            MessagingCenter.Unsubscribe<HomePageViewModel, IRandomizerList>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
         #endregion
@@ -196,12 +202,6 @@ namespace Randomizer.Framework.ViewModels.Pages
                 AlertsService.ShowFeatureNotImplementedAlert();
             }
         }
-
-        // TODO figure out : is this required ? Does subscription to selectedList happen multiple times ? 
-        // public void Dispose()
-        // {
-        //     MessagingCenter.Unsubscribe<HomePageViewModel, IRandomizerList>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
-        // }
 
         #endregion
 

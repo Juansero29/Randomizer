@@ -1,6 +1,7 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Services.Navigation;
+using Randomizer.Framework.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             InitListWithStubData();
 
-            MessagingCenter.Subscribe<ListEditionPageViewModel, IRandomizerList>(this,
+            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, IRandomizerList, HomePageViewModel>(this,
             ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
             {
                 // TODO update titles when saving list (however the id doesnt necessarily change)
@@ -63,6 +64,12 @@ namespace Randomizer.Framework.ViewModels.Pages
                     _Lists.Add(newList);
                 }
             });
+
+           MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, IRandomizerList, HomePageViewModel>(this,
+           ListEditionPageViewModel.MessagingCenterConstants.ListDeleted, (sender, deletedList) =>
+           {
+
+           });
 
             #region Commands Init
             NewRandomizerListCommand = new Command(OnNewRandomizerList);

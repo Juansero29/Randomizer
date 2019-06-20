@@ -13,6 +13,7 @@
     <ProjectReference Include="..\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Services\Randomizer.Framework.Services.csproj" />
+    <ProjectReference Include="..\Randomizer.Framework.Utils\Randomizer.Framework.Utils.csproj" />
   </ItemGroup>
 
 </Project>
