@@ -35,6 +35,8 @@ You do not have to comply with the license for elements of the material in the p
 No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
 
 For more information, refer to the [official document](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) for this licence.
+
+
 <img src="https://creativecommons.org/images/deed/cc-logo.jpg" width="50" height="50"/> 
 <img src="https://mirrors.creativecommons.org/presskit/icons/by.png" width="50" height="50"/> 
 <img src="https://mirrors.creativecommons.org/presskit/icons/nc-eu.png" width="50" height="50"/> 
