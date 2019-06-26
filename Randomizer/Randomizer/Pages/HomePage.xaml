@@ -54,7 +54,7 @@
                     <BoxView HeightRequest="2" Color="White" />
                 </StackLayout>
 
-                <ListView x:Name="collectionView"
+                <ListView
                     Grid.Row="1"
                     Margin="16"
                     ItemTemplate="{StaticResource listItemCardDTS}"
