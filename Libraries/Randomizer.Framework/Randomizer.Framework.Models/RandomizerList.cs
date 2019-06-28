@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Randomizer.Framework.Models
 {
-    public class RandomizerList : IRandomizerList
+    public class RandomizerList : IRandomizerList, IEquatable<RandomizerList>
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -24,8 +24,21 @@ namespace Randomizer.Framework.Models
 
         public bool RemoveItem(IRandomizerItem item)
         {
-            return  _Items.Remove(item);
+            return _Items.Remove(item);
         }
-        
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj == this) return true;
+            if (!(obj is RandomizerList other)) return false;
+            var isEqual = Id == other.Id;
+            return isEqual;
+        }
+
+        public bool Equals(RandomizerList other)
+        {
+            return this.Equals(other);
+        }
     }
 }

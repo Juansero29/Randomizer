@@ -7,19 +7,19 @@
     xmlns:DataTemplateSelectors="clr-namespace:Randomizer.Framework.Utils.DataTemplateSelectors;assembly=Randomizer.Framework.Utils"
     xmlns:Models="clr-namespace:Randomizer.Framework.Models;assembly=Randomizer.Framework.Models"
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
+    xmlns:behaviors="clr-namespace:Randomizer.Framework.Utils.Behaviors;assembly=Randomizer.Framework.Utils"
+    xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
-    xmlns:behaviors="clr-namespace:Randomizer.Framework.Utils.Behaviors;assembly=Randomizer.Framework.Utils"
-    BackgroundColor="Black"
     x:Name="this"
+    BackgroundColor="Black"
     mc:Ignorable="d">
 
     <!--  Resources  -->
     <ContentPage.Resources>
         <DataTemplateSelectors:ListItemCardDTS x:Key="listItemCardDTS" />
-        <converters:DebugConverter x:Key="debugConverter"/>
+        <converters:DebugConverter x:Key="debugConverter" />
         <converters:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
     </ContentPage.Resources>
 
@@ -57,17 +57,19 @@
                 <ListView
                     Grid.Row="1"
                     Margin="16"
+                    CachingStrategy="RecycleElement"
+                    HasUnevenRows="True"
                     ItemTemplate="{StaticResource listItemCardDTS}"
                     ItemsSource="{Binding Lists}"
                     SeparatorVisibility="None"
-                    CachingStrategy="RecycleElement"
-                    VerticalOptions="FillAndExpand"
-                    HasUnevenRows="True"> <!--HasUnevenRows=true : calculates the display size of the rows automatically-->
+                    VerticalOptions="FillAndExpand">
+                    <!--  HasUnevenRows=true : calculates the display size of the rows automatically  -->
 
                     <ListView.Behaviors>
-                        <behaviors:EventToCommandBehavior EventName="ItemTapped"                              
+                        <behaviors:EventToCommandBehavior
+                            Command="{Binding ListTappedCommand}"
                             EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"
-                            Command="{Binding ListTappedCommand}"/>
+                            EventName="ItemTapped" />
                     </ListView.Behaviors>
 
                     <!--  Design time data to have a preview in the Xamarin.Forms designer  -->
@@ -88,13 +90,12 @@
                                         LineBreakMode="TailTruncation"
                                         Style="{DynamicResource RandomizerListItemNameLabel}"
                                         Text="{Binding Name}"
-                                        VerticalOptions="Center">
-                                    </Label>
+                                        VerticalOptions="Center" />
                                 </Frame>
                             </StackLayout>
                         </DataTemplate>
                     </d:CollectionView.ItemTemplate>
-                    
+
                 </ListView>
 
             </Grid>

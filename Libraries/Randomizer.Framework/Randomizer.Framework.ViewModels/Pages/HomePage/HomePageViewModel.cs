@@ -48,19 +48,21 @@ namespace Randomizer.Framework.ViewModels.Pages
             MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, IRandomizerList, HomePageViewModel>(this,
             ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
             {
-                var oldItem = _Lists.FirstOrDefault(x => x.Id.Equals(newList.Id));
-
-                // The list is new
-                if (oldItem == null)
-                {
-                    _Lists.Add(newList);
-                }
+                if (Lists.Contains(newList)) return;
+                Lists.Add(newList);
+                
+                //var list = Lists.FirstOrDefault(x => x.Id.Equals(newList.Id));
+                //// The list is new
+                //if (list == null)
+                //{
+                //    Lists.Add(newList);
+                //}
             });
 
            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, IRandomizerList, HomePageViewModel>(this,
            ListEditionPageViewModel.MessagingCenterConstants.ListDeleted, (sender, deletedList) =>
            {
-               _Lists.Remove(deletedList);
+               Lists.Remove(deletedList);
            });
 
             #region Commands Init
