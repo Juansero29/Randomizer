@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Controls="clr-namespace:Randomizer.Framework.Controls;assembly=Randomizer.Framework.Controls"
-    xmlns:DataTemplateSelectors="clr-namespace:Randomizer.Framework.Utils.DataTemplateSelectors;assembly=Randomizer.Framework.Utils"
+    xmlns:DataTemplateSelectors="clr-namespace:Randomizer.DataTemplateSelectors"
     xmlns:Models="clr-namespace:Randomizer.Framework.Models;assembly=Randomizer.Framework.Models"
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
     xmlns:behaviors="clr-namespace:Randomizer.Framework.Utils.Behaviors;assembly=Randomizer.Framework.Utils"
@@ -30,8 +30,11 @@
 
     <!--  Content  -->
     <ContentPage.Content>
+
+        <!--  Main Layout  -->
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
+            <!--  List Container  -->
             <Grid
                 x:Name="grid"
                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
@@ -42,6 +45,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
+                <!--  Page 'title label  -->
                 <StackLayout
                     Grid.Row="0"
                     Margin="16"
@@ -54,6 +58,7 @@
                     <BoxView HeightRequest="2" Color="White" />
                 </StackLayout>
 
+                <!--  Lists' List  -->
                 <ListView
                     Grid.Row="1"
                     Margin="16"
@@ -63,8 +68,9 @@
                     ItemsSource="{Binding Lists}"
                     SeparatorVisibility="None"
                     VerticalOptions="FillAndExpand">
-                    <!--  HasUnevenRows=true : calculates the display size of the rows automatically  -->
+                    <!--  HasUnevenRows="True": Calculates the display size of the rows automatically  -->
 
+                    <!--  Behavior for when we tap on a list's item  -->
                     <ListView.Behaviors>
                         <behaviors:EventToCommandBehavior
                             Command="{Binding ListTappedCommand}"
@@ -73,7 +79,7 @@
                     </ListView.Behaviors>
 
                     <!--  Design time data to have a preview in the Xamarin.Forms designer  -->
-                    <d:CollectionView.ItemsSource>
+                    <d:ListView.ItemsSource>
                         <x:Array Type="{x:Type Models:TextRandomizerItem}">
                             <Models:TextRandomizerItem Name="Beers" />
                             <Models:TextRandomizerItem Name="Who plays next?" />
@@ -81,25 +87,28 @@
                             <Models:TextRandomizerItem Name="Who opens the door?" />
                             <Models:TextRandomizerItem Name="I run out of ideas" />
                         </x:Array>
-                    </d:CollectionView.ItemsSource>
-                    <d:CollectionView.ItemTemplate>
+                    </d:ListView.ItemsSource>
+                    <d:ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout>
-                                <Frame Style="{DynamicResource RandomizerListItemCardEven}">
-                                    <Label
-                                        LineBreakMode="TailTruncation"
-                                        Style="{DynamicResource RandomizerListItemNameLabel}"
-                                        Text="{Binding Name}"
-                                        VerticalOptions="Center" />
-                                </Frame>
-                            </StackLayout>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Frame Style="{DynamicResource RandomizerListItemCardEven}">
+                                        <Label
+                                            LineBreakMode="TailTruncation"
+                                            Style="{DynamicResource RandomizerListItemNameLabel}"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Center" />
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell>
                         </DataTemplate>
-                    </d:CollectionView.ItemTemplate>
+                    </d:ListView.ItemTemplate>
 
                 </ListView>
 
             </Grid>
 
+            <!--  Floating Action Button  -->
             <Controls:FAB
                 Margin="16"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"

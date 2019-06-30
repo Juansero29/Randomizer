@@ -1,11 +1,14 @@
-﻿using Randomizer.Framework.Models.Contract;
+﻿using Randomizer.Framework.Models;
+using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Utils;
+using Randomizer.Framework.ViewModels.Business;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Randomizer.Framework.Utils.DataTemplateSelectors
+namespace Randomizer.DataTemplateSelectors
 {
 
     /// <summary>
@@ -16,16 +19,16 @@ namespace Randomizer.Framework.Utils.DataTemplateSelectors
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
 
-            var list = CastOrThrow<IRandomizerList>(item);
-            Collection<IRandomizerList> lists;
+            var list = CastOrThrow<RandomizerListVM>(item);
+            Collection<RandomizerListVM> lists;
 
             if (container is CollectionView cv)
             {
-                lists = CastOrThrow<Collection<IRandomizerList>>(cv.ItemsSource);
+                lists = CastOrThrow<Collection<RandomizerListVM>>(cv.ItemsSource);
             }
             else if (container is ListView lv)
             {
-                lists = CastOrThrow<Collection<IRandomizerList>>(lv.ItemsSource);
+                lists = CastOrThrow<Collection<RandomizerListVM>>(lv.ItemsSource);
             }
             else
             {

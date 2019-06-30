@@ -51,6 +51,10 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// The view model for the list we're editing
+        /// </summary>
         public RandomizerListVM ListVM
         {
             get => _ListVM;
@@ -130,10 +134,10 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Constructor(s)
         public ListEditionPageViewModel()
         {
-            MessagingCenter.Subscribe<HomePageViewModel, IRandomizerList>
+            MessagingCenter.Subscribe<HomePageViewModel, RandomizerListVM>
                 (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
             {
-                ListVM = new RandomizerListVM(selectedList);
+                ListVM = selectedList;
             });
 
             #region InitCommands
@@ -154,19 +158,19 @@ namespace Randomizer.Framework.ViewModels.Pages
         private void OnAddItem(string itemName)
         {
             ItemEntryText = "";
-            _ListVM.AddItem(new TextRandomizerItem { Name = itemName });
+            ListVM.AddItem(new TextRandomizerItem { Name = itemName });
         }
 
         private void OnRemoveListItem(IRandomizerItem item)
         {
-            _ListVM.RemoveItem(item);
+            ListVM.RemoveItem(item);
         }
 
         private void OnSaveList()
         {
             ToolbarTitle = _ListVM.Name;
             IsEditMode = false;
-            MessagingCenter.Send(this, MessagingCenterConstants.ListSaved, _ListVM.Model);
+            MessagingCenter.Send(this, MessagingCenterConstants.ListSaved, _ListVM);
         }
 
         private void OnEnterListEditionMode()
@@ -176,7 +180,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         private async void OnDeleteList()
         {
-            MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM.Model);
+            MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM);
             await NavigationService.GoToAsync("///home");
         }
 
@@ -194,7 +198,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         private void OnDisappearing(EventArgs args)
         {
-            MessagingCenter.Unsubscribe<HomePageViewModel, IRandomizerList>
+            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>
                 (this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
