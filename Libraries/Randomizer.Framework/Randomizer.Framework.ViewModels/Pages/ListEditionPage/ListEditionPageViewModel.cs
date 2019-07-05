@@ -1,5 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Utils;
 using Randomizer.Framework.ViewModels.Business;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,11 @@ namespace Randomizer.Framework.ViewModels.Pages
     public class ListEditionPageViewModel : BasePageViewModel
     {
         #region Fields
-        private RandomizerListVM _List;
+        private RandomizerListVM _ListVM;
         private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
         private string _ItemEntryText;
         private bool _IsEditMode;
+        private bool _IsNew;
         #endregion
 
         #region Query Parameters
@@ -28,7 +30,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// </summary>
         public string IsNewParam
         {
-            get => IsNew.ToString();
             set
             {
                 bool.TryParse(value, out bool res);
@@ -41,7 +42,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// </summary>
         public string IsEditModeParam
         {
-            get => IsEditMode.ToString();
             set
             {
                 bool.TryParse(value, out bool res);
@@ -51,10 +51,21 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Properties
-        public RandomizerListVM List
+
+        /// <summary>
+        /// The view model for the list we're editing
+        /// </summary>
+        public RandomizerListVM ListVM
         {
-            get => _List;
-            set => SetValue(ref _List, value);
+            get => _ListVM;
+            set
+            {
+                SetValue(ref _ListVM, value);
+                if (!IsNew) // If list isn't new, display the list title in the toolbar
+                {
+                    ToolbarTitle = value.Name;
+                }
+            }
         }
 
         /// <summary>
@@ -83,9 +94,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             get => _IsEditMode;
             set => SetValue(ref _IsEditMode, value, onChanged: () =>
             {
-                if (value == false)
-                    IsNew = false;
-                OnPropertyChanged(nameof(IsNew));
+                if (!value) IsNew = value; // If we leave edit mode, IsNew = false
                 OnPropertyChanged(nameof(ShowDeleteListToolbarItem));
             });
         }
@@ -95,8 +104,14 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// </summary>
         public bool IsNew
         {
-            get;
-            set;
+            get => _IsNew;
+            set
+            {
+                SetValue(ref _IsNew, value, onChanged: () =>
+                {
+                    if (value) ListVM = new RandomizerListVM();
+                });
+            }
         }
 
         /// <summary>
@@ -113,12 +128,17 @@ namespace Randomizer.Framework.ViewModels.Pages
         public ICommand EditListCommand { get; }
         public ICommand DeleteListCommand { get; }
         public ICommand RandomizeCommand { get; }
+        public ICommand DisappearingCommand { get; }
         #endregion
 
         #region Constructor(s)
         public ListEditionPageViewModel()
         {
-            _List = new RandomizerListVM();
+            MessagingCenter.Subscribe<HomePageViewModel, RandomizerListVM>
+                (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
+            {
+                ListVM = selectedList;
+            });
 
             #region InitCommands
             AddItemCommand = new Command<string>(OnAddItem);
@@ -127,8 +147,8 @@ namespace Randomizer.Framework.ViewModels.Pages
             EditListCommand = new Command(OnEnterListEditionMode);
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
+            DisappearingCommand = new Command<EventArgs>(OnDisappearing);
             #endregion
-
         }
 
         #endregion
@@ -138,18 +158,19 @@ namespace Randomizer.Framework.ViewModels.Pages
         private void OnAddItem(string itemName)
         {
             ItemEntryText = "";
-            _List.AddItem(new TextRandomizerItem { Name = itemName });
+            ListVM.AddItem(new TextRandomizerItem { Name = itemName });
         }
 
         private void OnRemoveListItem(IRandomizerItem item)
         {
-            _List.RemoveItem(item);
+            ListVM.RemoveItem(item);
         }
 
         private void OnSaveList()
         {
-            ToolbarTitle = _List.Name;
+            ToolbarTitle = _ListVM.Name;
             IsEditMode = false;
+            MessagingCenter.Send(this, MessagingCenterConstants.ListSaved, _ListVM);
         }
 
         private void OnEnterListEditionMode()
@@ -157,16 +178,10 @@ namespace Randomizer.Framework.ViewModels.Pages
             IsEditMode = true;
         }
 
-        private void OnDeleteList()
+        private async void OnDeleteList()
         {
-            try
-            {
-                throw new NotImplementedException("TODO");
-            }
-            catch (Exception)
-            {
-                AlertsService.ShowFeatureNotImplementedAlert();
-            }
+            MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM);
+            await NavigationService.PopAsync();
         }
 
         private void OnRandomize()
@@ -181,7 +196,19 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
         }
 
-        
+        private void OnDisappearing(EventArgs args)
+        {
+            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>
+                (this, HomePageViewModel.MessagingCenterConstants.SelectedList);
+        }
+
         #endregion
+
+        public static class MessagingCenterConstants
+        {
+            public const string ListSaved = "ListSaved";
+            public const string ListDeleted = "ListDeleted";
+        }
+
     }
 }

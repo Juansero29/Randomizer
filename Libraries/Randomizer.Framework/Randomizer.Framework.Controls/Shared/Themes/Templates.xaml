@@ -1,24 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Randomizer.Framework.Controls.Templates">
+<ResourceDictionary
+    x:Class="Randomizer.Framework.Controls.Templates"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
 
-    <!--List Item Cards Templates-->
-    <DataTemplate x:Key="RandomizerListItemCardEvenTemplate">
+
+    <!--  List Item Cards Templates TODO control  -->
+    <DataTemplate x:Key="RandomizerListItemCardEven_CollectionViewTemplate">
         <StackLayout>
             <Frame Style="{DynamicResource RandomizerListItemCardEven}">
-                <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
+                <Label
+                    LineBreakMode="TailTruncation"
+                    Style="{DynamicResource RandomizerListItemNameLabel}"
+                    Text="{Binding Name}"
+                    VerticalOptions="Center" />
             </Frame>
         </StackLayout>
     </DataTemplate>
 
-    <DataTemplate x:Key="RandomizerListItemCardOddTemplate">
+    <DataTemplate x:Key="RandomizerListItemCardOdd_CollectionViewTemplate">
         <StackLayout>
             <Frame Style="{DynamicResource RandomizerListItemCardOdd}">
-                <Label VerticalOptions="Center" Text="{Binding Name}" Style="{DynamicResource RandomizerListItemNameLabel}" LineBreakMode="TailTruncation"/>
+                <Label
+                    LineBreakMode="TailTruncation"
+                    Style="{DynamicResource RandomizerListItemNameLabel}"
+                    Text="{Binding Name}"
+                    VerticalOptions="Center" />
             </Frame>
         </StackLayout>
     </DataTemplate>
+
+    <DataTemplate x:Key="RandomizerListItemCardEven_ListViewTemplate">
+        <ViewCell>
+            <StackLayout>
+                <Frame Style="{DynamicResource RandomizerListItemCardEven}">
+                    <Label
+                        LineBreakMode="TailTruncation"
+                        Style="{DynamicResource RandomizerListItemNameLabel}"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" />
+                </Frame>
+            </StackLayout>
+        </ViewCell>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RandomizerListItemCardOdd_ListViewTemplate">
+        <ViewCell>
+            <StackLayout>
+                <Frame Style="{DynamicResource RandomizerListItemCardOdd}">
+                    <Label
+                        LineBreakMode="TailTruncation"
+                        Style="{DynamicResource RandomizerListItemNameLabel}"
+                        Text="{Binding Name}"
+                        VerticalOptions="Center" />
+                </Frame>
+            </StackLayout>
+        </ViewCell>
+    </DataTemplate>
+
 
 </ResourceDictionary>

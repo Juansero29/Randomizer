@@ -94,8 +94,8 @@ namespace Randomizer.Framework.ViewModels
                 if (EqualityComparer<T>.Default.Equals(newValue, oldValue))
                     return false;
                 model.GetType().GetProperty(propertyName).SetValue(model, newValue);
-                onChanged?.Invoke();
                 OnPropertyChanged(propertyName);
+                onChanged?.Invoke();
                 res = true;
             }
             catch (Exception e)

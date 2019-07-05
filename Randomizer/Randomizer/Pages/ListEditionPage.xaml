@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Controls="clr-namespace:Randomizer.Framework.Controls;assembly=Randomizer.Framework.Controls"
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
+    xmlns:behaviors="clr-namespace:Randomizer.Framework.Utils.Behaviors;assembly=Randomizer.Framework.Utils"
     xmlns:converters="clr-namespace:Randomizer.Framework.Utils.Converters;assembly=Randomizer.Framework.Utils"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     x:Name="this"
@@ -14,6 +15,11 @@
     <ContentPage.BindingContext>
         <VM:ListEditionPageViewModel />
     </ContentPage.BindingContext>
+
+    <!--  Behaviors  -->
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
 
     <!--  Resources  -->
     <ContentPage.Resources>
@@ -68,12 +74,12 @@
                 IsVisible="{Binding IsEditMode}"
                 Placeholder="{i18:Translate ResourceKey=EnterListNamePlaceholder}"
                 PlaceholderColor="WhiteSmoke"
-                Text="{Binding List.Name}"
+                Text="{Binding ListVM.Name, Mode=TwoWay}"
                 TextColor="White" />
 
             <CollectionView
                 HorizontalOptions="StartAndExpand"
-                ItemsSource="{Binding List.Items}"
+                ItemsSource="{Binding ListVM.Items}"
                 VerticalOptions="Start">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -110,7 +116,7 @@
                 ReturnCommand="{Binding AddItemCommand}"
                 ReturnCommandParameter="{Binding Source={x:Reference ItemEntry}, Path=Text}"
                 ReturnType="Next"
-                Text="{Binding ItemEntryText}"
+                Text="{Binding ItemEntryText, Mode=TwoWay}"
                 TextColor="White">
                 <Entry.Keyboard>
                     <Keyboard x:FactoryMethod="Create">

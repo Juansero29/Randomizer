@@ -1,12 +1,13 @@
 ﻿using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Randomizer.Framework.Models
 {
-    public class RandomizerList : IRandomizerList
+    public class RandomizerList : IRandomizerList, IEquatable<RandomizerList>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public string Name { get; set; }
 
@@ -24,8 +25,31 @@ namespace Randomizer.Framework.Models
 
         public bool RemoveItem(IRandomizerItem item)
         {
-            return  _Items.Remove(item);
+            return _Items.Remove(item);
         }
-        
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj == this) return true;
+            if (!(obj is RandomizerList other)) return false;
+            var isEqual = Id == other.Id;
+            return isEqual;
+        }
+
+        public bool Equals(RandomizerList other)
+        {
+            return this.Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1820475233;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<IRandomizerItem>>.Default.GetHashCode(_Items);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<IRandomizerItem>>.Default.GetHashCode(Items);
+            return hashCode;
+        }
     }
 }
