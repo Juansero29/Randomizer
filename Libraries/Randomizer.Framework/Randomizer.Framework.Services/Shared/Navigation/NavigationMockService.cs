@@ -14,5 +14,10 @@ namespace Randomizer.Framework.Services.Navigation
         {
             return Task.CompletedTask;
         }
+
+        public Task PopAsync()
+        {
+            return Task.CompletedTask;
+        }
     }
 }

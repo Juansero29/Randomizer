@@ -53,6 +53,11 @@ namespace Randomizer.Framework.Services.Navigation
             await Shell.GoToAsync(uri);
         }
 
+        public async Task PopAsync()
+        {
+            await Shell.Navigation.PopAsync();
+        }
+
         #endregion
     }
 }
