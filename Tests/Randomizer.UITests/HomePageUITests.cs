@@ -14,7 +14,7 @@ namespace UITests
     public class HomePageUITests
     {
         IApp app;
-        Platform platform;
+        readonly Platform platform;
 
         public HomePageUITests(Platform platform)
         {

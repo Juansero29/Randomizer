@@ -12,7 +12,6 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// <summary>
     /// The model of a page that presents a <see cref="RandomizerListVM"/> in edition
     /// </summary>
-    [QueryProperty(nameof(IsEditModeParam), "editmode")]
     [QueryProperty(nameof(IsNewParam), "new")]
     public class ListEditionPageViewModel : BasePageViewModel
     {
@@ -20,7 +19,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         private RandomizerListVM _ListVM;
         private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
         private string _ItemEntryText;
-        private bool _IsEditMode;
         private bool _IsNew;
         #endregion
 
@@ -37,17 +35,6 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
         }
 
-        /// <summary>
-        /// A parameter indicating if this view model is in edit mode
-        /// </summary>
-        public string IsEditModeParam
-        {
-            set
-            {
-                bool.TryParse(value, out bool res);
-                IsEditMode = res;
-            }
-        }
         #endregion
 
         #region Properties
@@ -87,19 +74,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         }
 
         /// <summary>
-        /// Is this page in edit mode?
-        /// </summary>
-        public bool IsEditMode
-        {
-            get => _IsEditMode;
-            set => SetValue(ref _IsEditMode, value, onChanged: () =>
-            {
-                if (!value) IsNew = value; // If we leave edit mode, IsNew = false
-                OnPropertyChanged(nameof(ShowDeleteListToolbarItem));
-            });
-        }
-
-        /// <summary>
         /// Is this a new list?
         /// </summary>
         public bool IsNew
@@ -117,7 +91,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         /// <summary>
         /// Should we show the delete icon on the page?
         /// </summary>
-        public bool ShowDeleteListToolbarItem => !IsNew && IsEditMode;
+        public bool ShowDeleteListToolbarItem => !IsNew;
 
         #endregion
 
@@ -144,7 +118,6 @@ namespace Randomizer.Framework.ViewModels.Pages
             AddItemCommand = new Command<string>(OnAddItem);
             RemoveListItemCommand = new Command<IRandomizerItem>(OnRemoveListItem);
             SaveListCommand = new Command(OnSaveList);
-            EditListCommand = new Command(OnEnterListEditionMode);
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
             DisappearingCommand = new Command<EventArgs>(OnDisappearing);
@@ -169,13 +142,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         private void OnSaveList()
         {
             ToolbarTitle = _ListVM.Name;
-            IsEditMode = false;
             MessagingCenter.Send(this, MessagingCenterConstants.ListSaved, _ListVM);
-        }
-
-        private void OnEnterListEditionMode()
-        {
-            IsEditMode = true;
         }
 
         private async void OnDeleteList()

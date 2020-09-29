@@ -278,7 +278,7 @@ namespace Randomizer.Framework.Controls
             me?.ClickedChanged(oldClicked, newClicked);
         });
 
-        private void ClickedChanged(ICommand oldClicked, ICommand newClicked)
+        private void ClickedChanged(ICommand _, ICommand _1)
         {
 
         }
