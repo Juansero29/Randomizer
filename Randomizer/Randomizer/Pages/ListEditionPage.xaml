@@ -33,21 +33,11 @@
     <ContentPage.ToolbarItems>
 
         <Controls:ToolbarItem
-            Name="EditListMenuItem"
-            Command="{Binding EditListCommand}"
-            IconImageSource="edit_white.png"
-            IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}"
-            Order="Primary"
-            Priority="0"
-            Text="Edit"
-            ToolbarParent="{x:Reference this}" />
-
-        <Controls:ToolbarItem
             Name="DeleteListMenuItem"
             Command="{Binding DeleteListCommand}"
             IconImageSource="closed_circle_white.png"
             IsVisible="{Binding ShowDeleteListToolbarItem}"
-            Order="Primary"
+            Order="Secondary"
             Priority="1"
             Text="Delete"
             ToolbarParent="{x:Reference this}" />
@@ -56,7 +46,6 @@
             Name="SaveListMenuItem"
             Command="{Binding SaveListCommand}"
             IconImageSource="check_white.png"
-            IsVisible="{Binding IsEditMode}"
             Order="Primary"
             Priority="2"
             Text="Save"
@@ -71,7 +60,6 @@
             <Entry
                 FontSize="20"
                 HorizontalOptions="StartAndExpand"
-                IsVisible="{Binding IsEditMode}"
                 Placeholder="{i18:Translate ResourceKey=EnterListNamePlaceholder}"
                 PlaceholderColor="WhiteSmoke"
                 Text="{Binding ListVM.Name, Mode=TwoWay}"
@@ -93,7 +81,6 @@
                                 VerticalTextAlignment="Center" />
                             <Image
                                 Margin="8,0,0,0"
-                                IsVisible="{Binding BindingContext.IsEditMode, Source={x:Reference this}}"
                                 MinimumHeightRequest="32"
                                 Source="closed_circle_white.png"
                                 VerticalOptions="Center"
@@ -110,7 +97,6 @@
             <Entry
                 x:Name="ItemEntry"
                 HorizontalOptions="StartAndExpand"
-                IsVisible="{Binding IsEditMode}"
                 Placeholder="{i18:Translate ResourceKey=EnterAnItemPlaceholder}"
                 PlaceholderColor="WhiteSmoke"
                 ReturnCommand="{Binding AddItemCommand}"
@@ -133,7 +119,6 @@
                 BorderWidth="1"
                 Command="{Binding RandomizeCommand}"
                 HorizontalOptions="StartAndExpand"
-                IsVisible="{Binding IsEditMode, Converter={StaticResource reverseBoolConverter}}"
                 Text="{i18:Translate ResourceKey=RandomizeLabel}"
                 TextColor="White" />
 
