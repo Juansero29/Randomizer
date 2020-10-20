@@ -1,23 +1,23 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Utils;
 using Randomizer.Framework.ViewModels.Business;
 using System;
-using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
+using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using EnigmatiKreations.Framework.Services.Resources;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
     /// <summary>
-    /// The model of a page that presents a <see cref="RandomizerListVM"/> in edition
+    /// The view model of a page that presents a <see cref="RandomizerListVM"/> in edition
     /// </summary>
     [QueryProperty(nameof(IsNewParam), "new")]
     public class ListEditionPageViewModel : BasePageViewModel
     {
         #region Fields
         private RandomizerListVM _ListVM;
-        private string _ToolbarTitle = Services.Resources.TextResources.NewListPageTitle;
+        private string _ToolbarTitle = TextResources.NewListPageTitle;
         private string _ItemEntryText;
         private bool _IsNew;
         #endregion
@@ -99,7 +99,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         public ICommand AddItemCommand { get; }
         public ICommand RemoveListItemCommand { get; }
         public ICommand SaveListCommand { get; }
-        public ICommand EditListCommand { get; }
+
         public ICommand DeleteListCommand { get; }
         public ICommand RandomizeCommand { get; }
         public ICommand DisappearingCommand { get; }
@@ -167,6 +167,16 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>
                 (this, HomePageViewModel.MessagingCenterConstants.SelectedList);
+        }
+
+        #endregion
+
+        #region Methods
+
+        public override void Destroy()
+        {
+            base.Destroy();
+            ListVM = null;
         }
 
         #endregion

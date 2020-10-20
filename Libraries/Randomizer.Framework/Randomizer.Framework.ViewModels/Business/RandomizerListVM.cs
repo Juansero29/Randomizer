@@ -1,8 +1,10 @@
-﻿using Randomizer.Framework.Models;
+﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms.Internals;
 
 namespace Randomizer.Framework.ViewModels.Business
 {
@@ -54,6 +56,12 @@ namespace Randomizer.Framework.ViewModels.Business
             Model.RemoveItem(item);
             OnPropertyChanged(nameof(Items));
         }
+
+        public void RemoveAllItems()
+        {
+            Model.Items.ForEach(i => Model.RemoveItem(i));
+        }
+
 
         #endregion
     }

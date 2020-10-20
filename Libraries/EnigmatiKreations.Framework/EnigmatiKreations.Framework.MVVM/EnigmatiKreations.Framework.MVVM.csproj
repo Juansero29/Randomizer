@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="log4net" Version="2.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EnigmatiKreations.Framework.Services\EnigmatiKreations.Framework.Services.csproj" />
+    <ProjectReference Include="..\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

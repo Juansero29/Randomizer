@@ -4,6 +4,6 @@ namespace Randomizer.Framework.Models.Contract
 {
     public interface IIdentifiable
     {
-        Guid Id { get; set; }
+        Guid Id { get; }
     }
 }

@@ -7,7 +7,7 @@ namespace Randomizer.Framework.Models
 {
     public class RandomizerList : IRandomizerList, IEquatable<RandomizerList>
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; } = Guid.NewGuid();
 
         public string Name { get; set; }
 

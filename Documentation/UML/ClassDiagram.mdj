@@ -63,7 +63,7 @@
 											"top": 686,
 											"width": 303,
 											"height": 13,
-											"text": "Randomizer.Framework.ApiManager"
+											"text": "EnigmatiKreations.Framework.ApiManager"
 										},
 										{
 											"_type": "LabelView",
@@ -2993,7 +2993,7 @@
 											"top": 344,
 											"width": 249.96435546875,
 											"height": 13,
-											"text": "(from Randomizer.Framework.ApiManager)"
+											"text": "(from EnigmatiKreations.Framework.ApiManager)"
 										},
 										{
 											"_type": "LabelView",
@@ -4126,7 +4126,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Randomizer.Framework.ApiManager",
+					"name": "EnigmatiKreations.Framework.ApiManager",
 					"ownedElements": [
 						{
 							"_type": "UMLClass",

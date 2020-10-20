@@ -55,18 +55,8 @@ namespace Randomizer.Tests.Model
         private void NamePropertyTest(string listName)
         {
             _RandomizerList.Name = listName;
-
             Assert.NotNull(_RandomizerList.Name);
             Assert.Equal(_RandomizerList.Name, listName);
-        }
-
-        [Fact]
-        private void IdPropertyTest()
-        {
-            var guid = new Guid();
-            _RandomizerList.Id = guid;
-
-            Assert.Equal(_RandomizerList.Id, guid);
         }
 
 

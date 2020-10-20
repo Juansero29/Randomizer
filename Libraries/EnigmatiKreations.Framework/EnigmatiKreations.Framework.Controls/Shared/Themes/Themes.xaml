@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="EnigmatiKreations.Framework.Controls.Themes">
+
+
+    <Style TargetType="Entry" x:Key="RandomizerTitleEntry">
+        <Setter Property="FontSize" Value="42"/>
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="Margin" Value="16"/>
+    </Style>
+    
+    <Style TargetType="Label" x:Key="RandomizerTitleLabel">
+        <Setter Property="FontSize" Value="42" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Margin" Value="16"/>
+    </Style>
+
+    <Style TargetType="Label" x:Key="RandomizerListItemNameLabel">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
+
+
+    <Style TargetType="Frame" x:Key="RandomizerListItem">
+        <Setter Property="Margin" Value="16,8,16,8"/>
+        <Setter Property="HeightRequest" Value="60"/>
+    </Style>
+
+    <Style TargetType="Frame" x:Key="RandomizerListItemCardEven" BasedOn="{StaticResource RandomizerListItem}">
+        <Setter Property="BackgroundColor" Value="#212121"/>
+    </Style>
+
+    <Style TargetType="Frame" x:Key="RandomizerListItemCardOdd" BasedOn="{StaticResource RandomizerListItem}">
+        <Setter Property="BackgroundColor" Value="#484848"/>
+    </Style>
+
+
+</ResourceDictionary>

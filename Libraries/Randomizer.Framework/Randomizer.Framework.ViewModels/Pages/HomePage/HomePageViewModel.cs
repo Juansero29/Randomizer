@@ -1,13 +1,14 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Services.Navigation;
-using Randomizer.Framework.Utils;
+using EnigmatiKreations.Framework.Services.Navigation;
+using EnigmatiKreations.Framework.Utils;
 using Randomizer.Framework.ViewModels.Business;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
+using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -42,10 +43,8 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Constructor(s)
 
 
-        public HomePageViewModel() : base()
+        public HomePageViewModel()
         {
-            InitListWithStubData();
-
             MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
             ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
             {
@@ -65,19 +64,12 @@ namespace Randomizer.Framework.ViewModels.Pages
             #endregion
         }
 
-        private void InitListWithStubData()
-        {
-            Lists.Add(new RandomizerListVM() { Name = "List #1" });
-            Lists.Add(new RandomizerListVM() { Name = "List #2" });
-            Lists.Add(new RandomizerListVM() { Name = "List #3" });
-            Lists.Add(new RandomizerListVM() { Name = "List #4" });
-            Lists.Add(new RandomizerListVM() { Name = "List #5" });
-            Lists.Add(new RandomizerListVM() { Name = "List #6" });
-        }
+
 
         #endregion
 
         #region Methods
+
         async private void OnNewRandomizerList()
         {
             await NavigationService.GoToAsync("/listedition?new=true&editmode=true");
@@ -88,11 +80,20 @@ namespace Randomizer.Framework.ViewModels.Pages
             await NavigationService.GoToAsync("/listedition");
             MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
         }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+            Lists?.Clear();
+            Lists = null;
+        }
         #endregion
 
         public class MessagingCenterConstants
         {
             public const string SelectedList = "SelectedList";
         }
+
+
     }
 }

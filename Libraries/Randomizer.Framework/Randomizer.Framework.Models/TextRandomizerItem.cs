@@ -7,7 +7,7 @@ namespace Randomizer.Framework.Models
 {
     public class TextRandomizerItem : IRandomizerItem
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
 
         public string Name { get; set; }
     }

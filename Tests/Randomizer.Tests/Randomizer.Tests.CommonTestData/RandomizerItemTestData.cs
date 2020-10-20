@@ -12,8 +12,8 @@ namespace Randomizer.Tests.CommonTestData
         {
             yield return new object[] { new TextRandomizerItem() };
             yield return new object[] { new TextRandomizerItem() { Name = "Hi" } };
-            yield return new object[] { new TextRandomizerItem() { Id = new Guid() } };
-            yield return new object[] { new TextRandomizerItem() { Id = new Guid(), Name = "Hello" } };
+            yield return new object[] { new TextRandomizerItem() };
+            yield return new object[] { new TextRandomizerItem() { Name = "Hello" } };
         }
 
         IEnumerator IEnumerable.GetEnumerator()

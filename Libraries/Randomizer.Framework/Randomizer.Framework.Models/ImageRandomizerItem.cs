@@ -7,7 +7,7 @@ namespace Randomizer.Framework.Models
 {
     public class ImageRandomizerItem : IRandomizerItem
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
 
         // The URI of the image ?
         // TODO Issue #2

@@ -28,16 +28,6 @@ namespace Randomizer.Tests.Model
             Assert.Equal(item.Name, itemName);
         }
 
-        [Fact]
-        public void IdPropertyTest()
-        {
-            var item = new TextRandomizerItem();
-            var newId = Guid.Empty;
-
-            item.Id = newId;
-
-            Assert.Equal(item.Id, newId);
-        }
 
     }
 }

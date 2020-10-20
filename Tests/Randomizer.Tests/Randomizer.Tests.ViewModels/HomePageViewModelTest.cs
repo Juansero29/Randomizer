@@ -1,11 +1,12 @@
 ﻿using FluentAssertions;
 using Moq;
-using Randomizer.Framework.Services;
-using Randomizer.Framework.Services.Navigation;
-using Randomizer.Framework.ViewModels.BaseViewModels;
+using EnigmatiKreations.Framework.Services;
+using EnigmatiKreations.Framework.Services.Navigation;
+using Randomizer.Framework.ViewModels.Business;
 using Randomizer.Framework.ViewModels.Pages;
 using System;
 using Xunit;
+using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 
 namespace Randomizer.Tests.ViewModels
 {
@@ -13,7 +14,7 @@ namespace Randomizer.Tests.ViewModels
     {
 
         private HomePageViewModel _HomePageViewModel;
-        
+
         /// <summary>
         /// Constructs the tests. 
         /// </summary>
@@ -22,15 +23,20 @@ namespace Randomizer.Tests.ViewModels
         /// </remarks>
         public HomePageViewModelTest()
         {
-            ViewModelLocator.RegisterDependencies(true);
+            ViewModelLocator.RegisterDependencies(mockDependencies: true);
             _HomePageViewModel = new HomePageViewModel();
+        }
+
+        [Fact]
+        public void TitleNotNullTest()
+        {
+            _HomePageViewModel.Title.Should().NotBeNull();
         }
 
         [Fact]
         public void ConstructorTest()
         {
-            var homeViewModel = new HomePageViewModel();
-            homeViewModel.Should().NotBeNull();
+            _HomePageViewModel.Should().NotBeNull();
         }
 
         [Fact]
@@ -41,15 +47,44 @@ namespace Randomizer.Tests.ViewModels
         }
 
         [Fact]
-        public void ListsNotNullTest()
+        private void HomePageViewModelListsShouldStartEmpty()
         {
             _HomePageViewModel.Lists.Should().NotBeNull();
+            _HomePageViewModel.Lists.Should().BeEmpty();
         }
 
         [Fact]
-        public void TitleNotNullTest()
+        private void AddingListsToHomePage()
         {
-            _HomePageViewModel.Title.Should().NotBeNull();
+            
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #2" });
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #3" });
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #4" });
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #5" });
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #6" });
+        }
+
+
+        [Fact]
+        private void HomePageViewModelTestListsAreNotEmptyAfteradd()
+        {
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
+            _HomePageViewModel.Lists.Should().NotBeEmpty();
+            _HomePageViewModel.Lists[0].Should().NotBeNull();
+        }
+
+
+
+
+
+        [Fact]
+        public void SelectListTest()
+        {
+            _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
+            _HomePageViewModel.Lists.Should().NotBeEmpty();
+            _HomePageViewModel.ListTappedCommand.Execute(_HomePageViewModel.Lists[0]);
+
         }
 
     }
