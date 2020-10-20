@@ -13,6 +13,11 @@ namespace Randomizer.Framework.Persistence
             throw new NotImplementedException();
         }
 
+        public Task<bool> Add(IRandomizerList item)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IRandomizerList> Get(Guid id)
         {
             throw new NotImplementedException();
@@ -24,6 +29,11 @@ namespace Randomizer.Framework.Persistence
         }
 
         public Task<bool> Remove(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Save()
         {
             throw new NotImplementedException();
         }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EnigmatiKreations.Framework.Services.Navigation;
+using Randomizer.Framework.Services.Navigation;
 using Xamarin.Forms;
 
-namespace EnigmatiKreations.Framework.Services.Navigation
+namespace Randomizer.Framework.Services.Navigation
 {
     public class NavigationMockService : INavigationService
     {

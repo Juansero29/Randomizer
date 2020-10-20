@@ -16,11 +16,18 @@ namespace Randomizer.Framework.Persistence
         private IDataManager<IRandomizerList> _DataManager;
         #endregion
 
-        #region Constructor
-        public ListsManager()
+        public IRandomizerList CurrentList { get; set; }
+
+        #region Constructors
+
+        public ListsManager() : this(new EFRandomizerListsManager())
         {
-            // TODO : SET THE CORRECT IDATAMANAGER
-            _DataManager = new EFRandomizerListsManager();
+
+        }
+
+        public ListsManager(IDataManager<IRandomizerList> dataManager)
+        {
+            _DataManager = dataManager;
         }
         #endregion
 

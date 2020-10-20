@@ -27,7 +27,8 @@ namespace Randomizer.Droid
 
             AppCenter.Start("67db9ace-c4b4-4758-9ff0-0f763780a224", typeof(Analytics), typeof(Crashes));
 
-            EnigmatiKreations.Framework.Services.Platforms.Droid.Tools.Init();
+
+            Randomizer.Framework.Services.Platforms.Droid.Tools.Init();
             EnigmatiKreations.Framework.Controls.Platforms.Droid.Tools.Init();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

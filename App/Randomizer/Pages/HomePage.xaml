@@ -10,7 +10,7 @@
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:i18="clr-namespace:EnigmatiKreations.Framework.Services.Shared.Localization;assembly=EnigmatiKreations.Framework.Services"
+    xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="this"
     BackgroundColor="Black"

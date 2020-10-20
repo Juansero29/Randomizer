@@ -15,7 +15,7 @@
     <TargetFrameworks>MonoAndroid90;netstandard2.0;Xamarin.iOS10;net461</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
-    <RootNamespace>EnigmatiKreations.Framework.Services</RootNamespace>
+    <RootNamespace>Randomizer.Framework.Services</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
@@ -52,7 +52,7 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="bin\**\*.*;bin;obj\**\*.*;obj;" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -138,10 +138,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Shared\Alerts\IAlertsService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Shared\Navigation\ShellNavigationService.cs" />
   </ItemGroup>
 
@@ -151,6 +147,10 @@
 
   <ItemGroup>
     <None Remove="Shared\Alerts\AlertsMockService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
   </ItemGroup>
   
 </Project>

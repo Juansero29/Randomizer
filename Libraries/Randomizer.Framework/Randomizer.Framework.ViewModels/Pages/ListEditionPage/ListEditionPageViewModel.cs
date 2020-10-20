@@ -5,7 +5,7 @@ using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
-using EnigmatiKreations.Framework.Services.Resources;
+using Randomizer.Framework.Services.Resources;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {

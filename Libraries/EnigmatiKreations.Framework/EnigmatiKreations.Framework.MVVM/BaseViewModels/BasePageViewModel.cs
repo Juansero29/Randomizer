@@ -29,9 +29,9 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         public BasePageViewModel()
         {
             // Resolve the NavigationService instance
-            NavigationService = ViewModelLocator.Resolve<INavigationService>();
+            NavigationService = Container.Resolve<INavigationService>();
             // Resolve the AlertService instance
-            AlertsService = ViewModelLocator.Resolve<IAlertsService>();
+            AlertsService = Container.Resolve<IAlertsService>();
 
 
             LoadCommand = new SimpleCommand(PreLoad);

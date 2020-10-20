@@ -15,7 +15,7 @@ namespace Randomizer.Framework.Persistence
 
         private RandomizerContext _Manager = new RandomizerContext();
 
-        public Task<bool> Add(IIdentifiable item)
+        public Task<bool> Add(IRandomizerList item)
         {
             var r = _Manager.Add(item);
             return Task.FromResult(r.State == EntityState.Added);

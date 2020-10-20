@@ -1,6 +1,11 @@
 ﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using EnigmatiKreations.Framework.Services.Alerts;
+using EnigmatiKreations.Framework.Services.Navigation;
 using FluentAssertions;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Persistence;
+using Randomizer.Framework.Services.Alerts;
+using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Business;
 using Randomizer.Framework.ViewModels.Pages;
 using Randomizer.Tests.CommonTestData;
@@ -24,12 +29,21 @@ namespace Randomizer.Tests.ViewModels
         public ListEditionPageViewModelTest()
         {
             // Register (create) view models in the view model locator
-            ViewModelLocator.RegisterDependencies(true);
+            RegisterServicesInContainer();
 
             _HomePageViewModel = new HomePageViewModel();
             // Resolve the view model to be used for the current test
             _ViewModel = new ListEditionPageViewModel();
 
+        }
+
+        private void RegisterServicesInContainer()
+        {
+            Container.PrepareNewBuilder();
+            Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
+            Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+            Container.RegisterDependency(new ListsManager(new StubRandomizerListDataManager()), typeof(ListsManager), true);
+            Container.BuildContainer();
         }
 
         public void Dispose()

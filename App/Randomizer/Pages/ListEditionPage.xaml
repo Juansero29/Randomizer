@@ -7,7 +7,7 @@
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
-    xmlns:i18="clr-namespace:EnigmatiKreations.Framework.Services.Shared.Localization;assembly=EnigmatiKreations.Framework.Services"
+    xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     x:Name="this">
 
     <!--  ViewModel  -->

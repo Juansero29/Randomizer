@@ -65,7 +65,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes">
       <Version>3.4.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
     <PackageReference Include="Xamarin.Android.Support.ViewPager" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
@@ -100,9 +100,9 @@
       <Project>{4f38e398-edb3-4bc2-a33c-dbec273c1fd6}</Project>
       <Name>EnigmatiKreations.Framework.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Services\EnigmatiKreations.Framework.Services.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Services\Randomizer.Framework.Services.csproj">
       <Project>{2ae44201-2368-4d3a-9f76-e85912b20112}</Project>
-      <Name>EnigmatiKreations.Framework.Services</Name>
+      <Name>Randomizer.Framework.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Randomizer\Randomizer.csproj">
       <Project>{3722fbfc-9c51-490b-8178-519395c4e0d5}</Project>

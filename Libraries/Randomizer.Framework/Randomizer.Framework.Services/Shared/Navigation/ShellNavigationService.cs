@@ -1,11 +1,12 @@
-﻿using EnigmatiKreations.Framework.Services;
+﻿using EnigmatiKreations.Framework.Services.Navigation;
+using Randomizer.Framework.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace EnigmatiKreations.Framework.Services.Navigation
+namespace Randomizer.Framework.Services.Navigation
 {
     public class ShellNavigationService : INavigationService
     {

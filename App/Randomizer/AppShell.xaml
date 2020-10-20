@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Pages="clr-namespace:Randomizer.Pages"
-    xmlns:i18="clr-namespace:EnigmatiKreations.Framework.Services.Shared.Localization;assembly=EnigmatiKreations.Framework.Services"
+    xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     x:Name="shell"
     Title="Randomizer"
     BackgroundColor="#212121"

@@ -1,4 +1,4 @@
-﻿using EnigmatiKreations.Framework.Services.i18n;
+﻿using Randomizer.Framework.Services.i18n;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,13 +8,13 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace EnigmatiKreations.Framework.Services.Shared.Localization
+namespace Randomizer.Framework.Services.Shared.Localization
 {
     [ContentProperty("ResourceName")]
     public class TranslateExtension : IMarkupExtension
     {
         readonly CultureInfo ci = null;
-        const string ResourceId = "EnigmatiKreations.Framework.Services.Resources.TextResources";
+        const string ResourceId = "Randomizer.Framework.Services.Resources.TextResources";
 
         static readonly Lazy<ResourceManager> ResMgr = new Lazy<ResourceManager>(
             () => new ResourceManager(ResourceId, IntrospectionExtensions.GetTypeInfo(typeof(TranslateExtension)).Assembly));

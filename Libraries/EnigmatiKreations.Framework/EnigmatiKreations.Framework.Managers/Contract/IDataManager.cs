@@ -17,7 +17,7 @@ namespace EnigmatiKreations.Framework.Managers.Contract
         /// </summary>
         /// <param name="item">the item</param>
         /// <returns>A task that defines wether the action was completed succesfully or not</returns>
-        Task<bool> Add(IIdentifiable item);
+        Task<bool> Add(T item);
 
         /// <summary>
         /// Gets an item from the manager

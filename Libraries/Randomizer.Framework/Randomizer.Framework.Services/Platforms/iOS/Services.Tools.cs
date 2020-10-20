@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnigmatiKreations.Framework.Services.Platforms.iOS
+namespace Randomizer.Framework.Services.Platforms.iOS
 {
     public static class Tools
     {

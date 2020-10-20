@@ -129,7 +129,7 @@ namespace EnigmatiKreations.Framework.Controls.Shared.Behaviors
                     return;
 
                 // Get the current page
-                page = ViewModelLocator.Resolve<INavigationService>().GetCurrentPage();
+                page = Container.Resolve<INavigationService>().GetCurrentPage();
             }
 
             if (associatedControl == null)

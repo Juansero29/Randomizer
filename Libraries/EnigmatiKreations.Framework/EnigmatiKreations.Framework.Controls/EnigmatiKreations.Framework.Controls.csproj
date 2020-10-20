@@ -52,7 +52,7 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -148,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
-    <ProjectReference Include="..\EnigmatiKreations.Framework.Services\EnigmatiKreations.Framework.Services.csproj" />
     <ProjectReference Include="..\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
   </ItemGroup>
 

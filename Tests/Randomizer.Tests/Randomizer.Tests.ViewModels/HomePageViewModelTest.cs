@@ -1,12 +1,13 @@
 ﻿using FluentAssertions;
-using Moq;
-using EnigmatiKreations.Framework.Services;
-using EnigmatiKreations.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Business;
 using Randomizer.Framework.ViewModels.Pages;
-using System;
 using Xunit;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using Randomizer.Framework.Services.Navigation;
+using Randomizer.Framework.Services.Alerts;
+using EnigmatiKreations.Framework.Services.Navigation;
+using EnigmatiKreations.Framework.Services.Alerts;
+using Randomizer.Framework.Persistence;
 
 namespace Randomizer.Tests.ViewModels
 {
@@ -23,8 +24,17 @@ namespace Randomizer.Tests.ViewModels
         /// </remarks>
         public HomePageViewModelTest()
         {
-            ViewModelLocator.RegisterDependencies(mockDependencies: true);
+            RegisterServicesInContainer();
             _HomePageViewModel = new HomePageViewModel();
+        }
+
+        private void RegisterServicesInContainer()
+        {
+            Container.PrepareNewBuilder();
+            Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
+            Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+            Container.RegisterDependency(new ListsManager(new StubRandomizerListDataManager()), typeof(ListsManager), true);
+            Container.BuildContainer();
         }
 
         [Fact]

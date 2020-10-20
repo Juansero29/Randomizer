@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace EnigmatiKreations.Framework.Services.i18n
+namespace Randomizer.Framework.Services.i18n
 {
     public interface ILocalizationService
     {

@@ -1,9 +1,15 @@
-﻿using EnigmatiKreations.Framework.Services.i18n;
-using System;
-using System.Globalization;
+﻿using EnigmatiKreations.Framework.Managers.Contract;
+using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using EnigmatiKreations.Framework.Services.Alerts;
+using EnigmatiKreations.Framework.Services.Navigation;
+using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Persistence;
+using Randomizer.Framework.Services.Alerts;
+using Randomizer.Framework.Services.i18n;
+using Randomizer.Framework.Services.Navigation;
+using Randomizer.Framework.Services.Resources;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using EnigmatiKreations.Framework.Services.Resources;
+
 
 namespace Randomizer
 {
@@ -13,7 +19,17 @@ namespace Randomizer
         {
             InitializeComponent();
             SetCurrentLanguage();
+            RegisterServicesInContainer();
             MainPage = new AppShell();
+        }
+
+        private void RegisterServicesInContainer()
+        {
+            Container.PrepareNewBuilder();
+            Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
+            Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
+            Container.RegisterDependency(new ListsManager(), typeof(ListsManager), true);
+            Container.BuildContainer();
         }
 
         private void SetCurrentLanguage()

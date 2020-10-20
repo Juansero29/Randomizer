@@ -1,11 +1,11 @@
-﻿using EnigmatiKreations.Framework.Services.Platforms.Droid.i18n;
+﻿using Randomizer.Framework.Services.Platforms.Droid.i18n;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnigmatiKreations.Framework.Services.Platforms.Droid
+namespace Randomizer.Framework.Services.Platforms.Droid
 {
     public static class Tools
     {

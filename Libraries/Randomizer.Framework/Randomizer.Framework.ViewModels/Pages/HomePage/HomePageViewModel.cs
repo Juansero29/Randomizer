@@ -1,6 +1,6 @@
 ﻿using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using EnigmatiKreations.Framework.Services.Navigation;
+using Randomizer.Framework.Services.Navigation;
 using EnigmatiKreations.Framework.Utils;
 using Randomizer.Framework.ViewModels.Business;
 using System;

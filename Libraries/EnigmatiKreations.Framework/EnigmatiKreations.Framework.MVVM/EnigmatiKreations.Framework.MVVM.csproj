@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EnigmatiKreations.Framework.Services\EnigmatiKreations.Framework.Services.csproj" />
     <ProjectReference Include="..\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
   </ItemGroup>
 

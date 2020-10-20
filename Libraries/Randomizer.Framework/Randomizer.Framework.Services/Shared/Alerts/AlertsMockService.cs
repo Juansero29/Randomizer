@@ -1,10 +1,11 @@
-﻿using System;
+﻿using EnigmatiKreations.Framework.Services.Alerts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnigmatiKreations.Framework.Services.Alerts
+namespace Randomizer.Framework.Services.Alerts
 {
     public class AlertsMockService : IAlertsService
     {

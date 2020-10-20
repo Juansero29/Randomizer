@@ -1,12 +1,12 @@
 ﻿using Foundation;
-using EnigmatiKreations.Framework.Services.i18n;
-using EnigmatiKreations.Framework.Services.Platforms.iOS.i18n;
+using Randomizer.Framework.Services.i18n;
+using Randomizer.Framework.Services.Platforms.iOS.i18n;
 using System.Globalization;
 using System.Threading;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(Localize))]
-namespace EnigmatiKreations.Framework.Services.Platforms.iOS.i18n
+namespace Randomizer.Framework.Services.Platforms.iOS.i18n
 {
     public class Localize : ILocalizationService
     {
