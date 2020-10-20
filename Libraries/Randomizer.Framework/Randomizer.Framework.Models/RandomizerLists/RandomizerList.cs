@@ -28,6 +28,11 @@ namespace Randomizer.Framework.Models
             return _Items.Remove(item);
         }
 
+        public bool ContainsItem(IRandomizerItem item)
+        {
+            return _Items.Contains(item);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
@@ -51,5 +56,7 @@ namespace Randomizer.Framework.Models
             hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<IRandomizerItem>>.Default.GetHashCode(Items);
             return hashCode;
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnigmatiKreations.Framework.Managers.Contract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,6 +14,8 @@ namespace Randomizer.Framework.Models.Contract
         void AddItem(IRandomizerItem item);
 
         bool RemoveItem(IRandomizerItem item);
+
+        bool ContainsItem(IRandomizerItem item);
 
     }
 }

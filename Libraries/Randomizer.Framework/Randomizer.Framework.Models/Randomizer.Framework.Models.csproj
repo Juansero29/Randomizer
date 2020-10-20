@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Managers\EnigmatiKreations.Framework.Managers.csproj" />
+  </ItemGroup>
+
 </Project>

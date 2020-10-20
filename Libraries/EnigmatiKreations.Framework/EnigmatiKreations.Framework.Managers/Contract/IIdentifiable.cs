@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Randomizer.Framework.Models.Contract
+namespace EnigmatiKreations.Framework.Managers.Contract
 {
     public interface IIdentifiable
     {

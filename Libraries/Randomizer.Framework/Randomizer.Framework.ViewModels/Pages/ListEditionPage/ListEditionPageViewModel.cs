@@ -48,6 +48,8 @@ namespace Randomizer.Framework.ViewModels.Pages
             set
             {
                 SetValue(ref _ListVM, value);
+
+                if (value == null) return;
                 if (!IsNew) // If list isn't new, display the list title in the toolbar
                 {
                     ToolbarTitle = value.Name;
@@ -102,7 +104,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         public ICommand DeleteListCommand { get; }
         public ICommand RandomizeCommand { get; }
-        public ICommand DisappearingCommand { get; }
+        
         #endregion
 
         #region Constructor(s)
@@ -120,7 +122,6 @@ namespace Randomizer.Framework.ViewModels.Pages
             SaveListCommand = new Command(OnSaveList);
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
-            DisappearingCommand = new Command<EventArgs>(OnDisappearing);
             #endregion
         }
 
@@ -163,20 +164,22 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
         }
 
-        private void OnDisappearing(EventArgs args)
-        {
-            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>
-                (this, HomePageViewModel.MessagingCenterConstants.SelectedList);
-        }
-
         #endregion
 
         #region Methods
 
+
+        public override void UnLoad()
+        {
+            base.UnLoad();
+            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
+        }
+
         public override void Destroy()
         {
+
             base.Destroy();
-            ListVM = null;
+            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
         #endregion

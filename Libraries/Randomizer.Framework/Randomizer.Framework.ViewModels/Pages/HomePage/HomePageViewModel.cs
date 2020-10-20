@@ -84,8 +84,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         public override void Destroy()
         {
             base.Destroy();
-            Lists?.Clear();
-            Lists = null;
+            MessagingCenter.Unsubscribe<ListEditionPageViewModel, RandomizerListVM> (this, ListEditionPageViewModel.MessagingCenterConstants.ListDeleted);
         }
         #endregion
 
