@@ -13,7 +13,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
     /// A repository for Entity Framework
     /// </summary>
     /// <typeparam name="TEntity">The entity this repository will manage</typeparam>
-    public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class EFGenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         #region Private Fields
         private readonly DbContext _DbContext;
@@ -26,7 +26,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         #endregion
 
         #region Constructor
-        public EFRepository(DbContext dbContext)
+        public EFGenericRepository(DbContext dbContext)
         {
             _DbContext = dbContext;
             _Set = _DbContext?.Set<TEntity>();

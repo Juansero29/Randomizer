@@ -21,7 +21,6 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         private readonly DbContext _Context;
         #endregion
 
-
         #region Properties
         /// <summary>
         /// Indicates wether we want to track the entries in this Unit Of Work or not
@@ -47,10 +46,11 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
         }
         #endregion
+
         #region Methods
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
-            return new EFRepository<TEntity>(_Context);
+            return new EFGenericRepository<TEntity>(_Context);
         }
 
         public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
