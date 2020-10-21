@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,8 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
     public class RandomizerContext : DbContext
     {
         #region Sets
-        public DbSet<IRandomizerList> Lists { get; set; }
-        public DbSet<IRandomizerItem> Items { get; set; }
-
+        public DbSet<RandomizerList> Lists { get; set; }
+        
         #endregion
 
         #region Constructor
@@ -35,29 +35,29 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         {
             #region Lists Table Setup
             // The name of the lists table 
-            modelBuilder.Entity<IRandomizerList>().ToTable("Lists");
+            modelBuilder.Entity<RandomizerList>().ToTable("Lists");
 
             // Definition of primary key
-            modelBuilder.Entity<IRandomizerList>().HasKey(l => l.Id);
+            modelBuilder.Entity<RandomizerList>().HasKey(l => l.Id);
 
             // Definition of the automatic generation of an Id
-            modelBuilder.Entity<IRandomizerList>().Property(l => l.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<RandomizerList>().Property(l => l.Id).ValueGeneratedOnAdd();
 
             #endregion
 
 
             #region Items Table Setup
             // the name of the items table
-            modelBuilder.Entity<IRandomizerItem>().ToTable("Items");
+            modelBuilder.Entity<RandomizerList>().ToTable("Items");
 
             // Definition of the primary key
-            modelBuilder.Entity<IRandomizerItem>().HasKey(i => i.Id);
+            modelBuilder.Entity<RandomizerList>().HasKey(i => i.Id);
 
             // Definition of the automatic generation of an Id
-            modelBuilder.Entity<IRandomizerList>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<RandomizerList>().Property(i => i.Id).ValueGeneratedOnAdd();
             #endregion
 
-            modelBuilder.Entity<IRandomizerList>().HasMany(l => l.Items).WithOne();
+            modelBuilder.Entity<RandomizerList>().HasMany(l => l.Items).WithOne();
 
             base.OnModelCreating(modelBuilder);
         }
