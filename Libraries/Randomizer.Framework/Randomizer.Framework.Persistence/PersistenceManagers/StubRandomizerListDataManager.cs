@@ -26,9 +26,22 @@ namespace Randomizer.Framework.Persistence
             return Task.FromResult(_Lists.Contains(item));
         }
 
-        public Task<IRandomizerList> Get(Guid id)
+        public Task<bool> AddRange(params IRandomizerList[] items)
+        {
+            var count = items.Length;
+            var origin = _Lists.Count;
+            _Lists.AddRange(items);
+            return Task.FromResult(_Lists.Count - count == origin)
+        }
+
+        public Task<IRandomizerList> Get(int id)
         {
             return Task.FromResult(_Lists.Find(t => t.Id == id));
+        }
+
+        public Task<IRandomizerList> Get(object id)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<IEnumerable<IRandomizerList>> GetItems()
@@ -36,10 +49,20 @@ namespace Randomizer.Framework.Persistence
             return Task.FromResult(_Lists as IEnumerable<IRandomizerList>);
         }
 
+        public Task<IEnumerable<IRandomizerList>> GetItems(int index, int count)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> Remove(Guid id)
         {
             var r = _Lists.Find(t => t.Id == id);
             return Task.FromResult(_Lists.Remove(r));
+        }
+
+        public Task<bool> Remove(object id)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<int> Save()
@@ -55,6 +78,11 @@ namespace Randomizer.Framework.Persistence
             var oldItem = _Lists[index];
             _Lists[index] = item;
             return Task.FromResult(new Tuple<bool, IRandomizerList>(true, oldItem));
+        }
+
+        public Task<Tuple<bool, IRandomizerList>> Update(object id, IRandomizerList item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

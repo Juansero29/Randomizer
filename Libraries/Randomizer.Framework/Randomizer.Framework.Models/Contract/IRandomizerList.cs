@@ -5,8 +5,10 @@ using System.Text;
 
 namespace Randomizer.Framework.Models.Contract
 {
-    public interface IRandomizerList : IIdentifiable
+    public interface IRandomizerList
     {
+        int Id { get; set; }
+
         string Name { get; set; }
 
         IEnumerable<IRandomizerItem> Items { get; }

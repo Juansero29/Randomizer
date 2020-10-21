@@ -7,7 +7,7 @@ namespace Randomizer.Framework.Models
 {
     public class RandomizerList : IRandomizerList, IEquatable<RandomizerList>
     {
-        public Guid Id { get; } = Guid.NewGuid();
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -50,9 +50,8 @@ namespace Randomizer.Framework.Models
         public override int GetHashCode()
         {
             var hashCode = -1820475233;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(Id);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<IRandomizerItem>>.Default.GetHashCode(_Items);
             hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<IRandomizerItem>>.Default.GetHashCode(Items);
             return hashCode;
         }

@@ -20,7 +20,7 @@ namespace Randomizer.Framework.Persistence
 
         #region Constructors
 
-        public ListsManager() : this(new EFRandomizerListsManager())
+        public ListsManager() : this(new EFRandomizerDataManager())
         {
 
         }
