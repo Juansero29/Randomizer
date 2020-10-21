@@ -10,7 +10,7 @@ namespace EnigmatiKreations.Framework.Managers.Contract
     /// </summary>
     /// <typeparam name="T">The type of the class</typeparam>
     /// <remarks>Generic type needs to be <see cref="IIdentifiable"/></remarks>
-    public interface IDataManager<T>
+    public interface IDataManager<T> : IDisposable where T : class
     {
         /// <summary>
         /// Adds an item to the manager

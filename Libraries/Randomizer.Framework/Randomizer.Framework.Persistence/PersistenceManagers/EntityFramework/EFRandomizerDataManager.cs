@@ -33,69 +33,69 @@ namespace Randomizer.Framework.Persistence
             _Context.Database.EnsureCreated();
         }
 
-        public Task<bool> Add(IRandomizerList item)
-        {
-            var r = _Context.Add(item);
-            return Task.FromResult(r.State == EntityState.Added);
-        }
-
-        public Task<bool> AddRange(params IRandomizerList[] items)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<int> Count()
         {
-            throw new NotImplementedException();
+            return _UnitOfWork.Repository<IRandomizerList>().Count();
+        }
+        public async Task<bool> Add(IRandomizerList item)
+        {
+            var r = await _UnitOfWork.Repository<IRandomizerList>().Add(item);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
         }
 
-        public Task<IRandomizerList> Get(object id)
+        public async Task<bool> AddRange(params IRandomizerList[] items)
         {
-            var r = _Context.Find(typeof(IRandomizerList), id);
-            if (r is IRandomizerList list)
-            {
-                return Task.FromResult(list);
-            }
-            else
-            {
-                return Task.FromResult(default(IRandomizerList));
-            }
+            var r = await _UnitOfWork.Repository<IRandomizerList>().AddRange(items);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
         }
 
 
-        public Task<IEnumerable<IRandomizerList>> GetItems()
+
+        public async Task<IRandomizerList> Get(object id)
         {
-            return Task.FromResult(_Context.Lists.ToList() as IEnumerable<IRandomizerList>);
+            var r = await _UnitOfWork.Repository<IRandomizerList>().Get(id);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
         }
 
-        public Task<IEnumerable<IRandomizerList>> GetItems(int index, int count)
+
+        public async Task<IEnumerable<IRandomizerList>> GetItems(int index, int count)
         {
-            throw new NotImplementedException();
+            var r = await _UnitOfWork.Repository<IRandomizerList>().GetItems(index, count);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
         }
 
-        public Task<bool> Remove(object id)
+        public async Task<bool> Remove(object id)
         {
-            var list = _Context.Find(typeof(IRandomizerList), id);
-            var r = _Context.Remove(list);
-            return Task.FromResult(r.State == EntityState.Deleted);
+            var r = await _UnitOfWork.Repository<IRandomizerList>().Remove(id);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
         }
 
-        public Task<int> Save()
+        public async Task<IRandomizerList> Update(IRandomizerList item)
         {
-            return Task.FromResult(_Context.SaveChanges());
+
+            var r = await _UnitOfWork.Repository<IRandomizerList>().Update(item);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
         }
 
-        public Task<Tuple<bool, IRandomizerList>> Update(IRandomizerList item)
+
+        public async Task<IRandomizerList> Update(object id, IRandomizerList item)
         {
-            var oldItem = _Context.Find(typeof(IRandomizerList), item.Id) as IRandomizerList;
-            var r = _Context.Update(item);
-            var tuple = new Tuple<bool, IRandomizerList>(r.State == EntityState.Modified, oldItem);
-            return Task.FromResult(tuple);
+            var r = await _UnitOfWork.Repository<IRandomizerList>().Update(id, item);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
+
         }
 
-        public Task<Tuple<bool, IRandomizerList>> Update(object id, IRandomizerList item)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _UnitOfWork?.Dispose();
+            _Context?.Dispose();
         }
     }
 
