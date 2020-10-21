@@ -1,4 +1,5 @@
 ﻿using EnigmatiKreations.Framework.Managers.Contract;
+using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Randomizer.Framework.Persistence
         #endregion
 
         #region Methods
-        public Task<bool> AddList(IRandomizerList list)
+        public Task<IRandomizerList> AddList(IRandomizerList list)
         {
             return _DataManager.Add(list);
         }
@@ -43,9 +44,9 @@ namespace Randomizer.Framework.Persistence
         }
 
 
-        public Task<Tuple<bool, IRandomizerList>> Update(IRandomizerList list)
+        public Task<IRandomizerList> Update(int id, IRandomizerList item)
         {
-            return _DataManager.Update(list);
+            return _DataManager.Update(id, item);
         }
 
 
@@ -54,11 +55,10 @@ namespace Randomizer.Framework.Persistence
             return _DataManager.Remove(list.Id);
         }
 
-        public Task<IEnumerable<IRandomizerList>> GetLists()
+        public Task<IEnumerable<IRandomizerList>> GetLists(int startIndex, int count)
         {
-            return _DataManager.GetItems();
+            return _DataManager.GetItems(startIndex, count);
         }
-
 
         public async Task<bool> AddItemToList(Guid listId, IRandomizerItem itemToAdd)
         {

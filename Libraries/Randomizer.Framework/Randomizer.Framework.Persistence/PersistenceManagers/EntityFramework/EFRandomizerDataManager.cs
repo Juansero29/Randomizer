@@ -37,7 +37,7 @@ namespace Randomizer.Framework.Persistence
         {
             return _UnitOfWork.Repository<IRandomizerList>().Count();
         }
-        public async Task<bool> Add(IRandomizerList item)
+        public async Task<IRandomizerList> Add(IRandomizerList item)
         {
             var r = await _UnitOfWork.Repository<IRandomizerList>().Add(item);
             await _UnitOfWork.SaveChangesAsync();
@@ -97,6 +97,7 @@ namespace Randomizer.Framework.Persistence
             _UnitOfWork?.Dispose();
             _Context?.Dispose();
         }
+
     }
 
 }

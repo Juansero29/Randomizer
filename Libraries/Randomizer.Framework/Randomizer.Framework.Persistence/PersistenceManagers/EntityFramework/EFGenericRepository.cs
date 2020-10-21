@@ -51,10 +51,10 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
             return result;
         }
 
-        public virtual async Task<bool> Add(TEntity item)
+        public virtual async Task<TEntity> Add(TEntity item)
         {
             var result = await _Set.AddAsync(item);
-            return result.State == EntityState.Added;
+            return result.Entity;
         }
 
         public virtual async Task<bool> AddRange(params TEntity[] items)
