@@ -11,13 +11,7 @@ namespace Randomizer.Framework.Models.Contract
 
         string Name { get; set; }
 
-        IEnumerable<IRandomizerItem> Items { get; }
-
-        void AddItem(IRandomizerItem item);
-
-        bool RemoveItem(IRandomizerItem item);
-
-        bool ContainsItem(IRandomizerItem item);
+        IEnumerable<IRandomizerItem> Items { get; set; }
 
     }
 }

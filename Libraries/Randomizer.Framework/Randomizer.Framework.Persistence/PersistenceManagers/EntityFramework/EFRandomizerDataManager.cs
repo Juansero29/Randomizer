@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework;
+using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework.ModelEFLink;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace Randomizer.Framework.Persistence
     /// <summary>
     /// An implementation of <see cref="IDataManager{T}"/> that uses <see cref="Microsoft.EntityFrameworkCore"/>
     /// </summary>
-    public class EFRandomizerDataManager : IDataManager<IRandomizerList>
+    public class EFRandomizerDataManager : IDataManager<RandomizerListEntity>
     {
 
         private RandomizerContext _Context;
@@ -35,58 +36,58 @@ namespace Randomizer.Framework.Persistence
 
         public Task<int> Count()
         {
-            return _UnitOfWork.Repository<IRandomizerList>().Count();
+            return _UnitOfWork.Repository<RandomizerListEntity>().Count();
         }
-        public async Task<IRandomizerList> Add(IRandomizerList item)
+        public async Task<RandomizerListEntity> Add(RandomizerListEntity item)
         {
-            var r = await _UnitOfWork.Repository<IRandomizerList>().Add(item);
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().Add(item);
             await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 
-        public async Task<bool> AddRange(params IRandomizerList[] items)
+        public async Task<bool> AddRange(params RandomizerListEntity[] items)
         {
-            var r = await _UnitOfWork.Repository<IRandomizerList>().AddRange(items);
-            await _UnitOfWork.SaveChangesAsync();
-            return r;
-        }
-
-
-
-        public async Task<IRandomizerList> Get(object id)
-        {
-            var r = await _UnitOfWork.Repository<IRandomizerList>().Get(id);
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().AddRange(items);
             await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 
 
-        public async Task<IEnumerable<IRandomizerList>> GetItems(int index, int count)
+
+        public async Task<RandomizerListEntity> Get(object id)
         {
-            var r = await _UnitOfWork.Repository<IRandomizerList>().GetItems(index, count);
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().Get(id);
+            await _UnitOfWork.SaveChangesAsync();
+            return r;
+        }
+
+
+        public async Task<IEnumerable<RandomizerListEntity>> GetItems(int index, int count)
+        {
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().GetItems(index, count);
             await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 
         public async Task<bool> Remove(object id)
         {
-            var r = await _UnitOfWork.Repository<IRandomizerList>().Remove(id);
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().Remove(id);
             await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 
-        public async Task<IRandomizerList> Update(IRandomizerList item)
+        public async Task<RandomizerListEntity> Update(RandomizerListEntity item)
         {
 
-            var r = await _UnitOfWork.Repository<IRandomizerList>().Update(item);
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().Update(item);
             await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 
 
-        public async Task<IRandomizerList> Update(object id, IRandomizerList item)
+        public async Task<RandomizerListEntity> Update(object id, RandomizerListEntity item)
         {
-            var r = await _UnitOfWork.Repository<IRandomizerList>().Update(id, item);
+            var r = await _UnitOfWork.Repository<RandomizerListEntity>().Update(id, item);
             await _UnitOfWork.SaveChangesAsync();
             return r;
 

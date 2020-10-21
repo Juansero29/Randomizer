@@ -9,9 +9,7 @@ namespace Randomizer.Framework.Models
     {
         public int Id { get; set; }
 
-        // The URI of the image ?
-        // TODO Issue #2
-        public string Source { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public byte[] Image { get; set; }
 
         public override bool Equals(object obj)
         {

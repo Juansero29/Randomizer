@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework.ModelEFLink;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,9 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
     public class RandomizerContext : DbContext
     {
         #region Sets
-        public DbSet<RandomizerList> Lists { get; set; }
+        //public DbSet<RandomizerListEntity> Lists { get; set; }
+
+        //public DbSet<RandomizerItemEntity> Items { get; set; }
         
         #endregion
 
@@ -35,29 +38,32 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         {
             #region Lists Table Setup
             // The name of the lists table 
-            modelBuilder.Entity<RandomizerList>().ToTable("Lists");
+            modelBuilder.Entity<RandomizerListEntity>().ToTable("Lists");
 
             // Definition of primary key
-            modelBuilder.Entity<RandomizerList>().HasKey(l => l.Id);
+            modelBuilder.Entity<RandomizerListEntity>().HasKey(l => l.Id);
 
             // Definition of the automatic generation of an Id
-            modelBuilder.Entity<RandomizerList>().Property(l => l.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<RandomizerListEntity>().Property(l => l.Id).ValueGeneratedOnAdd();
 
             #endregion
 
 
             #region Items Table Setup
             // the name of the items table
-            modelBuilder.Entity<RandomizerList>().ToTable("Items");
+            modelBuilder.Entity<RandomizerItemEntity>().ToTable("Items");
 
             // Definition of the primary key
-            modelBuilder.Entity<RandomizerList>().HasKey(i => i.Id);
+            modelBuilder.Entity<RandomizerItemEntity>().HasKey(i => i.Id);
 
             // Definition of the automatic generation of an Id
-            modelBuilder.Entity<RandomizerList>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<RandomizerItemEntity>().Property(i => i.Id).ValueGeneratedOnAdd();
+
+            // Adding type discriminators
+            modelBuilder.Entity<RandomizerItemEntity>().HasDiscriminator<string>("itemType").HasValue<RandomizerItemEntity>("baseItem").HasValue<TextRandomizerItemEntity>("textItem").HasValue<ImageRandomizerItemEntity>("imageItem");
             #endregion
 
-            modelBuilder.Entity<RandomizerList>().HasMany(l => l.Items).WithOne();
+            modelBuilder.Entity<RandomizerListEntity>().HasMany(l => l.Items).WithOne();
 
             base.OnModelCreating(modelBuilder);
         }
