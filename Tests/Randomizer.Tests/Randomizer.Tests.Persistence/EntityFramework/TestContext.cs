@@ -9,13 +9,13 @@ using System.Text;
 
 namespace Randomizer.Tests.Persistence.EntityFramework
 {
-    class TestContext : RandomizerContext
+    public class TestContext : RandomizerContext
     {
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-
             optionsBuilder.UseSqlite(connection);
         }
 
@@ -23,10 +23,10 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<RandomizerList>().HasData(
-                new RandomizerList { Id = 1, Name = "Chewbacca" },
-                new RandomizerList { Id = 2, Name = "Yoda" },
-                new RandomizerList { Id = 3, Name = "Ewok" });
+            modelBuilder.Entity<SimpleRandomizerList>().HasData(
+                new SimpleRandomizerList { Id = 1, Name = "Beers" },
+                new SimpleRandomizerList { Id = 2, Name = "Albums" },
+                new SimpleRandomizerList { Id = 3, Name = "People" });
         }
     }
 }

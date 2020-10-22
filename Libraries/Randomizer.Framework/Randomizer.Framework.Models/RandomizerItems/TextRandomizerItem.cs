@@ -12,6 +12,10 @@ namespace Randomizer.Framework.Models
     {
         public string Name { get; set; }
 
+        public TextRandomizerItem(string name)
+        {
+            Name = name;
+        }
 
         public override bool Equals(object obj)
         {
