@@ -11,5 +11,7 @@ namespace Randomizer.Framework.Models.Contract
     public abstract class RandomizerItem
     {
         public int Id { get; set; }
+
+        public virtual RandomizerList Parent { get; set; }
     }
 }

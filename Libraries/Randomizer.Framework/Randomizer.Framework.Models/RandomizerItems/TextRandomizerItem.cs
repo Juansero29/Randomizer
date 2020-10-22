@@ -17,6 +17,10 @@ namespace Randomizer.Framework.Models
             Name = name;
         }
 
+        public TextRandomizerItem(string name, RandomizerList parent)
+        {
+            Name = name;
+        }
         public override bool Equals(object obj)
         {
             if (obj == null) return false;

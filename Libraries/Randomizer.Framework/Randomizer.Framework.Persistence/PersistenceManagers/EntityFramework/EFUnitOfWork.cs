@@ -35,7 +35,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         /// </summary>
         /// <param name="context">The context that it is tied to</param>
         /// <param name="noTracking">Wether we want to track or not</param>
-        public EFUnitOfWork(DbContext context, bool noTracking = true)
+        public EFUnitOfWork(DbContext context, bool noTracking = false)
         {
             _Context = context;
             NoTracking = noTracking;

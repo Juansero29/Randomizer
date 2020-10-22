@@ -17,9 +17,9 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
     public class RandomizerContext : DbContext
     {
         #region Sets
-        public DbSet<SimpleRandomizerList> Lists { get; set; }
-        public DbSet<TextRandomizerItem> TextItems { get; set; }
-        public DbSet<ImageRandomizerItem> ImageItems { get; set; }
+        public virtual DbSet<SimpleRandomizerList> Lists { get; set; }
+        public virtual DbSet<TextRandomizerItem> TextItems { get; set; }
+        public virtual DbSet<ImageRandomizerItem> ImageItems { get; set; }
 
         #endregion
 
@@ -71,7 +71,9 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
             #endregion
 
-            modelBuilder.Entity<SimpleRandomizerList>().HasMany(l => l.Items).WithOne();
+            modelBuilder.Entity<RandomizerItem>().Property<int>("ListId");
+
+            modelBuilder.Entity<RandomizerList>().HasMany(l => l.Items).WithOne(i => i.Parent).HasForeignKey("ListId");
 
             base.OnModelCreating(modelBuilder);
         }
@@ -79,6 +81,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "randomizer.db");
+            //optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseSqlite($"Filename={dbPath}");
         }
         #endregion

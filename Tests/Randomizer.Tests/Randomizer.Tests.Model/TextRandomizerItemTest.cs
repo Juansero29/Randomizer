@@ -10,7 +10,7 @@ namespace Randomizer.Tests.Model
         [Fact]
         public void ConstructorTest()
         {
-            var item = new TextRandomizerItem();
+            var item = new TextRandomizerItem("");
             Assert.NotNull(item);            
         }
 
@@ -20,7 +20,7 @@ namespace Randomizer.Tests.Model
         [InlineData("This is the name of a very long item")]
         public void NamePropertyTest(string itemName)
         {
-            var item = new TextRandomizerItem();
+            var item = new TextRandomizerItem("");
 
             item.Name = itemName;
 

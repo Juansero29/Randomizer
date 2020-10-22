@@ -16,19 +16,22 @@ namespace Randomizer.Framework.Models
 
         private readonly IList<RandomizerItem> _Items = new List<RandomizerItem>();
 
-        public new IEnumerable<RandomizerItem> Items
+        public override ICollection<RandomizerItem> Items
         {
-            get { foreach (var item in _Items) yield return item; }
+            get => _Items;
         }
 
         public override void AddItem(RandomizerItem item)
         {
             _Items.Add(item);
+            item.Parent = this;
         }
 
         public override bool RemoveItem(RandomizerItem item)
         {
-            return _Items.Remove(item);
+            var r = _Items.Remove(item);
+            if (r) item.Parent = null;
+            return r;
         }
 
         public override bool ContainsItem(RandomizerItem item)
