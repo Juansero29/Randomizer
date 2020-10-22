@@ -10,17 +10,17 @@ namespace Randomizer.Tests.Model
 {
     public class RandomizerListTest
     {
-        private RandomizerList _RandomizerList;
+        private Framework.Models.SimpleRandomizerList _RandomizerList;
 
         public RandomizerListTest()
         {
-            _RandomizerList = new RandomizerList();
+            _RandomizerList = new Framework.Models.SimpleRandomizerList();
         }
 
         [Fact]
         private void ConstructorTest()
         {
-            var randomizerList = new RandomizerList();
+            var randomizerList = new Framework.Models.SimpleRandomizerList();
 
             Assert.NotNull(randomizerList);
             Assert.NotNull(randomizerList.Items);
@@ -29,7 +29,7 @@ namespace Randomizer.Tests.Model
 
         [Theory]
         [ClassData(typeof(RandomizerItemTestData))]
-        private void InsertItemTest(IRandomizerItem item)
+        private void InsertItemTest(RandomizerItem item)
         {
             _RandomizerList.AddItem(item);
 
@@ -39,7 +39,7 @@ namespace Randomizer.Tests.Model
 
         [Theory]
         [ClassData(typeof(RandomizerItemTestData))]
-        private void RemoveItemTest(IRandomizerItem item)
+        private void RemoveItemTest(RandomizerItem item)
         {
             _RandomizerList.AddItem(item);
             _RandomizerList.RemoveItem(item);

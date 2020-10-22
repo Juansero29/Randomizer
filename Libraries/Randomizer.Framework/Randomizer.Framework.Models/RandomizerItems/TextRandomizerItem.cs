@@ -5,10 +5,11 @@ using System.Text;
 
 namespace Randomizer.Framework.Models
 {
-    public class TextRandomizerItem : IRandomizerItem
+    /// <summary>
+    /// A randomizer item that contains text
+    /// </summary>
+    public class TextRandomizerItem : RandomizerItem
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
 

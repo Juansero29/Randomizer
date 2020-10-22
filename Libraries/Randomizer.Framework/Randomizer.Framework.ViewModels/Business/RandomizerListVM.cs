@@ -9,9 +9,9 @@ using Xamarin.Forms.Internals;
 namespace Randomizer.Framework.ViewModels.Business
 {
     /// <summary>
-    /// The ViewModel for a <see cref="IRandomizerList"/>
+    /// The ViewModel for a <see cref="Models.Contract.RandomizerList"/>
     /// </summary>
-    public class RandomizerListVM : BaseViewModel<IRandomizerList>
+    public class RandomizerListVM : BaseViewModel<Models.Contract.RandomizerList>
     {
         #region Properties
         /// <summary>
@@ -26,18 +26,18 @@ namespace Randomizer.Framework.ViewModels.Business
         /// <summary>
         /// The list's items
         /// </summary>
-        public IEnumerable<IRandomizerItem> Items => _Model.Items;
+        public IEnumerable<RandomizerItem> Items => _Model.Items;
 
         #endregion
 
         #region Constructor(s)
 
-        public RandomizerListVM() : this(new RandomizerList())
+        public RandomizerListVM() : this(new Models.SimpleRandomizerList())
         {
 
         }
 
-        public RandomizerListVM(IRandomizerList model) : base(model)
+        public RandomizerListVM(Models.Contract.RandomizerList model) : base(model)
         {
 
         }
@@ -45,13 +45,13 @@ namespace Randomizer.Framework.ViewModels.Business
         #endregion
 
         #region Methods
-        public void AddItem(IRandomizerItem item)
+        public void AddItem(RandomizerItem item)
         {
             Model.AddItem(item);
             OnPropertyChanged(nameof(Items));
         }
 
-        public void RemoveItem(IRandomizerItem item)
+        public void RemoveItem(RandomizerItem item)
         {
             Model.RemoveItem(item);
             OnPropertyChanged(nameof(Items));

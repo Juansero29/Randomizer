@@ -28,7 +28,7 @@ namespace Randomizer.Tests.ViewModels
 
         [Theory]
         [ClassData(typeof(RandomizerItemTestData))]
-        private void AddItemTest(IRandomizerItem item)
+        private void AddItemTest(RandomizerItem item)
         {
             _ViewModel.Items.Should().BeEmpty();
             _ViewModel.AddItem(item);
@@ -38,7 +38,7 @@ namespace Randomizer.Tests.ViewModels
 
         [Theory]
         [ClassData(typeof(RandomizerItemTestData))]
-        private void RemoveItemTest(IRandomizerItem item)
+        private void RemoveItemTest(RandomizerItem item)
         {
             _ViewModel.AddItem(item);
             _ViewModel.RemoveItem(item);

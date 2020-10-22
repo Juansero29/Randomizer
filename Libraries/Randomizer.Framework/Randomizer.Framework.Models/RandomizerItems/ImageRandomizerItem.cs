@@ -5,9 +5,11 @@ using System.Text;
 
 namespace Randomizer.Framework.Models
 {
-    public class ImageRandomizerItem : IRandomizerItem
+    /// <summary>
+    /// A randomizer item that also contains an image
+    /// </summary>
+    public class ImageRandomizerItem : RandomizerItem
     {
-        public int Id { get; set; }
 
         public byte[] Image { get; set; }
 
@@ -24,7 +26,7 @@ namespace Randomizer.Framework.Models
         {
             var hashCode = -1620415233;
             hashCode = hashCode * -1221135295 + EqualityComparer<int>.Default.GetHashCode(Id);
-            hashCode = hashCode * -1221135295 + EqualityComparer<string>.Default.GetHashCode(Source);
+            hashCode = hashCode * -1221135295 + EqualityComparer<string>.Default.GetHashCode(Image.ToString());
             return hashCode;
         }
     }

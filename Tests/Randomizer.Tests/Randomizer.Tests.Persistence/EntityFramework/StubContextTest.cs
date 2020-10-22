@@ -18,8 +18,8 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                Assert.Equal("Ewok", (await unitOfWork.Repository<RandomizerList>().Get(3)).Name);
-                Assert.Null((await unitOfWork.Repository<RandomizerList>().Get(4)));
+                Assert.Equal("Ewok", (await unitOfWork.Repository<Framework.Models.SimpleRandomizerList>().Get(3)).Name);
+                Assert.Null((await unitOfWork.Repository<Framework.Models.SimpleRandomizerList>().Get(4)));
             }
         }
 
@@ -31,9 +31,9 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                Assert.Equal(3, (await unitOfWork.Repository<IRandomizerList>().GetItems(0, 10)).Count());
-                Assert.Equal(2, (await unitOfWork.Repository<IRandomizerList>().GetItems(0, 2)).Count());
-                Assert.Single((await unitOfWork.Repository<IRandomizerList>().GetItems(1, 2)));
+                Assert.Equal(3, (await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 10)).Count());
+                Assert.Equal(2, (await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 2)).Count());
+                Assert.Single((await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(1, 2)));
             }
         }
 
@@ -45,12 +45,12 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                IRandomizerList n = new RandomizerList { Name = "Jarjar" };
+                Framework.Models.Contract.RandomizerList n = new Framework.Models.SimpleRandomizerList { Name = "Jarjar" };
 
-                n = await unitOfWork.Repository<IRandomizerList>().Add(n);
+                n = await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Add(n);
                 Assert.NotNull(n);
                 await unitOfWork.SaveChangesAsync();
-                Assert.Equal(4, (await unitOfWork.Repository<IRandomizerList>().GetItems(0, 10)).Count());
+                Assert.Equal(4, (await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 10)).Count());
             }
         }
 
@@ -62,14 +62,14 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                IRandomizerList n = new RandomizerList { Name = "Jarjar",};
-                IRandomizerList n2 = new RandomizerList { Name = "Porg" };
-                IRandomizerList n3 = new RandomizerList { Name = "Chucky la poupée de sang" };
+                Framework.Models.Contract.RandomizerList n = new Framework.Models.SimpleRandomizerList { Name = "Jarjar",};
+                Framework.Models.Contract.RandomizerList n2 = new Framework.Models.SimpleRandomizerList { Name = "Porg" };
+                Framework.Models.Contract.RandomizerList n3 = new Framework.Models.SimpleRandomizerList { Name = "Chucky la poupée de sang" };
 
-                var result = await unitOfWork.Repository<IRandomizerList>().AddRange(n, n2, n3);
+                var result = await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().AddRange(n, n2, n3);
                 Assert.True(result);
                 await unitOfWork.SaveChangesAsync();
-                Assert.Equal(6, (await unitOfWork.Repository<IRandomizerList>().GetItems(0, 10)).Count());
+                Assert.Equal(6, (await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 10)).Count());
 
             }
         }
@@ -82,12 +82,12 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                var chewie = await unitOfWork.Repository<IRandomizerList>().Get(1);
+                var chewie = await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Get(1);
                 chewie.Name = "Chewie";
-                await unitOfWork.Repository<IRandomizerList>().Update(chewie);
+                await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Update(chewie);
                 await unitOfWork.SaveChangesAsync();
-                Assert.Equal("Chewie", (await unitOfWork.Repository<IRandomizerList>().Get(1)).Name);
-                Assert.Empty((await unitOfWork.Repository<IRandomizerList>().GetItems(0, 10)).Where(n => n.Name.Equals("Chewbacca")));
+                Assert.Equal("Chewie", (await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Get(1)).Name);
+                Assert.Empty((await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 10)).Where(n => n.Name.Equals("Chewbacca")));
             }
         }
 
@@ -99,10 +99,10 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                var chewie = await unitOfWork.Repository<IRandomizerList>().Get(1);
-                await unitOfWork.Repository<IRandomizerList>().Remove(chewie);
+                var chewie = await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Get(1);
+                await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Remove(chewie);
                 await unitOfWork.SaveChangesAsync();
-                Assert.Empty((await unitOfWork.Repository<IRandomizerList>().GetItems(0, 10)).Where(n => n.Name.Equals("Chewbacca")));
+                Assert.Empty((await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 10)).Where(n => n.Name.Equals("Chewbacca")));
             }
         }
 
@@ -114,10 +114,10 @@ namespace Randomizer.Tests.Persistence
             {
                 context.Database.EnsureCreated();
 
-                await unitOfWork.Repository<IRandomizerList>().Remove(1);
+                await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().Remove(1);
                 await unitOfWork.CancelChangesAsync();
                 await unitOfWork.SaveChangesAsync();
-                Assert.Equal(3, (await unitOfWork.Repository<IRandomizerList>().GetItems(0, 10)).Count());
+                Assert.Equal(3, (await unitOfWork.Repository<Framework.Models.Contract.RandomizerList>().GetItems(0, 10)).Count());
             }
         }
     }

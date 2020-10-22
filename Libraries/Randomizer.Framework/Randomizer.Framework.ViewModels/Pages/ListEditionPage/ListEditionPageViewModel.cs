@@ -118,7 +118,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
             #region InitCommands
             AddItemCommand = new Command<string>(OnAddItem);
-            RemoveListItemCommand = new Command<IRandomizerItem>(OnRemoveListItem);
+            RemoveListItemCommand = new Command<RandomizerItem>(OnRemoveListItem);
             SaveListCommand = new Command(OnSaveList);
             DeleteListCommand = new Command(OnDeleteList);
             RandomizeCommand = new Command(OnRandomize);
@@ -135,7 +135,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             ListVM.AddItem(new TextRandomizerItem { Name = itemName });
         }
 
-        private void OnRemoveListItem(IRandomizerItem item)
+        private void OnRemoveListItem(RandomizerItem item)
         {
             ListVM.RemoveItem(item);
         }

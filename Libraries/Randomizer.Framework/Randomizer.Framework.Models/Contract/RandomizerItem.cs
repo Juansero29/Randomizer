@@ -5,8 +5,11 @@ using System.Text;
 
 namespace Randomizer.Framework.Models.Contract
 {
-    public interface IRandomizerItem
+    /// <summary>
+    /// An abstract RandomizerItem
+    /// </summary>
+    public abstract class RandomizerItem
     {
-        int Id { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -14,10 +14,10 @@ namespace Randomizer.Framework.Persistence
     public class ListsManager
     {
         #region Private Fields
-        private IDataManager<IRandomizerList> _DataManager;
+        private IDataManager<Models.Contract.RandomizerList> _DataManager;
         #endregion
 
-        public IRandomizerList CurrentList { get; set; }
+        public Models.Contract.RandomizerList CurrentList { get; set; }
 
         #region Constructors
 
@@ -26,48 +26,48 @@ namespace Randomizer.Framework.Persistence
 
         }
 
-        public ListsManager(IDataManager<IRandomizerList> dataManager)
+        public ListsManager(IDataManager<Models.Contract.RandomizerList> dataManager)
         {
             _DataManager = dataManager;
         }
         #endregion
 
         #region Methods
-        public Task<IRandomizerList> AddList(IRandomizerList list)
+        public Task<Models.Contract.RandomizerList> AddList(Models.Contract.RandomizerList list)
         {
             return _DataManager.Add(list);
         }
 
-        public Task<IRandomizerList> GetList(Guid id)
+        public Task<Models.Contract.RandomizerList> GetList(Guid id)
         {
             return _DataManager.Get(id);
         }
 
 
-        public Task<IRandomizerList> Update(int id, IRandomizerList item)
+        public Task<Models.Contract.RandomizerList> Update(int id, Models.Contract.RandomizerList item)
         {
             return _DataManager.Update(id, item);
         }
 
 
-        public Task<bool> RemoveList(IRandomizerList list)
+        public Task<bool> RemoveList(Models.Contract.RandomizerList list)
         {
             return _DataManager.Remove(list.Id);
         }
 
-        public Task<IEnumerable<IRandomizerList>> GetLists(int startIndex, int count)
+        public Task<IEnumerable<Models.Contract.RandomizerList>> GetLists(int startIndex, int count)
         {
             return _DataManager.GetItems(startIndex, count);
         }
 
-        public async Task<bool> AddItemToList(Guid listId, IRandomizerItem itemToAdd)
+        public async Task<bool> AddItemToList(Guid listId, RandomizerItem itemToAdd)
         {
             var list =  await _DataManager.Get(listId);
             list.AddItem(itemToAdd);
             return list.ContainsItem(itemToAdd);
         }
 
-        public async Task<bool> RemoveItemFromList(Guid listId, IRandomizerItem itemToRemove)
+        public async Task<bool> RemoveItemFromList(Guid listId, RandomizerItem itemToRemove)
         {
             var list = await _DataManager.Get(listId);
             list.RemoveItem(itemToRemove);

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Randomizer.Framework.Persistence
 {
-    public class JSONRandomizerListDataManager : IDataManager<IRandomizerList>
+    public class JSONRandomizerListDataManager : IDataManager<RandomizerList>
     {
-        public Task<IRandomizerList> Add(IRandomizerList item)
+        public Task<RandomizerList> Add(RandomizerList item)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> AddRange(params IRandomizerList[] items)
+        public Task<bool> AddRange(params RandomizerList[] items)
         {
             throw new NotImplementedException();
         }
@@ -28,12 +28,12 @@ namespace Randomizer.Framework.Persistence
             throw new NotImplementedException();
         }
 
-        public Task<IRandomizerList> Get(object id)
+        public Task<RandomizerList> Get(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<IRandomizerList>> GetItems(int index, int count)
+        public Task<IEnumerable<RandomizerList>> GetItems(int index, int count)
         {
             throw new NotImplementedException();
         }
@@ -43,7 +43,7 @@ namespace Randomizer.Framework.Persistence
             throw new NotImplementedException();
         }
 
-        public Task<IRandomizerList> Update(object id, IRandomizerList item)
+        public Task<RandomizerList> Update(object id, RandomizerList item)
         {
             throw new NotImplementedException();
         }

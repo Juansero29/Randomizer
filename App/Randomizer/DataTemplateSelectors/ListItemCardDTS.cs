@@ -12,7 +12,7 @@ namespace Randomizer.DataTemplateSelectors
 {
 
     /// <summary>
-    /// Selects the template for a <see cref="IRandomizerList"/> so be shown in a list
+    /// Selects the template for a <see cref="Framework.Models.Contract.RandomizerList"/> so be shown in a list
     /// </summary>
     public class ListItemCardDTS : DataTemplateSelector
     {

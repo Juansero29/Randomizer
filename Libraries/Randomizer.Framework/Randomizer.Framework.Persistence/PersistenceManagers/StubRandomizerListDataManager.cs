@@ -1,6 +1,5 @@
 ﻿using EnigmatiKreations.Framework.Managers.Contract;
 using Randomizer.Framework.Models;
-using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Randomizer.Framework.Persistence
 {
-    public class StubRandomizerListDataManager : IDataManager<IRandomizerList>
+    public class StubRandomizerListDataManager : IDataManager<SimpleRandomizerList>
     {
 
         int idCounter;
 
-        private List<IRandomizerList> Items = new List<IRandomizerList>()
+        private readonly List<SimpleRandomizerList> Items = new List<SimpleRandomizerList>()
         {
-            new RandomizerList(){Id = 1, Name = "List #1 "},
-            new RandomizerList(){Id = 2, Name = "List #2 "},
-            new RandomizerList(){Id = 3, Name = "List #3 "},
-            new RandomizerList(){Id = 4, Name = "List #4 "},
-            new RandomizerList(){Id = 5, Name = "List #5 "},
-            new RandomizerList(){Id = 6, Name = "List #6 "},
-            new RandomizerList(){Id = 7, Name = "List #7 "},
-            new RandomizerList(){Id = 8, Name = "List #8 "},
+            new SimpleRandomizerList(){ Id = 1, Name = "List #1 "},
+            new SimpleRandomizerList(){ Id = 2, Name = "List #2 "},
+            new SimpleRandomizerList(){ Id = 3, Name = "List #3 "},
+            new SimpleRandomizerList(){ Id = 4, Name = "List #4 "},
+            new SimpleRandomizerList(){ Id = 5, Name = "List #5 "},
+            new SimpleRandomizerList(){ Id = 6, Name = "List #6 "},
+            new SimpleRandomizerList(){ Id = 7, Name = "List #7 "},
+            new SimpleRandomizerList(){ Id = 8, Name = "List #8 "},
         };
 
         public StubRandomizerListDataManager()
@@ -33,7 +32,7 @@ namespace Randomizer.Framework.Persistence
 
         public Task<int> Count() => Task.FromResult(Items.Count);
 
-        public Task<bool> AddRange(params IRandomizerList[] items)
+        public Task<bool> AddRange(params SimpleRandomizerList[] items)
         {
             if (Items.Intersect(items).Count() > 0)
             {
@@ -58,33 +57,33 @@ namespace Randomizer.Framework.Persistence
             return Task.FromResult(true);
         }
 
-        public Task<IRandomizerList> Get(object id)
+        public Task<SimpleRandomizerList> Get(object id)
         {
             return Task.FromResult(Items.SingleOrDefault(n => n.Id == (int)id));
         }
 
-        public Task<IEnumerable<IRandomizerList>> GetItems(int index, int count)
+        public Task<IEnumerable<SimpleRandomizerList>> GetItems(int index, int count)
         {
             return Task.FromResult(Items.Skip(index * count).Take(count));
         }
 
-        public Task<IRandomizerList> Add(IRandomizerList item)
+        public Task<SimpleRandomizerList> Add(SimpleRandomizerList item)
         {
             if (Get(item.Id).Result != null)
             {
-                return Task.FromResult<IRandomizerList>(null);
+                return Task.FromResult<SimpleRandomizerList>(null);
             }
-            IRandomizerList inserted = new RandomizerList() { Id = item.Id, Name = item.Name };
+            SimpleRandomizerList inserted = new SimpleRandomizerList() { Id = item.Id, Name = item.Name };
             idCounter++;
             Items.Add(inserted);
             return Task.FromResult(inserted);
         }
 
-        public Task<IRandomizerList> Update(object id, IRandomizerList item)
+        public Task<SimpleRandomizerList> Update(object id, SimpleRandomizerList item)
         {
             if (Get(item.Id).Result == null)
             {
-                return Task.FromResult<IRandomizerList>(null);
+                return Task.FromResult<SimpleRandomizerList>(null);
             }
             Items.RemoveAll(n => n.Id == (int)id);
             Items.Add(item);

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework.ModelEFLink;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Xamarin.Essentials;
+using SimpleRandomizerList = Randomizer.Framework.Models.SimpleRandomizerList;
 
 namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 {
@@ -17,10 +17,10 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
     public class RandomizerContext : DbContext
     {
         #region Sets
-        //public DbSet<RandomizerListEntity> Lists { get; set; }
+        public DbSet<SimpleRandomizerList> Lists { get; set; }
+        public DbSet<TextRandomizerItem> TextItems { get; set; }
+        public DbSet<ImageRandomizerItem> ImageItems { get; set; }
 
-        //public DbSet<RandomizerItemEntity> Items { get; set; }
-        
         #endregion
 
         #region Constructor
@@ -38,32 +38,40 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         {
             #region Lists Table Setup
             // The name of the lists table 
-            modelBuilder.Entity<RandomizerListEntity>().ToTable("Lists");
+            modelBuilder.Entity<RandomizerList>().ToTable("Lists");
 
             // Definition of primary key
-            modelBuilder.Entity<RandomizerListEntity>().HasKey(l => l.Id);
+            modelBuilder.Entity<RandomizerList>().HasKey(l => l.Id);
 
             // Definition of the automatic generation of an Id
-            modelBuilder.Entity<RandomizerListEntity>().Property(l => l.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<RandomizerList>().Property(l => l.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<RandomizerList>()
+                .HasDiscriminator<string>("listType")
+                .HasValue<SimpleRandomizerList>("simpleList");
 
             #endregion
-
 
             #region Items Table Setup
             // the name of the items table
-            modelBuilder.Entity<RandomizerItemEntity>().ToTable("Items");
+            modelBuilder.Entity<RandomizerItem>().ToTable("Items");
 
             // Definition of the primary key
-            modelBuilder.Entity<RandomizerItemEntity>().HasKey(i => i.Id);
+            modelBuilder.Entity<RandomizerItem>().HasKey(i => i.Id);
 
             // Definition of the automatic generation of an Id
-            modelBuilder.Entity<RandomizerItemEntity>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<RandomizerItem>().Property(i => i.Id).ValueGeneratedOnAdd();
 
-            // Adding type discriminators
-            modelBuilder.Entity<RandomizerItemEntity>().HasDiscriminator<string>("itemType").HasValue<RandomizerItemEntity>("baseItem").HasValue<TextRandomizerItemEntity>("textItem").HasValue<ImageRandomizerItemEntity>("imageItem");
+            // Adding type discriminator for text item
+            modelBuilder.Entity<RandomizerItem>()
+                .HasDiscriminator<string>("itemType")
+                .HasValue<RandomizerItem>("baseItem")
+                .HasValue<TextRandomizerItem>("textItem")
+                .HasValue<ImageRandomizerItem>("imageItem");
+
             #endregion
 
-            modelBuilder.Entity<RandomizerListEntity>().HasMany(l => l.Items).WithOne();
+            modelBuilder.Entity<SimpleRandomizerList>().HasMany(l => l.Items).WithOne();
 
             base.OnModelCreating(modelBuilder);
         }
@@ -71,9 +79,8 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "randomizer.db");
-
             optionsBuilder.UseSqlite($"Filename={dbPath}");
-        } 
+        }
         #endregion
     }
 }
