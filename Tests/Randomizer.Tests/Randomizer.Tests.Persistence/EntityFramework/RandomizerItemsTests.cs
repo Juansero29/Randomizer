@@ -19,66 +19,99 @@ namespace Randomizer.Tests.Persistence.EntityFramework
     {
 
         [Fact]
-        public async void AddItemToNewList()
+        public async void AddItemToNewListWithoutUnitOfWork()
         {
+            // instatiate a new context
             using var context = new TestContext();
-            using var unitOfWork = new EFUnitOfWork(context);
 
+            // ensure the database has been created
             context.Database.EnsureCreated();
 
-            SimpleRandomizerList l = new SimpleRandomizerList { Name = "More Beers" };
+            // Create new list
+            RandomizerList l = new SimpleRandomizerList { Name = "More Beers" };
 
+            // the items to add
             var chouffe = new TextRandomizerItem("Chouffe", l);
             var goudale = new TextRandomizerItem("Goudale", l);
             var leffe = new TextRandomizerItem("Leffe", l);
 
+
+            // adding the items
             l.AddItem(chouffe);
             l.AddItem(goudale);
             l.AddItem(leffe);
 
+            // list should now have 3 items
             l.Items.Count().Should().Be(3);
 
-            // l = await unitOfWork.Repository<SimpleRandomizerList>().Add(l);
-
-            context.Set<SimpleRandomizerList>().Add(l);
+            // adding the list to the RandomizerList set
+            l = context.Set<RandomizerList>().Add(l).Entity;
             l.Should().NotBeNull();
+
+            // the three items should still be there
+            l.Items.Count.Should().Be(3);
+
+            // saving changes
             await context.SaveChangesAsync();
-            //await unitOfWork.SaveChangesAsync();
 
+            // the number of total lists in DB should now be three
+            (context.Set<RandomizerList>().Take(10)).Count().Should().Be(4);
 
-            (context.Set<SimpleRandomizerList>().Take(10)).Count().Should().Be(4);
-            // (await unitOfWork.Repository<SimpleRandomizerList>().GetItems(0, 10)).Count().Should().Be(4);
-
+            // recovering the list in three different ways
             var moreBeers = context.Set<SimpleRandomizerList>().Include(l => l.Items).Where(i => i.Id == l.Id).FirstOrDefault();
-            //var moreBeers = (await unitOfWork.Repository<SimpleRandomizerList>().Get(l.Id));
+            var moreBeers2 = context.Set<RandomizerList>().Include(l => l.Items).ToList().Where(l => l.Id == moreBeers.Id).FirstOrDefault();
+            var moreBeers3 = context.Lists.Include(list => list.Items).ToList().FirstOrDefault(l => l.Id == moreBeers.Id);
 
-            //await unitOfWork.Repository<TextRandomizerItem>().AddRange(chouffe, goudale, leffe);
-            //await unitOfWork.Repository<SimpleRandomizerList>().Update(moreBeers.Id, moreBeers);
-
-            //await unitOfWork.SaveChangesAsync();
-
-
-            // WHY DOESN'T THIS SHIT LOAD THE ITEMS IN EACH LIST. I'M FUCKING DONE WITH FUCKING ENTITY FRAMEWORK CORE.
-            var x = context.Lists.Include(l => l.Items);
-
-            var y = context.Set<SimpleRandomizerList>().Include(l => l.Items).ToList();
-
-            (await unitOfWork.Repository<TextRandomizerItem>().GetItems(0, 10)).Count().Should().Be(3);
-
-            foreach (var list in context.Lists.Include(l => l.Items).ToList())
-            {
-                if (list.Items.Count > 0)
-                {
-                    ;
-                }
-            }
-            moreBeers = context.Lists.Include(list => list.Items).ToList().FirstOrDefault(l => l.Id == moreBeers.Id);
-            // moreBeers = unitOfWork.Repository<RandomizerList>().Set.Where(l => l.Id == moreBeers.Id).Include("Items").First();
-            // moreBeers = (await unitOfWork.Repository<RandomizerList>().Get(moreBeers.Id));
-
+            // all ways should return the same list with three items
             moreBeers.Items.Count().Should().Be(3);
-
+            moreBeers2.Items.Count().Should().Be(3);
+            moreBeers3.Items.Count().Should().Be(3);
         }
+
+
+        [Fact]
+        public async void AddItemToNewListWithUnitOfWork()
+        {
+            using var context = new TestContext();
+            using var unitOfWork = new EFUnitOfWork(context);
+
+            // ensure the database has been created
+            context.Database.EnsureCreated();
+
+            // new list
+            RandomizerList l = new SimpleRandomizerList { Name = "More Beers" };
+
+            // the items to add
+            var chouffe = new TextRandomizerItem("Chouffe", l);
+            var goudale = new TextRandomizerItem("Goudale", l);
+            var leffe = new TextRandomizerItem("Leffe", l);
+
+            // adding the items
+            l.AddItem(chouffe);
+            l.AddItem(goudale);
+            l.AddItem(leffe);
+
+            // adding the list
+            l = await unitOfWork.Repository<RandomizerList>().Add(l);
+            l.Should().NotBeNull();
+
+            // saving changes
+            await unitOfWork.SaveChangesAsync();
+
+            // total lists saved should now be 4
+            (await unitOfWork.Repository<RandomizerList>().GetItems(0, 10)).Count().Should().Be(4);
+
+            // recovering the list in three different ways
+            var moreBeers = (await unitOfWork.Repository<RandomizerList>().Get(l.Id));
+            var moreBeers2 = (await unitOfWork.Repository<RandomizerList>().Set.Include(l => l.Items).Where(i => i.Id == l.Id).FirstOrDefaultAsync());
+            var moreBeers3 = await unitOfWork.Repository<SimpleRandomizerList>().Set.Include(l => l.Items).Where(i => i.Id == l.Id).FirstOrDefaultAsync();
+
+            // all ways should return the same list with three items
+            moreBeers.Items.Count().Should().Be(3);
+            moreBeers2.Items.Count().Should().Be(3);
+            moreBeers3.Items.Count().Should().Be(3);
+        }
+
 
         [Fact]
         public async void AddItemToPreExistantList()

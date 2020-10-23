@@ -15,7 +15,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            var connection = new SqliteConnection("DataSource=D:\\dev\\randomizer.db");
+            //var connection = new SqliteConnection("DataSource=D:\\dev\\randomizer.db");
+            var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
             //optionsBuilder.UseLazyLoadingProxies().UseSqlite(connection);
             optionsBuilder.UseSqlite(connection).EnableSensitiveDataLogging();
