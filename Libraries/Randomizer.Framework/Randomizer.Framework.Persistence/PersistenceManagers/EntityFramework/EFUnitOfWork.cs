@@ -25,7 +25,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         /// <summary>
         /// Indicates wether we want to track the entries in this Unit Of Work or not
         /// </summary>
-        bool NoTracking { get; set; }
+        //bool NoTracking { get; set; }
 
         #endregion
 
@@ -35,14 +35,14 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         /// </summary>
         /// <param name="context">The context that it is tied to</param>
         /// <param name="noTracking">Wether we want to track or not</param>
-        public EFUnitOfWork(DbContext context, bool noTracking = false)
+        public EFUnitOfWork(DbContext context)
         {
             _Context = context;
-            NoTracking = noTracking;
-            if (NoTracking)
-            {
-                _Context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            }
+            //NoTracking = noTracking;
+            //if (NoTracking)
+            //{
+            //    _Context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //}
 
         }
         #endregion

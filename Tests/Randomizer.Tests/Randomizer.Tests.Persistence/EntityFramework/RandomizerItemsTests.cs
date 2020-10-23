@@ -93,7 +93,11 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
             // adding the list
             l = await unitOfWork.Repository<RandomizerList>().Add(l);
+
             l.Should().NotBeNull();
+
+            // item cound should still be three
+            l.Items.Count.Should().Be(3);
 
             // saving changes
             await unitOfWork.SaveChangesAsync();
