@@ -35,7 +35,6 @@ namespace Randomizer.Tests.Persistence.EntityFramework
             var goudale = new TextRandomizerItem("Goudale", l);
             var leffe = new TextRandomizerItem("Leffe", l);
 
-
             // adding the items
             l.AddItem(chouffe);
             l.AddItem(goudale);
