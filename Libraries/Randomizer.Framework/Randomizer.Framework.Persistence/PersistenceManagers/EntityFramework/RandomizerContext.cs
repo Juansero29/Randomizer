@@ -73,7 +73,11 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
             modelBuilder.Entity<RandomizerItem>().Property<int>("ListId");
 
-            modelBuilder.Entity<RandomizerList>().HasMany(l => l.Items).WithOne(i => i.Parent).HasForeignKey("ListId");
+            modelBuilder.Entity<RandomizerList>()
+                .HasMany(l => l.Items)
+                .WithOne(i => i.Parent)
+                .HasForeignKey("ListId")
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

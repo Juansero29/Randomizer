@@ -1,12 +1,15 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework;
 using Randomizer.Tests.Persistence.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Xunit;
 
@@ -23,42 +26,48 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
             context.Database.EnsureCreated();
 
-            RandomizerList l = new SimpleRandomizerList { Name = "More Beers" };
+            SimpleRandomizerList l = new SimpleRandomizerList { Name = "More Beers" };
 
-            l = await unitOfWork.Repository<RandomizerList>().Add(l);
+            var chouffe = new TextRandomizerItem("Chouffe", l);
+            var goudale = new TextRandomizerItem("Goudale", l);
+            var leffe = new TextRandomizerItem("Leffe", l);
+
+            l.AddItem(chouffe);
+            l.AddItem(goudale);
+            l.AddItem(leffe);
+
+            l.Items.Count().Should().Be(3);
+
+            // l = await unitOfWork.Repository<SimpleRandomizerList>().Add(l);
+
+            context.Set<SimpleRandomizerList>().Add(l);
             l.Should().NotBeNull();
-            await unitOfWork.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            //await unitOfWork.SaveChangesAsync();
 
 
-            (await unitOfWork.Repository<RandomizerList>().GetItems(0, 10)).Count().Should().Be(4);
+            (context.Set<SimpleRandomizerList>().Take(10)).Count().Should().Be(4);
+            // (await unitOfWork.Repository<SimpleRandomizerList>().GetItems(0, 10)).Count().Should().Be(4);
 
+            var moreBeers = context.Set<SimpleRandomizerList>().Include(l => l.Items).Where(i => i.Id == l.Id).FirstOrDefault();
+            //var moreBeers = (await unitOfWork.Repository<SimpleRandomizerList>().Get(l.Id));
 
-            var moreBeers = (await unitOfWork.Repository<RandomizerList>().Get(l.Id));
+            //await unitOfWork.Repository<TextRandomizerItem>().AddRange(chouffe, goudale, leffe);
+            //await unitOfWork.Repository<SimpleRandomizerList>().Update(moreBeers.Id, moreBeers);
 
-            var chouffe = new TextRandomizerItem("Chouffe", moreBeers);
-            var goudale = new TextRandomizerItem("Goudale", moreBeers);
-            var leffe = new TextRandomizerItem("Leffe", moreBeers);
-
-            moreBeers.AddItem(chouffe);
-            moreBeers.AddItem(goudale);
-            moreBeers.AddItem(leffe);
-
-            moreBeers.Items.Count().Should().Be(3);
-
-            await unitOfWork.Repository<RandomizerItem>().AddRange(chouffe, goudale, leffe);
-            await unitOfWork.Repository<RandomizerList>().Update(moreBeers.Id, moreBeers);
-
-            await unitOfWork.SaveChangesAsync();
+            //await unitOfWork.SaveChangesAsync();
 
 
             // WHY DOESN'T THIS SHIT LOAD THE ITEMS IN EACH LIST. I'M FUCKING DONE WITH FUCKING ENTITY FRAMEWORK CORE.
-            var x = context.Lists.Include(l => l.Items).ToList();
+            var x = context.Lists.Include(l => l.Items);
 
-            (await unitOfWork.Repository<RandomizerItem>().GetItems(0, 10)).Count().Should().Be(3);
+            var y = context.Set<SimpleRandomizerList>().Include(l => l.Items).ToList();
 
-            foreach (var list in context.Lists)
+            (await unitOfWork.Repository<TextRandomizerItem>().GetItems(0, 10)).Count().Should().Be(3);
+
+            foreach (var list in context.Lists.Include(l => l.Items).ToList())
             {
-                if(list.Items.Count > 0)
+                if (list.Items.Count > 0)
                 {
                     ;
                 }
@@ -66,7 +75,7 @@ namespace Randomizer.Tests.Persistence.EntityFramework
             moreBeers = context.Lists.Include(list => list.Items).ToList().FirstOrDefault(l => l.Id == moreBeers.Id);
             // moreBeers = unitOfWork.Repository<RandomizerList>().Set.Where(l => l.Id == moreBeers.Id).Include("Items").First();
             // moreBeers = (await unitOfWork.Repository<RandomizerList>().Get(moreBeers.Id));
-            
+
             moreBeers.Items.Count().Should().Be(3);
 
         }
@@ -91,6 +100,7 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
             (await unitOfWork.Repository<TextRandomizerItem>().GetItems(0, 10)).Count().Should().Be(3);
         }
+
 
     }
 }
