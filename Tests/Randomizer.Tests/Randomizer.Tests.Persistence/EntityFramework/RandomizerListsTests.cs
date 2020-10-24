@@ -14,7 +14,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void GetTest()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 
@@ -25,7 +26,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void GetItemsTest()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 
@@ -37,7 +39,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void AddTest()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 
@@ -52,7 +55,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void AddRangeTest()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 
@@ -70,7 +74,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void UpdateTest()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 
@@ -88,7 +93,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void Delete()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 
@@ -101,7 +107,8 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         [Fact]
         public async void RejectChangesTest()
         {
-            using var context = new TestContext();
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
             using var unitOfWork = new EFUnitOfWork(context);
             context.Database.EnsureCreated();
 

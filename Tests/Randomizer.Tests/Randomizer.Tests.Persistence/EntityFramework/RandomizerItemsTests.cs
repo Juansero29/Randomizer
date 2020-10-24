@@ -18,7 +18,6 @@ namespace Randomizer.Tests.Persistence.EntityFramework
     public class RandomizerItemsTests
     {
 
-
         [Fact]
         public async void AddItemsToNewListWithoutUnitOfWork()
         {
@@ -89,7 +88,6 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
         }
 
-
         [Fact]
         public async void AddItemsToNewListWithUnitOfWork()
         {
@@ -143,7 +141,7 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
 
         [Fact]
-        public async void AddItemToPreExistantList()
+        public async void UpdateItemsInPreExistantList()
         {
             using var factory = new TestContextFactory();
             using var context = factory.CreateContext();
@@ -170,6 +168,41 @@ namespace Randomizer.Tests.Persistence.EntityFramework
             list.Items.Count().Should().Be(3);
 
             (await unitOfWork.Repository<RandomizerItem>().GetItems(0, 10)).Count().Should().Be(3);
+        }
+
+        [Fact]
+        public async void DeleteItemsInPreExistantList()
+        {
+            using var factory = new TestContextFactory();
+            using var context = factory.CreateContext();
+            using var unitOfWork = new EFUnitOfWork(context);
+            // ensure is a new database
+            await context.Database.EnsureDeletedAsync();
+            // ensure the database has been created
+            await context.Database.EnsureCreatedAsync();
+
+
+            (await unitOfWork.Repository<RandomizerItem>().GetItems(0, 10)).Count().Should().Be(0);
+            RandomizerList list = (await unitOfWork.Repository<SimpleRandomizerList>().Get(1));
+            var cuvéeDesTrolls = new TextRandomizerItem("Cuvée des trolls", list);
+            list.AddItem(cuvéeDesTrolls);
+            list.ContainsItem(cuvéeDesTrolls).Should().BeTrue();
+            await unitOfWork.SaveChangesAsync();
+
+            (await unitOfWork.Repository<RandomizerItem>().GetItems(0, 10)).Count().Should().Be(1);
+
+            list = (await unitOfWork.Repository<RandomizerList>().Get(list.Id));
+
+            list.Items.Count.Should().Be(1);
+
+            list.RemoveItem(cuvéeDesTrolls);
+
+            list.Items.Count.Should().Be(0);
+            await unitOfWork.SaveChangesAsync();
+
+            list = (await unitOfWork.Repository<RandomizerList>().Get(list.Id));
+            list.Items.Count.Should().Be(0);
+            (await unitOfWork.Repository<RandomizerItem>().GetItems(0, 10)).Count().Should().Be(0);
         }
 
     }

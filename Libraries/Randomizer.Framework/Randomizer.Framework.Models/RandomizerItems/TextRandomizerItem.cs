@@ -12,6 +12,11 @@ namespace Randomizer.Framework.Models
     {
         public string Name { get; set; }
 
+
+        public TextRandomizerItem()
+        {
+        }
+
         public TextRandomizerItem(string name)
         {
             Name = name;

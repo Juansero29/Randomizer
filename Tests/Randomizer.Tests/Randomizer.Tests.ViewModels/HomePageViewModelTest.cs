@@ -33,7 +33,8 @@ namespace Randomizer.Tests.ViewModels
             Container.PrepareNewBuilder();
             Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
             Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-            Container.RegisterDependency(new ListsManager(new StubRandomizerListDataManager()), typeof(ListsManager), true);
+            //Container.RegisterDependency(new ListsManager(new StubRandomizerListDataManager()), typeof(ListsManager), true);
+            Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
             Container.BuildContainer();
         }
 
@@ -66,7 +67,9 @@ namespace Randomizer.Tests.ViewModels
         [Fact]
         private void AddingListsToHomePage()
         {
+            var man = Container.Resolve<ListsManager>();
             
+
             _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
             _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #2" });
             _HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #3" });

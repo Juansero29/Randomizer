@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI Tests", "UI Tests", "{B3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.UITests", "Tests\Randomizer.UITests\Randomizer.UITests.csproj", "{8617C5FC-B555-4E2D-8F5F-C4E6172C8A39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Tests.CommonTestData", "Tests\Randomizer.Tests\Randomizer.Tests.CommonTestData\Randomizer.Tests.CommonTestData.csproj", "{2922A359-4D8A-4DE5-AA29-E55B1A7C2185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Tests.Common", "Tests\Randomizer.Tests\Randomizer.Tests.CommonTestData\Randomizer.Tests.Common.csproj", "{2922A359-4D8A-4DE5-AA29-E55B1A7C2185}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnigmatiKreations.Framework.Managers", "Libraries\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Managers\EnigmatiKreations.Framework.Managers.csproj", "{1559E509-F25E-40CD-B929-AECCA06ABF62}"
 EndProject
@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnigmatiKreations.Framework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Framework.Persistence", "Libraries\Randomizer.Framework\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj", "{F1C40BA5-41A3-4D67-8EFE-F5431A599502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Tests.Persistence", "Tests\Randomizer.Tests\Randomizer.Tests.Persistence\Randomizer.Tests.Persistence.csproj", "{EC1A0EBE-D2AF-48BC-A375-B38FA27BB17E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Tests.Persistence", "Tests\Randomizer.Tests\Randomizer.Tests.Persistence\Randomizer.Tests.Persistence.csproj", "{EC1A0EBE-D2AF-48BC-A375-B38FA27BB17E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

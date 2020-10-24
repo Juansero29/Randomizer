@@ -22,7 +22,6 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             //var connection = new SqliteConnection("DataSource=D:\\dev\\randomizer.db");
             //optionsBuilder.UseLazyLoadingProxies().UseSqlite(connection);
             // optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=randomizer;Trusted_Connection=True;");

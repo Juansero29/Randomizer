@@ -18,7 +18,7 @@ namespace Randomizer.Tests.Persistence.EntityFramework
                 .UseSqlite(_connection).Options;
         }
 
-        public RandomizerContext CreateContext()
+        public TestContext CreateContext()
         {
             if (_connection == null)
             {
