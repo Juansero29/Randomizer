@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Xamarin.Essentials;
-using SimpleRandomizerList = Randomizer.Framework.Models.SimpleRandomizerList;
 
 namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 {
@@ -37,14 +36,13 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Lists Table Setup
-            // The name of the lists table 
-            modelBuilder.Entity<RandomizerList>().ToTable("Lists");
+
 
             // Definition of primary key
-            modelBuilder.Entity<RandomizerList>().HasKey(l => l.Id);
+            //modelBuilder.Entity<RandomizerList>().HasKey(l => l.Id);
 
-            // Definition of the automatic generation of an Id
-            modelBuilder.Entity<RandomizerList>().Property(l => l.Id).ValueGeneratedOnAdd();
+            //// Definition of the automatic generation of an Id
+            //modelBuilder.Entity<RandomizerList>().Property(l => l.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<RandomizerList>()
                 .HasDiscriminator<string>("listType")
@@ -53,14 +51,12 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
             #endregion
 
             #region Items Table Setup
-            // the name of the items table
-            modelBuilder.Entity<RandomizerItem>().ToTable("Items");
 
-            // Definition of the primary key
-            modelBuilder.Entity<RandomizerItem>().HasKey(i => i.Id);
+            //// Definition of the primary key
+            //modelBuilder.Entity<RandomizerItem>().HasKey(i => i.Id);
 
-            // Definition of the automatic generation of an Id
-            modelBuilder.Entity<RandomizerItem>().Property(i => i.Id).ValueGeneratedOnAdd();
+            //// Definition of the automatic generation of an Id
+            //modelBuilder.Entity<RandomizerItem>().Property(i => i.Id).ValueGeneratedOnAdd();
 
             // Adding type discriminator for text item
             modelBuilder.Entity<RandomizerItem>()
@@ -71,13 +67,18 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
             #endregion
 
-            modelBuilder.Entity<RandomizerItem>().Property<int>("ListId");
+            // modelBuilder.Entity<RandomizerItem>().Property<int>("ListId");
 
-            modelBuilder.Entity<RandomizerList>()
-                .HasMany(l => l.Items)
-                .WithOne(i => i.Parent)
-                .HasForeignKey("ListId")
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<RandomizerItem>()
+            //    .HasOne(i => i.Parent)
+            //    .WithMany(l => l.Items)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<RandomizerList>()
+            //    .HasMany(l => l.Items)
+            //    .WithOne(i => i.Parent)
+            //    .HasForeignKey("ListId")
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

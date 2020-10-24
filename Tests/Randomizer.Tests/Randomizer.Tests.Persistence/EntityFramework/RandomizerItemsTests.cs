@@ -7,7 +7,6 @@ using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework;
 using Randomizer.Tests.Persistence.EntityFramework;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,13 +18,19 @@ namespace Randomizer.Tests.Persistence.EntityFramework
     {
 
         [Fact]
-        public async void AddItemToNewListWithoutUnitOfWork()
+        public async void AddItemsToNewListWithoutUnitOfWork()
         {
-            // instatiate a new context
-            using var context = new TestContext();
+            await using (var context = new TestContext())
+            {
+                // ensure is a new database
+                await context.Database.EnsureDeletedAsync();
+                
+                // ensure the database has been created
+                await context.Database.EnsureCreatedAsync();
+            }
+            
+      
 
-            // ensure the database has been created
-            context.Database.EnsureCreated();
 
             // Create new list
             RandomizerList l = new SimpleRandomizerList { Name = "More Beers" };
@@ -43,36 +48,45 @@ namespace Randomizer.Tests.Persistence.EntityFramework
             // list should now have 3 items
             l.Items.Count().Should().Be(3);
 
-            // adding the list to the RandomizerList set
-            l = context.Set<RandomizerList>().Add(l).Entity;
-            l.Should().NotBeNull();
+            await using (var context = new TestContext())
+            {
 
-            // the three items should still be there
-            l.Items.Count.Should().Be(3);
+                // adding the list to the RandomizerList set
+                l = context.Set<RandomizerList>().Add(l).Entity;
+                l.Should().NotBeNull();
 
-            // saving changes
-            await context.SaveChangesAsync();
+                // the three items should still be there
+                l.Items.Count.Should().Be(3);
 
-            // the number of total lists in DB should now be three
-            (context.Set<RandomizerList>().Take(10)).Count().Should().Be(4);
+                // saving changes
+                await context.SaveChangesAsync();
+            }
 
-            // recovering the list in three different ways
-            var moreBeers = context.Set<SimpleRandomizerList>().Include(l => l.Items).Where(i => i.Id == l.Id).FirstOrDefault();
-            var moreBeers2 = context.Set<RandomizerList>().Include(l => l.Items).ToList().Where(l => l.Id == moreBeers.Id).FirstOrDefault();
-            var moreBeers3 = context.Lists.Include(list => list.Items).ToList().FirstOrDefault(l => l.Id == moreBeers.Id);
+            await using (var context = new TestContext())
+            {
+                // the number of total lists in DB should now be three
+                // (context.Set<RandomizerList>().Take(10)).Count().Should().Be(4);
 
-            // all ways should return the same list with three items
-            moreBeers.Items.Count().Should().Be(3);
-            moreBeers2.Items.Count().Should().Be(3);
-            moreBeers3.Items.Count().Should().Be(3);
+                // recovering the list in three different ways
+                var moreBeers = context.Set<SimpleRandomizerList>().Include(l => l.Items).Where(i => i.Id == l.Id).FirstOrDefault();
+                var moreBeers2 = context.Set<RandomizerList>().Include(l => l.Items).ToList().Where(l => l.Id == moreBeers.Id).FirstOrDefault();
+                var moreBeers3 = context.Lists.Include(list => list.Items).ToList().FirstOrDefault(l => l.Id == moreBeers.Id);
+                var moreBeers4 = context.Set<RandomizerList>().Find(l.Id);
+
+                // all ways should return the same list with three items
+                moreBeers.Items.Count().Should().Be(3);
+                moreBeers2.Items.Count().Should().Be(3);
+                moreBeers3.Items.Count().Should().Be(3);
+                moreBeers4.Items.Count().Should().Be(3);
+            }
         }
 
 
         [Fact]
-        public async void AddItemToNewListWithUnitOfWork()
+        public async void AddItemsToNewListWithUnitOfWork()
         {
-            using var context = new TestContext();
-            using var unitOfWork = new EFUnitOfWork(context);
+            var context = new TestContext();
+            var unitOfWork = new EFUnitOfWork(context);
 
             // ensure the database has been created
             context.Database.EnsureCreated();
@@ -95,7 +109,7 @@ namespace Randomizer.Tests.Persistence.EntityFramework
 
             l.Should().NotBeNull();
 
-            // item cound should still be three
+            // item count should still be three
             l.Items.Count.Should().Be(3);
 
             // saving changes

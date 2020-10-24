@@ -50,7 +50,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         #region Methods
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
-            return new EFGenericRepository<TEntity>(_Context);
+            return new EFRandomizerListRepository(_Context) as IRepository<TEntity>;
         }
 
         public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

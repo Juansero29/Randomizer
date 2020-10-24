@@ -16,10 +16,11 @@ namespace Randomizer.Tests.Persistence.EntityFramework
         {
 
             //var connection = new SqliteConnection("DataSource=D:\\dev\\randomizer.db");
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+            //var connection = new SqliteConnection("DataSource=:memory:");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=randomizer;Trusted_Connection=True;");
+            // connection.Open();
             //optionsBuilder.UseLazyLoadingProxies().UseSqlite(connection);
-            optionsBuilder.UseSqlite(connection).EnableSensitiveDataLogging();
+            // optionsBuilder.UseSqlite(connection).EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

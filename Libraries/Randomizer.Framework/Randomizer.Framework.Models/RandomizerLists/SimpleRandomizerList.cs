@@ -13,12 +13,11 @@ namespace Randomizer.Framework.Models
     /// </summary>
     public class SimpleRandomizerList : RandomizerList, IEquatable<SimpleRandomizerList>
     {
+        private List<RandomizerItem> _Items = new List<RandomizerItem>();
 
-        private readonly IList<RandomizerItem> _Items = new List<RandomizerItem>();
-
-        public override ICollection<RandomizerItem> Items
+        public SimpleRandomizerList()
         {
-            get => _Items;
+            Items = _Items;
         }
 
         public override void AddItem(RandomizerItem item)
@@ -70,7 +69,7 @@ namespace Randomizer.Framework.Models
             var hashCode = -1820475233;
             hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(Id);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<RandomizerItem>>.Default.GetHashCode(_Items);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<RandomizerItem>>.Default.GetHashCode(Items);
             return hashCode;
         }
 
