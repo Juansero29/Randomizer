@@ -15,9 +15,11 @@ namespace Randomizer.Framework.Models
     {
         private List<RandomizerItem> _Items = new List<RandomizerItem>();
 
+        public override ICollection<RandomizerItem> Items { get => base.Items; set => base.Items = value; }
+
         public SimpleRandomizerList()
         {
-            Items = _Items;
+            base.Items = _Items;
         }
 
         public override void AddItem(RandomizerItem item)

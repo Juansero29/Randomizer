@@ -12,15 +12,23 @@ namespace Randomizer.Tests.Persistence.EntityFramework
     public class TestContext : RandomizerContext
     {
 
+        public TestContext() : base()
+        {
+        }
+
+        public TestContext(DbContextOptions options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
             //var connection = new SqliteConnection("DataSource=D:\\dev\\randomizer.db");
-            //var connection = new SqliteConnection("DataSource=:memory:");
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=randomizer;Trusted_Connection=True;");
-            // connection.Open();
             //optionsBuilder.UseLazyLoadingProxies().UseSqlite(connection);
-            // optionsBuilder.UseSqlite(connection).EnableSensitiveDataLogging();
+            // optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=randomizer;Trusted_Connection=True;");
+            //var connection = new SqliteConnection("DataSource=:memory:");
+            //connection.Open();
+            //optionsBuilder.UseSqlite(connection);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

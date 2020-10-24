@@ -25,7 +25,7 @@ namespace Randomizer.Framework.Models.Contract
         /// <summary>
         /// The items on this list
         /// </summary>
-        public ICollection<RandomizerItem> Items { get; set; }
+        public virtual ICollection<RandomizerItem> Items { get; set; }
 
         /// <summary>
         /// Method to add an item
