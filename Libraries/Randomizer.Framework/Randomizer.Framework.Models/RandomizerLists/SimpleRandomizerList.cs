@@ -22,10 +22,12 @@ namespace Randomizer.Framework.Models
             base.Items = _Items;
         }
 
-        public override void AddItem(RandomizerItem item)
+        public override bool AddItem(RandomizerItem item)
         {
+            
             _Items.Add(item);
             item.Parent = this;
+            return _Items.Contains(item);
         }
 
         public override bool RemoveItem(RandomizerItem item)

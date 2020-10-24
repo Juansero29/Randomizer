@@ -133,6 +133,10 @@
     <value>Tapez le nom de votre liste...</value>
     <comment>A placeholder label suggesting the user to enter their list's name</comment>
   </data>
+  <data name="ErrorAddingItem" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'ajout de cet élément :( Essayez à nouveau, s'il vous plaît</value>
+    <comment>An error happened while adding an item, be kind to the user.</comment>
+  </data>
   <data name="FeatureNotImplementedMessage" xml:space="preserve">
     <value>Cette fonctionnalité n'a pas encore été implémentée. Réessayez plus tard !</value>
     <comment>A message that explains to the user the feature he is trying to use it's not yet implemented. It encourages them to try again later at the end.</comment>
@@ -140,6 +144,10 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>Accueil</value>
     <comment>The title of the home page</comment>
+  </data>
+  <data name="ItemAlreadyExists" xml:space="preserve">
+    <value>Un item avec le même ID existe déjà !</value>
+    <comment>Message when adding an item to a list that already exists in the database.</comment>
   </data>
   <data name="NothingHereLabel" xml:space="preserve">
     <value>Il n'y a rien ici !</value>

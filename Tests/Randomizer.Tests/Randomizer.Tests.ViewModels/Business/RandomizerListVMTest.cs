@@ -22,21 +22,22 @@ namespace Randomizer.Tests.ViewModels.Business
         }
 
         [Theory]
-        [ClassData(typeof(RandomizerItemTestData))]
-        private void AddItemTest(RandomizerItem item)
+        [ClassData(typeof(RandomizerItemVMTestData))]
+        private void AddItemTest(RandomizerItemVM item)
         {
             var model = new SimpleRandomizerList() { Name = "Beers" };
             var vm = new RandomizerListVM(model);
             vm.ItemsVM.Should().BeEmpty();
-            vm.AddItem(item);
-            //vm.ItemsVM.Should().NotBeEmpty();
-            //vm.ItemsVM.Should().OnlyContain((containedItem) => item.Equals(containedItem));
+            vm.AddItem(item.Model);
+            vm.ItemsVM.Should().NotBeEmpty();
+            vm.ItemsVM.Should().OnlyContain((containedItem) => item.Equals(containedItem));
         }
 
         [Theory]
-        [ClassData(typeof(RandomizerItemTestData))]
-        private void RemoveItemTest(RandomizerItem item)
+        [ClassData(typeof(RandomizerItemVMTestData))]
+        private void RemoveItemTest(RandomizerItemVM item)
         {
+
             //_ViewModel.AddItem(item);
             //_ViewModel.RemoveItem(item);
             //_ViewModel.Items.Should().BeEmpty();

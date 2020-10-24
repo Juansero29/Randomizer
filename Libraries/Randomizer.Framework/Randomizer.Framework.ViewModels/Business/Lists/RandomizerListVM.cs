@@ -1,6 +1,8 @@
 ﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Services.Alerts;
+using Randomizer.Framework.Services.Resources;
 using Randomizer.Framework.ViewModels.Commanding;
 using System;
 using System.Collections.Generic;
@@ -40,7 +42,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
         #region Constructor(s)
 
-        
+
         public RandomizerListVM(RandomizerList model) : base(model)
         {
             InitCommands();
@@ -77,7 +79,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
         private async void ClearList()
         {
-            
+
         }
 
 
@@ -109,16 +111,26 @@ namespace Randomizer.Framework.ViewModels.Business
 
         public async void AddItem(RandomizerItem item)
         {
+            if (Model.ContainsItem(item))
+            {
+                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
+                return;
+            }
 
-            Model.AddItem(item);
-            OnPropertyChanged(nameof(ItemsVM));
+            if(!Model.AddItem(item))
+            {
+                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ErrorAddingItem, TextResources.OKMessage);
+                return;
+            }
+
+            await RefreshItems();
         }
 
         #endregion
 
         #region Methods
 
-        public async void RefreshItems()
+        public async Task RefreshItems()
         {
             var items = await GetItems();
             ItemsVM.Clear();
@@ -127,7 +139,6 @@ namespace Randomizer.Framework.ViewModels.Business
             {
                 ItemsVM.Add(new RandomizerItemVM(i));
             }
-
         }
 
         private async Task<IEnumerable<RandomizerItem>> GetItems() => await Task.FromResult(Model.Items);

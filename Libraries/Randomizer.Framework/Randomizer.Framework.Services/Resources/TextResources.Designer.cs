@@ -97,6 +97,15 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while adding this item :( Please, try again!.
+        /// </summary>
+        public static string ErrorAddingItem {
+            get {
+                return ResourceManager.GetString("ErrorAddingItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This feature hasn&apos;t been implemented yet. Try again later!.
         /// </summary>
         public static string FeatureNotImplementedMessage {
@@ -111,6 +120,15 @@ namespace Randomizer.Framework.Services.Resources {
         public static string HomePageTitle {
             get {
                 return ResourceManager.GetString("HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An item with the same ID already exists!.
+        /// </summary>
+        public static string ItemAlreadyExists {
+            get {
+                return ResourceManager.GetString("ItemAlreadyExists", resourceCulture);
             }
         }
         

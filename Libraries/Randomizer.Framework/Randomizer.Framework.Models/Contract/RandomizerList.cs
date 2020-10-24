@@ -31,7 +31,7 @@ namespace Randomizer.Framework.Models.Contract
         /// Method to add an item
         /// </summary>
         /// <param name="item"></param>
-        public abstract void AddItem(RandomizerItem item);
+        public abstract bool AddItem(RandomizerItem item);
 
         /// <summary>
         /// Method to remove an item

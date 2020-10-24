@@ -126,12 +126,16 @@
     <comment>The app's name</comment>
   </data>
   <data name="EnterAnItemPlaceholder" xml:space="preserve">
-    <value>Añadir un elemento</value>
+    <value>Añadir un ítem</value>
     <comment>A placeholder label suggesting the user to enter an item's name</comment>
   </data>
   <data name="EnterListNamePlaceholder" xml:space="preserve">
     <value>Escribir el nombre de la lista</value>
     <comment>A placeholder label suggesting the user to enter their list's name</comment>
+  </data>
+  <data name="ErrorAddingItem" xml:space="preserve">
+    <value>Hubo un error al añadir este ítem :( Inténtalo de nuevo, por favor</value>
+    <comment>An error happened while adding an item, be kind to the user.</comment>
   </data>
   <data name="FeatureNotImplementedMessage" xml:space="preserve">
     <value>Esta funcionalidad aún no ha sido implementada. ¡Inténtalo de nuevo más tarde!</value>
@@ -140,6 +144,10 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>Inicio</value>
     <comment>The title of the home page</comment>
+  </data>
+  <data name="ItemAlreadyExists" xml:space="preserve">
+    <value> ¡Un ítem con el mismo ID ya existe!</value>
+    <comment>Message when adding an item to a list that already exists in the database.</comment>
   </data>
   <data name="NothingHereLabel" xml:space="preserve">
     <value>¡No hay nada aquí!</value>
