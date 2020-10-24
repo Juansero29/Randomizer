@@ -25,6 +25,7 @@ namespace Randomizer.Framework.Models
         public TextRandomizerItem(string name, RandomizerList parent)
         {
             Name = name;
+            Parent = parent;
         }
         public override bool Equals(object obj)
         {

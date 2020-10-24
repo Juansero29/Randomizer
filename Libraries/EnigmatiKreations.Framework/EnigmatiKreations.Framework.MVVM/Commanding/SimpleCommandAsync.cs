@@ -29,6 +29,8 @@ namespace Randomizer.Framework.ViewModels.Commanding
 
 
         private bool _IsExecuting;
+        private ICommand clearListCommand;
+        private Func<bool> canExecuteClearList;
 
         /// <summary>
         /// Is this command executing
@@ -44,6 +46,12 @@ namespace Randomizer.Framework.ViewModels.Commanding
             _execute = execute;
             _canExecute = canExecute;
             _errorHandler = errorHandler;
+        }
+
+        public SimpleCommandAsync(ICommand clearListCommand, Func<bool> canExecuteClearList)
+        {
+            this.clearListCommand = clearListCommand;
+            this.canExecuteClearList = canExecuteClearList;
         }
 
         public bool CanExecute()

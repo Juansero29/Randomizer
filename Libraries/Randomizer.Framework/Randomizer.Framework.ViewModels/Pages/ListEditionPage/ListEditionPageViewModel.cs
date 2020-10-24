@@ -85,7 +85,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             {
                 SetValue(ref _IsNew, value, onChanged: () =>
                 {
-                    if (value) ListVM = new RandomizerListVM();
+                    //if (value) ListVM = new RandomizerListVM();
                 });
             }
         }
@@ -137,7 +137,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         private void OnRemoveListItem(RandomizerItem item)
         {
-            ListVM.RemoveItem(item);
+            // ListVM.RemoveItem(item);
         }
 
         private void OnSaveList()

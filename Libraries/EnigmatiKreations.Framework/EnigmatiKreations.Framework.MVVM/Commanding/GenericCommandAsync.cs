@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Randomizer.Framework.Models.Contract;
 
 namespace Randomizer.Framework.ViewModels.Commanding
 {
@@ -21,6 +22,8 @@ namespace Randomizer.Framework.ViewModels.Commanding
         public event EventHandler CanExecuteChanged;
 
         private bool _isExecuting;
+        private Action<RandomizerItem> removeItem;
+        private object canExecuteRemoveItem;
         private readonly Action<T> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
@@ -31,7 +34,6 @@ namespace Randomizer.Framework.ViewModels.Commanding
             _canExecute = canExecute;
             _errorHandler = errorHandler;
         }
-
 
         public bool CanExecute()
         {

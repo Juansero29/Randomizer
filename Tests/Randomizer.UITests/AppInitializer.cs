@@ -31,7 +31,7 @@ namespace UITests
             {
                 //..\..\Randomizer\Randomizer.Android\bin\Release\fr.ClubInfo.Randomizer-Signed.apk"
                 return ConfigureApp.Android
-                    .ApkFile("../../../../Randomizer/Randomizer.Android/bin/Release/fr.ClubInfo.Randomizer-Signed.apk")
+                    .ApkFile("C:\\Randomizer.UITests\\android\\fr.ClubInfo.Randomizer.apk")
                     .EnableLocalScreenshots()
                     .WaitTimes(new WaitTimes())
                     .StartApp();
