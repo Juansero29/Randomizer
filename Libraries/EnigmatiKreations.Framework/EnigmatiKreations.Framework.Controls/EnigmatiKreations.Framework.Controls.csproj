@@ -150,5 +150,8 @@
     <ProjectReference Include="..\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
     <ProjectReference Include="..\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\NavigationPage\NavigationPageEK.cs" />
+  </ItemGroup>
 
 </Project>

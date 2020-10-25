@@ -34,10 +34,10 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
             AlertsService = Container.Resolve<IAlertsService>();
 
 
-            LoadCommand = new SimpleCommand(PreLoad);
-            UnloadCommand = new SimpleCommand(PreUnLoad);
-            LoadCommandAsync = new SimpleCommandAsync(PreLoad);
-            UnloadCommandAsync = new SimpleCommandAsync(PreUnLoad);
+            LoadCommand = new GenericCommand<object>(PreLoad);
+            UnloadCommand = new GenericCommand<object>(PreUnLoad);
+            LoadCommandAsync = new GenericCommandAsync<object>(PreLoad);
+            UnloadCommandAsync = new GenericCommandAsync<object>(PreUnLoad);
         }
         #endregion
 
@@ -94,12 +94,12 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
 
 
 
-        private ICommand _LoadCommandAsync;
+        private IGenericCommandAsync<object> _LoadCommandAsync;
 
         /// <summary>
         /// Command executed async when this view model needs to be loaded
         /// </summary>
-        public ICommand LoadCommandAsync
+        public IGenericCommandAsync<object> LoadCommandAsync
         {
             get => _LoadCommandAsync;
             set => SetValue(ref _LoadCommandAsync, value);
@@ -107,12 +107,12 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
 
 
 
-        private ICommand _unloadCommandAsync;
+        private IGenericCommandAsync<object> _unloadCommandAsync;
 
         /// <summary>
         /// Command executed async when this view model needs to be unloaded
         /// </summary>
-        public ICommand UnloadCommandAsync
+        public IGenericCommandAsync<object> UnloadCommandAsync
         {
             get => _unloadCommandAsync;
             set => SetValue(ref _unloadCommandAsync, value);
@@ -134,15 +134,15 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         #endregion
 
         #region Lifecycle Methods
-        private void PreLoad()
+        private void PreLoad(object parameter)
         {
             if (_IsReload)
             {
-                ReLoad();
+                ReLoad(parameter);
             }
             else
             {
-                Load();
+                Load(parameter);
                 _IsReload = true;
             }
         }
@@ -150,7 +150,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <summary>
         /// Method called when the view model needs to be loaded (called only once)
         /// </summary>
-        public virtual void Load()
+        public virtual void Load(object parameter)
         {
 
         }
@@ -158,7 +158,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <summary>
         /// Method called when the view model needs to be reloaded (called if the <see cref="LoadCommand"/> is executed twice or more)
         /// </summary>
-        public virtual void ReLoad()
+        public virtual void ReLoad(object parameter)
         {
 
         }
@@ -167,18 +167,17 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <summary>
         /// Method called when the viewmodel needs to be unloaded
         /// </summary>
-        private void PreUnLoad()
+        private void PreUnLoad(object parameter)
         {
-            UnLoad();
-            //Destroy();
+            UnLoad(parameter);
         }
 
 
         /// <summary>
         /// Method called when the viewmodel needs to be unloaded
-        /// Methode surchargeable coté viewmodel
+        /// It can be overriden
         /// </summary>
-        public virtual void UnLoad()
+        public virtual void UnLoad(object parameter)
         {
 
         }
@@ -203,15 +202,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         #endregion
 
 
-        /// <summary>
-        /// Override this method to allow providing navigationData to your ViewModel when navigating
-        /// </summary>
-        /// <param name="navigationData"></param>
-        /// <returns></returns>
-        public virtual Task InitializeAsync(object navigationData)
-        {
-            return Task.FromResult(false);
-        }
+
 
     }
 

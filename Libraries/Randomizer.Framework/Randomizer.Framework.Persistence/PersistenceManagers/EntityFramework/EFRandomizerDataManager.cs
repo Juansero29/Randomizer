@@ -21,6 +21,7 @@ namespace Randomizer.Framework.Persistence
         private EFUnitOfWork _UnitOfWork;
 
 
+
         public EFRandomizerDataManager()
         {
             // Context init
@@ -39,9 +40,17 @@ namespace Randomizer.Framework.Persistence
         }
         public async Task<RandomizerList> Add(RandomizerList item)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().Add(item);
-            await _UnitOfWork.SaveChangesAsync();
-            return r;
+            try
+            {
+                var r = await _UnitOfWork.Repository<RandomizerList>().Add(item);
+                await _UnitOfWork.SaveChangesAsync();
+                return r;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+
         }
 
         public async Task<bool> AddRange(params RandomizerList[] items)

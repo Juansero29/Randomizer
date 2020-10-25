@@ -14,6 +14,7 @@
     <AssemblyName>Randomizer.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <ProvisioningType>manual</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,8 +29,6 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <BuildIpa>true</BuildIpa>
-    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
-    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -41,8 +40,6 @@
     <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <BuildIpa>true</BuildIpa>
-    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
-    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,12 +51,9 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <BuildIpa>true</BuildIpa>
-    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
-    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
     <IpaIncludeArtwork>true</IpaIncludeArtwork>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -71,11 +65,8 @@
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <BuildIpa>true</BuildIpa>
-    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <BuildIpa>true</BuildIpa>
-    <CodesignKey>iPhone Developer: juansero29@gmail.com (233FWV3UCH)</CodesignKey>
-    <CodesignProvision>iOS Team Provisioning Profile: fr.ClubInfo.Randomizer</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />

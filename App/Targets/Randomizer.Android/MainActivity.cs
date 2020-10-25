@@ -25,8 +25,6 @@ namespace Randomizer.Droid
 
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
 
-            AppCenter.Start("67db9ace-c4b4-4758-9ff0-0f763780a224", typeof(Analytics), typeof(Crashes));
-
 
             Randomizer.Framework.Services.Platforms.Droid.Tools.Init();
             EnigmatiKreations.Framework.Controls.Platforms.Droid.Tools.Init();

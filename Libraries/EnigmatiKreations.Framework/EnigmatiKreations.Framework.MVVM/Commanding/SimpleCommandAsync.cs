@@ -10,7 +10,7 @@ using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 namespace Randomizer.Framework.ViewModels.Commanding
 {
 
-    public interface IAsyncCommand : ICommand
+    public interface ICommandAsync : ICommand
     {
         Task ExecuteAsync();
         bool CanExecute();
@@ -18,7 +18,7 @@ namespace Randomizer.Framework.ViewModels.Commanding
 
 
 
-    public class SimpleCommandAsync : BaseViewModel, IAsyncCommand, IReportProgressCommand, INotifyPropertyChanged
+    public class SimpleCommandAsync : BaseViewModel, ICommandAsync, IReportProgressCommand, INotifyPropertyChanged
     {
         public event EventHandler CanExecuteChanged;
 

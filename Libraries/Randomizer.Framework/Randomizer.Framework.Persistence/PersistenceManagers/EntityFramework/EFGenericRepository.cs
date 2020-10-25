@@ -83,7 +83,8 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
         public virtual async Task<bool> Remove(object id)
         {
-            var entity = await Get(id);
+            // force to wait, to avoid two threads accessing the same context https://docs.microsoft.com/fr-fr/ef/core/miscellaneous/configuring-dbcontext#avoiding-dbcontext-threading-issues
+            var entity = Get(id).GetAwaiter().GetResult();
             return await Remove(entity);
         }
 

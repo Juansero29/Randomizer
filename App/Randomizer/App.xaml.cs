@@ -1,15 +1,15 @@
-﻿using EnigmatiKreations.Framework.Managers.Contract;
-using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using EnigmatiKreations.Framework.Services.Alerts;
 using EnigmatiKreations.Framework.Services.Navigation;
-using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Persistence;
 using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.i18n;
 using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.Services.Resources;
 using Xamarin.Forms;
-
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace Randomizer
 {
@@ -42,6 +42,9 @@ namespace Randomizer
         protected override void OnStart()
         {
             // Handle when your app starts
+            AppCenter.Start("android=fe6df48a-5cbf-4ab5-aa33-f92cecff4e06;" +
+                  "ios=26d40430-7a80-455f-a5ce-241972cfe9ba;",
+                  typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

@@ -14,37 +14,40 @@ using System;
 
 namespace Randomizer.Tests.ViewModels.Pages
 {
-    public class HomePageViewModelTest : IDisposable
+    public class HomePageViewModelTest
     {
 
-
-        public void Dispose()
+        #region Lifecycle
+        public HomePageViewModelTest()
         {
-            Container.Dispose();
+            RegisterServicesInContainer();
         }
-
         private void RegisterServicesInContainer()
         {
             Container.PrepareNewBuilder();
             Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
             Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-            ////Container.RegisterDependency(new ListsManager(new StubRandomizerListDataManager()), typeof(ListsManager), true);
-            Container.RegisterDependency(new ListsManagerVM(new ListsManager(new TestsRandomizerDataManager())), typeof(ListsManagerVM), true);
+            Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
             Container.BuildContainer();
         }
 
-        //[Fact]
-        //public void TitleNotNullTest()
-        //{
-        //    //_HomePageViewModel.Title.Should().NotBeNull();
-        //}
+        #endregion
+
+
+
 
         [Fact]
         public void ConstructorTest()
         {
-            RegisterServicesInContainer();
-            var _HomePageViewModel = new HomePageViewModel();
-            _HomePageViewModel.Should().NotBeNull();
+            var vm = new HomePageViewModel();
+            vm.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void TitleNotNullTest()
+        {
+            var vm = new HomePageViewModel();
+            vm.Title.Should().NotBeNull();
         }
 
         //[Fact]

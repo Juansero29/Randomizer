@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using Randomizer.Framework.Services.Resources;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -45,6 +46,9 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         public HomePageViewModel()
         {
+            // setting title
+            Title = TextResources.YourListsLabel;
+
             MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
             ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
             {

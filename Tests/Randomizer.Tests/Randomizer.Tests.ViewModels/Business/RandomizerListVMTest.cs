@@ -19,11 +19,13 @@ namespace Randomizer.Tests.ViewModels.Business
 {
     public class RandomizerListVMTest : IDisposable
     {
-
-
-        public void Dispose()
+        #region Lifecycle
+        public RandomizerListVMTest()
         {
-            Container.Dispose();
+            // Register (create) view models in the view model locator
+            RegisterServicesInContainer();
+
+
         }
 
         private void RegisterServicesInContainer()
@@ -31,10 +33,15 @@ namespace Randomizer.Tests.ViewModels.Business
             Container.PrepareNewBuilder();
             Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
             Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-            ////Container.RegisterDependency(new ListsManager(new StubRandomizerListDataManager()), typeof(ListsManager), true);
-            Container.RegisterDependency(new ListsManagerVM(new ListsManager(new TestsRandomizerDataManager())), typeof(ListsManagerVM), true);
             Container.BuildContainer();
         }
+
+        public void Dispose()
+        {
+            Container.Dispose();
+        }
+        #endregion
+
 
         [Fact]
         private void ConstructorTest()
@@ -53,6 +60,18 @@ namespace Randomizer.Tests.ViewModels.Business
             vm.ItemsVM.Should().BeEmpty();
             await vm.AddItemCommand.ExecuteAsync(item);
             vm.ItemsVM.Should().NotBeEmpty();
+            vm.ItemsVM.Should().OnlyContain((containedItem) => item.Equals(containedItem));
+        }
+
+        [Theory]
+        [ClassData(typeof(RandomizerItemVMTestData))]
+        private async void AddItemTwiceTest(RandomizerItemVM item)
+        {
+            var model = new SimpleRandomizerList() { Name = "Beers" };
+            var vm = new RandomizerListVM(model);
+            vm.ItemsVM.Should().BeEmpty();
+            await vm.AddItemCommand.ExecuteAsync(item);
+            await vm.AddItemCommand.ExecuteAsync(item);
             vm.ItemsVM.Should().OnlyContain((containedItem) => item.Equals(containedItem));
         }
 

@@ -149,7 +149,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         private async void OnDeleteList()
         {
             MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM);
-            await NavigationService.PopAsync();
+            await NavigationService.GoBackAsync();
         }
 
         private void OnRandomize()

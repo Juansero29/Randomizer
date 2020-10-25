@@ -1,5 +1,6 @@
-﻿using Castle.Core.Internal;
+﻿
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using EnigmatiKreations.Framework.Services.Alerts;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.Resources;
@@ -61,7 +62,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
         public IGenericCommandAsync<RandomizerItemVM> UpdateItemCommand { get; set; }
 
-        public IAsyncCommand ClearListCommand { get; set; }
+        public ICommandAsync ClearListCommand { get; set; }
 
 
         private void InitCommands()
@@ -80,10 +81,10 @@ namespace Randomizer.Framework.ViewModels.Business
 
         private async void ClearList()
         {
-            var success = !Model.Items.IsNullOrEmpty();
+            var success = !(Model.Items.Count == 0);
             if(!success)
             {
-                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ListNotCleared, TextResources.OKMessage);
+                await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ListNotCleared, TextResources.OKMessage);
                 return;
             }
             Model.Items.Clear();
@@ -104,7 +105,7 @@ namespace Randomizer.Framework.ViewModels.Business
             var success = Model.UpdateItem(obj.Model);
             if(success == null)
             {
-                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotUpdated, TextResources.OKMessage);
+                await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotUpdated, TextResources.OKMessage);
                 return;
             }
 
@@ -122,7 +123,7 @@ namespace Randomizer.Framework.ViewModels.Business
             success &= await Task.FromResult(Model.RemoveItem(item.Model));
             if (!success)
             {
-                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotDeleted, TextResources.OKMessage);
+                await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotDeleted, TextResources.OKMessage);
                 return;
             }
             await RefreshItems();
@@ -137,13 +138,13 @@ namespace Randomizer.Framework.ViewModels.Business
         {
             if (Model.ContainsItem(item.Model))
             {
-                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
+                await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
                 return;
             }
 
             if(!Model.AddItem(item.Model))
             {
-                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ErrorAddingItem, TextResources.OKMessage);
+                await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ErrorAddingItem, TextResources.OKMessage);
                 return;
             }
 
