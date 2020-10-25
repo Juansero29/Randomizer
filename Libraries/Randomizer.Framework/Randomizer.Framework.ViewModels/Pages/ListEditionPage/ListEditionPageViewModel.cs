@@ -132,7 +132,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         private void OnAddItem(string itemName)
         {
             ItemEntryText = "";
-            ListVM.AddItem(new TextRandomizerItem { Name = itemName });
+            ListVM.AddItemCommand.Execute(new TextRandomizerItem { Name = itemName });
         }
 
         private void OnRemoveListItem(RandomizerItem item)

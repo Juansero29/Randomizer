@@ -11,13 +11,13 @@ using Randomizer.Framework.Models.Contract;
 namespace Randomizer.Framework.ViewModels.Commanding
 {
 
-    public interface IAsyncGenericCommand<T> : ICommand
+    public interface IGenericCommandAsync<T> : ICommand
     {
         Task ExecuteAsync(T param);
         bool CanExecute();
     }
 
-    public class GenericCommandAsync<T> : IAsyncGenericCommand<T>, IReportProgressCommand
+    public class GenericCommandAsync<T> : IGenericCommandAsync<T>, IReportProgressCommand
     {
         public event EventHandler CanExecuteChanged;
 

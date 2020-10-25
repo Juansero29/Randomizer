@@ -149,6 +149,18 @@
     <value> ¡Un ítem con el mismo ID ya existe!</value>
     <comment>Message when adding an item to a list that already exists in the database.</comment>
   </data>
+  <data name="ItemNotDeleted" xml:space="preserve">
+    <value>El ítem no pudo ser borrado :( Inténtalo de nuevo, por favor</value>
+    <comment>A message indicating that an item couldn't be deleted</comment>
+  </data>
+  <data name="ItemNotUpdated" xml:space="preserve">
+    <value>El ítem no pudo ser actualizado :( Inténtalo de nuevo, por favor</value>
+    <comment>A message indicating that an item couldn't ne updated</comment>
+  </data>
+  <data name="ListNotCleared" xml:space="preserve">
+    <value>La no pudo ser vaciada :( Inténtalo de nuevo, por favor</value>
+    <comment>A message indicating that a list couldn't be updated</comment>
+  </data>
   <data name="NothingHereLabel" xml:space="preserve">
     <value>¡No hay nada aquí!</value>
     <comment>A label indicating there's nothing here</comment>

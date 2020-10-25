@@ -43,7 +43,7 @@ namespace Randomizer.Framework.Models
         }
 
 
-        public override RandomizerItem UpdateItem(object id, RandomizerItem item)
+        public override RandomizerItem UpdateItem(RandomizerItem item)
         {
             if (!ContainsItem(item)) return null;
             _Items[_Items.IndexOf(item)] = item;
@@ -71,7 +71,7 @@ namespace Randomizer.Framework.Models
         public override int GetHashCode()
         {
             var hashCode = -1820475233;
-            hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<object>.Default.GetHashCode(Id);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
             hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<RandomizerItem>>.Default.GetHashCode(Items);
             return hashCode;

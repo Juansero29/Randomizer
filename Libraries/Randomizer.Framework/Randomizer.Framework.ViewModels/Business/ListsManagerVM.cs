@@ -17,10 +17,6 @@ namespace Randomizer.Framework.ViewModels.Business
     /// </summary>
     public class ListsManagerVM : BaseViewModel<ListsManager>
     {
-        #region Private Fields
-        private ObservableCollection<RandomizerListVM> _ListsVM;
-        #endregion
-
 
         #region Properties
 
@@ -38,7 +34,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
 
 
-        public ObservableCollection<RandomizerListVM> ListsVM { get => _ListsVM; }
+        public ObservableCollection<RandomizerListVM> ListsVM { get; }
 
         #endregion
 

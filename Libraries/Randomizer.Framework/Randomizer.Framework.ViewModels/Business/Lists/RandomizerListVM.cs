@@ -1,15 +1,13 @@
-﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
-using Randomizer.Framework.Models;
+﻿using Castle.Core.Internal;
+using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.Resources;
+using Randomizer.Framework.ViewModels.Business.Items;
 using Randomizer.Framework.ViewModels.Commanding;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms.Internals;
 
 namespace Randomizer.Framework.ViewModels.Business
@@ -22,6 +20,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
         #region Private Fields
         private ObservableCollection<RandomizerItemVM> _ItemsVM = new ObservableCollection<RandomizerItemVM>();
+        private readonly ReadOnlyObservableCollection<RandomizerItemVM> _ReadOnlyItemsVM;
         #endregion
 
         #region Properties
@@ -34,10 +33,11 @@ namespace Randomizer.Framework.ViewModels.Business
             set => SetValueOnModel(value, Model);
         }
 
+        
         /// <summary>
         /// The list's items
         /// </summary>
-        public ObservableCollection<RandomizerItemVM> ItemsVM => _ItemsVM;
+        public ReadOnlyObservableCollection<RandomizerItemVM> ItemsVM => _ReadOnlyItemsVM;
         #endregion
 
         #region Constructor(s)
@@ -45,6 +45,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
         public RandomizerListVM(RandomizerList model) : base(model)
         {
+            _ReadOnlyItemsVM = new ReadOnlyObservableCollection<RandomizerItemVM>(_ItemsVM);
             InitCommands();
         }
 
@@ -54,20 +55,20 @@ namespace Randomizer.Framework.ViewModels.Business
 
         #region Commands
 
-        public ICommand AddItemCommand { get; set; }
+        public IGenericCommandAsync<RandomizerItemVM> AddItemCommand { get; set; }
 
-        public ICommand RemoveItemCommand { get; set; }
+        public IGenericCommandAsync<RandomizerItemVM> RemoveItemCommand { get; set; }
 
-        public ICommand UpdateItemCommand { get; set; }
+        public IGenericCommandAsync<RandomizerItemVM> UpdateItemCommand { get; set; }
 
-        public ICommand ClearListCommand { get; set; }
+        public IAsyncCommand ClearListCommand { get; set; }
 
 
         private void InitCommands()
         {
-            AddItemCommand = new GenericCommandAsync<RandomizerItem>(AddItem, CanExecuteAddItem);
-            RemoveItemCommand = new GenericCommandAsync<RandomizerItem>(RemoveItem, CanExecuteRemoveItem);
-            UpdateItemCommand = new GenericCommandAsync<RandomizerItem>(UpdateItem, CanExecuteUpdateItem);
+            AddItemCommand = new GenericCommandAsync<RandomizerItemVM>(AddItem, CanExecuteAddItem);
+            RemoveItemCommand = new GenericCommandAsync<RandomizerItemVM>(RemoveItem, CanExecuteRemoveItem);
+            UpdateItemCommand = new GenericCommandAsync<RandomizerItemVM>(UpdateItem, CanExecuteUpdateItem);
             ClearListCommand = new SimpleCommandAsync(ClearList, CanExecuteClearList);
         }
 
@@ -79,6 +80,16 @@ namespace Randomizer.Framework.ViewModels.Business
 
         private async void ClearList()
         {
+            var success = !Model.Items.IsNullOrEmpty();
+            if(!success)
+            {
+                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ListNotCleared, TextResources.OKMessage);
+                return;
+            }
+            Model.Items.Clear();
+
+
+            await RefreshItems();
 
         }
 
@@ -88,8 +99,16 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private void UpdateItem(RandomizerItem obj)
+        private async void UpdateItem(RandomizerItemVM obj)
         {
+            var success = Model.UpdateItem(obj.Model);
+            if(success == null)
+            {
+                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotUpdated, TextResources.OKMessage);
+                return;
+            }
+
+            await RefreshItems();
         }
 
         private bool CanExecuteRemoveItem()
@@ -97,11 +116,16 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void RemoveItem(RandomizerItem item)
+        private async void RemoveItem(RandomizerItemVM item)
         {
-            var success = await Task.FromResult(Model.RemoveItem(item));
-            if (!success) return;
-
+            var success = Model.ContainsItem(item.Model);
+            success &= await Task.FromResult(Model.RemoveItem(item.Model));
+            if (!success)
+            {
+                await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotDeleted, TextResources.OKMessage);
+                return;
+            }
+            await RefreshItems();
         }
 
         private bool CanExecuteAddItem()
@@ -109,15 +133,15 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        public async void AddItem(RandomizerItem item)
+        private async void AddItem(RandomizerItemVM item)
         {
-            if (Model.ContainsItem(item))
+            if (Model.ContainsItem(item.Model))
             {
                 await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
                 return;
             }
 
-            if(!Model.AddItem(item))
+            if(!Model.AddItem(item.Model))
             {
                 await Container.Resolve<AlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ErrorAddingItem, TextResources.OKMessage);
                 return;
@@ -133,11 +157,11 @@ namespace Randomizer.Framework.ViewModels.Business
         public async Task RefreshItems()
         {
             var items = await GetItems();
-            ItemsVM.Clear();
+            _ItemsVM.Clear();
 
             foreach (var i in items)
             {
-                ItemsVM.Add(new RandomizerItemVM(i));
+                _ItemsVM.Add(new RandomizerItemVM(i));
             }
         }
 

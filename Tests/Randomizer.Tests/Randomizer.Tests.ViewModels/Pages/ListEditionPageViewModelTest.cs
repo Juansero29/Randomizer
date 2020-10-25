@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xunit;
 
@@ -122,6 +123,7 @@ namespace Randomizer.Tests.ViewModels.Pages
         [Fact]
         private async void SaveListFromHomePage()
         {
+            await Task.FromResult(true);
             //var man = Container.Resolve<ListsManagerVM>();
             //var listModel = new SimpleRandomizerList() { Name = "Beers" };
             //var listVM = new RandomizerListVM(listModel);
