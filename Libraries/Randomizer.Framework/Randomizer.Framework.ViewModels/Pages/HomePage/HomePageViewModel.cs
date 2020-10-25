@@ -85,9 +85,9 @@ namespace Randomizer.Framework.ViewModels.Pages
             MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
         }
 
-        public override void ReLoad()
+        public override void ReLoad(object parameter)
         {
-            base.ReLoad();
+            base.ReLoad(parameter);
             // To use reload we need to first use the LoadingBehaviorLifecycle
             // Reload the list of lists using the DataManager to see if there where any changes
         }

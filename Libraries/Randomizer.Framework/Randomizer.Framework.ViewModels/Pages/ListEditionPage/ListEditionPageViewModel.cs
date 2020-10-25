@@ -169,9 +169,9 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Methods
 
 
-        public override void UnLoad()
+        public override void UnLoad(object parameter)
         {
-            base.UnLoad();
+            base.UnLoad(parameter);
             MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
