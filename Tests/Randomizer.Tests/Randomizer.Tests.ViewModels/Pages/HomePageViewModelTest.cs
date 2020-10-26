@@ -11,6 +11,8 @@ using Randomizer.Framework.Persistence;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Models;
 using System;
+using Randomizer.Framework.Pages.Navigation;
+using Xamarin.Forms;
 
 namespace Randomizer.Tests.ViewModels.Pages
 {
@@ -28,7 +30,9 @@ namespace Randomizer.Tests.ViewModels.Pages
             do
             {
                 Container.PrepareNewBuilder();
-                Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
+                var navService = new ShellNavigationService();
+                navService.Initialize(new Shell(), new RandomizerPageLoader());
+                Container.RegisterDependency(navService, typeof(INavigationService), true);
                 Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
                 Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
             } while (!Container.BuildContainer());

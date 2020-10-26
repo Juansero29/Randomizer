@@ -13,12 +13,16 @@ namespace EnigmatiKreations.Framework.Services.Navigation
     /// </summary>
     public interface INavigationService
     {
+        /// <summary>
+        /// The page loader, used to instatiate pages when necessary
+        /// </summary>
+        IPageLoader PageLoader { get; set; }
 
         /// <summary>
         /// Initialize the navigation service
         /// </summary>
         /// <param name="navigationRootPage"></param>
-        void Initialize(NavigableElement navigationRootPage);
+        void Initialize(NavigableElement navigationRootPage, IPageLoader loader);
 
 
         /// <summary>

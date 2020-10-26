@@ -15,6 +15,8 @@ namespace Randomizer.Framework.Services.Navigation
     {
         public BasePageViewModel PreviousPageViewModel => throw new NotImplementedException();
 
+        public IPageLoader PageLoader { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Page GetCurrentPage()
         {
             return Application.Current.MainPage;
@@ -26,6 +28,11 @@ namespace Randomizer.Framework.Services.Navigation
         }
 
         public void Initialize(NavigableElement navigationRootPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Initialize(NavigableElement navigationRootPage, IPageLoader loader)
         {
             throw new NotImplementedException();
         }

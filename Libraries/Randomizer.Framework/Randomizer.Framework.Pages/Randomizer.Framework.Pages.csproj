@@ -30,4 +30,7 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Navigation\" />
+  </ItemGroup>
 </Project>
