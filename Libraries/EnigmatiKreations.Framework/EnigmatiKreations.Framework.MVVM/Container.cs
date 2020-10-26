@@ -32,11 +32,22 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <summary>
         /// Builds the container
         /// </summary>
-        public static void BuildContainer()
+        /// <returns>
+        /// Wether the builder was kept or not or not
+        /// </returns>
+        public static bool BuildContainer()
         {
-            if (_Container != null) return;
+            if (_Container != null) return true;
+            try
+            {
+                _Container = _Builder.Build();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
 
-            _Container = _Builder.Build();
         }
 
         /// <summary>

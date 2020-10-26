@@ -23,13 +23,23 @@ namespace Randomizer.Tests.ViewModels.Pages
     public class ListEditionPageViewModelTest
     {
 
+        public ListEditionPageViewModelTest()
+        {
+            Xamarin.Forms.Mocks.MockForms.Init();
+            RegisterServicesInContainer();
+        }
+
         private void RegisterServicesInContainer()
         {
-            Container.PrepareNewBuilder();
-            Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
-            Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-            Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
-            Container.BuildContainer();
+            do
+            {
+                Container.PrepareNewBuilder();
+                Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
+                Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+                Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
+            } while (!Container.BuildContainer());
+
+
         }
 
 
@@ -37,7 +47,7 @@ namespace Randomizer.Tests.ViewModels.Pages
         [Fact]
         private void ConstructorTest()
         {
-            RegisterServicesInContainer();
+            
             var vm = new ListEditionPageViewModel();
             vm.Should().NotBeNull();
         }

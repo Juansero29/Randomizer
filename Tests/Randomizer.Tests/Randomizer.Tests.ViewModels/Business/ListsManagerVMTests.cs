@@ -18,20 +18,21 @@ using System.Threading.Tasks;
 
 namespace Randomizer.Tests.ViewModels.Business
 {
-    public class ListsManagerVMTests : IDisposable
+    public class ListsManagerVMTests
     {
 
-
-        public void Dispose()
+        public ListsManagerVMTests()
         {
-            Container.Dispose();
+            RegisterServicesInContainer();
         }
 
         private void RegisterServicesInContainer()
         {
-            Container.PrepareNewBuilder();
-            Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-            Container.BuildContainer();
+            do
+            {
+                Container.PrepareNewBuilder();
+                Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+            } while(!Container.BuildContainer());
         }
 
         [Fact]
@@ -59,7 +60,7 @@ namespace Randomizer.Tests.ViewModels.Business
         [ClassData(typeof(RandomizerListVMTestData))]
         private async Task AddListTwiceTest(RandomizerListVM list)
         {
-            RegisterServicesInContainer();
+         
             var model = new ListsManager(new TestsRandomizerDataManager());
             var vm = new ListsManagerVM(model);
             vm.ListsVM.Should().BeEmpty();

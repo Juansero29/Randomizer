@@ -17,7 +17,7 @@ using Xunit;
 
 namespace Randomizer.Tests.ViewModels.Business
 {
-    public class RandomizerListVMTest : IDisposable
+    public class RandomizerListVMTest
     {
         #region Lifecycle
         public RandomizerListVMTest()
@@ -30,16 +30,15 @@ namespace Randomizer.Tests.ViewModels.Business
 
         private void RegisterServicesInContainer()
         {
-            Container.PrepareNewBuilder();
-            Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
-            Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-            Container.BuildContainer();
+            do
+            {
+                Container.PrepareNewBuilder();
+                Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
+                Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+            } while (!Container.BuildContainer());
         }
 
-        public void Dispose()
-        {
-            Container.Dispose();
-        }
+
         #endregion
 
 

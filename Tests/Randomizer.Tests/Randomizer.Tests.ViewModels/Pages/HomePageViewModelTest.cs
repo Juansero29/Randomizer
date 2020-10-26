@@ -25,11 +25,14 @@ namespace Randomizer.Tests.ViewModels.Pages
         }
         private void RegisterServicesInContainer()
         {
-            Container.PrepareNewBuilder();
-            Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
-            Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
-            Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
-            Container.BuildContainer();
+            do
+            {
+                Container.PrepareNewBuilder();
+                Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
+                Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+                Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
+            } while (!Container.BuildContainer());
+
         }
 
         #endregion
