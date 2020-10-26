@@ -35,8 +35,6 @@
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
     <JavaMaximumHeapSize>1024m</JavaMaximumHeapSize>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
