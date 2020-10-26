@@ -20,13 +20,14 @@ namespace Randomizer.Tests.ViewModels.Pages
         #region Lifecycle
         public HomePageViewModelTest()
         {
+            Xamarin.Forms.Mocks.MockForms.Init();
             RegisterServicesInContainer();
         }
         private void RegisterServicesInContainer()
         {
             Container.PrepareNewBuilder();
-            Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
-            Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
+            Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
+            Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
             Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
             Container.BuildContainer();
         }
@@ -50,12 +51,13 @@ namespace Randomizer.Tests.ViewModels.Pages
             vm.Title.Should().NotBeNull();
         }
 
-        //[Fact]
-        //public void NavigateToAddListPageTest()
-        //{
-        //    //_HomePageViewModel.NewRandomizerListCommand.Should().NotBeNull();
-        //    //_HomePageViewModel.NewRandomizerListCommand?.Execute(null);
-        //}
+        [Fact]
+        public void NavigateToAddListPageTest()
+        {
+            var vm = new HomePageViewModel();
+            vm.NewRandomizerListCommand.Should().NotBeNull();
+            vm.NewRandomizerListCommand?.Execute(null);
+        }
 
         [Fact]
         private void HomePageLoadExistingDataTest()

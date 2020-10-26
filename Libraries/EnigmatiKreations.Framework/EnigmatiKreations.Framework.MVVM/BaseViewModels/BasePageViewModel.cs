@@ -39,6 +39,31 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
             LoadCommandAsync = new GenericCommandAsync<object>(PreLoad);
             UnloadCommandAsync = new GenericCommandAsync<object>(PreUnLoad);
         }
+
+        /// <summary>
+        /// Method called when this view model has been navigated to
+        /// </summary>
+        /// <param name="sender">The page that called this method</param>
+        /// <param name="e">The arguments to treat the navigation</param>
+        public virtual void Navigated(object sender, object e)
+        {
+        }
+
+        /// <summary>
+        /// Method called when this view model is navigating somewhere
+        /// </summary>
+        /// <param name="sender">The page that called this methods</param>
+        /// <param name="args">The arguments to treat the navigation</param>
+        /// <remarks>
+        /// Usually used to cancel the navigation of some conditions aren't met
+        /// </remarks>
+        public virtual void Navigating(object sender, object args)
+        {
+
+        }
+
+
+
         #endregion
 
         #region Properties
@@ -202,7 +227,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         #endregion
 
 
-
+     
 
     }
 

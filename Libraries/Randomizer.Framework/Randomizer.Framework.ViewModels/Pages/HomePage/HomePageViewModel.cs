@@ -10,6 +10,9 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using Randomizer.Framework.Services.Resources;
+using Randomizer.Framework.ViewModels.Commanding;
+using System.Collections.Generic;
+using EnigmatiKreations.Framework.MVVM.Navigation;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -37,8 +40,8 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Commands
-        public ICommand NewRandomizerListCommand { get; }
-        public ICommand ListTappedCommand { get; }
+        public ICommandAsync NewRandomizerListCommand { get; }
+        public IGenericCommandAsync<RandomizerListVM> ListTappedCommand { get; }
         #endregion
 
         #region Constructor(s)
@@ -49,24 +52,25 @@ namespace Randomizer.Framework.ViewModels.Pages
             // setting title
             Title = TextResources.YourListsLabel;
 
-            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
-            ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
-            {
-                if (Lists.Contains(newList)) return;
-                Lists.Add(newList);
-            });
+            //MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
+            //ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
+            //{
+            //    if (Lists.Contains(newList)) return;
+            //    Lists.Add(newList);
+            //});
 
-            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
-            ListEditionPageViewModel.MessagingCenterConstants.ListDeleted, (sender, deletedList) =>
-            {
-                Lists.Remove(deletedList);
-            });
+            //MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
+            //ListEditionPageViewModel.MessagingCenterConstants.ListDeleted, (sender, deletedList) =>
+            //{
+            //    Lists.Remove(deletedList);
+            //});
 
             #region Commands Init
-            NewRandomizerListCommand = new Command(OnNewRandomizerList);
-            ListTappedCommand = new Command<RandomizerListVM>(OnListTapped);
+            NewRandomizerListCommand = new SimpleCommandAsync(OnNewRandomizerList, CanExecuteNewListCommand);
+            ListTappedCommand = new GenericCommandAsync<RandomizerListVM>(OnListTapped, CanExecuteListTapped);
             #endregion
         }
+
 
 
 
@@ -74,16 +78,40 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Methods
 
-        async private void OnNewRandomizerList()
+        #region Commands
+         private void OnNewRandomizerList()
         {
-            await NavigationService.GoToAsync("/listedition?new=true&editmode=true");
+
+            //await NavigationService.NavigateToAsync("/listedition?new=true&editmode=true");
+            
+            var args = new Dictionary<string, string>
+            {
+                {  NavigationParameters.IsNew, "true" }
+            };
+
+
+
+            NavigationService.NavigateToAsync(NavigationRoutes.ListEditionPage, args);
         }
 
         async private void OnListTapped(RandomizerListVM list)
         {
-            await NavigationService.GoToAsync("/listedition");
+            await NavigationService.NavigateToAsync("/listedition");
             MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
         }
+
+
+        private bool CanExecuteListTapped()
+        {
+            return true;
+        }
+
+        private bool CanExecuteNewListCommand()
+        {
+            return true;
+        } 
+        #endregion
+
 
         public override void ReLoad(object parameter)
         {

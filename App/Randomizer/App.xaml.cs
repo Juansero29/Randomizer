@@ -10,6 +10,9 @@ using Xamarin.Forms;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Randomizer.Framework.ViewModels.Business;
+using System;
+using Randomizer.Pages;
 
 namespace Randomizer
 {
@@ -28,7 +31,7 @@ namespace Randomizer
             Container.PrepareNewBuilder();
             Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
             Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
-            Container.RegisterDependency(new ListsManager(), typeof(ListsManager), true);
+            Container.RegisterDependency(new ListsManagerVM(new ListsManager()), typeof(ListsManager), true);
             Container.BuildContainer();
         }
 

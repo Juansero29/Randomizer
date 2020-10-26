@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using EnigmatiKreations.Framework.MVVM.Navigation;
 using EnigmatiKreations.Framework.Services.Navigation;
 using Randomizer.Framework.Services.Navigation;
 using Xamarin.Forms;
@@ -19,37 +20,17 @@ namespace Randomizer.Framework.Services.Navigation
             return Application.Current.MainPage;
         }
 
-        public Task GoToAsync(string uri)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task GoBackAsync()
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task InitializeAsync()
+        public Task GoBackAsync(bool fromModal = false)
         {
             throw new NotImplementedException();
         }
 
-        public Task NavigateToAsync<TViewModel>() where TViewModel : BasePageViewModel
+        public void Initialize(NavigableElement navigationRootPage)
         {
             throw new NotImplementedException();
         }
 
-        public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BasePageViewModel
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveLastFromBackStackAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveBackStackAsync()
+        public Task NavigateToAsync(string navigationRoute, Dictionary<string, string> args = null, NavigationOptions options = null)
         {
             throw new NotImplementedException();
         }
