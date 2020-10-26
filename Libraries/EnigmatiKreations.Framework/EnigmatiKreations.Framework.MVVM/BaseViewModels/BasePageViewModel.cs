@@ -36,8 +36,18 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
 
             LoadCommand = new GenericCommand<object>(PreLoad);
             UnloadCommand = new GenericCommand<object>(PreUnLoad);
-            LoadCommandAsync = new GenericCommandAsync<object>(PreLoad);
-            UnloadCommandAsync = new GenericCommandAsync<object>(PreUnLoad);
+            LoadCommandAsync = new GenericCommandAsync<object>(PreLoadAsync);
+            UnloadCommandAsync = new GenericCommandAsync<object>(PreUnLoadAsync);
+        }
+
+        private async Task PreUnLoadAsync(object arg)
+        {
+            await Task.Run(() => PreUnLoad(arg));
+        }
+
+        private async Task PreLoadAsync(object arg)
+        {
+            await Task.Run(() => PreLoad(arg));
         }
 
         /// <summary>
@@ -175,7 +185,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <summary>
         /// Method called when the view model needs to be loaded (called only once)
         /// </summary>
-        public virtual void Load(object parameter)
+        public virtual void Load(object parameter = null)
         {
 
         }
@@ -183,7 +193,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <summary>
         /// Method called when the view model needs to be reloaded (called if the <see cref="LoadCommand"/> is executed twice or more)
         /// </summary>
-        public virtual void ReLoad(object parameter)
+        public virtual void ReLoad(object parameter = null)
         {
 
         }

@@ -13,6 +13,7 @@ using Randomizer.Framework.Services.Resources;
 using Randomizer.Framework.ViewModels.Commanding;
 using System.Collections.Generic;
 using EnigmatiKreations.Framework.MVVM.Navigation;
+using System.Threading.Tasks;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -20,22 +21,16 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// The ViewModel for the home page of Randomizer
     /// </summary>
     public class HomePageViewModel : BasePageViewModel
-    {
-
-        #region Private Fields
-        private ObservableCollection<RandomizerListVM> _Lists = new ObservableCollection<RandomizerListVM>();
-        #endregion
+    { 
 
         #region Properties
 
-        /// <summary>
-        /// The collection of lists to show in the home page
-        /// </summary>
-        public ObservableCollection<RandomizerListVM> Lists
+
+        public ListsManagerVM Manager
         {
-            get => _Lists;
-            set => SetValue(ref _Lists, value);
+            get => Container.Resolve<ListsManagerVM>();
         }
+
 
         #endregion
 
@@ -94,7 +89,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             NavigationService.NavigateToAsync(NavigationRoutes.ListEditionPage, args);
         }
 
-        async private void OnListTapped(RandomizerListVM list)
+        async private Task OnListTapped(RandomizerListVM list)
         {
             await NavigationService.NavigateToAsync("/listedition");
             MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
@@ -109,9 +104,20 @@ namespace Randomizer.Framework.ViewModels.Pages
         private bool CanExecuteNewListCommand()
         {
             return true;
-        } 
+        }
         #endregion
 
+        public override async void Load(object parameter = null)
+        {
+            base.Load(parameter);
+
+            await LoadDataFromManager();
+        }
+
+        public async Task LoadDataFromManager()
+        {
+            await Manager.RefreshLists();
+        }
 
         public override void ReLoad(object parameter)
         {

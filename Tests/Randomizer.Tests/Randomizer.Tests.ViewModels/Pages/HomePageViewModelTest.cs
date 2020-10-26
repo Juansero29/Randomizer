@@ -13,6 +13,7 @@ using Randomizer.Framework.Models;
 using System;
 using Randomizer.Framework.Pages.Navigation;
 using Xamarin.Forms;
+using Randomizer.Pages;
 
 namespace Randomizer.Tests.ViewModels.Pages
 {
@@ -34,7 +35,7 @@ namespace Randomizer.Tests.ViewModels.Pages
                 navService.Initialize(new Shell(), new RandomizerPageLoader());
                 Container.RegisterDependency(navService, typeof(INavigationService), true);
                 Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-                Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
+                Container.RegisterDependency(new ListsManagerVM(new ListsManager(new TestsRandomizerDataManager())), typeof(ListsManagerVM), true);
             } while (!Container.BuildContainer());
 
         }
@@ -63,27 +64,29 @@ namespace Randomizer.Tests.ViewModels.Pages
         {
             var vm = new HomePageViewModel();
             vm.NewRandomizerListCommand.Should().NotBeNull();
-            vm.NewRandomizerListCommand?.Execute(null);
+            vm.NewRandomizerListCommand?.ExecuteAsync().GetAwaiter().GetResult();
+            vm.NavigationService.GetCurrentPage().GetType().Should().Be(typeof(ListEditionPage));
         }
 
         [Fact]
-        private void HomePageLoadExistingDataTest()
+        private async void HomePageLoadExistingDataTest()
         {
-            Assert.Equal(1, 1);
-            //_HomePageViewModel.Lists.Should().NotBeNull();
-            //_HomePageViewModel.Lists.Should().BeEmpty();
+            var vm = new HomePageViewModel();
+            // await vm.LoadCommandAsync.ExecuteAsync(null);
+            await vm.LoadDataFromManager();
+            vm.Manager.ListsVM.Count.Should().BeGreaterThan(0);
         }
 
 
 
 
-        //[Fact]
-        //private void HomePageViewModelTestListsAreNotEmptyAfteradd()
-        //{
-        //    //_HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
-        //    //_HomePageViewModel.Lists.Should().NotBeEmpty();
-        //    //_HomePageViewModel.Lists[0].Should().NotBeNull();
-        //}
+        [Fact]
+        private void HomePageViewModelTestListsAreNotEmptyAfteradd()
+        {
+            //_HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
+            //_HomePageViewModel.Lists.Should().NotBeEmpty();
+            //_HomePageViewModel.Lists[0].Should().NotBeNull();
+        }
 
 
 

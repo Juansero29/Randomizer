@@ -22,11 +22,11 @@ namespace Randomizer.Framework.ViewModels.Commanding
         public event EventHandler CanExecuteChanged;
 
         private bool _isExecuting;
-        private readonly Action<T> _execute;
+        private readonly Func<T, Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
 
-        public GenericCommandAsync(Action<T> execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
+        public GenericCommandAsync(Func<T, Task> execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
         {
             _execute = execute;
             _canExecute = canExecute;
@@ -55,7 +55,7 @@ namespace Randomizer.Framework.ViewModels.Commanding
                 try
                 {
                     _isExecuting = true;
-                    await Task.Run(() => { _execute(param); });
+                    await  _execute(param);
                 }
                 finally
                 {

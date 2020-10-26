@@ -100,7 +100,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void UpdateItem(RandomizerItemVM obj)
+        private async Task UpdateItem(RandomizerItemVM obj)
         {
             var success = Model.UpdateItem(obj.Model);
             if(success == null)
@@ -117,7 +117,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void RemoveItem(RandomizerItemVM item)
+        private async Task RemoveItem(RandomizerItemVM item)
         {
             var success = Model.ContainsItem(item.Model);
             success &= await Task.FromResult(Model.RemoveItem(item.Model));
@@ -134,7 +134,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void AddItem(RandomizerItemVM item)
+        private async Task AddItem(RandomizerItemVM item)
         {
             if (Model.ContainsItem(item.Model))
             {

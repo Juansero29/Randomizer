@@ -87,7 +87,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void DeleteList(RandomizerListVM obj)
+        private async Task DeleteList(RandomizerListVM obj)
         {
             var r = await Model.RemoveList(obj.Model);
             if(!r)
@@ -107,7 +107,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void UpdateList(RandomizerListVM item)
+        private async Task UpdateList(RandomizerListVM item)
         {
             var r = await Model.Update(item.Model.Id, item.Model);
             if (r == null)
@@ -128,7 +128,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        public async void AddList(RandomizerListVM listVM)
+        public async Task AddList(RandomizerListVM listVM)
         {
             var r = await Model.AddList(listVM.Model);
             if (r == null)

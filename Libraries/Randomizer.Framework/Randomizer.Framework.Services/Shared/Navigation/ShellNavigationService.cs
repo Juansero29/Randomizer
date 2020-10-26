@@ -122,6 +122,8 @@ namespace Randomizer.Framework.Services.Navigation
                 await Task.Delay(5).ContinueWith((t) => _Shell.FlyoutIsPresented = false);
             }
 
+            _CurrentPage = page;
+
             if (!options.Modal)
             {
                 await NavigationRoot.Navigation.PushAsync(page, options.Animated).ConfigureAwait(false);
