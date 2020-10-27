@@ -117,7 +117,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async Task RemoveItem(RandomizerItemVM item)
+        public async Task RemoveItem(RandomizerItemVM item)
         {
             var success = Model.ContainsItem(item.Model);
             success &= await Task.FromResult(Model.RemoveItem(item.Model));

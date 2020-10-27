@@ -111,7 +111,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Commands
         public IGenericCommandAsync<string> AddItemCommand { get; }
-        public IGenericCommand<RandomizerItem> RemoveListItemCommand { get; }
+        public IGenericCommandAsync<RandomizerItemVM> RemoveListItemCommand { get; }
         public ICommandAsync SaveListCommand { get; }
         public ICommandAsync DeleteListCommand { get; }
         public ICommandAsync RandomizeCommand { get; }
@@ -129,11 +129,16 @@ namespace Randomizer.Framework.ViewModels.Pages
 
             #region InitCommands
             AddItemCommand = new GenericCommandAsync<string>(OnAddItem, CanExecuteAddItem);
-            RemoveListItemCommand = new GenericCommandAsync<RandomizerItem>(OnRemoveListItem, CanExecuteRemoveItem);
+            RemoveListItemCommand = new GenericCommandAsync<RandomizerItemVM>(OnRemoveListItem, CanExecuteRemoveItem);
             SaveListCommand = new SimpleCommandAsync(SaveList, CanExecuteSaveList);
             DeleteListCommand = new SimpleCommandAsync(OnDeleteList, CanExecuteDeleteList);
             RandomizeCommand = new SimpleCommandAsync(OnRandomize, CanExecuteRandomize);
             #endregion
+        }
+
+        private bool CanExecuteRemoveItem()
+        {
+            return true;
         }
 
         private bool CanExecuteRandomize()
@@ -171,10 +176,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             return true;
         }
 
-        private bool CanExecuteRemoveItem(RandomizerItem arg)
-        {
-            return true;
-        }
+
 
         private bool CanExecuteAddItem(string arg)
         {
@@ -191,7 +193,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             await ListVM.AddItemCommand.ExecuteAsync(new TextRandomizerItemVM(new TextRandomizerItem { Name = itemName }));
         }
 
-        private async Task OnRemoveListItem(RandomizerItem item)
+        private async Task OnRemoveListItem(RandomizerItemVM item)
         {
             await ListVM.RemoveItem(item);
         }
