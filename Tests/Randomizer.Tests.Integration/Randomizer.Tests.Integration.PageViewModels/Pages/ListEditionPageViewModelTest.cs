@@ -117,9 +117,9 @@ namespace Randomizer.Tests.ViewModels.Pages
             var vm = new ListEditionPageViewModel();
             vm.IsNewParam = "true";
             vm.IsNew.Should().BeTrue();
-            string itemName = "Blup";
-            vm.AddItemCommand.Execute(itemName);
-            //_ViewModel.ListVM.Items.Should().NotBeEmpty();
+            string itemName = "Plumbus";
+            await vm.AddItemCommand.ExecuteAsync(itemName);
+            vm.ListVM.Items.Should().NotBeEmpty();
         }
 
         [Fact]

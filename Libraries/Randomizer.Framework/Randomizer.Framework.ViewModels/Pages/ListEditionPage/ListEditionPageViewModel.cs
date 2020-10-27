@@ -187,9 +187,9 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Command Methods
 
-        private async Task OnAddItem(string itemName)
+        public async Task OnAddItem(string itemName)
         {
-            ItemEntryText = "";
+            ItemEntryText = string.Empty;
             await ListVM.AddItemCommand.ExecuteAsync(new TextRandomizerItemVM(new TextRandomizerItem { Name = itemName }));
         }
 
