@@ -27,6 +27,11 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         public static void PrepareNewBuilder()
         {
             _Builder = new ContainerBuilder();
+            if(_Container != null)
+            {
+                _Container.Dispose();
+            }
+            _Container = null;
         }
 
         /// <summary>
@@ -43,7 +48,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
                 _Container = _Builder.Build();
                 return true;
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return false;
             }

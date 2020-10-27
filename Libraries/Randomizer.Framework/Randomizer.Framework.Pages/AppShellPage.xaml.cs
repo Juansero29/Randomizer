@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace Randomizer
+namespace Randomizer.Pages
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShellPage : Xamarin.Forms.Shell
     {
         private static Dictionary<string, Type> Routes = new Dictionary<string, Type>()
         {
@@ -16,7 +16,7 @@ namespace Randomizer
             { NavigationRoutes.HomePage, typeof(HomePage) }
         };
 
-        public AppShell()
+        public AppShellPage()
         {
             InitializeComponent();
             RegisterRoutes();

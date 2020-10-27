@@ -116,9 +116,7 @@ namespace Randomizer.Framework.ViewModels.Business
                 return;
             }
 
-#if RELEASE
             await RefreshLists();
-#endif
 
         }
 
@@ -137,9 +135,7 @@ namespace Randomizer.Framework.ViewModels.Business
                 return;
             }
 
-#if RELEASE
             await RefreshLists();
-#endif
 
         }
     }

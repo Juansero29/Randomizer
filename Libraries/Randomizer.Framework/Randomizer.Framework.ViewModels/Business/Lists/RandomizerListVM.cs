@@ -79,7 +79,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async void ClearList()
+        public async Task ClearList()
         {
             var success = !(Model.Items.Count == 0);
             if(!success)

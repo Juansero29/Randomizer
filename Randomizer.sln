@@ -55,7 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Framework.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Tests.Persistence", "Tests\Randomizer.Tests\Randomizer.Tests.Persistence\Randomizer.Tests.Persistence.csproj", "{EC1A0EBE-D2AF-48BC-A375-B38FA27BB17E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Framework.Pages", "Libraries\Randomizer.Framework\Randomizer.Framework.Pages\Randomizer.Framework.Pages.csproj", "{E2783ABE-4445-462C-901C-30F7B6366667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Framework.Pages", "Libraries\Randomizer.Framework\Randomizer.Framework.Pages\Randomizer.Framework.Pages.csproj", "{E2783ABE-4445-462C-901C-30F7B6366667}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration Tests", "Integration Tests", "{E2F49A79-8ECE-4D82-B40B-32330C429EE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Tests.Integration.PageViewModels", "Tests\Randomizer.Tests.Integration\Randomizer.Tests.Integration.PageViewModels\Randomizer.Tests.Integration.PageViewModels.csproj", "{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -312,6 +316,18 @@ Global
 		{E2783ABE-4445-462C-901C-30F7B6366667}.Release|iPhone.Build.0 = Release|Any CPU
 		{E2783ABE-4445-462C-901C-30F7B6366667}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{E2783ABE-4445-462C-901C-30F7B6366667}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Release|iPhone.Build.0 = Release|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -341,6 +357,8 @@ Global
 		{F1C40BA5-41A3-4D67-8EFE-F5431A599502} = {2906B7AB-1B05-4059-8D20-A289A27FAD90}
 		{EC1A0EBE-D2AF-48BC-A375-B38FA27BB17E} = {2C377F4E-680A-4556-BA2A-82F4D825C0A8}
 		{E2783ABE-4445-462C-901C-30F7B6366667} = {2906B7AB-1B05-4059-8D20-A289A27FAD90}
+		{E2F49A79-8ECE-4D82-B40B-32330C429EE7} = {3CBED132-5420-4842-B05C-E72E0C990E87}
+		{97E3C76C-D1DF-4AFE-B71B-ED662C60F4CB} = {E2F49A79-8ECE-4D82-B40B-32330C429EE7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B886C171-CDA8-4B2C-BF23-AD5497E15804}

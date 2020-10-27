@@ -6,6 +6,11 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using Randomizer.Framework.Services.Resources;
+using EnigmatiKreations.Framework.Services.Navigation;
+using EnigmatiKreations.Framework.Services.Alerts;
+using Randomizer.Framework.ViewModels.Commanding;
+using System.Threading.Tasks;
+using Randomizer.Framework.ViewModels.Business.Items;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -17,9 +22,10 @@ namespace Randomizer.Framework.ViewModels.Pages
     {
         #region Fields
         private RandomizerListVM _ListVM;
-        private string _ToolbarTitle = TextResources.NewListPageTitle;
+        private string _ToolbarTitle;
         private string _ItemEntryText;
         private bool _IsNew;
+        private ListsManagerVM Manager => Container.Resolve<ListsManagerVM>();
         #endregion
 
         #region Query Parameters
@@ -38,6 +44,8 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Properties
+
+
 
         /// <summary>
         /// The view model for the list we're editing
@@ -85,7 +93,11 @@ namespace Randomizer.Framework.ViewModels.Pages
             {
                 SetValue(ref _IsNew, value, onChanged: () =>
                 {
-                    //if (value) ListVM = new RandomizerListVM();
+                    if (value)
+                    {
+                        ToolbarTitle = TextResources.NewListPageTitle;
+                        ListVM = new RandomizerListVM(new SimpleRandomizerList());
+                    }
                 });
             }
         }
@@ -98,61 +110,105 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Commands
-        public ICommand AddItemCommand { get; }
-        public ICommand RemoveListItemCommand { get; }
-        public ICommand SaveListCommand { get; }
+        public IGenericCommandAsync<string> AddItemCommand { get; }
+        public IGenericCommand<RandomizerItem> RemoveListItemCommand { get; }
+        public ICommandAsync SaveListCommand { get; }
+        public ICommandAsync DeleteListCommand { get; }
+        public ICommandAsync RandomizeCommand { get; }
 
-        public ICommand DeleteListCommand { get; }
-        public ICommand RandomizeCommand { get; }
-        
         #endregion
 
         #region Constructor(s)
         public ListEditionPageViewModel()
         {
-            MessagingCenter.Subscribe<HomePageViewModel, RandomizerListVM>
-                (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
-            {
-                ListVM = selectedList;
-            });
+            //MessagingCenter.Subscribe<HomePageViewModel, RandomizerListVM>
+            //    (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
+            //{
+            //    ListVM = selectedList;
+            //});
 
             #region InitCommands
-            AddItemCommand = new Command<string>(OnAddItem);
-            RemoveListItemCommand = new Command<RandomizerItem>(OnRemoveListItem);
-            SaveListCommand = new Command(OnSaveList);
-            DeleteListCommand = new Command(OnDeleteList);
-            RandomizeCommand = new Command(OnRandomize);
+            AddItemCommand = new GenericCommandAsync<string>(OnAddItem, CanExecuteAddItem);
+            RemoveListItemCommand = new GenericCommandAsync<RandomizerItem>(OnRemoveListItem, CanExecuteRemoveItem);
+            SaveListCommand = new SimpleCommandAsync(SaveList, CanExecuteSaveList);
+            DeleteListCommand = new SimpleCommandAsync(OnDeleteList, CanExecuteDeleteList);
+            RandomizeCommand = new SimpleCommandAsync(OnRandomize, CanExecuteRandomize);
             #endregion
+        }
+
+        private bool CanExecuteRandomize()
+        {
+            return true;
+        }
+
+        private bool CanExecuteDeleteList()
+        {
+            return true;
+        }
+
+        private bool CanExecuteSaveList()
+        {
+            return ListVM?.Name.Length > 0;
+        }
+
+        private bool CanExecuteAddItem()
+        {
+            return true;
+        }
+
+        private bool CanExecuteRandomize(object arg)
+        {
+            return true;
+        }
+
+        private bool CanExecuteDeleteList(object arg)
+        {
+            return true;
+        }
+
+        private bool CanExecuteSaveList(object arg)
+        {
+            return true;
+        }
+
+        private bool CanExecuteRemoveItem(RandomizerItem arg)
+        {
+            return true;
+        }
+
+        private bool CanExecuteAddItem(string arg)
+        {
+            return true;
         }
 
         #endregion
 
         #region Command Methods
 
-        private void OnAddItem(string itemName)
+        private async Task OnAddItem(string itemName)
         {
             ItemEntryText = "";
-            ListVM.AddItemCommand.Execute(new TextRandomizerItem { Name = itemName });
+            await ListVM.AddItemCommand.ExecuteAsync(new TextRandomizerItemVM(new TextRandomizerItem { Name = itemName }));
         }
 
-        private void OnRemoveListItem(RandomizerItem item)
+        private async Task OnRemoveListItem(RandomizerItem item)
         {
-            // ListVM.RemoveItem(item);
+            await ListVM.RemoveItem(item);
         }
 
-        private void OnSaveList()
+        public async Task SaveList()
         {
-            ToolbarTitle = _ListVM.Name;
-            MessagingCenter.Send(this, MessagingCenterConstants.ListSaved, _ListVM);
+            await Manager.AddList(ListVM);
+            await Container.Resolve<INavigationService>().GoBackAsync();
         }
 
-        private async void OnDeleteList()
+        private async Task OnDeleteList()
         {
             MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM);
-            await NavigationService.GoBackAsync();
+            await Container.Resolve<INavigationService>().GoBackAsync();
         }
 
-        private void OnRandomize()
+        private async Task OnRandomize()
         {
             try
             {
@@ -160,7 +216,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
             catch (Exception)
             {
-                AlertsService.ShowFeatureNotImplementedAlert();
+                await Container.Resolve<IAlertsService>().ShowFeatureNotImplementedAlert();
             }
         }
 

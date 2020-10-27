@@ -4,11 +4,13 @@ using EnigmatiKreations.Framework.Services.Navigation;
 using FluentAssertions;
 using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
+using Randomizer.Framework.Pages.Navigation;
 using Randomizer.Framework.Persistence;
 using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Business;
 using Randomizer.Framework.ViewModels.Pages;
+using Randomizer.Pages;
 using Randomizer.Tests.CommonTestData;
 using System;
 using System.Collections.Generic;
@@ -23,63 +25,100 @@ namespace Randomizer.Tests.ViewModels.Pages
     public class ListEditionPageViewModelTest
     {
 
+        #region Lifecycle
         public ListEditionPageViewModelTest()
         {
             Xamarin.Forms.Mocks.MockForms.Init();
-            RegisterServicesInContainer();
+            Application.Current = new App();
         }
+        #endregion
 
+        #region Methods
         private void RegisterServicesInContainer()
         {
             do
             {
                 Container.PrepareNewBuilder();
-                Container.RegisterDependency(new NavigationMockService(), typeof(INavigationService), true);
-                Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
-                Container.RegisterDependency(new ListsManager(new TestsRandomizerDataManager()), typeof(ListsManager), true);
+                var navService = new ShellNavigationService();
+                navService.Initialize(new NavigationPage(new Page()), new RandomizerPageLoader());
+                Container.RegisterDependency(navService, typeof(INavigationService), true);
+                Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
+                Container.RegisterDependency(new ListsManagerVM(new ListsManager(new TestsRandomizerDataManager())), typeof(ListsManagerVM), true);
             } while (!Container.BuildContainer());
-
-
         }
-
-
+        #endregion
 
         [Fact]
         private void ConstructorTest()
         {
-            
             var vm = new ListEditionPageViewModel();
             vm.Should().NotBeNull();
         }
 
         [Fact]
         private void InitializationTest()
-        {   
-            //_ViewModel.AddItemCommand.Should().NotBeNull();
-            //_ViewModel.RemoveListItemCommand.Should().NotBeNull();
-            //_ViewModel.SaveListCommand.Should().NotBeNull();
-            //_ViewModel.DeleteListCommand.Should().NotBeNull();
-            //_ViewModel.RandomizeCommand.Should().NotBeNull();
-            //_ViewModel.IsNew.Should().BeFalse();
-            //_ViewModel.ItemEntryText.Should().BeNullOrEmpty();
+        {
+            var vm = new ListEditionPageViewModel();
+            vm.AddItemCommand.Should().NotBeNull();
+            vm.RemoveListItemCommand.Should().NotBeNull();
+            vm.SaveListCommand.Should().NotBeNull();
+            vm.DeleteListCommand.Should().NotBeNull();
+            vm.RandomizeCommand.Should().NotBeNull();
+            vm.IsNew.Should().BeFalse();
+            vm.ItemEntryText.Should().BeNullOrEmpty();
         }
 
 
         [Fact]
-        private void NewListParam_SetsIsNewProperty()
+        private void NewListParamHasCorrectValues()
         {
-            //_ViewModel.IsNewParam = "true";
-            //_ViewModel.IsNew.Should().BeTrue();
+            var vm = new ListEditionPageViewModel();
+            vm.IsNewParam = "true";
+            vm.IsNew.Should().BeTrue();
+
+            vm.IsNewParam = "false";
+            vm.IsNew.Should().BeFalse();
         }
 
         #region Command Tests
 
         [Fact]
+        private async Task ModifyNameOfNewListAndSave()
+        {
+            var vm = new HomePageViewModel();
+            await vm.NewListButtonPressed();
+            var listEdPage = Container.Resolve<INavigationService>().GetCurrentPage();
+            var listEdVm = listEdPage.BindingContext as ListEditionPageViewModel;
+            listEdVm.IsNewParam = "true";
+            listEdVm.IsNew.Should().BeTrue();
+            listEdVm.ListVM.Name = "Beers";
+            await listEdVm.SaveList();
+            Container.Resolve<ListsManagerVM>().ListsVM.Should().Contain(listEdVm.ListVM);
+        }
+
+
+        [Fact]
+        private async Task SaveNewListWithNoData()
+        {
+            var vm = new HomePageViewModel();
+            await vm.NewListButtonPressed();
+            var listEdPage = Container.Resolve<INavigationService>().GetCurrentPage();
+            var listEdVm = listEdPage.BindingContext as ListEditionPageViewModel;
+            listEdVm.IsNewParam = "true";
+            listEdVm.IsNew.Should().BeTrue();
+            listEdVm.ListVM.Name = string.Empty;
+            await listEdVm.SaveListCommand.ExecuteAsync();
+            Container.Resolve<ListsManagerVM>().ListsVM.Should().BeEmpty();
+        }
+
+        [Fact]
         private void AddItemCommand()
         {
-            //PrepareContext();
-            //string itemName = "Blup";
-            //_ViewModel.AddItemCommand.Execute(itemName);
+            var vm = new ListEditionPageViewModel();
+            vm.IsNewParam = "true";
+            vm.IsNew.Should().BeTrue();
+            string itemName = "Blup";
+            vm.AddItemCommand.Execute(itemName);
             //_ViewModel.ListVM.Items.Should().NotBeEmpty();
         }
 

@@ -14,6 +14,7 @@ using Randomizer.Framework.ViewModels.Commanding;
 using System.Collections.Generic;
 using EnigmatiKreations.Framework.MVVM.Navigation;
 using System.Threading.Tasks;
+using EnigmatiKreations.Framework.Services.Navigation;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -61,7 +62,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             //});
 
             #region Commands Init
-            NewRandomizerListCommand = new SimpleCommandAsync(OnNewRandomizerList, CanExecuteNewListCommand);
+            NewRandomizerListCommand = new SimpleCommandAsync(NewListButtonPressed, CanExecuteNewListCommand);
             ListTappedCommand = new GenericCommandAsync<RandomizerListVM>(OnListTapped, CanExecuteListTapped);
             #endregion
         }
@@ -74,24 +75,20 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Methods
 
         #region Commands
-         private void OnNewRandomizerList()
-        {
 
-            //await NavigationService.NavigateToAsync("/listedition?new=true&editmode=true");
-            
+        public async Task NewListButtonPressed()
+        {
             var args = new Dictionary<string, string>
             {
                 {  NavigationParameters.IsNew, "true" }
             };
 
-
-
-            NavigationService.NavigateToAsync(NavigationRoutes.ListEditionPage, args);
+            await Container.Resolve<INavigationService>().NavigateToAsync(NavigationRoutes.ListEditionPage, args);
         }
 
         async private Task OnListTapped(RandomizerListVM list)
         {
-            await NavigationService.NavigateToAsync("/listedition");
+            await Container.Resolve<INavigationService>().NavigateToAsync("/listedition");
             MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
         }
 

@@ -15,13 +15,21 @@ using Randomizer.Framework.Pages.Navigation;
 using Xamarin.Forms;
 using Randomizer.Pages;
 using System.Threading.Tasks;
+using Randomizer.Framework.Services.Resources;
 
 namespace Randomizer.Tests.ViewModels.Pages
 {
+
+    /// <summary>
+    /// Makes an integration test of <see cref="HomePageViewModel"/> to see if everything works as exepected
+    /// </summary>
     public class HomePageViewModelTest
     {
 
         #region Lifecycle
+        /// <summary>
+        /// Executed before each test
+        /// </summary>
         public HomePageViewModelTest()
         {
             Xamarin.Forms.Mocks.MockForms.Init();
@@ -30,7 +38,7 @@ namespace Randomizer.Tests.ViewModels.Pages
 
         #endregion
 
-
+        #region Methods
         private void RegisterServicesInContainer()
         {
             do
@@ -42,7 +50,8 @@ namespace Randomizer.Tests.ViewModels.Pages
                 Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
                 Container.RegisterDependency(new ListsManagerVM(new ListsManager(new TestsRandomizerDataManager())), typeof(ListsManagerVM), true);
             } while (!Container.BuildContainer());
-        }
+        } 
+        #endregion
 
         [Fact]
         public void ConstructorTest()
@@ -63,8 +72,7 @@ namespace Randomizer.Tests.ViewModels.Pages
         {
             var vm = new HomePageViewModel();
             vm.NewRandomizerListCommand.Should().NotBeNull();
-            // vm.NewRandomizerListCommand?.ExecuteAsync().GetAwaiter().GetResult();
-            await vm.NavigateToListEditionPage();
+            await vm.NewListButtonPressed();
             Container.Resolve<INavigationService>().GetCurrentPage().GetType().Should().Be(typeof(ListEditionPage));
         }
 
@@ -74,25 +82,35 @@ namespace Randomizer.Tests.ViewModels.Pages
             // re register services because need to test with TestsRandomizerDataManager
             RegisterServicesInContainer();
             var vm = new HomePageViewModel();
-            // await vm.LoadCommandAsync.ExecuteAsync(null);
             await vm.LoadDataFromManager();
             vm.Manager.ListsVM.Count.Should().BeGreaterThan(0);
         }
 
-
-
+        [Fact]
+        private async Task ListEditIsNewWhenAddingList()
+        {
+            var vm = new HomePageViewModel();
+            await vm.NewListButtonPressed();
+            var listEdPage = Container.Resolve<INavigationService>().GetCurrentPage();
+            var listEdVm = listEdPage.BindingContext as ListEditionPageViewModel;
+            Container.Resolve<INavigationService>().GetCurrentPage().GetType().Should().Be(typeof(ListEditionPage));
+            listEdVm.IsNew.Should().BeTrue();
+            listEdVm.ToolbarTitle.Should().Be(TextResources.NewListPageTitle);
+        }
 
         [Fact]
-        private void HomePageViewModelTestListsAreNotEmptyAfteradd()
+        private async Task HomePageViewModelTestListsAreNotEmptyAfteradd()
         {
+            var vm = new HomePageViewModel();
+            await vm.NewListButtonPressed();
+            Container.Resolve<INavigationService>().GetCurrentPage().GetType().Should().Be(typeof(ListEditionPage));
+            var listEdPage = Container.Resolve<INavigationService>().GetCurrentPage();
+            var listEdVm = listEdPage.BindingContext as ListEditionPageViewModel;
+
             //_HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
             //_HomePageViewModel.Lists.Should().NotBeEmpty();
             //_HomePageViewModel.Lists[0].Should().NotBeNull();
         }
-
-
-
-
 
         [Fact]
         public void SelectListTest()

@@ -29,9 +29,9 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         public BasePageViewModel()
         {
             // Resolve the NavigationService instance
-            NavigationService = Container.Resolve<INavigationService>();
+            // NavigationService = Container.Resolve<INavigationService>();
             // Resolve the AlertService instance
-            AlertsService = Container.Resolve<IAlertsService>();
+            // AlertsService = Container.Resolve<IAlertsService>();
 
 
             LoadCommand = new GenericCommand<object>(PreLoad);
@@ -96,23 +96,23 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
             set => SetValue(ref _IsBusy, value);
         }
 
-        /// <summary>
-        /// Every view model has acces to a NavigationService
-        /// </summary>
-        public INavigationService NavigationService
-        {
-            get;
-            private set;
-        }
+        ///// <summary>
+        ///// Every view model has acces to a NavigationService
+        ///// </summary>
+        //public INavigationService NavigationService
+        //{
+        //    get;
+        //    private set;
+        //}
 
-        /// <summary>
-        /// Every view model has acces to an AlertsServices
-        /// </summary>
-        public IAlertsService AlertsService
-        {
-            get;
-            private set;
-        }
+        ///// <summary>
+        ///// Every view model has acces to an AlertsServices
+        ///// </summary>
+        //public IAlertsService AlertsService
+        //{
+        //    get;
+        //    private set;
+        //}
         public bool IsDestroy { get; private set; }
 
         #endregion

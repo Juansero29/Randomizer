@@ -92,9 +92,18 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "randomizer.db");
-            //optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseSqlite($"Filename={dbPath}");
+            try
+            {
+                string dbPath = Path.Combine(FileSystem.AppDataDirectory, "randomizer.db");
+                //optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseSqlite($"Filename={dbPath}");
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Couldn't create database file. Using local database.");
+                optionsBuilder.UseSqlite($"DataSource=.\\randomizer.db");
+            }
+
         }
         #endregion
     }

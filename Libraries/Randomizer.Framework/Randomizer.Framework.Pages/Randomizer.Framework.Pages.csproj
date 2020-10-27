@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AppShellPage.xaml.cs">
+      <DependentUpon>AppShellPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="HomePage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

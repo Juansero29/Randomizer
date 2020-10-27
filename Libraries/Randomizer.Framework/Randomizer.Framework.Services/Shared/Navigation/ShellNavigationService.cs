@@ -23,7 +23,7 @@ namespace Randomizer.Framework.Services.Navigation
 
         private Page _CurrentPage;
         private NavigableElement _NavigationRoot;
-        private Shell _Shell => _NavigationRoot as Shell;
+        private Shell _Shell;
 
         #endregion
 
@@ -44,6 +44,11 @@ namespace Randomizer.Framework.Services.Navigation
         {
             NavigationRoot = navigationRootPage;
             PageLoader = loader;
+            _Shell = Application.Current.MainPage as Shell;
+            if(_Shell == null)
+            {
+                throw new InvalidOperationException($"Application.Current.MainPage must be assigned to a Shell instance to use Randomizer.Framework.Services.Navigation.ShellNavigationService");
+            }
             _Shell.Navigating += Shell_Navigating;
             _Shell.Navigated += Shell_Navigated;
         }
@@ -51,12 +56,14 @@ namespace Randomizer.Framework.Services.Navigation
         #endregion
 
         #region Methods
+
+
+        #region Shell Navigation
         private void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
         {
             var page = sender as Page;
             var vm = page?.BindingContext as BasePageViewModel;
-            _CurrentPage = page;
-            vm.Navigated(sender, e);
+            vm?.Navigated(sender, e);
             Debug.WriteLine($"Navigated to {e.Current.Location} from {e.Previous?.Location}m navigation type {e.Source}");
         }
 
@@ -64,17 +71,18 @@ namespace Randomizer.Framework.Services.Navigation
         {
             var page = sender as Page;
             var vm = page?.BindingContext as BasePageViewModel;
-            vm.Navigating(sender, e);
+            vm?.Navigating(sender, e);
             Debug.WriteLine($"Navigating from {e.Current.Location} to {e.Target?.Location}, navigation type{ e.Source}");
         }
 
-        private async Task NavigateShellAsync(string navigationRoute, Dictionary<string, string> args, bool animated = true)
+        private async Task ShellNavigateAsync(string navigationRoute, Dictionary<string, string> args, bool animated = true)
         {
             var queryString = args.AsQueryString();
             navigationRoute = navigationRoute + queryString;
             Debug.WriteLine($"Shell Navigating to {navigationRoute}");
             await _Shell.GoToAsync(navigationRoute, true);
-        }
+        } 
+        #endregion
 
         public async Task GoBackAsync(bool fromModal = false)
         {
@@ -100,36 +108,49 @@ namespace Randomizer.Framework.Services.Navigation
 
         public async Task NavigateToAsync(string navigationRoute, Dictionary<string, string> args = null, NavigationOptions options = null)
         {
+            // if options is null, then use default options
+            options ??= NavigationOptions.Default();
 
-            var page = CreatePage(navigationRoute);
-            var vm = page.BindingContext as BasePageViewModel;
-            options = options ?? NavigationOptions.Default();
-
-            if (page == null)
-            {
-                Debug.WriteLine($"Could not create page for {navigationRoute}: Assuming this is a shell route...");
-                await NavigateShellAsync(navigationRoute, args, options.Animated);
-                return;
-            }
-
-            //if (page is MvvmContentPage mvvmPage)
-            //{
-            //	mvvmPage.NavigationArgs = args;
-            //}
 
             if (options.CloseFlyout)
             {
                 await Task.Delay(5).ContinueWith((t) => _Shell.FlyoutIsPresented = false);
             }
 
-            _CurrentPage = page;
+            // if options say not to use shell navigation
+            if(options is ShellNavigationOptions sno && !sno.UseShellNavigation)
+            {
+                // create the page manually
+                var page = CreatePage(navigationRoute);
+                if (page == null)
+                {
+                    Debug.WriteLine($"Could not create page for {navigationRoute}. Not navigating.");
+                    return;
+                }
+                // navigate from the navigation root to the new page
+                await RootNavigateToAsync(options, page).ConfigureAwait(false);
+            }
 
+            await ShellNavigateAsync(navigationRoute, args, options.Animated);
+
+        }
+
+        /// <summary>
+        /// Navigates to a page checking the navigation options using the root page push async
+        /// </summary>
+        /// <param name="options">The navigation options</param>
+        /// <param name="page">The target page</param>
+        /// <returns></returns>
+        private async Task RootNavigateToAsync(NavigationOptions options, Page page)
+        {
+            //if not modal page
             if (!options.Modal)
             {
                 await NavigationRoot.Navigation.PushAsync(page, options.Animated).ConfigureAwait(false);
             }
             else
             {
+                // if modal page
                 await NavigationRoot.Navigation.PushModalAsync(page, options.Animated).ConfigureAwait(false);
             }
         }
@@ -162,13 +183,21 @@ namespace Randomizer.Framework.Services.Navigation
             return parentSection;
         }
 
-
         public Page GetCurrentPage()
         {
-            return _CurrentPage;
+            return (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
         }
 
         #endregion
+    }
+
+    public class ShellNavigationOptions : NavigationOptions
+    {
+        public ShellNavigationOptions(bool useShellNavigation = true) : base()
+        {
+            UseShellNavigation = useShellNavigation;
+        }
+        public bool UseShellNavigation { get; set; } = true;
     }
 }
 

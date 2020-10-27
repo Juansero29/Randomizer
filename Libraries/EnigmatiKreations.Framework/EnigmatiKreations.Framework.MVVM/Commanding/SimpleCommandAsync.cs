@@ -22,7 +22,7 @@ namespace Randomizer.Framework.ViewModels.Commanding
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly Action _execute;
+        private readonly Func<Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
 
@@ -41,7 +41,7 @@ namespace Randomizer.Framework.ViewModels.Commanding
             set => SetValue(ref _IsExecuting, value);
         }
 
-        public SimpleCommandAsync(Action execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
+        public SimpleCommandAsync(Func<Task> execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
         {
             _execute = execute;
             _canExecute = canExecute;
@@ -71,7 +71,7 @@ namespace Randomizer.Framework.ViewModels.Commanding
                     }
 
                     IsExecuting = true;
-                    await Task.Run(() => _execute());
+                    await _execute();
 
                     if (_execute.Target is BasePageViewModel vm2)
                     {
