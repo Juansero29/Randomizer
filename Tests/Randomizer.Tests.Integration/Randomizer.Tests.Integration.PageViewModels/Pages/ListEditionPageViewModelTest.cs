@@ -112,14 +112,14 @@ namespace Randomizer.Tests.ViewModels.Pages
         }
 
         [Fact]
-        private void AddItemCommand()
+        private async Task AddItemCommand()
         {
             var vm = new ListEditionPageViewModel();
             vm.IsNewParam = "true";
             vm.IsNew.Should().BeTrue();
             string itemName = "Plumbus";
             await vm.AddItemCommand.ExecuteAsync(itemName);
-            vm.ListVM.Items.Should().NotBeEmpty();
+            vm.ListVM.ItemsVM.Should().NotBeEmpty();
         }
 
         [Fact]

@@ -130,9 +130,6 @@
     <None Remove="Platforms\Android\CustomRenderers\FABRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Shared\Behaviors\BehaviorBase.cs">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Compile>
     <None Update="Shared\Themes\Templates.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
