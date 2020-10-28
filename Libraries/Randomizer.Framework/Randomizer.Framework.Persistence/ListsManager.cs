@@ -71,6 +71,7 @@ namespace Randomizer.Framework.Persistence
         {
             var list = await _DataManager.Get(listId);
             list.RemoveItem(itemToRemove);
+            
             return !list.ContainsItem(itemToRemove);
         }
 

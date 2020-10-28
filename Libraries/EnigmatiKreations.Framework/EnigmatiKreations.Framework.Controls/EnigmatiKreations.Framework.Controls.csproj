@@ -56,6 +56,8 @@
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
+    <ProjectReference Include="..\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
+    <ProjectReference Include="..\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
 
     <!--Update all .xaml files in shared -->
     <EmbeddedResource Update="Shared\**\*.xaml">
@@ -107,9 +109,6 @@
     <Compile Remove="Shared\Themes.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Platforms\Android\Shell\RandomizerShellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,36 +118,6 @@
     <EmbeddedResource Update="Shared\Themes\Themes.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Shared\Themes\Templates.xaml.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Shared\Themes\Themes.xaml.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Platforms\Android\CustomRenderers\FABRenderer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Shared\Themes\Templates.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Shared\Themes\Themes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Shared\Behaviors\ViewModelLifecycleBehavior.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Shared\Behaviors\BehaviorBase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
-    <ProjectReference Include="..\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Shared\NavigationPage\NavigationPageEK.cs" />
   </ItemGroup>
 
 </Project>

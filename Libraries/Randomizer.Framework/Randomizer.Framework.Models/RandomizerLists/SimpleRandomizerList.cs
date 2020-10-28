@@ -52,7 +52,8 @@ namespace Randomizer.Framework.Models
 
         public override RandomizerItem GetItem(object id)
         {
-            return _Items.FirstOrDefault(i => i.Id == (int)id);
+            int.TryParse(id.ToString(), out int itemId);
+            return _Items.FirstOrDefault(i => i.Id == itemId);
         }
         public override bool Equals(object obj)
         {

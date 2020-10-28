@@ -57,10 +57,10 @@ namespace Randomizer.Framework.ViewModels.Pages
             {
                 SetValue(ref _ListVM, value);
 
-                if (value == null) return;
+                if (!(value is RandomizerListVM list)) return;
                 if (!IsNew) // If list isn't new, display the list title in the toolbar
                 {
-                    ToolbarTitle = value.Name;
+                    ToolbarTitle = list.Name;
                 }
             }
         }
@@ -97,6 +97,7 @@ namespace Randomizer.Framework.ViewModels.Pages
                     {
                         ToolbarTitle = TextResources.NewListPageTitle;
                         ListVM = new RandomizerListVM(new SimpleRandomizerList());
+                        Manager.CurrentList = ListVM;
                     }
                 });
             }
@@ -110,8 +111,6 @@ namespace Randomizer.Framework.ViewModels.Pages
         #endregion
 
         #region Commands
-        public IGenericCommandAsync<string> AddItemCommand { get; }
-        public IGenericCommandAsync<RandomizerItemVM> RemoveListItemCommand { get; }
         public ICommandAsync SaveListCommand { get; }
         public ICommandAsync DeleteListCommand { get; }
         public ICommandAsync RandomizeCommand { get; }
@@ -121,25 +120,21 @@ namespace Randomizer.Framework.ViewModels.Pages
         #region Constructor(s)
         public ListEditionPageViewModel()
         {
-            //MessagingCenter.Subscribe<HomePageViewModel, RandomizerListVM>
-            //    (this, HomePageViewModel.MessagingCenterConstants.SelectedList, (sender, selectedList) =>
-            //{
-            //    ListVM = selectedList;
-            //});
 
             #region InitCommands
-            AddItemCommand = new GenericCommandAsync<string>(OnAddItem, CanExecuteAddItem);
-            RemoveListItemCommand = new GenericCommandAsync<RandomizerItemVM>(OnRemoveListItem, CanExecuteRemoveItem);
             SaveListCommand = new SimpleCommandAsync(SaveList, CanExecuteSaveList);
             DeleteListCommand = new SimpleCommandAsync(OnDeleteList, CanExecuteDeleteList);
             RandomizeCommand = new SimpleCommandAsync(OnRandomize, CanExecuteRandomize);
             #endregion
         }
 
-        private bool CanExecuteRemoveItem()
-        {
-            return true;
-        }
+
+
+        #endregion
+
+        #region Command Methods
+
+
 
         private bool CanExecuteRandomize()
         {
@@ -156,51 +151,19 @@ namespace Randomizer.Framework.ViewModels.Pages
             return ListVM?.Name.Length > 0;
         }
 
-        private bool CanExecuteAddItem()
-        {
-            return true;
-        }
-
-        private bool CanExecuteRandomize(object arg)
-        {
-            return true;
-        }
-
-        private bool CanExecuteDeleteList(object arg)
-        {
-            return true;
-        }
-
-        private bool CanExecuteSaveList(object arg)
-        {
-            return true;
-        }
-
-
-
-        private bool CanExecuteAddItem(string arg)
-        {
-            return true;
-        }
-
-        #endregion
-
-        #region Command Methods
-
-        public async Task OnAddItem(string itemName)
-        {
-            ItemEntryText = string.Empty;
-            await ListVM.AddItemCommand.ExecuteAsync(new TextRandomizerItemVM(new TextRandomizerItem { Name = itemName }));
-        }
-
-        private async Task OnRemoveListItem(RandomizerItemVM item)
-        {
-            await ListVM.RemoveItem(item);
-        }
-
         public async Task SaveList()
         {
-            await Manager.AddList(ListVM);
+            if(IsNew)
+            {
+                await Manager.AddListCommand.ExecuteAsync(ListVM);
+                IsNew = false;
+            }
+            else
+            {
+                await Manager.UpdateListCommand.ExecuteAsync((ListVM));
+            }
+
+            Manager.CurrentList = ListVM;
             await Container.Resolve<INavigationService>().GoBackAsync();
         }
 
@@ -226,18 +189,22 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Methods
 
+        public override async void Load(object parameter = null)
+        {
+            base.Load(parameter);
+            ListVM = Manager.CurrentList;
+            await ListVM.RefreshListCommand.ExecuteAsync();
+        }
 
         public override void UnLoad(object parameter)
         {
             base.UnLoad(parameter);
-            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
         public override void Destroy()
         {
 
             base.Destroy();
-            MessagingCenter.Unsubscribe<HomePageViewModel, RandomizerListVM>(this, HomePageViewModel.MessagingCenterConstants.SelectedList);
         }
 
         #endregion

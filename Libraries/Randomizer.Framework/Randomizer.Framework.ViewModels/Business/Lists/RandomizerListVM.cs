@@ -1,13 +1,16 @@
 ﻿
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using EnigmatiKreations.Framework.Services.Alerts;
+using Randomizer.Framework.Models;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.Resources;
 using Randomizer.Framework.ViewModels.Business.Items;
 using Randomizer.Framework.ViewModels.Commanding;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 
@@ -34,7 +37,7 @@ namespace Randomizer.Framework.ViewModels.Business
             set => SetValueOnModel(value, Model);
         }
 
-        
+
         /// <summary>
         /// The list's items
         /// </summary>
@@ -47,6 +50,7 @@ namespace Randomizer.Framework.ViewModels.Business
         public RandomizerListVM(RandomizerList model) : base(model)
         {
             _ReadOnlyItemsVM = new ReadOnlyObservableCollection<RandomizerItemVM>(_ItemsVM);
+            RefreshItems().Wait();
             InitCommands();
         }
 
@@ -56,23 +60,30 @@ namespace Randomizer.Framework.ViewModels.Business
 
         #region Commands
 
-        public IGenericCommandAsync<RandomizerItemVM> AddItemCommand { get; set; }
+        public IGenericCommandAsync<object> AddItemCommand { get; set; }
 
-        public IGenericCommandAsync<RandomizerItemVM> RemoveItemCommand { get; set; }
+        public IGenericCommandAsync<object> RemoveItemCommand { get; set; }
 
-        public IGenericCommandAsync<RandomizerItemVM> UpdateItemCommand { get; set; }
+        public IGenericCommandAsync<object> UpdateItemCommand { get; set; }
 
         public ICommandAsync ClearListCommand { get; set; }
+
+        public ICommandAsync RefreshListCommand { get; set; }
 
 
         private void InitCommands()
         {
-            AddItemCommand = new GenericCommandAsync<RandomizerItemVM>(AddItem, CanExecuteAddItem);
-            RemoveItemCommand = new GenericCommandAsync<RandomizerItemVM>(RemoveItem, CanExecuteRemoveItem);
-            UpdateItemCommand = new GenericCommandAsync<RandomizerItemVM>(UpdateItem, CanExecuteUpdateItem);
+            AddItemCommand = new GenericCommandAsync<object>(AddItem, CanExecuteAddItem);
+            RemoveItemCommand = new GenericCommandAsync<object>(RemoveItem, CanExecuteRemoveItem);
+            UpdateItemCommand = new GenericCommandAsync<object>(UpdateItem, CanExecuteUpdateItem);
             ClearListCommand = new SimpleCommandAsync(ClearList, CanExecuteClearList);
+            RefreshListCommand = new SimpleCommandAsync(RefreshItems, CanExecuteRefreshList);
         }
 
+        private bool CanExecuteRefreshList()
+        {
+            return true;
+        }
 
         private bool CanExecuteClearList()
         {
@@ -82,16 +93,15 @@ namespace Randomizer.Framework.ViewModels.Business
         public async Task ClearList()
         {
             var success = !(Model.Items.Count == 0);
-            if(!success)
+            if (!success)
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ListNotCleared, TextResources.OKMessage);
                 return;
             }
+
             Model.Items.Clear();
 
-
             await RefreshItems();
-
         }
 
 
@@ -100,10 +110,11 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async Task UpdateItem(RandomizerItemVM obj)
+        private async Task UpdateItem(object args)
         {
-            var success = Model.UpdateItem(obj.Model);
-            if(success == null)
+            var item = TryToCreateRandomizerItem(args);
+            var success = Model.UpdateItem(item.Model);
+            if (success == null)
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotUpdated, TextResources.OKMessage);
                 return;
@@ -117,10 +128,12 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        public async Task RemoveItem(RandomizerItemVM item)
+        private async Task RemoveItem(object id)
         {
-            var success = Model.ContainsItem(item.Model);
-            success &= await Task.FromResult(Model.RemoveItem(item.Model));
+            var item = Model.GetItem(id);
+
+            var success = Model.ContainsItem(item);
+            success &= await Task.FromResult(Model.RemoveItem(item));
             if (!success)
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotDeleted, TextResources.OKMessage);
@@ -129,20 +142,23 @@ namespace Randomizer.Framework.ViewModels.Business
             await RefreshItems();
         }
 
+   
         private bool CanExecuteAddItem()
         {
             return true;
         }
 
-        private async Task AddItem(RandomizerItemVM item)
+        private async Task AddItem(object args)
         {
+            var item = TryToCreateRandomizerItem(args);
+
             if (Model.ContainsItem(item.Model))
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
                 return;
             }
 
-            if(!Model.AddItem(item.Model))
+            if (!Model.AddItem(item.Model))
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ErrorAddingItem, TextResources.OKMessage);
                 return;
@@ -155,25 +171,50 @@ namespace Randomizer.Framework.ViewModels.Business
 
         #region Methods
 
-        public async Task RefreshItems()
+        private async Task RefreshItems()
         {
             var items = await GetItems();
             _ItemsVM.Clear();
 
             foreach (var i in items)
             {
-                _ItemsVM.Add(new RandomizerItemVM(i));
+                if(i is TextRandomizerItem t)
+                {
+                    _ItemsVM.Add(new TextRandomizerItemVM(t));
+                }
+                else
+                {
+                    _ItemsVM.Add(new RandomizerItemVM(i));
+                }
             }
         }
 
         private async Task<IEnumerable<RandomizerItem>> GetItems() => await Task.FromResult(Model.Items);
 
 
-        public void RemoveAllItems()
+        private RandomizerItemVM TryToCreateRandomizerItem(object args)
         {
-            Model.Items.ForEach(i => Model.RemoveItem(i));
-        }
+            try
+            {
+                RandomizerItemVM item = default;
 
+                if (args is string name)
+                {
+                    item = new TextRandomizerItemVM(new TextRandomizerItem()) { Name = name };
+                }
+
+                if (args is RandomizerItemVM ri)
+                {
+                    item = ri;
+                }
+                return item;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
 
         #endregion
     }

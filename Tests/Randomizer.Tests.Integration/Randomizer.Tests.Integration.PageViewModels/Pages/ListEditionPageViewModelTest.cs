@@ -59,8 +59,6 @@ namespace Randomizer.Tests.ViewModels.Pages
         private void InitializationTest()
         {
             var vm = new ListEditionPageViewModel();
-            vm.AddItemCommand.Should().NotBeNull();
-            vm.RemoveListItemCommand.Should().NotBeNull();
             vm.SaveListCommand.Should().NotBeNull();
             vm.DeleteListCommand.Should().NotBeNull();
             vm.RandomizeCommand.Should().NotBeNull();
@@ -112,52 +110,56 @@ namespace Randomizer.Tests.ViewModels.Pages
         }
 
         [Fact]
-        private async Task AddItemCommand()
+        private async Task AddItemInNewList()
         {
-            var vm = new ListEditionPageViewModel();
+            var vm = new ListEditionPageViewModel
+            {
+                IsNewParam = "true"
+            };
+            vm.IsNew.Should().BeTrue();
+            await vm.LoadCommandAsync.ExecuteAsync(null);
+            vm.ListVM.ItemsVM.Should().BeEmpty();
             vm.IsNewParam = "true";
             vm.IsNew.Should().BeTrue();
             string itemName = "Plumbus";
-            await vm.AddItemCommand.ExecuteAsync(itemName);
+            await vm.ListVM.AddItemCommand.ExecuteAsync(itemName);
             vm.ListVM.ItemsVM.Should().NotBeEmpty();
+            await vm.SaveList();
+            var man = Container.Resolve<ListsManagerVM>();
+            man.ListsVM.Contains(vm.ListVM);
         }
 
         [Fact]
-        private void RemoveListItemCommand()
+        private async Task RemoveItemInNewList()
         {
-            //PrepareContext();
+            var vm = new ListEditionPageViewModel
+            {
+                IsNewParam = "true"
+            };
+            vm.IsNew.Should().BeTrue();
+            await vm.LoadCommandAsync.ExecuteAsync(null);
+            vm.ListVM.ItemsVM.Should().BeEmpty();
+            vm.IsNewParam = "true";
+            vm.IsNew.Should().BeTrue();
+            vm.ListVM.Name = "Essential Items";
+            string itemName = "Plumbus";
+            await vm.ListVM.AddItemCommand.ExecuteAsync(itemName);
+            vm.ListVM.ItemsVM.Should().NotBeEmpty();
+            await vm.SaveList();
+            var man = Container.Resolve<ListsManagerVM>();
+            man.ListsVM.Contains(vm.ListVM);
 
-            //_ViewModel.ListVM.RemoveAllItems();
-            //_ViewModel.ListVM.Items.Should().BeEmpty();
-            //string itemName = "Blup";
-            //_ViewModel.AddItemCommand.Execute(itemName);
-            //_ViewModel.ListVM.Items.Should().NotBeEmpty();
-            //_ViewModel.RemoveListItemCommand.Execute(_ViewModel.ListVM.Items.First());
-            //_ViewModel.ListVM.Items.Should().BeEmpty();
+            man.CurrentList.ItemsVM.Count.Should().Be(1);
+            var id = man.CurrentList.ItemsVM.FirstOrDefault()?.Id;
+
+            await vm.ListVM.RemoveItemCommand.ExecuteAsync(id);
+            await vm.SaveList();
+
+            var list = man.ListsVM.Where(l => l.Equals(vm.ListVM)).FirstOrDefault();
+            list.ItemsVM.Should().BeEmpty();
+
         }
 
-
-        [Fact]
-        private async void SaveListFromHomePage()
-        {
-            await Task.FromResult(true);
-            //var man = Container.Resolve<ListsManagerVM>();
-            //var listModel = new SimpleRandomizerList() { Name = "Beers" };
-            //var listVM = new RandomizerListVM(listModel);
-            //await man.AddList(listVM);
-        }
-
-        [Fact]
-        private void SaveListCommand()
-        {
-            //PrepareContext();
-            //string oldName = _ViewModel.ListVM.Name;
-            //string listTitle = "My list" + DateTime.Now.ToString();
-            //_ViewModel.ListVM.Name = listTitle;
-            //_ViewModel.SaveListCommand.Execute(null);
-            //_HomePageViewModel.Lists.Should().Contain(l => l.Name == listTitle);
-            //_HomePageViewModel.Lists.Should().NotContain(l => l.Name == oldName);
-        }
 
         [Fact]
         private void DeleteListCommand()

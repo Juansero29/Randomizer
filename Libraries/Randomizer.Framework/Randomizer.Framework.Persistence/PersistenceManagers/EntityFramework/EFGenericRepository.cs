@@ -41,6 +41,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
         public virtual async Task<TEntity> Get(object id)
         {
+            
             var entity = await _Set.FindAsync(id);
             return entity;
         }
@@ -67,6 +68,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         {
             try
             {
+                if (_DbContext.Exists(item)) return _DbContext.Entry(item).Entity;
                 var result = await Task.Run(() => _Set.Update(item));
                 return result.Entity;
             }
@@ -92,8 +94,8 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         public virtual async Task<bool> Remove(object id)
         {
             // force to wait, to avoid two threads accessing the same context https://docs.microsoft.com/fr-fr/ef/core/miscellaneous/configuring-dbcontext#avoiding-dbcontext-threading-issues
-            var entity = Get(id).GetAwaiter().GetResult();
-            return Remove(entity).GetAwaiter().GetResult();
+            var entity = await Get(id);
+            return await Remove(entity);
         }
 
         public virtual async Task Clear()
@@ -114,6 +116,8 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         {
             _DbContext?.Dispose();
         }
+
+
         #endregion
 
     }

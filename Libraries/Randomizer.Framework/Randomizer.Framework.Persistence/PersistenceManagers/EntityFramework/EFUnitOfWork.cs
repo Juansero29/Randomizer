@@ -56,10 +56,12 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var result = await _Context?.SaveChangesAsync(cancellationToken);
-            foreach (var entity in _Context.ChangeTracker.Entries()
+
+
+            foreach (var entry in _Context.ChangeTracker.Entries()
                 .Where(e => e.State != EntityState.Detached))
             {
-                entity.State = EntityState.Detached;
+                _Context.Entry(entry.Entity).State = EntityState.Detached;
             }
             return result;
         }

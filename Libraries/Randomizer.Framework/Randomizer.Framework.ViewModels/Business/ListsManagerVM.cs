@@ -41,7 +41,22 @@ namespace Randomizer.Framework.ViewModels.Business
             set => SetValue(ref _RequestedListsCount, value);
         }
 
+        /// <summary>
+        ///  The current list for the app
+        /// </summary>
+        public RandomizerListVM CurrentList
+        {
+            get => new RandomizerListVM(Model.CurrentList);
+            set
+            {
+                if (!(value is RandomizerListVM list)) return;
+                Model.CurrentList = list.Model;
+            }
+        }
 
+        /// <summary>
+        /// All the lists 
+        /// </summary>
         public ReadOnlyObservableCollection<RandomizerListVM> ListsVM { get => _ReadOnlyListsVM; }
 
         #endregion
@@ -95,9 +110,7 @@ namespace Randomizer.Framework.ViewModels.Business
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotDeleted, TextResources.OKMessage);
                 return;
             }
-#if RELEASE
             await RefreshLists();
-#endif
         }
 
 
@@ -126,7 +139,7 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        public async Task AddList(RandomizerListVM listVM)
+        private async Task AddList(RandomizerListVM listVM)
         {
             var r = await Model.AddList(listVM.Model);
             if (r == null)
@@ -136,7 +149,6 @@ namespace Randomizer.Framework.ViewModels.Business
             }
 
             await RefreshLists();
-
         }
     }
 }

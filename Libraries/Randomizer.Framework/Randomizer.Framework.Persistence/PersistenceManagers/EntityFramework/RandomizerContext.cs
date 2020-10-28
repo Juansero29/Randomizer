@@ -4,6 +4,7 @@ using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
 
@@ -92,19 +93,35 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            try
-            {
-                string dbPath = Path.Combine(FileSystem.AppDataDirectory, "randomizer.db");
-                //optionsBuilder.UseLazyLoadingProxies();
-                optionsBuilder.UseSqlite($"Filename={dbPath}");
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("Couldn't create database file. Using local database.");
-                optionsBuilder.UseSqlite($"DataSource=.\\randomizer.db");
-            }
+            //try
+            //{
+            //    string dbPath = Path.Combine(FileSystem.AppDataDirectory, "randomizer.db");
+            //    //optionsBuilder.UseLazyLoadingProxies();
+            //    optionsBuilder.UseSqlite($"Filename={dbPath}");
+            //}
+            //catch(Exception)
+            //{
+            //    Console.WriteLine("Couldn't create database file. Using local database.");
+            //    optionsBuilder.UseSqlite($"DataSource=.\\randomizer.db");
+            //}
 
         }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
         #endregion
+    }
+
+
+    public static class DBContextExtensions
+    {
+        public static bool Exists<TContext, TEntity>(this TContext context, TEntity entity)
+            where TContext : DbContext
+            where TEntity : class
+        {
+            return context.Set<TEntity>().Local.Any(e => e.Equals(entity));
+        }
     }
 }
