@@ -1,8 +1,6 @@
 ﻿using Randomizer.Framework.Models;
-using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.ViewModels.Business;
 using System;
-using System.Windows.Input;
 using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using Randomizer.Framework.Services.Resources;
@@ -10,7 +8,6 @@ using EnigmatiKreations.Framework.Services.Navigation;
 using EnigmatiKreations.Framework.Services.Alerts;
 using Randomizer.Framework.ViewModels.Commanding;
 using System.Threading.Tasks;
-using Randomizer.Framework.ViewModels.Business.Items;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -99,6 +96,7 @@ namespace Randomizer.Framework.ViewModels.Pages
                         ListVM = new RandomizerListVM(new SimpleRandomizerList());
                         Manager.CurrentList = ListVM;
                     }
+                    OnPropertyChanged(nameof(ShowDeleteListToolbarItem));
                 });
             }
         }
@@ -160,7 +158,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
             else
             {
-                await Manager.UpdateListCommand.ExecuteAsync((ListVM));
+                await Manager.UpdateListCommand.ExecuteAsync(ListVM);
             }
 
             Manager.CurrentList = ListVM;
@@ -169,7 +167,7 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         private async Task OnDeleteList()
         {
-            MessagingCenter.Send(this, MessagingCenterConstants.ListDeleted, _ListVM);
+            await Manager.DeleteListCommand.ExecuteAsync(ListVM);
             await Container.Resolve<INavigationService>().GoBackAsync();
         }
 
@@ -209,11 +207,6 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #endregion
 
-        public static class MessagingCenterConstants
-        {
-            public const string ListSaved = "ListSaved";
-            public const string ListDeleted = "ListDeleted";
-        }
 
     }
 }

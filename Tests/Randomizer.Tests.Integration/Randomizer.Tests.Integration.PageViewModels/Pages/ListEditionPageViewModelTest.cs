@@ -126,7 +126,7 @@ namespace Randomizer.Tests.ViewModels.Pages
             vm.ListVM.ItemsVM.Should().NotBeEmpty();
             await vm.SaveList();
             var man = Container.Resolve<ListsManagerVM>();
-            man.ListsVM.Contains(vm.ListVM);
+            man.ListsVM.Should().Contain(vm.ListVM);
         }
 
         [Fact]
@@ -147,7 +147,7 @@ namespace Randomizer.Tests.ViewModels.Pages
             vm.ListVM.ItemsVM.Should().NotBeEmpty();
             await vm.SaveList();
             var man = Container.Resolve<ListsManagerVM>();
-            man.ListsVM.Contains(vm.ListVM);
+            man.ListsVM.Should().Contain(vm.ListVM);
 
             man.CurrentList.ItemsVM.Count.Should().Be(1);
             var id = man.CurrentList.ItemsVM.FirstOrDefault()?.Id;
@@ -162,15 +162,28 @@ namespace Randomizer.Tests.ViewModels.Pages
 
 
         [Fact]
-        private void DeleteListCommand()
+        private async Task DeleteListCommand()
         {
-            //PrepareContext();
-            //var deletedList = _ViewModel.ListVM;
-            //_ViewModel.DeleteListCommand.Execute(null);
-            //_HomePageViewModel.Lists.Should().NotContain(deletedList);
+            var vm = new ListEditionPageViewModel
+            {
+                IsNewParam = "true"
+            };
+            vm.IsNew.Should().BeTrue();
+            await vm.LoadCommandAsync.ExecuteAsync(null);
+            vm.ListVM.ItemsVM.Should().BeEmpty();
+            vm.IsNewParam = "true";
+            vm.IsNew.Should().BeTrue();
+            vm.ListVM.Name = "Essential Items";
+            await vm.SaveListCommand.ExecuteAsync();
+
+            var man = Container.Resolve<ListsManagerVM>();
+            man.ListsVM.Should().Contain(vm.ListVM);
+
+            await vm.DeleteListCommand.ExecuteAsync();
+            man.ListsVM.Should().NotContain(vm.ListVM);
         }
 
 
-        #endregion Command Tests
+        #endregion
     }
 }

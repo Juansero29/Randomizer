@@ -16,6 +16,7 @@ using Xamarin.Forms;
 using Randomizer.Pages;
 using System.Threading.Tasks;
 using Randomizer.Framework.Services.Resources;
+using System.Linq;
 
 namespace Randomizer.Tests.ViewModels.Pages
 {
@@ -82,7 +83,7 @@ namespace Randomizer.Tests.ViewModels.Pages
             // re register services because need to test with TestsRandomizerDataManager
             RegisterServicesInContainer();
             var vm = new HomePageViewModel();
-            await vm.LoadDataFromManager();
+            await vm.RefreshListsCommand.ExecuteAsync();
             vm.Manager.ListsVM.Count.Should().BeGreaterThan(0);
         }
 
@@ -107,19 +108,14 @@ namespace Randomizer.Tests.ViewModels.Pages
             var listEdPage = Container.Resolve<INavigationService>().GetCurrentPage();
             var listEdVm = listEdPage.BindingContext as ListEditionPageViewModel;
 
-            //_HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
-            //_HomePageViewModel.Lists.Should().NotBeEmpty();
-            //_HomePageViewModel.Lists[0].Should().NotBeNull();
+         
         }
 
         [Fact]
         public void SelectListTest()
         {
-            Assert.Equal(1, 1);
-            //_HomePageViewModel.Lists.Add(new RandomizerListVM() { Name = "List #1" });
-            //_HomePageViewModel.Lists.Should().NotBeEmpty();
-            //_HomePageViewModel.ListTappedCommand.Execute(_HomePageViewModel.Lists[0]);
-
+            var vm = new HomePageViewModel();
+            vm.ListTappedCommand.ExecuteAsync(vm.Manager.ListsVM.First());
         }
 
     }
