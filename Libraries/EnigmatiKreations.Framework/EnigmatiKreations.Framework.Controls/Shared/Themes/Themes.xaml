@@ -6,22 +6,33 @@
              mc:Ignorable="d"
              x:Class="EnigmatiKreations.Framework.Controls.Themes">
 
+    <!-- Light colors -->
+    <Color x:Key="LightPrimaryColor">WhiteSmoke</Color>
+    <Color x:Key="LightSecondaryColor">Black</Color>
+    <Color x:Key="LightTertiaryColor">DarkGray</Color>
 
-    <Style TargetType="Entry" x:Key="RandomizerTitleEntry">
-        <Setter Property="FontSize" Value="42"/>
-        <Setter Property="TextColor" Value="White"/>
+    <!-- Dark colors -->
+    <Color x:Key="DarkPrimaryColor">Black</Color>
+    <Color x:Key="DarkSecondaryColor">WhiteSmoke</Color>
+    <Color x:Key="DarkTertiaryColor">#484848</Color>
+    
+    <Style TargetType="Entry">
+        <Setter Property="PlaceholderColor" Value="{StaticResource DarkTertiaryColor}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}"/>
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
         <Setter Property="Margin" Value="16"/>
     </Style>
     
     <Style TargetType="Label" x:Key="RandomizerTitleLabel">
         <Setter Property="FontSize" Value="42" />
-        <Setter Property="TextColor" Value="White" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
         <Setter Property="Margin" Value="16"/>
     </Style>
 
-    <Style TargetType="Label" x:Key="RandomizerListItemNameLabel">
+    <Style TargetType="Label" >
         <Setter Property="FontSize" Value="24" />
-        <Setter Property="TextColor" Value="White" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
         <Setter Property="Margin" Value="16"/>
         <Setter Property="VerticalOptions" Value="Center"/>
     </Style>
@@ -38,6 +49,13 @@
 
     <Style TargetType="Frame" x:Key="RandomizerListItemCardOdd" BasedOn="{StaticResource RandomizerListItem}">
         <Setter Property="BackgroundColor" Value="#484848"/>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="BorderWidth" Value="1"/>
+        <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}"/>
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
+        <Setter Property="BorderColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
     </Style>
 
 

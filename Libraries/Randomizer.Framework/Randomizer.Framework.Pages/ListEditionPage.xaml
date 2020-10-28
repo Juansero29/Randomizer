@@ -30,7 +30,6 @@
         <Controls:ToolbarItem
             Name="DeleteListMenuItem"
             Command="{Binding DeleteListCommand}"
-            IconImageSource="closed_circle_white.png"
             IsVisible="{Binding ShowDeleteListToolbarItem}"
             Order="Secondary"
             Priority="1"
@@ -40,7 +39,6 @@
         <Controls:ToolbarItem
             Name="SaveListMenuItem"
             Command="{Binding SaveListCommand}"
-            IconImageSource="check_white.png"
             Order="Primary"
             IsVisible="{Binding IsNew}"
             ToolbarParent="{x:Reference this}"
@@ -112,9 +110,6 @@
             </Entry>
 
             <Button
-                BackgroundColor="#303030"
-                BorderColor="White"
-                BorderWidth="1"
                 Command="{Binding RandomizeCommand}"
                 HorizontalOptions="StartAndExpand"
                 Text="{i18:Translate ResourceKey=RandomizeLabel}"

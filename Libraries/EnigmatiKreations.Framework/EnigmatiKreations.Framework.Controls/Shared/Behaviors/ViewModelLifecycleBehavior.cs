@@ -15,7 +15,7 @@ namespace EnigmatiKreations.Framework.Controls.Shared.Behaviors
     /// <summary>
     /// The class in charge of reacting to the Appearing event of a ContentPage
     /// </summary>
-    class ViewModelLifecycleBehavior : BehaviorBase<Element>
+    public class ViewModelLifecycleBehavior : BehaviorBase<Element>
     {
 
 

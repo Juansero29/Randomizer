@@ -8,6 +8,7 @@
     xmlns:Models="clr-namespace:Randomizer.Framework.Models;assembly=Randomizer.Framework.Models"
     xmlns:VM="clr-namespace:Randomizer.Framework.ViewModels.Pages;assembly=Randomizer.Framework.ViewModels"
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
+    xmlns:lifecycle="clr-namespace:EnigmatiKreations.Framework.Controls.Shared.Behaviors;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
@@ -15,6 +16,10 @@
     x:Name="this"
     BackgroundColor="Black"
     mc:Ignorable="d">
+
+    <ContentPage.Behaviors>
+        <lifecycle:ViewModelLifecycleBehavior LoadCommand="{Binding LoadCommandAsync}" UnloadCommand="{Binding UnloadCommandAsync}" />
+    </ContentPage.Behaviors>
 
     <!--  Resources  -->
     <ContentPage.Resources>
