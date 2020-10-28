@@ -48,7 +48,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
                 _Container = _Builder.Build();
                 return true;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }

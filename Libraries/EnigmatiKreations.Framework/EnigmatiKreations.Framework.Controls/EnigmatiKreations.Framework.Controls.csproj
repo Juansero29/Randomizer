@@ -12,7 +12,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>Xamarin.iOS10;MonoAndroid90;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid90;Xamarin.iOS10;netstandard2.0;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>EnigmatiKreations.Framework.Controls</RootNamespace>
