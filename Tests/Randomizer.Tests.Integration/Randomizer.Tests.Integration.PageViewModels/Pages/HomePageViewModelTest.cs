@@ -8,9 +8,6 @@ using Randomizer.Framework.Services.Alerts;
 using EnigmatiKreations.Framework.Services.Navigation;
 using EnigmatiKreations.Framework.Services.Alerts;
 using Randomizer.Framework.Persistence;
-using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Models;
-using System;
 using Randomizer.Framework.Pages.Navigation;
 using Xamarin.Forms;
 using Randomizer.Pages;
@@ -112,10 +109,13 @@ namespace Randomizer.Tests.ViewModels.Pages
         }
 
         [Fact]
-        public void SelectListTest()
+        public async void SelectListTest()
         {
             var vm = new HomePageViewModel();
-            vm.ListTappedCommand.ExecuteAsync(vm.Manager.ListsVM.First());
+            await vm.RefreshListsCommand.ExecuteAsync();
+            await vm.ListTappedCommand.ExecuteAsync(vm.Manager.ListsVM.First());
+            var page = Container.Resolve<INavigationService>().GetCurrentPage();
+            page.GetType().Should().Be(typeof(ListEditionPage));
         }
 
     }

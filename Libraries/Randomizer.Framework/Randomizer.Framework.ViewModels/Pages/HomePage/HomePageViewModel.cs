@@ -1,18 +1,9 @@
-﻿using Randomizer.Framework.Models;
-using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Services.Navigation;
-using EnigmatiKreations.Framework.Utils;
+﻿using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Business;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using Randomizer.Framework.Services.Resources;
 using Randomizer.Framework.ViewModels.Commanding;
 using System.Collections.Generic;
-using EnigmatiKreations.Framework.MVVM.Navigation;
 using System.Threading.Tasks;
 using EnigmatiKreations.Framework.Services.Navigation;
 
@@ -25,14 +16,10 @@ namespace Randomizer.Framework.ViewModels.Pages
     { 
 
         #region Properties
-
-
         public ListsManagerVM Manager
         {
             get => Container.Resolve<ListsManagerVM>();
         }
-
-
         #endregion
 
         #region Commands
@@ -87,8 +74,9 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         async private Task OnListTapped(RandomizerListVM list)
         {
+
             Manager.CurrentList = list;
-            await Container.Resolve<INavigationService>().NavigateToAsync("/listedition");
+            await Container.Resolve<INavigationService>().NavigateToAsync(NavigationRoutes.ListEditionPage);
         }
 
 
@@ -123,12 +111,6 @@ namespace Randomizer.Framework.ViewModels.Pages
             base.Destroy();
         }
         #endregion
-
-        public class MessagingCenterConstants
-        {
-            public const string SelectedList = "SelectedList";
-        }
-
 
     }
 }
