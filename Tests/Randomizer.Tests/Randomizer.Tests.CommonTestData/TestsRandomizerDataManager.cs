@@ -19,37 +19,41 @@ namespace Randomizer.Tests.ViewModels
     public class TestsRandomizerDataManager : IDataManager<RandomizerList>
     {
         private TestContextFactory _Factory = new TestContextFactory();
-        private TestContext _Context;
-        private EFUnitOfWork _UnitOfWork;
+        private TestContext Context;
+        private EFUnitOfWork UnitOfWork;
 
 
         public TestsRandomizerDataManager()
         {
-            // Context init
-            _Context =  _Factory.CreateContext();
-
-            // Unit of work init
-            _UnitOfWork = new EFUnitOfWork(_Context);
-
+            Context = _Factory.CreateContext();
+            UnitOfWork = new EFUnitOfWork(Context);
             // Create database
-            _Context.Database.EnsureCreated();
+            Context.Database.EnsureCreated();
         }
 
         public Task<int> Count()
         {
-            return _UnitOfWork.Repository<RandomizerList>().Count();
+            return UnitOfWork.Repository<RandomizerList>().Count();
         }
         public async Task<RandomizerList> Add(RandomizerList item)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().Add(item);
-            await _UnitOfWork.SaveChangesAsync();
-            return r;
+            try
+            {
+                var r = await UnitOfWork.Repository<RandomizerList>().Add(item);
+                await UnitOfWork.SaveChangesAsync();
+                return r;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+
         }
 
         public async Task<bool> AddRange(params RandomizerList[] items)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().AddRange(items);
-            await _UnitOfWork.SaveChangesAsync();
+            var r = await UnitOfWork.Repository<RandomizerList>().AddRange(items);
+            await UnitOfWork.SaveChangesAsync();
             return r;
         }
 
@@ -57,46 +61,46 @@ namespace Randomizer.Tests.ViewModels
 
         public async Task<RandomizerList> Get(object id)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().Get(id);
-            await _UnitOfWork.SaveChangesAsync();
+            var r = await UnitOfWork.Repository<RandomizerList>().Get(id);
+            await UnitOfWork.SaveChangesAsync();
             return r;
         }
 
 
         public async Task<IEnumerable<RandomizerList>> GetItems(int index, int count)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().GetItems(index, count);
-            await _UnitOfWork.SaveChangesAsync();
+            var r = await UnitOfWork.Repository<RandomizerList>().GetItems(index, count);
+            await UnitOfWork.SaveChangesAsync();
             return r;
         }
 
         public async Task<bool> Remove(object id)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().Remove(id);
-            await _UnitOfWork.SaveChangesAsync();
+            var r = await UnitOfWork.Repository<RandomizerList>().Remove(id);
+            await UnitOfWork.SaveChangesAsync();
             return r;
         }
 
         public async Task<RandomizerList> Update(RandomizerList item)
         {
 
-            var r = await _UnitOfWork.Repository<RandomizerList>().Update(item);
-            await _UnitOfWork.SaveChangesAsync();
+            var r = await UnitOfWork.Repository<RandomizerList>().Update(item);
+            await UnitOfWork.SaveChangesAsync();
             return r;
         }
 
 
         public async Task<RandomizerList> Update(object id, RandomizerList item)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().Update(id, item);
-            await _UnitOfWork.SaveChangesAsync();
+            var r = await UnitOfWork.Repository<RandomizerList>().Update(id, item);
+            await UnitOfWork.SaveChangesAsync();
             return r;
         }
 
         public void Dispose()
         {
-            _UnitOfWork?.Dispose();
-            _Context?.Dispose();
+            UnitOfWork?.Dispose();
+            Context?.Dispose();
             _Factory?.Dispose();
         }
 

@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Randomizer.Framework.ViewModels.Business
+namespace Randomizer.Framework.ViewModels.Business.Items
 {
     public class RandomizerItemVM : BaseViewModel<RandomizerItem>
     {
-        public int Id
+        public string Id
         {
             get
             {
-                if (Model == null) return -1;
-                return Model.Id;
+                if (Model == null) return string.Empty;
+                return Model.Id.ToString();
             }
 
             set

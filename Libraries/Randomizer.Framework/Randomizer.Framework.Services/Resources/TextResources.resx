@@ -149,6 +149,18 @@
     <value>An item with the same ID already exists!</value>
     <comment>Message when adding an item to a list that already exists in the database.</comment>
   </data>
+  <data name="ItemNotDeleted" xml:space="preserve">
+    <value>This item couldn't be deleted :( Please, try again!</value>
+    <comment>A message indicating that an item couldn't be deleted</comment>
+  </data>
+  <data name="ItemNotUpdated" xml:space="preserve">
+    <value>This item couldn't be updated :( Please, try again!</value>
+    <comment>A message indicating that an item couldn't be updated</comment>
+  </data>
+  <data name="ListNotCleared" xml:space="preserve">
+    <value>The list couldn't be cleared :( Please, try again!</value>
+    <comment>A message indicating that a list couldn't be updated</comment>
+  </data>
   <data name="NewListPageTitle" xml:space="preserve">
     <value>New List</value>
     <comment>The title of the 'New List' page</comment>

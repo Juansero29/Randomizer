@@ -42,7 +42,7 @@ namespace Randomizer.Framework.Services.Shared.Localization
                     string.Format("Key '{0}' was not found in resources '{1}' for culture '{2}'.", ResourceKey, ResourceId, ci.Name),
                     "Text");
 #else
-                translation = Text;
+                translation = string.Empty;
 #endif
             }
             return translation;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using EnigmatiKreations.Framework.MVVM.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +14,41 @@ namespace EnigmatiKreations.Framework.Services.Navigation
     public interface INavigationService
     {
         /// <summary>
-        /// Goes to the specified uri in the application
+        /// The page loader, used to instatiate pages when necessary
         /// </summary>
-        /// <param name="uri">The uri where we want to go</param>
-        /// <returns>A task that can be awaited</returns>
-        Task GoToAsync(string uri);
-        
+        IPageLoader PageLoader { get; set; }
+
         /// <summary>
-        /// Makes a pop gesture in the app (goes back)
+        /// Initialize the navigation service
         /// </summary>
-        /// <returns>A task that can be awaited</returns>
-        Task PopAsync();
+        /// <param name="navigationRootPage"></param>
+        void Initialize(NavigableElement navigationRootPage, IPageLoader loader);
+
 
         /// <summary>
         /// Gets the current page in the application
         /// </summary>
-        /// <returns>The page</returns>
+        /// <returns>The curent pagepage</returns>
         Page GetCurrentPage();
-    }
 
+
+        /// <summary>
+        /// Navigates to the specified route
+        /// </summary>
+        /// <param name="navigationRoute">Route</param>
+        /// <param name="args">arguments</param>
+        /// <param name="options">options</param>
+        /// <returns>An awaitable task</returns>
+        Task NavigateToAsync(string navigationRoute, Dictionary<string, string> args = null, NavigationOptions options = null);
+
+        /// <summary>
+        /// Makes a pop gesture in the app (goes back)
+        /// </summary>
+        /// <param name="fromModal">Do we go back from a modal page?</param>
+        /// <returns>An awaitable task</returns>
+        Task GoBackAsync(bool fromModal = false);
+
+    }
 }
+
+

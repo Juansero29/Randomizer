@@ -11,24 +11,22 @@ using Randomizer.Framework.Models.Contract;
 namespace Randomizer.Framework.ViewModels.Commanding
 {
 
-    public interface IAsyncGenericCommand<T> : ICommand
+    public interface IGenericCommandAsync<T> : ICommand
     {
         Task ExecuteAsync(T param);
         bool CanExecute();
     }
 
-    public class GenericCommandAsync<T> : IAsyncGenericCommand<T>, IReportProgressCommand
+    public class GenericCommandAsync<T> : IGenericCommandAsync<T>, IReportProgressCommand
     {
         public event EventHandler CanExecuteChanged;
 
         private bool _isExecuting;
-        private Action<RandomizerItem> removeItem;
-        private object canExecuteRemoveItem;
-        private readonly Action<T> _execute;
+        private readonly Func<T, Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
 
-        public GenericCommandAsync(Action<T> execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
+        public GenericCommandAsync(Func<T, Task> execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
         {
             _execute = execute;
             _canExecute = canExecute;
@@ -57,7 +55,7 @@ namespace Randomizer.Framework.ViewModels.Commanding
                 try
                 {
                     _isExecuting = true;
-                    await Task.Run(() => { _execute(param); });
+                    await  _execute(param);
                 }
                 finally
                 {

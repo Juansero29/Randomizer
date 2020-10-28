@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework;
+using Randomizer.Tests.Persistence.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,15 +17,16 @@ namespace Randomizer.Framework.Persistence
     /// </summary>
     public class EFRandomizerDataManager : IDataManager<RandomizerList>
     {
-
+        private RandomizerContextFactory _Factory = new RandomizerContextFactory();
         private RandomizerContext _Context;
         private EFUnitOfWork _UnitOfWork;
+
 
 
         public EFRandomizerDataManager()
         {
             // Context init
-            _Context = new RandomizerContext();
+            _Context = _Factory.CreateContext();
 
             // Unit of work init
             _UnitOfWork = new EFUnitOfWork(_Context);
@@ -39,9 +41,17 @@ namespace Randomizer.Framework.Persistence
         }
         public async Task<RandomizerList> Add(RandomizerList item)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().Add(item);
-            await _UnitOfWork.SaveChangesAsync();
-            return r;
+            try
+            {
+                var r = await _UnitOfWork.Repository<RandomizerList>().Add(item);
+                await _UnitOfWork.SaveChangesAsync();
+                return r;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+
         }
 
         public async Task<bool> AddRange(params RandomizerList[] items)
@@ -56,7 +66,6 @@ namespace Randomizer.Framework.Persistence
         public async Task<RandomizerList> Get(object id)
         {
             var r = await _UnitOfWork.Repository<RandomizerList>().Get(id);
-            await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 
@@ -64,7 +73,6 @@ namespace Randomizer.Framework.Persistence
         public async Task<IEnumerable<RandomizerList>> GetItems(int index, int count)
         {
             var r = await _UnitOfWork.Repository<RandomizerList>().GetItems(index, count);
-            await _UnitOfWork.SaveChangesAsync();
             return r;
         }
 

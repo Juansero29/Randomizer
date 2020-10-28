@@ -29,11 +29,15 @@ namespace Randomizer.iOS
             AppCenter.Start("a297d040-a412-45e8-845a-7d0794e1342c", typeof(Analytics), typeof(Crashes));
             EnigmatiKreations.Framework.Controls.Platforms.iOS.Tools.Init();
             global::Xamarin.Forms.Forms.Init();
+            #region Code for starting up the Xamarin Test Cloud Agent
 
-#if ENABLE_TEST_CLOUD
-            // requires Xamarin Test Cloud Agent
+            // Newer version of Visual Studio for Mac and Visual Studio provide the
+            // ENABLE_TEST_CLOUD compiler directive to prevent the Calabash DLL from
+            // being included in the released version of the application.
+            
             Xamarin.Calabash.Start();
-#endif
+            
+            #endregion
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -134,7 +134,7 @@
     <comment>A placeholder label suggesting the user to enter their list's name</comment>
   </data>
   <data name="ErrorAddingItem" xml:space="preserve">
-    <value>Une erreur est survenue lors de l'ajout de cet élément :( Essayez à nouveau, s'il vous plaît</value>
+    <value>Une erreur est survenue lors de l'ajout de cet élément :( Ressayez, s'il vous plaît</value>
     <comment>An error happened while adding an item, be kind to the user.</comment>
   </data>
   <data name="FeatureNotImplementedMessage" xml:space="preserve">
@@ -148,6 +148,18 @@
   <data name="ItemAlreadyExists" xml:space="preserve">
     <value>Un item avec le même ID existe déjà !</value>
     <comment>Message when adding an item to a list that already exists in the database.</comment>
+  </data>
+  <data name="ItemNotDeleted" xml:space="preserve">
+    <value>L'item n'a pas pu être supprimé :( Ressayez, s'il vous plaît</value>
+    <comment>A message indicating that an item couldn't be deleted</comment>
+  </data>
+  <data name="ItemNotUpdated" xml:space="preserve">
+    <value>L'item n'a pas pu être mis à jour :( Ressayez, s'il vous plaît</value>
+    <comment>A message indicating that an item couldn't ne updated</comment>
+  </data>
+  <data name="ListNotCleared" xml:space="preserve">
+    <value>La liste n'a pas pu être vidée :( Ressayez, s'il vous plaît</value>
+    <comment>A message indicating that a list couldn't be updated</comment>
   </data>
   <data name="NothingHereLabel" xml:space="preserve">
     <value>Il n'y a rien ici !</value>

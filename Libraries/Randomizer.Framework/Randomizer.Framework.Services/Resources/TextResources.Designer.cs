@@ -133,6 +133,33 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This item couldn&apos;t be deleted :( Please, try again!.
+        /// </summary>
+        public static string ItemNotDeleted {
+            get {
+                return ResourceManager.GetString("ItemNotDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This item couldn&apos;t be updated :( Please, try again!.
+        /// </summary>
+        public static string ItemNotUpdated {
+            get {
+                return ResourceManager.GetString("ItemNotUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The list couldn&apos;t be cleared :( Please, try again!.
+        /// </summary>
+        public static string ListNotCleared {
+            get {
+                return ResourceManager.GetString("ListNotCleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New List.
         /// </summary>
         public static string NewListPageTitle {

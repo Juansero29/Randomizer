@@ -1,14 +1,11 @@
-﻿using Randomizer.Framework.Models;
-using Randomizer.Framework.Models.Contract;
-using Randomizer.Framework.Services.Navigation;
-using EnigmatiKreations.Framework.Utils;
+﻿using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.ViewModels.Business;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using Xamarin.Forms;
 using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+using Randomizer.Framework.Services.Resources;
+using Randomizer.Framework.ViewModels.Commanding;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EnigmatiKreations.Framework.Services.Navigation;
 
 namespace Randomizer.Framework.ViewModels.Pages
 {
@@ -16,28 +13,19 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// The ViewModel for the home page of Randomizer
     /// </summary>
     public class HomePageViewModel : BasePageViewModel
-    {
-
-        #region Private Fields
-        private ObservableCollection<RandomizerListVM> _Lists = new ObservableCollection<RandomizerListVM>();
-        #endregion
+    { 
 
         #region Properties
-
-        /// <summary>
-        /// The collection of lists to show in the home page
-        /// </summary>
-        public ObservableCollection<RandomizerListVM> Lists
+        public ListsManagerVM Manager
         {
-            get => _Lists;
-            set => SetValue(ref _Lists, value);
+            get => Container.Resolve<ListsManagerVM>();
         }
-
         #endregion
 
         #region Commands
-        public ICommand NewRandomizerListCommand { get; }
-        public ICommand ListTappedCommand { get; }
+        public ICommandAsync NewRandomizerListCommand { get; }
+        public ICommandAsync RefreshListsCommand { get; }
+        public IGenericCommandAsync<RandomizerListVM> ListTappedCommand { get; }
         #endregion
 
         #region Constructor(s)
@@ -45,24 +33,26 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         public HomePageViewModel()
         {
-            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
-            ListEditionPageViewModel.MessagingCenterConstants.ListSaved, (sender, newList) =>
-            {
-                if (Lists.Contains(newList)) return;
-                Lists.Add(newList);
-            });
-
-            MessagingCenterExtensions.UnitarySubscribe<ListEditionPageViewModel, RandomizerListVM, HomePageViewModel>(this,
-            ListEditionPageViewModel.MessagingCenterConstants.ListDeleted, (sender, deletedList) =>
-            {
-                Lists.Remove(deletedList);
-            });
-
+            // setting title
+            Title = TextResources.YourListsLabel;
+            
             #region Commands Init
-            NewRandomizerListCommand = new Command(OnNewRandomizerList);
-            ListTappedCommand = new Command<RandomizerListVM>(OnListTapped);
+            NewRandomizerListCommand = new SimpleCommandAsync(NewListButtonPressed, CanExecuteNewListCommand);
+            ListTappedCommand = new GenericCommandAsync<RandomizerListVM>(OnListTapped, CanExecuteListTapped);
+            RefreshListsCommand = new SimpleCommandAsync(RefreshLists, CanExecuteRefreshLists);
             #endregion
         }
+
+        private async Task RefreshLists()
+        {
+            await Manager.RefreshLists();
+        }
+
+        private bool CanExecuteRefreshLists()
+        {
+            return true;
+        }
+
 
 
 
@@ -70,36 +60,57 @@ namespace Randomizer.Framework.ViewModels.Pages
 
         #region Methods
 
-        async private void OnNewRandomizerList()
+        #region Commands
+
+        public async Task NewListButtonPressed()
         {
-            await NavigationService.GoToAsync("/listedition?new=true&editmode=true");
+            var args = new Dictionary<string, string>
+            {
+                {  NavigationParameters.IsNew, "true" }
+            };
+
+            await Container.Resolve<INavigationService>().NavigateToAsync(NavigationRoutes.ListEditionPage, args);
         }
 
-        async private void OnListTapped(RandomizerListVM list)
+        async private Task OnListTapped(RandomizerListVM list)
         {
-            await NavigationService.GoToAsync("/listedition");
-            MessagingCenter.Send(this, MessagingCenterConstants.SelectedList, list);
+
+            Manager.CurrentList = list;
+            await Container.Resolve<INavigationService>().NavigateToAsync(NavigationRoutes.ListEditionPage);
         }
 
-        public override void ReLoad()
+
+        private bool CanExecuteListTapped()
         {
-            base.ReLoad();
+            return true;
+        }
+
+        private bool CanExecuteNewListCommand()
+        {
+            return true;
+        }
+        #endregion
+
+        public override async void Load(object parameter = null)
+        {
+            base.Load(parameter);
+
+            await RefreshLists();
+        }
+
+        public override async void ReLoad(object parameter)
+        {
+            base.ReLoad(parameter);
             // To use reload we need to first use the LoadingBehaviorLifecycle
             // Reload the list of lists using the DataManager to see if there where any changes
+            await RefreshLists();
         }
 
         public override void Destroy()
         {
             base.Destroy();
-            MessagingCenter.Unsubscribe<ListEditionPageViewModel, RandomizerListVM> (this, ListEditionPageViewModel.MessagingCenterConstants.ListDeleted);
         }
         #endregion
-
-        public class MessagingCenterConstants
-        {
-            public const string SelectedList = "SelectedList";
-        }
-
 
     }
 }

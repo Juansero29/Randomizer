@@ -57,10 +57,9 @@ namespace Randomizer.Framework.Models.Contract
         /// <summary>
         /// Method to update an item in this list
         /// </summary>
-        /// <param name="id">The id of the item to update</param>
-        /// <param name="item">The item containing the new information</param>
+        /// <param name="item">The item containing the new information and an Id</param>
         /// <returns></returns>
-        public abstract RandomizerItem UpdateItem(object id, RandomizerItem item);
+        public abstract RandomizerItem UpdateItem(RandomizerItem item);
 
     }
 }

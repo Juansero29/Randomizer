@@ -38,13 +38,13 @@ namespace Randomizer.Framework.Persistence
             return _DataManager.Add(list);
         }
 
-        public Task<RandomizerList> GetList(int id)
+        public Task<RandomizerList> GetList(object id)
         {
             return _DataManager.Get(id);
         }
 
 
-        public Task<RandomizerList> Update(int id, RandomizerList item)
+        public Task<RandomizerList> Update(object id, RandomizerList item)
         {
             return _DataManager.Update(id, item);
         }
@@ -60,26 +60,27 @@ namespace Randomizer.Framework.Persistence
             return _DataManager.GetItems(startIndex, count);
         }
 
-        public async Task<bool> AddItemToList(int listId, RandomizerItem itemToAdd)
+        public async Task<bool> AddItemToList(object listId, RandomizerItem itemToAdd)
         {
             var list =  await _DataManager.Get(listId);
             list.AddItem(itemToAdd);
             return list.ContainsItem(itemToAdd);
         }
 
-        public async Task<bool> RemoveItemFromList(int listId, RandomizerItem itemToRemove)
+        public async Task<bool> RemoveItemFromList(object listId, RandomizerItem itemToRemove)
         {
             var list = await _DataManager.Get(listId);
             list.RemoveItem(itemToRemove);
+            
             return !list.ContainsItem(itemToRemove);
         }
 
 
-        public async Task<bool> UpdateItemInList(int listId, RandomizerItem itemToUpdate)
+        public async Task<bool> UpdateItemInList(object listId, RandomizerItem itemToUpdate)
         {
             var list = await _DataManager.Get(listId);
             if (!list.ContainsItem(itemToUpdate)) return false;
-            var r = list.UpdateItem(itemToUpdate.Id, itemToUpdate);
+            var r = list.UpdateItem(itemToUpdate);
             return r != null;
         }
         

@@ -25,7 +25,7 @@ namespace Randomizer.Framework.Models
         public override int GetHashCode()
         {
             var hashCode = -1620415233;
-            hashCode = hashCode * -1221135295 + EqualityComparer<int>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1221135295 + EqualityComparer<object>.Default.GetHashCode(Id);
             hashCode = hashCode * -1221135295 + EqualityComparer<string>.Default.GetHashCode(Image.ToString());
             return hashCode;
         }

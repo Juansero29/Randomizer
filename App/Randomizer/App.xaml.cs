@@ -1,15 +1,20 @@
-﻿using EnigmatiKreations.Framework.Managers.Contract;
-using EnigmatiKreations.Framework.MVVM.BaseViewModels;
+﻿using EnigmatiKreations.Framework.MVVM.BaseViewModels;
 using EnigmatiKreations.Framework.Services.Alerts;
 using EnigmatiKreations.Framework.Services.Navigation;
-using Randomizer.Framework.Models.Contract;
 using Randomizer.Framework.Persistence;
 using Randomizer.Framework.Services.Alerts;
 using Randomizer.Framework.Services.i18n;
 using Randomizer.Framework.Services.Navigation;
 using Randomizer.Framework.Services.Resources;
 using Xamarin.Forms;
-
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Randomizer.Framework.ViewModels.Business;
+using System;
+using Randomizer.Pages;
+using System.Globalization;
+using Randomizer.Framework.Pages.Navigation;
 
 namespace Randomizer
 {
@@ -18,30 +23,46 @@ namespace Randomizer
         public App()
         {
             InitializeComponent();
+            MainPage = new AppShellPage();
             SetCurrentLanguage();
             RegisterServicesInContainer();
-            MainPage = new AppShell();
         }
 
         private void RegisterServicesInContainer()
         {
-            Container.PrepareNewBuilder();
-            Container.RegisterDependency(new ShellNavigationService(), typeof(INavigationService), true);
-            Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
-            Container.RegisterDependency(new ListsManager(), typeof(ListsManager), true);
-            Container.BuildContainer();
+            do
+            {
+                Container.PrepareNewBuilder();
+                var navService = new ShellNavigationService();
+                navService.Initialize(new NavigationPage(new Page()), new RandomizerPageLoader());
+                Container.RegisterDependency(navService, typeof(INavigationService), true);
+                Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
+                Container.RegisterDependency(new ListsManagerVM(new ListsManager()), typeof(ListsManagerVM), true);
+            } while (!Container.BuildContainer());
         }
 
         private void SetCurrentLanguage()
         {
-            var ci = DependencyService.Get<ILocalizationService>().GetCurrentCultureInfo();
-            TextResources.Culture = ci;
-            DependencyService.Get<ILocalizationService>().SetLocale(ci); // set the Thread for locale-aware methods
+            try
+            {
+                var ci = DependencyService.Get<ILocalizationService>().GetCurrentCultureInfo();
+                TextResources.Culture = ci;
+                DependencyService.Get<ILocalizationService>().SetLocale(ci); // set the Thread for locale-aware methods
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Couldn't find the locale. Setting a default one.");
+                TextResources.Culture = new CultureInfo("en-US");
+            }
+
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
+            AppCenter.Start("android=fe6df48a-5cbf-4ab5-aa33-f92cecff4e06;" +
+                  "ios=26d40430-7a80-455f-a5ce-241972cfe9ba;",
+                  typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

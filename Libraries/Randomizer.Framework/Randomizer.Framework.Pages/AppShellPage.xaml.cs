@@ -1,20 +1,22 @@
 ﻿using EnigmatiKreations.Framework.Services.Navigation;
+using Randomizer.Framework.Services.Navigation;
 using Randomizer.Pages;
 using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace Randomizer
+namespace Randomizer.Pages
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShellPage : Xamarin.Forms.Shell
     {
         private static Dictionary<string, Type> Routes = new Dictionary<string, Type>()
         {
-            { "listedition", typeof(ListEditionPage) }
+            { NavigationRoutes.ListEditionPage, typeof(ListEditionPage) },
+            { NavigationRoutes.HomePage, typeof(HomePage) }
         };
 
-        public AppShell()
+        public AppShellPage()
         {
             InitializeComponent();
             RegisterRoutes();

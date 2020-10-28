@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.ApiManager\EnigmatiKreations.Framework.ApiManager.csproj" />
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Controls\EnigmatiKreations.Framework.Controls.csproj" />
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Managers\EnigmatiKreations.Framework.Managers.csproj" />
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Persistence\EnigmatiKreations.Framework.Persistence.csproj" />
+    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
+    <ProjectReference Include="..\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
+    <ProjectReference Include="..\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
+    <ProjectReference Include="..\Randomizer.Framework.Services\Randomizer.Framework.Services.csproj" />
+    <ProjectReference Include="..\Randomizer.Framework.ViewModels\Randomizer.Framework.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AppShellPage.xaml.cs">
+      <DependentUpon>AppShellPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="HomePage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="ListEditionPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Navigation\" />
+  </ItemGroup>
+</Project>
