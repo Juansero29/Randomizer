@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
     <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Persistence\EnigmatiKreations.Framework.Persistence.csproj" />
     <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />

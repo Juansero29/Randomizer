@@ -1,4 +1,5 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -12,7 +13,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid90;netstandard2.0;Xamarin.iOS10;net461</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid10.0;netstandard2.0;Xamarin.iOS10;net461</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>Randomizer.Framework.Services</RootNamespace>
@@ -52,7 +53,7 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="bin\**\*.*;bin;obj\**\*.*;obj;" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -75,9 +76,8 @@
   </ItemGroup>
 
   <!--Do this exclusively for Android-->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid10.0' ">
     <Compile Include="Platforms\Android\**\*.cs" />
-
     <!-- If we have resources add these... -->
 
     <!--<AndroidResource Include="Resources\**\*.axml" />
@@ -87,7 +87,7 @@
 
   </ItemGroup>
 
-  <!--<PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
+  <!--<PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid10.0' ">
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
   </PropertyGroup>-->
 

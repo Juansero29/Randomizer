@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -11,8 +11,9 @@
     <!--Don't auto add files for me, I will tell you how to do it -->
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
+    
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid90;Xamarin.iOS10;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10;netstandard2.0;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>EnigmatiKreations.Framework.Controls</RootNamespace>
@@ -52,7 +53,7 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -77,7 +78,7 @@
   </ItemGroup>
 
   <!--Do this exclusively for Android-->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid10.0' ">
     <Compile Include="Platforms\Android\**\*.cs" />
     <Reference Include="System.Data" />
     <PackageReference Include="FAB.XamarinAndroid" Version="1.6.4" />
@@ -91,7 +92,7 @@
     
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid10.0' ">
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
   </PropertyGroup>
 

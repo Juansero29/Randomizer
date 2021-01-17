@@ -1,5 +1,5 @@
-﻿using Android.Support.V7.Widget;
-using Android.Views;
+﻿using Android.Views;
+using AndroidX.AppCompat.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
