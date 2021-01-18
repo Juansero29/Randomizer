@@ -47,6 +47,8 @@
             Command="{Binding SaveListCommand}"
             IconImageSource="check_white.png"
             Order="Primary"
+            IsVisible="{Binding IsNew}"
+            ToolbarParent="{x:Reference this}"
             Priority="2"
             Text="Save"
            />
@@ -86,7 +88,7 @@
                                 VerticalOptions="Center"
                                 WidthRequest="32">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ListVM.RemoveItemCommand}" CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ListVM.RemoveItemCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </StackLayout>

@@ -26,7 +26,7 @@ namespace Randomizer
             MainPage = new AppShellPage();
             SetCurrentLanguage();
             RegisterServicesInContainer();
-            Container.Resolve<INavigationService>().NavigateToAsync(NavigationRoutes.HomePage);
+            (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
         }
 
         private void RegisterServicesInContainer()

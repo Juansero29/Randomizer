@@ -72,7 +72,7 @@ namespace Randomizer.Framework.Persistence
 
         public async Task<IEnumerable<RandomizerList>> GetItems(int index, int count)
         {
-            var r = await _UnitOfWork.Repository<RandomizerList>().GetItems(index, count);
+            var r = await Task.Run(() => _UnitOfWork.Repository<RandomizerList>().Set.Include(l => l.Items).ToList());
             return r;
         }
 

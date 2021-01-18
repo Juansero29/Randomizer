@@ -133,12 +133,11 @@ namespace Randomizer.Framework.ViewModels.Business
             return true;
         }
 
-        private async Task RemoveItem(object id)
+        private async Task RemoveItem(object param)
         {
-            var item = Model.GetItem(id);
-
-            var success = Model.ContainsItem(item);
-            success &= await Task.FromResult(Model.RemoveItem(item));
+            var item = param as RandomizerItemVM;
+            var success = Model.ContainsItem(item.Model);
+            success &= await Task.FromResult(Model.RemoveItem(item.Model));
             if (!success)
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemNotDeleted, TextResources.OKMessage);
