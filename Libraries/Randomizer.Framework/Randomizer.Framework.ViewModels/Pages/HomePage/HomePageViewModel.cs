@@ -13,7 +13,7 @@ namespace Randomizer.Framework.ViewModels.Pages
     /// The ViewModel for the home page of Randomizer
     /// </summary>
     public class HomePageViewModel : BasePageViewModel
-    { 
+    {
 
         #region Properties
         public ListsManagerVM Manager
@@ -35,7 +35,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             // setting title
             Title = TextResources.YourListsLabel;
-            
+
             #region Commands Init
             NewRandomizerListCommand = new SimpleCommandAsync(NewListButtonPressed, CanExecuteNewListCommand);
             ListTappedCommand = new GenericCommandAsync<RandomizerListVM>(OnListTapped, CanExecuteListTapped);
@@ -96,6 +96,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             base.Load(parameter);
 
             await RefreshLists();
+            OnPropertyChanged(nameof(Manager));
         }
 
         public override async void ReLoad(object parameter)
@@ -104,6 +105,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             // To use reload we need to first use the LoadingBehaviorLifecycle
             // Reload the list of lists using the DataManager to see if there where any changes
             await RefreshLists();
+            OnPropertyChanged(nameof(Manager));
         }
 
         public override void Destroy()

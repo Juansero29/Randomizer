@@ -19,7 +19,6 @@ namespace Randomizer.Framework.ViewModels.Pages
     {
         #region Fields
         private RandomizerListVM _ListVM;
-        private string _ToolbarTitle;
         private string _ItemEntryText;
         private bool _IsNew;
         private ListsManagerVM Manager => Container.Resolve<ListsManagerVM>();
@@ -55,20 +54,16 @@ namespace Randomizer.Framework.ViewModels.Pages
                 SetValue(ref _ListVM, value);
 
                 if (!(value is RandomizerListVM list)) return;
-                if (!IsNew) // If list isn't new, display the list title in the toolbar
+                if (IsNew) 
                 {
-                    ToolbarTitle = list.Name;
+                    Title = TextResources.NewListPageTitle;
+                }
+                else
+                {
+                    // If list isn't new, display the list title in the toolbar
+                    Title = list.Name;
                 }
             }
-        }
-
-        /// <summary>
-        /// The toolbar's title
-        /// </summary>
-        public string ToolbarTitle
-        {
-            get => _ToolbarTitle;
-            set => SetValue(ref _ToolbarTitle, value);
         }
 
         /// <summary>
@@ -92,7 +87,7 @@ namespace Randomizer.Framework.ViewModels.Pages
                 {
                     if (value)
                     {
-                        ToolbarTitle = TextResources.NewListPageTitle;
+                        Title = TextResources.NewListPageTitle;
                         ListVM = new RandomizerListVM(new SimpleRandomizerList());
                         Manager.CurrentList = ListVM;
                     }
@@ -124,6 +119,18 @@ namespace Randomizer.Framework.ViewModels.Pages
             DeleteListCommand = new SimpleCommandAsync(OnDeleteList, CanExecuteDeleteList);
             RandomizeCommand = new SimpleCommandAsync(OnRandomize, CanExecuteRandomize);
             #endregion
+
+
+        }
+
+        private void ListVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(ListVM.Name):
+                    (SaveListCommand as SimpleCommandAsync).RaiseCanExecuteChanged();
+                    break;
+            }
         }
 
 
@@ -140,7 +147,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         }
 
         private bool CanExecuteDeleteList()
-        {
+        { 
             return true;
         }
 
@@ -162,6 +169,7 @@ namespace Randomizer.Framework.ViewModels.Pages
             }
 
             Manager.CurrentList = ListVM;
+            
             await Container.Resolve<INavigationService>().GoBackAsync();
         }
 
@@ -191,6 +199,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
             base.Load(parameter);
             ListVM = Manager.CurrentList;
+            ListVM.PropertyChanged += ListVM_PropertyChanged;
             await ListVM.RefreshListCommand.ExecuteAsync();
         }
 

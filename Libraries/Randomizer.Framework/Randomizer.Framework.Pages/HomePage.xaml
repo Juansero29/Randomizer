@@ -65,7 +65,7 @@
                     CachingStrategy="RecycleElement"
                     HasUnevenRows="True"
                     ItemTemplate="{StaticResource listItemCardDTS}"
-                    ItemsSource="{Binding Lists}"
+                    ItemsSource="{Binding Manager.ListsVM}"
                     SeparatorVisibility="None"
                     VerticalOptions="FillAndExpand">
                     <!--  HasUnevenRows="True": Calculates the display size of the rows automatically  -->

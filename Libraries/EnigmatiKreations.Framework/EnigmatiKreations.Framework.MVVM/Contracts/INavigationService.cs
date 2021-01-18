@@ -44,9 +44,10 @@ namespace EnigmatiKreations.Framework.Services.Navigation
         /// <summary>
         /// Makes a pop gesture in the app (goes back)
         /// </summary>
+        /// <param name="usingShell">Are we using shell for this navigation?</param>
         /// <param name="fromModal">Do we go back from a modal page?</param>
         /// <returns>An awaitable task</returns>
-        Task GoBackAsync(bool fromModal = false);
+        Task GoBackAsync(bool usingShell = true, bool fromModal = false);
 
     }
 }

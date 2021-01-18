@@ -21,7 +21,7 @@ namespace Randomizer.Framework.Persistence
 
         #region Constructors
 
-        public ListsManager() : this(new EFRandomizerDataManager()) // EFDatamanaer, Api DataManager, Tests DataManager, JsonDataManager...
+        public ListsManager() : this(new EFRandomizerDataManager()) // EFDatamangaer, Api DataManager, Tests DataManager, JsonDataManager...
         {
 
         }

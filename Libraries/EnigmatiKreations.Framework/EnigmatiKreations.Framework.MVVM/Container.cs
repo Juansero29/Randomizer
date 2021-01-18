@@ -31,6 +31,7 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
             {
                 _Container.Dispose();
             }
+            
             _Container = null;
         }
 
@@ -83,9 +84,20 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
         /// <returns></returns>
         public static T Resolve<T>() where T : class
         {
+            if (_Container == null || !_Container.IsRegistered<T>()) return null;
             return _Container.Resolve<T>();
         }
-
+        
+        /// <summary>
+        /// Determines if a type has already been registered in the container
+        /// </summary>
+        /// <typeparam name="T">The type to check</typeparam>
+        /// <returns>If it is there true, if it isn't false</returns>
+        public static bool IsRegistered<T>() where T : class
+        {
+            return _Container.IsRegistered<T>();
+        }
+        
         /// <summary>
         /// Disposes the container
         /// </summary>

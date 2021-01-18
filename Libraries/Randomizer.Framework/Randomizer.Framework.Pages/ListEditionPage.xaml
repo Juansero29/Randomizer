@@ -8,6 +8,7 @@
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    Title="{Binding Title}"
     x:Name="this">
 
     <!--  ViewModel  -->
@@ -48,7 +49,7 @@
             Order="Primary"
             Priority="2"
             Text="Save"
-            ToolbarParent="{x:Reference this}" />
+           />
 
     </ContentPage.ToolbarItems>
 
@@ -66,7 +67,7 @@
 
             <CollectionView
                 HorizontalOptions="StartAndExpand"
-                ItemsSource="{Binding ListVM.Items}"
+                ItemsSource="{Binding ListVM.ItemsVM}"
                 VerticalOptions="Start">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -85,7 +86,7 @@
                                 VerticalOptions="Center"
                                 WidthRequest="32">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.RemoveListItemCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding ListVM.RemoveItemCommand}" CommandParameter="{Binding .}" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </StackLayout>
@@ -98,7 +99,7 @@
                 HorizontalOptions="StartAndExpand"
                 Placeholder="{i18:Translate ResourceKey=EnterAnItemPlaceholder}"
                 PlaceholderColor="WhiteSmoke"
-                ReturnCommand="{Binding AddItemCommand}"
+                ReturnCommand="{Binding ListVM.AddItemCommand}"
                 ReturnCommandParameter="{Binding Source={x:Reference ItemEntry}, Path=Text}"
                 ReturnType="Next"
                 Text="{Binding ItemEntryText, Mode=TwoWay}"

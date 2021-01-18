@@ -28,6 +28,12 @@ namespace Randomizer.Framework.ViewModels.Business
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// A manager use to link vm data to the model
+        /// </summary>
+        private ListsManagerVM Manager => Container.Resolve<ListsManagerVM>();
+
         /// <summary>
         /// The name of the list
         /// </summary>
@@ -50,7 +56,6 @@ namespace Randomizer.Framework.ViewModels.Business
         public RandomizerListVM(RandomizerList model) : base(model)
         {
             _ReadOnlyItemsVM = new ReadOnlyObservableCollection<RandomizerItemVM>(_ItemsVM);
-            RefreshItems().Wait();
             InitCommands();
         }
 
@@ -142,7 +147,7 @@ namespace Randomizer.Framework.ViewModels.Business
             await RefreshItems();
         }
 
-   
+
         private bool CanExecuteAddItem()
         {
             return true;
@@ -151,12 +156,12 @@ namespace Randomizer.Framework.ViewModels.Business
         private async Task AddItem(object args)
         {
             var item = TryToCreateRandomizerItem(args);
-
-            if (Model.ContainsItem(item.Model))
-            {
-                await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
-                return;
-            }
+                        
+            //if (Model.ContainsItem(item.Model))
+            //{
+            //    await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
+            //    return;
+            //}
 
             if (!Model.AddItem(item.Model))
             {
@@ -178,7 +183,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
             foreach (var i in items)
             {
-                if(i is TextRandomizerItem t)
+                if (i is TextRandomizerItem t)
                 {
                     _ItemsVM.Add(new TextRandomizerItemVM(t));
                 }

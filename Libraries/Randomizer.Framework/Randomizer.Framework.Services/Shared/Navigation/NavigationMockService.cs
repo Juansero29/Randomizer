@@ -22,7 +22,7 @@ namespace Randomizer.Framework.Services.Navigation
             return Application.Current.MainPage;
         }
 
-        public Task GoBackAsync(bool fromModal = false)
+        public Task GoBackAsync(bool usingShell = true, bool fromModal = false)
         {
             throw new NotImplementedException();
         }

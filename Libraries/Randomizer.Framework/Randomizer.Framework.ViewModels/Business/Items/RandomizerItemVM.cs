@@ -23,6 +23,11 @@ namespace Randomizer.Framework.ViewModels.Business.Items
             }
         }
 
+        public RandomizerListVM Parent
+        {
+            get => new RandomizerListVM(Model.Parent);
+        }
+
         public RandomizerItemVM(RandomizerItem model) : base(model)
         {
         }

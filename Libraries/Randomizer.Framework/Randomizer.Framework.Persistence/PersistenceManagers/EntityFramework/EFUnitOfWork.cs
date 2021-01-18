@@ -58,7 +58,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
             var result = await _Context?.SaveChangesAsync(cancellationToken);
 
 
-            foreach (var entry in _Context.ChangeTracker.Entries()
+            foreach (var entry in _Context.ChangeTracker.Entries().ToList()
                 .Where(e => e.State != EntityState.Detached))
             {
                 _Context.Entry(entry.Entity).State = EntityState.Detached;
@@ -70,7 +70,7 @@ namespace Randomizer.Framework.Persistence.PersistenceManagers.EntityFramework
         {
             await Task.Run(() =>
             {
-                foreach (var entry in _Context.ChangeTracker.Entries()
+                foreach (var entry in _Context.ChangeTracker.Entries().ToList()
                     .Where(e => e.State != EntityState.Unchanged))
                 {
                     switch (entry.State)

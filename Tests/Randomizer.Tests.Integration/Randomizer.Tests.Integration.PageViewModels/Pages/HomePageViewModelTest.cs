@@ -93,7 +93,7 @@ namespace Randomizer.Tests.ViewModels.Pages
             var listEdVm = listEdPage.BindingContext as ListEditionPageViewModel;
             Container.Resolve<INavigationService>().GetCurrentPage().GetType().Should().Be(typeof(ListEditionPage));
             listEdVm.IsNew.Should().BeTrue();
-            listEdVm.ToolbarTitle.Should().Be(TextResources.NewListPageTitle);
+            listEdVm.Title.Should().Be(TextResources.NewListPageTitle);
         }
 
         [Fact]

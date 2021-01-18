@@ -68,6 +68,7 @@ namespace Randomizer.Framework.ViewModels.Business
         public IGenericCommandAsync<RandomizerListVM> UpdateListCommand { get; set; }
         public IGenericCommandAsync<RandomizerListVM> DeleteListCommand { get; set; }
 
+
         #endregion
 
         public ListsManagerVM(ListsManager model) : base(model)
@@ -84,7 +85,8 @@ namespace Randomizer.Framework.ViewModels.Business
             DeleteListCommand = new GenericCommandAsync<RandomizerListVM>(DeleteList, CanExecuteDeleteList);
         }
 
-  
+
+
         public async Task RefreshLists(int startIndex = 0)
         {
             var lists = await Model.GetLists(startIndex, RequestedListsCount);

@@ -29,6 +29,8 @@ namespace Randomizer.Framework.Services.Navigation
 
         #region Properties
 
+        public BasePageViewModel PreviousPageViewModel => (Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault()?.BindingContext as BasePageViewModel);
+
         public IPageLoader PageLoader { get; set; }
 
         private NavigableElement NavigationRoot
@@ -45,7 +47,7 @@ namespace Randomizer.Framework.Services.Navigation
             NavigationRoot = navigationRootPage;
             PageLoader = loader;
             _Shell = Application.Current.MainPage as Shell;
-            if(_Shell == null)
+            if (_Shell == null)
             {
                 throw new InvalidOperationException($"Application.Current.MainPage must be assigned to a Shell instance to use Randomizer.Framework.Services.Navigation.ShellNavigationService");
             }
@@ -59,12 +61,17 @@ namespace Randomizer.Framework.Services.Navigation
 
 
         #region Shell Navigation
-        private void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
+        private async void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
         {
             var page = sender as Page;
             var vm = page?.BindingContext as BasePageViewModel;
             vm?.Navigated(sender, e);
-            Debug.WriteLine($"Navigated to {e.Current.Location} from {e.Previous?.Location}m navigation type {e.Source}");
+            var currentPage = GetCurrentPage();
+            if(currentPage.BindingContext is BasePageViewModel bpvm)
+            {
+                await bpvm.LoadCommandAsync.ExecuteAsync(e);
+            }
+            Debug.WriteLine($"Navigated to {e.Current.Location} from {e.Previous?.Location} navigation type {e.Source}");
         }
 
         private void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
@@ -80,12 +87,22 @@ namespace Randomizer.Framework.Services.Navigation
             var queryString = args.AsQueryString();
             navigationRoute = navigationRoute + queryString;
             Debug.WriteLine($"Shell Navigating to {navigationRoute}");
+            if (PreviousPageViewModel != null)
+            {
+                await PreviousPageViewModel.UnloadCommandAsync.ExecuteAsync(null);
+            }
             await _Shell.GoToAsync(navigationRoute, true);
-        } 
+        }
         #endregion
 
-        public async Task GoBackAsync(bool fromModal = false)
+        public async Task GoBackAsync(bool usingShell = true, bool fromModal = false)
         {
+            if (usingShell)
+            {
+                _Shell.SendBackButtonPressed();
+                return;
+            }
+
             if (!fromModal)
             {
                 await NavigationRoot.Navigation.PopAsync();
@@ -118,7 +135,7 @@ namespace Randomizer.Framework.Services.Navigation
             }
 
             // if options say not to use shell navigation
-            if(options is ShellNavigationOptions sno && !sno.UseShellNavigation)
+            if (options is ShellNavigationOptions sno && !sno.UseShellNavigation)
             {
                 // create the page manually
                 var page = CreatePage(navigationRoute);
@@ -130,6 +147,8 @@ namespace Randomizer.Framework.Services.Navigation
                 // navigate from the navigation root to the new page
                 await RootNavigateToAsync(options, page).ConfigureAwait(false);
             }
+
+
 
             await ShellNavigateAsync(navigationRoute, args, options.Animated);
 

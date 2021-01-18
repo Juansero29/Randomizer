@@ -42,7 +42,7 @@ namespace Randomizer.Tests.ViewModels.Pages
                 var navService = new ShellNavigationService();
                 navService.Initialize(new NavigationPage(new Page()), new RandomizerPageLoader());
                 Container.RegisterDependency(navService, typeof(INavigationService), true);
-                Container.RegisterDependency(new AlertsService(), typeof(IAlertsService), true);
+                Container.RegisterDependency(new AlertsMockService(), typeof(IAlertsService), true);
                 Container.RegisterDependency(new ListsManagerVM(new ListsManager(new TestsRandomizerDataManager())), typeof(ListsManagerVM), true);
             } while (!Container.BuildContainer());
         }
@@ -181,6 +181,29 @@ namespace Randomizer.Tests.ViewModels.Pages
 
             await vm.DeleteListCommand.ExecuteAsync();
             man.ListsVM.Should().NotContain(vm.ListVM);
+        }
+
+        [Fact]
+        private async Task SaveNewListWithItemsCommand()
+        {
+            var vm = new ListEditionPageViewModel
+            {
+                IsNewParam = "true"
+            };
+            vm.IsNew.Should().BeTrue();
+            await vm.LoadCommandAsync.ExecuteAsync(null);
+            vm.ListVM.Name = "Stuff";
+            vm.ListVM.ItemsVM.Should().BeEmpty();
+            vm.IsNew.Should().BeTrue();
+            string itemName = "Plumbus";
+            await vm.ListVM.AddItemCommand.ExecuteAsync(itemName);
+            vm.ListVM.ItemsVM.Should().NotBeEmpty();
+            string itemName2 = "Plumbus2";
+            await vm.ListVM.AddItemCommand.ExecuteAsync(itemName2);
+            await vm.SaveList();
+            var man = Container.Resolve<ListsManagerVM>();
+            man.ListsVM.Should().Contain(vm.ListVM);
+            man.ListsVM.Count.Should().BeGreaterThan(0);
         }
 
 

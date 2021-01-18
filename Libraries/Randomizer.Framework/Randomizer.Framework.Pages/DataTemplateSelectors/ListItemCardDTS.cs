@@ -20,15 +20,15 @@ namespace Randomizer.DataTemplateSelectors
         {
 
             var list = CastOrThrow<RandomizerListVM>(item);
-            Collection<RandomizerListVM> lists;
+            ReadOnlyCollection<RandomizerListVM> lists;
 
             if (container is CollectionView cv)
             {
-                lists = CastOrThrow<Collection<RandomizerListVM>>(cv.ItemsSource);
+                lists = CastOrThrow<ReadOnlyCollection<RandomizerListVM>>(cv.ItemsSource);
             }
             else if (container is ListView lv)
             {
-                lists = CastOrThrow<Collection<RandomizerListVM>>(lv.ItemsSource);
+                lists = CastOrThrow<ReadOnlyCollection<RandomizerListVM>>(lv.ItemsSource);
             }
             else
             {

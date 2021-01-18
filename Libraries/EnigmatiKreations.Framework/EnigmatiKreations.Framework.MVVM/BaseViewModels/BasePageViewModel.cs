@@ -33,7 +33,6 @@ namespace EnigmatiKreations.Framework.MVVM.BaseViewModels
             // Resolve the AlertService instance
             // AlertsService = Container.Resolve<IAlertsService>();
 
-
             LoadCommand = new GenericCommand<object>(PreLoad);
             UnloadCommand = new GenericCommand<object>(PreUnLoad);
             LoadCommandAsync = new GenericCommandAsync<object>(PreLoadAsync);
