@@ -19,9 +19,10 @@ namespace EnigmatiKreations.Framework.Services.Navigation
         IPageLoader PageLoader { get; set; }
 
         /// <summary>
-        /// Initialize the navigation service
+        /// Initialize the navigation service (dependency injection)
         /// </summary>
-        /// <param name="navigationRootPage"></param>
+        /// <param name="navigationRootPage">The root rootpage is the first page the user will go to. Every navigation will be perfomed from here. </param>
+        /// <param name="loader">The page loader to use in this navigation service</param>
         void Initialize(NavigableElement navigationRootPage, IPageLoader loader);
 
 
