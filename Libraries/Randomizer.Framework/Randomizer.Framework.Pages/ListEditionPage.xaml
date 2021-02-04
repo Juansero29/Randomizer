@@ -8,8 +8,8 @@
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
-    Title="{Binding Title}"
-    x:Name="this">
+    x:Name="this"
+    Title="{Binding Title}">
 
     <!--  ViewModel  -->
     <ContentPage.BindingContext>
@@ -30,6 +30,7 @@
         <Controls:ToolbarItem
             Name="DeleteListMenuItem"
             Command="{Binding DeleteListCommand}"
+            IconImageSource="closed_circle_white.png"
             IsVisible="{Binding ShowDeleteListToolbarItem}"
             Order="Secondary"
             Priority="1"
@@ -39,12 +40,12 @@
         <Controls:ToolbarItem
             Name="SaveListMenuItem"
             Command="{Binding SaveListCommand}"
-            Order="Primary"
+            IconImageSource="check_white.png"
             IsVisible="{Binding IsNew}"
-            ToolbarParent="{x:Reference this}"
+            Order="Primary"
             Priority="2"
             Text="Save"
-           />
+            ToolbarParent="{x:Reference this}" />
 
     </ContentPage.ToolbarItems>
 
