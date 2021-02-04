@@ -50,6 +50,9 @@ namespace Randomizer.Framework.ViewModels.Business
         public ReadOnlyObservableCollection<RandomizerItemVM> ItemsVM => _ReadOnlyItemsVM;
         #endregion
 
+
+        public event EventHandler ItemAdded;
+
         #region Constructor(s)
 
 
@@ -149,25 +152,20 @@ namespace Randomizer.Framework.ViewModels.Business
 
         private bool CanExecuteAddItem()
         {
-            return true;
+            return ItemsVM != null;
         }
 
         private async Task AddItem(object args)
         {
             var item = TryToCreateRandomizerItem(args);
                         
-            //if (Model.ContainsItem(item.Model))
-            //{
-            //    await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ItemAlreadyExists, TextResources.OKMessage);
-            //    return;
-            //}
 
             if (!Model.AddItem(item.Model))
             {
                 await Container.Resolve<IAlertsService>().DisplayAlert(TextResources.OopsMessage, TextResources.ErrorAddingItem, TextResources.OKMessage);
                 return;
             }
-
+            ItemAdded?.Invoke(this, EventArgs.Empty);
             await RefreshItems();
         }
 

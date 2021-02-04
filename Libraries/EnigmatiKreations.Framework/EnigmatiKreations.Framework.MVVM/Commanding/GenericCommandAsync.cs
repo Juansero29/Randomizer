@@ -22,6 +22,8 @@ namespace Randomizer.Framework.ViewModels.Commanding
         public event EventHandler CanExecuteChanged;
 
         private bool _isExecuting;
+        private Func<Task> addItem;
+        private Func<bool> canExecuteAddItem;
         private readonly Func<T, Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
@@ -31,6 +33,12 @@ namespace Randomizer.Framework.ViewModels.Commanding
             _execute = execute;
             _canExecute = canExecute;
             _errorHandler = errorHandler;
+        }
+
+        public GenericCommandAsync(Func<Task> addItem, Func<bool> canExecuteAddItem)
+        {
+            this.addItem = addItem;
+            this.canExecuteAddItem = canExecuteAddItem;
         }
 
         public bool CanExecute()

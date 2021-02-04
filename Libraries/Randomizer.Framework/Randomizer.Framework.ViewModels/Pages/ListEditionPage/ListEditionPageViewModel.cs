@@ -108,6 +108,8 @@ namespace Randomizer.Framework.ViewModels.Pages
         public ICommandAsync DeleteListCommand { get; }
         public ICommandAsync RandomizeCommand { get; }
 
+        public IGenericCommandAsync<object> AddItemCommand { get; }
+
         #endregion
 
         #region Constructor(s)
@@ -115,6 +117,7 @@ namespace Randomizer.Framework.ViewModels.Pages
         {
 
             #region InitCommands
+            AddItemCommand = new GenericCommandAsync<object>(AddItem, CanExecuteAddItem);
             SaveListCommand = new SimpleCommandAsync(SaveList, CanExecuteSaveList);
             DeleteListCommand = new SimpleCommandAsync(OnDeleteList, CanExecuteDeleteList);
             RandomizeCommand = new SimpleCommandAsync(OnRandomize, CanExecuteRandomize);
@@ -122,6 +125,18 @@ namespace Randomizer.Framework.ViewModels.Pages
 
 
         }
+
+        private async Task AddItem(object arg)
+        {
+            await ListVM.AddItemCommand.ExecuteAsync(arg);
+        }
+
+        private bool CanExecuteAddItem()
+        {
+            return !string.IsNullOrWhiteSpace(ItemEntryText);
+        }
+
+
 
         private void ListVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
