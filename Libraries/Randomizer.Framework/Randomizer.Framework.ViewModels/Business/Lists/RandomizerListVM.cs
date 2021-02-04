@@ -152,7 +152,7 @@ namespace Randomizer.Framework.ViewModels.Business
 
         private bool CanExecuteAddItem()
         {
-            return true;
+            return ItemsVM != null;
         }
 
         private async Task AddItem(object args)

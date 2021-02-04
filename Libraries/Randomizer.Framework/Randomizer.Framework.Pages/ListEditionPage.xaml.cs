@@ -42,6 +42,7 @@ namespace Randomizer.Pages
         {
             ItemEntry.Text = string.Empty;
             ItemEntry.Focus();
+            ItemsList.ScrollTo(VM.ListVM.ItemsVM.Count);
         }
     }
 }

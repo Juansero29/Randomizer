@@ -63,6 +63,7 @@
                 TextColor="White" />
 
             <CollectionView
+                x:Name="ItemsList"
                 HorizontalOptions="StartAndExpand"
                 ItemsSource="{Binding ListVM.ItemsVM}"
                 VerticalOptions="Start">
@@ -96,7 +97,7 @@
                 HorizontalOptions="StartAndExpand"
                 Placeholder="{i18:Translate ResourceKey=EnterAnItemPlaceholder}"
                 PlaceholderColor="WhiteSmoke"
-                ReturnCommand="{Binding ListVM.AddItemCommand}"
+                ReturnCommand="{Binding AddItemCommand}"
                 ReturnCommandParameter="{Binding Source={x:Reference ItemEntry}, Path=Text}"
                 ReturnType="Next"
                 Text="{Binding ItemEntryText, Mode=TwoWay}"
