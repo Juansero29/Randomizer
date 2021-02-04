@@ -16,11 +16,6 @@
         <VM:ListEditionPageViewModel />
     </ContentPage.BindingContext>
 
-    <!--  Behaviors  -->
-    <ContentPage.Behaviors>
-        <behaviors:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
-    </ContentPage.Behaviors>
-
     <!--  Resources  -->
     <ContentPage.Resources>
         <ResourceDictionary>
