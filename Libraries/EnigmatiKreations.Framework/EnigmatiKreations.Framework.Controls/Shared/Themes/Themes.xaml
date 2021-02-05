@@ -1,61 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="EnigmatiKreations.Framework.Controls.Themes">
+<ResourceDictionary
+    x:Class="EnigmatiKreations.Framework.Controls.Themes"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
 
-    <!-- Light colors -->
+    <!--  https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/theming/theming  -->
+
+    <!--  Light colors  -->
     <Color x:Key="LightPrimaryColor">WhiteSmoke</Color>
     <Color x:Key="LightSecondaryColor">Black</Color>
     <Color x:Key="LightTertiaryColor">DarkGray</Color>
 
-    <!-- Dark colors -->
+    <!--  Dark colors  -->
     <Color x:Key="DarkPrimaryColor">Black</Color>
     <Color x:Key="DarkSecondaryColor">WhiteSmoke</Color>
     <Color x:Key="DarkTertiaryColor">#484848</Color>
-    
+
     <Style TargetType="Entry">
-        <Setter Property="PlaceholderColor" Value="{StaticResource DarkTertiaryColor}"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}"/>
-        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
-        <Setter Property="Margin" Value="16"/>
+        <Setter Property="PlaceholderColor" Value="{DynamicResource DarkTertiaryColor}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Background" Value="{AppThemeBinding Dark={DynamicResource DarkPrimaryColor}, Light={DynamicResource LightPrimaryColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource DarkSecondaryColor}, Light={DynamicResource LightSecondaryColor}}" />
+        <Setter Property="Margin" Value="16" />
     </Style>
-    
-    <Style TargetType="Label" x:Key="RandomizerTitleLabel">
+
+    <Style x:Key="RandomizerTitleLabel" TargetType="Label">
         <Setter Property="FontSize" Value="42" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
-        <Setter Property="Margin" Value="16"/>
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource DarkSecondaryColor}, Light={DynamicResource LightSecondaryColor}}" />
+        <Setter Property="Margin" Value="16" />
     </Style>
 
-    <Style TargetType="Label" >
+    <Style TargetType="Label">
         <Setter Property="FontSize" Value="24" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
-        <Setter Property="Margin" Value="16"/>
-        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource DarkSecondaryColor}, Light={DynamicResource LightSecondaryColor}}" />
+        <Setter Property="Margin" Value="16" />
+        <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
 
-    <Style TargetType="Frame" x:Key="RandomizerListItem">
-        <Setter Property="Margin" Value="16,8,16,8"/>
-        <Setter Property="HeightRequest" Value="60"/>
+    <Style x:Key="RandomizerListItem" TargetType="Frame">
+        <Setter Property="Margin" Value="16,8,16,8" />
+        <Setter Property="HeightRequest" Value="60" />
     </Style>
 
-    <Style TargetType="Frame" x:Key="RandomizerListItemCardEven" BasedOn="{StaticResource RandomizerListItem}">
-        <Setter Property="BackgroundColor" Value="#212121"/>
+    <Style
+        x:Key="RandomizerListItemCardEven"
+        BasedOn="{StaticResource RandomizerListItem}"
+        TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#212121" />
     </Style>
 
-    <Style TargetType="Frame" x:Key="RandomizerListItemCardOdd" BasedOn="{StaticResource RandomizerListItem}">
-        <Setter Property="BackgroundColor" Value="#484848"/>
+    <Style
+        x:Key="RandomizerListItemCardOdd"
+        BasedOn="{StaticResource RandomizerListItem}"
+        TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#484848" />
     </Style>
 
     <Style TargetType="Button">
-        <Setter Property="BorderWidth" Value="1"/>
-        <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}"/>
-        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
-        <Setter Property="BorderColor" Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"/>
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="Background" Value="{AppThemeBinding Dark={DynamicResource DarkPrimaryColor}, Light={DynamicResource LightPrimaryColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource DarkSecondaryColor}, Light={DynamicResource LightSecondaryColor}}" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Dark={DynamicResource DarkSecondaryColor}, Light={DynamicResource LightSecondaryColor}}" />
+    </Style>
+
+    <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={DynamicResource DarkPrimaryColor}, Light={DynamicResource LightPrimaryColor}}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="CheckBox">
+        <Setter Property="Color" Value="{AppThemeBinding Dark={DynamicResource LightPrimaryColor}, Light={DynamicResource DarkPrimaryColor}}" />
     </Style>
 
 

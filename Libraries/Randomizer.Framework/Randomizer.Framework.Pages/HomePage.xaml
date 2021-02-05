@@ -14,7 +14,6 @@
     xmlns:lifecycle="clr-namespace:EnigmatiKreations.Framework.Controls.Shared.Behaviors;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="this"
-    BackgroundColor="Black"
     mc:Ignorable="d">
 
     <!--  Resources  -->

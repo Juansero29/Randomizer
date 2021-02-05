@@ -36,4 +36,10 @@
   <ItemGroup>
     <Folder Include="Navigation\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="SettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

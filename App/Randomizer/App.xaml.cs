@@ -24,7 +24,6 @@ namespace Randomizer
         {
             InitializeComponent();
             MainPage = new AppShellPage();
-            Current.UserAppTheme = OSAppTheme.Dark;
             SetCurrentLanguage();
             RegisterServicesInContainer();
             (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);

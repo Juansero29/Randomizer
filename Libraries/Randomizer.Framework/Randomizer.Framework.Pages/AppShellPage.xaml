@@ -69,9 +69,7 @@
             Icon="settings_white.png"
             TabIndex="1">
             <ShellContent Route="settings">
-                <ContentPage>
-                    <Label Text="{i18:Translate ResourceKey=NothingHereLabel}" />
-                </ContentPage>
+                <Pages:SettingsPage />
             </ShellContent>
         </Tab>
 
