@@ -14,6 +14,7 @@
     xmlns:lifecycle="clr-namespace:EnigmatiKreations.Framework.Controls.Shared.Behaviors;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="this"
+    BackgroundColor="{DynamicResource PrimaryColor}"
     mc:Ignorable="d">
 
     <!--  Resources  -->
@@ -53,9 +54,9 @@
                     VerticalOptions="Start">
                     <Label
                         FontAttributes="Bold"
-                        Style="{DynamicResource RandomizerTitleLabel}"
+                        Style="{StaticResource RandomizerTitleLabel}"
                         Text="{i18:Translate ResourceKey=YourListsLabel}" />
-                    <BoxView HeightRequest="2" Color="White" />
+                    <BoxView HeightRequest="2" Color="{DynamicResource TertiaryColor}" />
                 </StackLayout>
 
                 <!--  Lists' List  -->
@@ -95,7 +96,6 @@
                                     <Frame Style="{DynamicResource RandomizerListItemCardEven}">
                                         <Label
                                             LineBreakMode="TailTruncation"
-                                            Style="{DynamicResource RandomizerListItemNameLabel}"
                                             Text="{Binding Name}"
                                             VerticalOptions="Center" />
                                     </Frame>
@@ -115,9 +115,9 @@
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AutomationId="FloatingButton"
                 ClickedCommand="{Binding NewRandomizerListCommand}"
-                ColorNormal="#484848"
-                ColorPressed="Black"
-                ColorRipple="LightGray"
+                ColorNormal="{DynamicResource PrimaryColor}"
+                ColorPressed="{DynamicResource TertiaryColor}"
+                ColorRipple="{DynamicResource AccentColor}"
                 HasShadow="True"
                 ImageName="plus_white.png" />
 

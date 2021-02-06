@@ -3,7 +3,8 @@
     x:Class="Randomizer.Pages.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="Page">
+    x:Name="Page"
+    BackgroundColor="{DynamicResource PrimaryColor}">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Ellipse
@@ -26,7 +27,8 @@
                 <Label
                     Grid.Row="0"
                     HorizontalOptions="Center"
-                    Text="Dark Theme?"
+                    Style="{StaticResource RandomizerTitleLabel}"
+                    Text="Light Theme?"
                     VerticalOptions="Center" />
                 <CheckBox
                     x:Name="Checkbox"

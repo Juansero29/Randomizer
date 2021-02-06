@@ -12,7 +12,7 @@
             <Frame Style="{DynamicResource RandomizerListItemCardEven}">
                 <Label
                     LineBreakMode="TailTruncation"
-                    Style="{DynamicResource RandomizerListItemNameLabel}"
+                    Style="{StaticResource RandomizerCardLabel}"
                     Text="{Binding Name}"
                     VerticalOptions="Center" />
             </Frame>
@@ -24,7 +24,7 @@
             <Frame Style="{DynamicResource RandomizerListItemCardOdd}">
                 <Label
                     LineBreakMode="TailTruncation"
-                    Style="{DynamicResource RandomizerListItemNameLabel}"
+                    Style="{StaticResource RandomizerCardLabel}"
                     Text="{Binding Name}"
                     VerticalOptions="Center" />
             </Frame>
@@ -37,7 +37,7 @@
                 <Frame Style="{DynamicResource RandomizerListItemCardEven}">
                     <Label
                         LineBreakMode="TailTruncation"
-                        Style="{DynamicResource RandomizerListItemNameLabel}"
+                        Style="{StaticResource RandomizerCardLabel}"
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </Frame>
@@ -51,7 +51,7 @@
                 <Frame Style="{DynamicResource RandomizerListItemCardOdd}">
                     <Label
                         LineBreakMode="TailTruncation"
-                        Style="{DynamicResource RandomizerListItemNameLabel}"
+                        Style="{StaticResource RandomizerCardLabel}"
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </Frame>

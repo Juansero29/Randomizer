@@ -13,5 +13,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
+        <!--  Theme is set apart to identify it easily  -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <Controls:DarkTheme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
