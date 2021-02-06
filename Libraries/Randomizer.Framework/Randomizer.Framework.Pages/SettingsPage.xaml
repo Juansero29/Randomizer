@@ -6,16 +6,13 @@
     x:Name="Page"
     BackgroundColor="{DynamicResource PrimaryColor}">
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Ellipse
-                x:Name="Circle"
-                HeightRequest="10"
-                HorizontalOptions="Center"
-                IsVisible="False"
-                VerticalOptions="Center"
-                WidthRequest="10" />
+        <AbsoluteLayout
+            x:Name="Root"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
 
             <Grid
+                
                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                 AbsoluteLayout.LayoutFlags="All"
                 VerticalOptions="Center">
@@ -23,20 +20,22 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-
                 <Label
                     Grid.Row="0"
                     HorizontalOptions="Center"
                     Style="{StaticResource RandomizerTitleLabel}"
                     Text="Light Theme?"
+                    TextColor="{DynamicResource PrimaryColor}"
                     VerticalOptions="Center" />
                 <CheckBox
                     x:Name="Checkbox"
                     Grid.Row="1"
                     CheckedChanged="CheckBox_CheckedChanged"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center"
+                    Color="{DynamicResource PrimaryColor}" />
             </Grid>
+
 
         </AbsoluteLayout>
 
