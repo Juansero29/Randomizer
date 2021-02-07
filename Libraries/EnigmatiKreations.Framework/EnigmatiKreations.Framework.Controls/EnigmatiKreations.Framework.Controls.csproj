@@ -13,7 +13,7 @@
 
     
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10;netstandard2.1;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>EnigmatiKreations.Framework.Controls</RootNamespace>
@@ -53,7 +53,7 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -74,7 +74,7 @@
     <Compile Include="Shared\**\*.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
   </ItemGroup>
 
   <!--Do this exclusively for Android-->
