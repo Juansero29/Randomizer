@@ -21,7 +21,6 @@ namespace Randomizer.Pages
         public SettingsPage()
         {
             InitializeComponent();
-
         }
 
         private void CreateCircle()
@@ -47,6 +46,12 @@ namespace Randomizer.Pages
             base.OnAppearing();
             CreateCircle();
             await ScaleUpCircle();
+            SetDefaultValueOnCheckBox();
+        }
+
+        private void SetDefaultValueOnCheckBox()
+        {
+            Checkbox.IsChecked = Application.Current.UserAppTheme == OSAppTheme.Light;
         }
 
         protected override void OnDisappearing()
@@ -64,19 +69,8 @@ namespace Randomizer.Pages
 
         private async Task ScaleUpCircle()
         {
-
-            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault().MergedDictionaries.First();
-            var brush = default(Brush);
-            if (themeMergedDictionary is DarkTheme)
-            {
-                brush = Brush.White;
-            }
-            else
-            {
-                brush = Brush.Black;
-            }
+            var brush = Application.Current.UserAppTheme == OSAppTheme.Dark ? Brush.White : Brush.Black;
             _Circle.Fill = brush;
-            _Circle.IsVisible = true;
             await _Circle.ScaleTo(11, length: _AnimationSpeed, easing: Easing.SinInOut);
             Checkbox.IsEnabled = true;
         }
@@ -85,21 +79,19 @@ namespace Randomizer.Pages
         {
             var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
             if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
+            await ScaleDownCircle();
             if (e.Value)
             {
-                await ScaleDownCircle();
                 Application.Current.UserAppTheme = OSAppTheme.Light;
                 themeMergedDictionary.MergedDictionaries.Add(new LightTheme());
-                await ScaleUpCircle();
             }
             else
             {
-                await ScaleDownCircle();
                 Application.Current.UserAppTheme = OSAppTheme.Dark;
                 themeMergedDictionary.MergedDictionaries.Add(new DarkTheme());
-                await ScaleUpCircle();
-
             }
+            await ScaleUpCircle();
+
         }
 
     }

@@ -15,6 +15,8 @@ using System;
 using Randomizer.Pages;
 using System.Globalization;
 using Randomizer.Framework.Pages.Navigation;
+using System.Linq;
+using EnigmatiKreations.Framework.Controls;
 
 namespace Randomizer
 {
@@ -25,8 +27,30 @@ namespace Randomizer
             InitializeComponent();
             MainPage = new AppShellPage();
             SetCurrentLanguage();
+            SetCurrentTheme();
             RegisterServicesInContainer();
             (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
+            
+        }
+
+        private void SetCurrentTheme()
+        {
+            if(Current.UserAppTheme == OSAppTheme.Unspecified)
+            {
+                Current.UserAppTheme = OSAppTheme.Dark;
+            }
+
+            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
+            if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
+            if (Current.UserAppTheme == OSAppTheme.Light)
+            {
+                
+                themeMergedDictionary.MergedDictionaries.Add(new LightTheme());
+            }
+            else
+            {
+                themeMergedDictionary.MergedDictionaries.Add(new DarkTheme());
+            }
         }
 
         private void RegisterServicesInContainer()
