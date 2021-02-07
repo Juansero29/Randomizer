@@ -15,8 +15,9 @@ namespace Randomizer.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        private Ellipse _Circle;
+        private readonly uint _AnimationSpeed = 900;
 
-        Ellipse Circle;
         public SettingsPage()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace Randomizer.Pages
 
         private void CreateCircle()
         {
-            Circle = new Ellipse
+            _Circle = new Ellipse
             {
                 AnchorX = 1,
                 AnchorY = 1,
@@ -35,20 +36,35 @@ namespace Randomizer.Pages
                 VerticalOptions = LayoutOptions.Center,
                 Scale = 1
             };
-            Root.Children.Insert(0, Circle);
-            AbsoluteLayout.SetLayoutBounds(Circle, new Xamarin.Forms.Rectangle(3, 2, 100, 100));
-            AbsoluteLayout.SetLayoutFlags(Circle, AbsoluteLayoutFlags.PositionProportional);
+            Root.Children.Insert(0, _Circle);
+            AbsoluteLayout.SetLayoutBounds(_Circle, new Xamarin.Forms.Rectangle(3, 2, 100, 100));
+            AbsoluteLayout.SetLayoutFlags(_Circle, AbsoluteLayoutFlags.PositionProportional);
         }
 
-        private uint _animationSpeed = 900;
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
             CreateCircle();
+            await ScaleUpCircle();
+        }
 
-            await Circle.ScaleTo(1, length: 1);
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Root.Children.RemoveAt(0);
+        }
+
+
+        private async Task ScaleDownCircle()
+        {
+            Checkbox.IsEnabled = false;
+            await _Circle.ScaleTo(1, length: _AnimationSpeed / 2);
+        }
+
+        private async Task ScaleUpCircle()
+        {
+
             var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault().MergedDictionaries.First();
             var brush = default(Brush);
             if (themeMergedDictionary is DarkTheme)
@@ -59,44 +75,32 @@ namespace Randomizer.Pages
             {
                 brush = Brush.Black;
             }
-
-            Circle.Fill = brush;
-            Circle.IsVisible = true;
-            await Circle.ScaleTo(11, length: _animationSpeed, easing: Easing.SinInOut);
-        }
-
-
-        private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            Checkbox.IsEnabled = false;
-            var originalBounds = Circle.Bounds;
-            var originalScale = Circle.Scale;
-            var brush = default(Brush);
-
-
-            await Circle.ScaleTo(1, length: _animationSpeed, easing: Easing.SinInOut);
-            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
-            if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
-
-            if (e.Value)
-            {
-                Application.Current.UserAppTheme = OSAppTheme.Light;
-                themeMergedDictionary.MergedDictionaries.Add(new LightTheme());
-                brush = Brush.Black;
-
-            }
-            else
-            {
-                Application.Current.UserAppTheme = OSAppTheme.Dark;
-                themeMergedDictionary.MergedDictionaries.Add(new DarkTheme());
-                brush = Brush.White;
-            }
-            Circle.Fill = brush;
-            await Circle.ScaleTo(11, length: _animationSpeed, easing: Easing.SinInOut);
+            _Circle.Fill = brush;
+            _Circle.IsVisible = true;
+            await _Circle.ScaleTo(11, length: _AnimationSpeed, easing: Easing.SinInOut);
             Checkbox.IsEnabled = true;
         }
 
+        private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
+            if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
+            if (e.Value)
+            {
+                await ScaleDownCircle();
+                Application.Current.UserAppTheme = OSAppTheme.Light;
+                themeMergedDictionary.MergedDictionaries.Add(new LightTheme());
+                await ScaleUpCircle();
+            }
+            else
+            {
+                await ScaleDownCircle();
+                Application.Current.UserAppTheme = OSAppTheme.Dark;
+                themeMergedDictionary.MergedDictionaries.Add(new DarkTheme());
+                await ScaleUpCircle();
 
+            }
+        }
 
     }
 }
