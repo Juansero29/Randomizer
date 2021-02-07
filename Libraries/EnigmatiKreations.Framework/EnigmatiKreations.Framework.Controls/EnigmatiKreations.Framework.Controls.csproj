@@ -127,10 +127,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Shared\Themes\LightTheme.cs">
+    <Compile Update="Shared\Themes\LightTheme.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="Shared\Themes\DarkTheme.cs">
+    <Compile Update="Shared\Themes\DarkTheme.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
   </ItemGroup>
