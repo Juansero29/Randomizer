@@ -13,7 +13,7 @@
 
     
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10;netstandard2.1;</TargetFrameworks>
+    <TargetFrameworks>Xamarin.iOS10;MonoAndroid10.0;netstandard2.1;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>EnigmatiKreations.Framework.Controls</RootNamespace>
@@ -53,7 +53,7 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -113,6 +113,9 @@
     <None Remove="Platforms\Android\Shell\RandomizerShellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Shared\Icons\Icons.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Shared\Themes\LightTheme.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -127,12 +130,18 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Shared\Icons\Icons.xaml.cs">
+      <DependentUpon>Icons.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Shared\Themes\LightTheme.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="Shared\Themes\DarkTheme.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\Icons\Themes.xaml.cs" />
   </ItemGroup>
 
 </Project>
