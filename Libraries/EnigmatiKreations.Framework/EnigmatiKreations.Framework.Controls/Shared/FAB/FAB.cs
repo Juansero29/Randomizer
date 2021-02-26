@@ -39,7 +39,7 @@ namespace EnigmatiKreations.Framework.Controls
         /// <summary>
         /// The bindable property for this FAB Menu's main button normal color
         /// </summary>
-        public static readonly BindableProperty NormalColorProperty = BindableProperty.Create(nameof(ColorNormal), typeof(Color), typeof(FABMenu), Color.Accent);
+        public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create(nameof(ColorNormal), typeof(Color), typeof(FABMenu), Color.Accent);
 
         /// <summary>
         /// Bindable property pointing to the image name property for this FAB
@@ -108,8 +108,8 @@ namespace EnigmatiKreations.Framework.Controls
         /// </remarks>
         public Color ColorNormal
         {
-            get { return (Color)GetValue(NormalColorProperty); }
-            set { SetValue(NormalColorProperty, value); }
+            get { return (Color)GetValue(ColorNormalProperty); }
+            set { SetValue(ColorNormalProperty, value); }
         }
 
         /// <summary>

@@ -3,14 +3,67 @@
     x:Class="ControlsGallery.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls">
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls"
+    BackgroundColor="{DynamicResource PrimaryColor}">
 
-    <Grid>
-        <CarouselView>
-            <Grid>
-                <Button Text="My Button" />
-            </Grid>
-        </CarouselView>
+    <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, *">
+        <Label Text="Dark Theme" />
+        <Switch Grid.Column="1" Toggled="Switch_Toggled" />
+        <cards:CarouselView
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            HorizontalOptions="FillAndExpand"
+            ItemSwiped="CarouselView_ItemSwiped">
+            <cards:CarouselView.ItemsSource>
+                <x:Array Type="{x:Type View}">
+
+                    <Button
+                        HorizontalOptions="Center"
+                        Text="Xamarin.Forms Button"
+                        VerticalOptions="Center" />
+
+                    <controls:FAB
+                        ColorNormal="{DynamicResource PrimaryColor}"
+                        ColorPressed="{DynamicResource TertiaryColor}"
+                        ColorRipple="{DynamicResource AccentColor}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                    <controls:FABMenu
+                        ColorNormal="{DynamicResource PrimaryColor}"
+                        ColorPressed="{DynamicResource TertiaryColor}"
+                        ColorRipple="{DynamicResource AccentColor}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <controls:FABMenu.Children>
+                            <controls:FAB
+                                ColorNormal="{DynamicResource PrimaryColor}"
+                                ColorPressed="{DynamicResource TertiaryColor}"
+                                ColorRipple="{DynamicResource AccentColor}"
+                                HorizontalOptions="Center"
+                                Size="Mini"
+                                VerticalOptions="Center" />
+                            <controls:FAB
+                                ColorNormal="{DynamicResource PrimaryColor}"
+                                ColorPressed="{DynamicResource TertiaryColor}"
+                                ColorRipple="{DynamicResource AccentColor}"
+                                HorizontalOptions="Center"
+                                Size="Mini"
+                                VerticalOptions="Center" />
+                            <controls:FAB
+                                ColorNormal="{DynamicResource PrimaryColor}"
+                                ColorPressed="{DynamicResource TertiaryColor}"
+                                ColorRipple="{DynamicResource AccentColor}"
+                                HorizontalOptions="Center"
+                                Size="Mini"
+                                VerticalOptions="Center" />
+                        </controls:FABMenu.Children>
+                    </controls:FABMenu>
+                </x:Array>
+            </cards:CarouselView.ItemsSource>
+            <Label Text="{Binding CurrentControlType}" />
+        </cards:CarouselView>
     </Grid>
 
 </ContentPage>
