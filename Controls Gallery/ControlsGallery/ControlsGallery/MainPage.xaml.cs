@@ -36,10 +36,13 @@ namespace ControlsGallery
             }
         }
 
-        private void CarouselView_ItemSwiped(PanCardView.CardsView view, PanCardView.EventArgs.ItemSwipedEventArgs args)
+
+
+        private void CarouselView_ItemAppeared(PanCardView.CardsView view, PanCardView.EventArgs.ItemAppearedEventArgs _)
         {
             CurrentControlType = view.CurrentView.GetType().ToString();
             OnPropertyChanged(nameof(CurrentControlType));
+            InvalidateMeasure();
         }
     }
 }

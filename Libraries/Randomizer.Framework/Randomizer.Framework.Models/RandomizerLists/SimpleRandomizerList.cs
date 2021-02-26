@@ -13,7 +13,7 @@ namespace Randomizer.Framework.Models
     /// </summary>
     public class SimpleRandomizerList : RandomizerList, IEquatable<SimpleRandomizerList>
     {
-        private List<RandomizerItem> _Items = new List<RandomizerItem>();
+        private readonly List<RandomizerItem> _Items = new List<RandomizerItem>();
 
         public override ICollection<RandomizerItem> Items { get => base.Items; set => base.Items = value; }
 

@@ -7,14 +7,15 @@
     xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls"
     BackgroundColor="{DynamicResource PrimaryColor}">
 
-    <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, *">
+    <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, *, Auto">
         <Label Text="Dark Theme" />
         <Switch Grid.Column="1" Toggled="Switch_Toggled" />
         <cards:CarouselView
             Grid.Row="1"
             Grid.ColumnSpan="3"
             HorizontalOptions="FillAndExpand"
-            ItemSwiped="CarouselView_ItemSwiped">
+            IsViewReusingEnabled="False"
+            ItemAppeared="CarouselView_ItemAppeared">
             <cards:CarouselView.ItemsSource>
                 <x:Array Type="{x:Type View}">
 
@@ -24,37 +25,37 @@
                         VerticalOptions="Center" />
 
                     <controls:FAB
-                        ColorNormal="{DynamicResource PrimaryColor}"
+                        ColorNormal="{DynamicResource AccentColor}"
                         ColorPressed="{DynamicResource TertiaryColor}"
-                        ColorRipple="{DynamicResource AccentColor}"
+                        ColorRipple="{DynamicResource PrimaryColor}"
                         HorizontalOptions="Center"
                         VerticalOptions="Center" />
 
                     <controls:FABMenu
-                        ColorNormal="{DynamicResource PrimaryColor}"
+                        ColorNormal="{DynamicResource AccentColor}"
                         ColorPressed="{DynamicResource TertiaryColor}"
-                        ColorRipple="{DynamicResource AccentColor}"
+                        ColorRipple="{DynamicResource PrimaryColor}"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <controls:FABMenu.Children>
                             <controls:FAB
-                                ColorNormal="{DynamicResource PrimaryColor}"
+                                ColorNormal="{DynamicResource AccentColor}"
                                 ColorPressed="{DynamicResource TertiaryColor}"
-                                ColorRipple="{DynamicResource AccentColor}"
+                                ColorRipple="{DynamicResource PrimaryColor}"
                                 HorizontalOptions="Center"
                                 Size="Mini"
                                 VerticalOptions="Center" />
                             <controls:FAB
-                                ColorNormal="{DynamicResource PrimaryColor}"
+                                ColorNormal="{DynamicResource AccentColor}"
                                 ColorPressed="{DynamicResource TertiaryColor}"
-                                ColorRipple="{DynamicResource AccentColor}"
+                                ColorRipple="{DynamicResource PrimaryColor}"
                                 HorizontalOptions="Center"
                                 Size="Mini"
                                 VerticalOptions="Center" />
                             <controls:FAB
-                                ColorNormal="{DynamicResource PrimaryColor}"
+                                ColorNormal="{DynamicResource AccentColor}"
                                 ColorPressed="{DynamicResource TertiaryColor}"
-                                ColorRipple="{DynamicResource AccentColor}"
+                                ColorRipple="{DynamicResource PrimaryColor}"
                                 HorizontalOptions="Center"
                                 Size="Mini"
                                 VerticalOptions="Center" />
@@ -62,7 +63,12 @@
                     </controls:FABMenu>
                 </x:Array>
             </cards:CarouselView.ItemsSource>
-            <Label Text="{Binding CurrentControlType}" />
+            <Label
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                Text="{Binding CurrentControlType}"
+                VerticalOptions="Center" />
         </cards:CarouselView>
     </Grid>
 

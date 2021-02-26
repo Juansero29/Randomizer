@@ -13,7 +13,7 @@
 
     
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>Xamarin.iOS10;MonoAndroid10.0;netstandard2.1;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>EnigmatiKreations.Framework.Controls</RootNamespace>
@@ -107,6 +107,7 @@
     </Content>-->
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Shared\Controls\Floating\FloatingActionMenu\Control\FABMenuIndexChangedArgs.cs" />
     <Compile Remove="Shared\Themes.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +131,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Shared\Controls\Floating\FloatingActionMenu\Themes\Generic.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
     <Compile Update="Shared\Icons\Icons.xaml.cs">
       <DependentUpon>Icons.xaml</DependentUpon>
     </Compile>
@@ -142,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Shared\Icons\Themes.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\Controls\Floating\FloatingActionMenu\Themes\Generic.xaml.cs" />
   </ItemGroup>
 
 </Project>

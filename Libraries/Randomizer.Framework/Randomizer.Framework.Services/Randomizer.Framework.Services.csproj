@@ -13,7 +13,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid10.0;netstandard2.1;Xamarin.iOS10;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>Randomizer.Framework.Services</RootNamespace>

@@ -213,6 +213,19 @@ namespace EnigmatiKreations.Framework.Controls.Platforms.Droid.CustomRenderers
             {
                 _menuFab.MenuButtonLabelText = Element.Detail;
             }
+
+            switch (e.PropertyName)
+            {
+                case nameof(Element.ColorNormal):
+                    Control.MenuButtonColorNormal = Element.ColorNormal.ToAndroid();
+                    break;
+                case nameof(Element.ColorPressed):
+                    Control.MenuButtonColorPressed = Element.ColorPressed.ToAndroid();
+                    break;
+                case nameof(Element.ColorRipple):
+                    Control.MenuButtonColorRipple = Element.ColorRipple.ToAndroid();
+                    break;
+            }
         }
 
         /// <summary>
@@ -248,8 +261,7 @@ namespace EnigmatiKreations.Framework.Controls.Platforms.Droid.CustomRenderers
         /// <param name="v"></param>
         public void OnClick(Android.Views.View v)
         {
-
-            if (v.Parent is FloatingActionMenu menu)
+            if (v.Parent is FloatingActionMenu)
             {
                 Element.RaiseMenuButtonClicked();
             }

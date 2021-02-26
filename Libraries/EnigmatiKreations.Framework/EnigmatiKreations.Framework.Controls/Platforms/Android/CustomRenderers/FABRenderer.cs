@@ -8,6 +8,7 @@ using EnigmatiKreations.Framework.Controls;
 using EnigmatiKreations.Framework.Controls.Platforms.Droid.CustomRenderers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,8 @@ namespace EnigmatiKreations.Framework.Controls.Platforms.Droid.CustomRenderers
         {
             _Context = context;
         }
+
+
 
         protected override void OnElementChanged(ElementChangedEventArgs<FAB> e)
         {
@@ -73,6 +76,24 @@ namespace EnigmatiKreations.Framework.Controls.Platforms.Droid.CustomRenderers
             SetNativeControl(fab);
         }
 
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+            if (Element == null) return;
+            switch (e.PropertyName)
+            {
+                case nameof(Element.ColorNormal):
+                    Control.ColorNormal = Element.ColorNormal.ToAndroid();
+                    break;
+                case nameof(Element.ColorPressed):
+                    Control.ColorPressed = Element.ColorPressed.ToAndroid();
+                    break;
+                case nameof(Element.ColorRipple):
+                    Control.ColorRipple = Element.ColorRipple.ToAndroid();
+                    break;
+            }
+        }
         /// <summary>
         /// Sets the image to the FAB 
         /// </summary>
@@ -119,7 +140,7 @@ namespace EnigmatiKreations.Framework.Controls.Platforms.Droid.CustomRenderers
         /// <param name="v"></param>
         public void OnClick(Android.Views.View v)
         {
-            if (v is FloatingActionButton fab)
+            if (v is FloatingActionButton)
             {
                 Element.RaiseClicked();
             }
