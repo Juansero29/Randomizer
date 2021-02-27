@@ -6,10 +6,10 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Color x:Key="PrimaryColor">WhiteSmoke</Color>
+    <Color x:Key="PrimaryColor">White</Color>
     <Color x:Key="AccentColor">Black</Color>
     <Color x:Key="TertiaryColor">DarkGray</Color>
-    <Color x:Key="CardEvenColor">GhostWhite</Color>
+    <Color x:Key="QuaternaryColor">GhostWhite</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="WhiteSmoke" />
     <SolidColorBrush x:Key="AccentBrush" Color="Black" />

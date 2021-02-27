@@ -9,7 +9,7 @@
     <Color x:Key="PrimaryColor">Black</Color>
     <Color x:Key="AccentColor">WhiteSmoke</Color>
     <Color x:Key="TertiaryColor">#484848</Color>
-    <Color x:Key="CardEvenColor">#212121</Color>
+    <Color x:Key="QuaternaryColor">#212121</Color>
 
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="Black" />

@@ -69,7 +69,7 @@
         x:Key="RandomizerListItemCardEven"
         BasedOn="{StaticResource RandomizerListItem}"
         TargetType="Frame">
-        <Setter Property="BackgroundColor" Value="{DynamicResource CardEvenColor}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource QuaternaryColor}" />
     </Style>
 
     <Style
@@ -80,8 +80,9 @@
     </Style>
 
     <Style TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
-        <Setter Property="TextColor" Value="{DynamicResource AccentColor}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource AccentColor}" />
+        <Setter Property="Background" Value="{DynamicResource AccentColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
     </Style>
 
     <Style TargetType="ContentPage">

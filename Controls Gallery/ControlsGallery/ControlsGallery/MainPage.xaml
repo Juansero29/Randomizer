@@ -11,7 +11,10 @@
 
     <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, *, Auto">
         <Label Text="Dark Theme" />
-        <Switch Grid.Column="1" Toggled="Switch_Toggled" />
+        <Switch
+            Grid.Column="1"
+            IsEnabled="True"
+            Toggled="Switch_Toggled" />
         <cards:CarouselView
             Grid.Row="1"
             Grid.ColumnSpan="3"
