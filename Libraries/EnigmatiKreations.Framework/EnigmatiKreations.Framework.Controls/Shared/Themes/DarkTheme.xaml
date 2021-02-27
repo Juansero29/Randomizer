@@ -10,4 +10,10 @@
     <Color x:Key="AccentColor">WhiteSmoke</Color>
     <Color x:Key="TertiaryColor">#484848</Color>
     <Color x:Key="CardEvenColor">#212121</Color>
+
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="Black" />
+    <SolidColorBrush x:Key="AccentBrush" Color="WhiteSmoke" />
+    <SolidColorBrush x:Key="TertiaryBrush" Color="#484848" />
+    <SolidColorBrush x:Key="QuaternaryBrush" Color="#212121" />
 </ResourceDictionary>

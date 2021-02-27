@@ -10,4 +10,9 @@
     <Color x:Key="AccentColor">Black</Color>
     <Color x:Key="TertiaryColor">DarkGray</Color>
     <Color x:Key="CardEvenColor">GhostWhite</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="WhiteSmoke" />
+    <SolidColorBrush x:Key="AccentBrush" Color="Black" />
+    <SolidColorBrush x:Key="TertiaryBrush" Color="DarkGray" />
+    <SolidColorBrush x:Key="QuaternaryBrush" Color="GhostWhite" />
 </ResourceDictionary>

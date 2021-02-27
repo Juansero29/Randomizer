@@ -10,6 +10,7 @@
     <!--  https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/theming/theming  -->
 
 
+
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor" Value="{DynamicResource PrimaryColor}" />
         <Setter Property="Shell.ForegroundColor" Value="{DynamicResource AccentColor}" />
@@ -55,7 +56,7 @@
 
     <Style x:Key="BaseSVGStyle" TargetType="Path">
         <Setter Property="Aspect" Value="Uniform" />
-        <Setter Property="Fill" Value="{DynamicResource AccentColor}" />
+        <Setter Property="Fill" Value="{DynamicResource AccentBrush}" />
     </Style>
 
 

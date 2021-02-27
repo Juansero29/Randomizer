@@ -8,12 +8,22 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+
+                <!--  Imports the app themes (color palettes, and default styles for native controls)  -->
+                <!--  Every other template and control depends on this import  -->
                 <Controls:Themes />
+
+                <!--  Imports data templates and templates to be reused across the app  -->
+                <!--  They themselves make use of themes  -->
                 <Controls:Templates />
+
+                <!--  Imports XAML styles and templates for custom controls, templated controls and inherited controls from the app  -->
+                <!--  They themselves make use of templates and themes  -->
+                <Controls:GenericControls />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
-        <!--  Theme is set apart to identify it easily  -->
+        <!--  Default is set apart to identify it easily when changing it dynamically with switch  -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <Controls:DarkTheme />

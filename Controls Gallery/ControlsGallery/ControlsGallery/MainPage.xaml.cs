@@ -42,7 +42,6 @@ namespace ControlsGallery
         {
             CurrentControlType = view.CurrentView.GetType().ToString();
             OnPropertyChanged(nameof(CurrentControlType));
-            InvalidateMeasure();
         }
     }
 }

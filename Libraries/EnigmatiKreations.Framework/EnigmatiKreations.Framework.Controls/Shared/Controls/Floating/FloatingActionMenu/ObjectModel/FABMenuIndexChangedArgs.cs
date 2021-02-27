@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionMenu.Control
+namespace EnigmatiKreations.Framework.Controls.Floating
 {
 
     /// <summary>

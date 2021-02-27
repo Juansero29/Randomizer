@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionMenu.Themes
+namespace EnigmatiKreations.Framework.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Generic : ResourceDictionary
+    public partial class GenericControls : ResourceDictionary
     {
-        public Generic()
+        public GenericControls()
         {
             InitializeComponent();
         }

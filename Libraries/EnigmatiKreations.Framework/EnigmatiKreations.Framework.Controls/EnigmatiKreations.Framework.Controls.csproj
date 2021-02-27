@@ -51,6 +51,7 @@
 
     <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.3" />
 
     <!--NuGet packages for all platforms-->
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
@@ -134,6 +135,9 @@
     <Compile Update="Shared\Controls\Floating\FloatingActionMenu\Themes\Generic.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <Compile Update="Shared\Controls\GenericControls.xaml.cs">
+      <DependentUpon>GenericControls.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Shared\Icons\Icons.xaml.cs">
       <DependentUpon>Icons.xaml</DependentUpon>
     </Compile>
@@ -149,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Shared\Controls\Floating\FloatingActionMenu\Themes\Generic.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\Controls\Generic.xaml.cs" />
   </ItemGroup>
 
 </Project>

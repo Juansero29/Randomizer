@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 
 namespace EnigmatiKreations.Framework.Controls.Floating
 {
@@ -10,64 +11,164 @@ namespace EnigmatiKreations.Framework.Controls.Floating
     /// <summary>
     /// Class representing a Floating Action Button
     /// </summary>
-    public class FloatingActionButton : View
+
+    public class FloatingActionButton : ContentView
     {
+
+        #region Template Parts
+    
+        #region Button
+        private const string PART_Button = "PART_Button";
+        private Button ButtonPart;
+        #endregion
+        private const string PART_Path = "PART_Path";
+        private Path PathPart;
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            PathPart = GetTemplateChild(PART_Path) as Path;
+            ButtonPart = GetTemplateChild(PART_Button) as Button;
+
+            ButtonPart.Clicked += ButtonPart_Clicked;
+        }
+
+        private void ButtonPart_Clicked(object sender, EventArgs e)
+        {
+            RaiseClicked();
+        }
+        #endregion
+
         #region Bindable Properties
+        #region Detail
+        public static readonly BindableProperty DetailProperty = BindableProperty.Create(nameof(Detail), typeof(string), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        {
+            var me = obj as FloatingActionButton;
+            if (newV != null && !(newV is string)) return;
+            var oldDetail = (string)old;
+            var newDetail = (string)newV;
+            me?.DetailChanged(oldDetail, newDetail);
+        });
+
+        private void DetailChanged(string oldDetail, string newDetail)
+        {
+
+        }
 
         /// <summary>
-        /// Bindable property pointing to the detail text property for this FAB 
+        /// The detail label for this <see cref="FloatingActionButton"/>
         /// </summary>
-        /// <seealso cref="Detail"/>
-        public static readonly BindableProperty DetailProperty = BindableProperty.Create(nameof(Detail), typeof(string), typeof(FAB), string.Empty);
+        public string Detail
+        {
+            get => (string)GetValue(DetailProperty);
+            set => SetValue(DetailProperty, value);
+        }
+        #endregion
+
+        #region ColorNormal
+        public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create(nameof(ColorNormal), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        {
+            var me = obj as FloatingActionButton;
+            if (newV != null && !(newV is Color)) return;
+            var oldColorNormal = (Color)old;
+            var newColorNormal = (Color)newV;
+            me?.ColorNormalChanged(oldColorNormal, newColorNormal);
+        });
+
+        private void ColorNormalChanged(Color oldColorNormal, Color newColorNormal)
+        {
+
+        }
 
         /// <summary>
-        /// Bindable property pointing to the click id property for this FAB
+        /// The color when this <see cref="FloatingActionButton"/> is in a normal state
         /// </summary>
-        /// <seealso cref="ClickId"/>
-        public static readonly BindableProperty ClickIdProperty = BindableProperty.Create(nameof(ClickId), typeof(int), typeof(FAB), -1);
+        public Color ColorNormal
+        {
+            get => (Color)GetValue(ColorNormalProperty);
+            set => SetValue(ColorNormalProperty, value);
+        }
+        #endregion
+
+        #region ImageName
+        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(ImageName), typeof(string), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        {
+            var me = obj as FloatingActionButton;
+            if (newV != null && !(newV is string)) return;
+            var oldImageName = (string)old;
+            var newImageName = (string)newV;
+            me?.ImageNameChanged(oldImageName, newImageName);
+        });
+
+        private void ImageNameChanged(string oldImageName, string newImageName)
+        {
+
+        }
 
         /// <summary>
-        /// Bindable property pointing to the image name property for this FAB
+        /// The image name to use and put inside of this <see cref="FloatingActionButton"/>
         /// </summary>
-        /// <seealso cref="ImageName"/>
-        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(ImageName), typeof(string), typeof(FAB), string.Empty);
+        public string ImageName
+        {
+            get => (string)GetValue(ImageNameProperty);
+            set => SetValue(ImageNameProperty, value);
+        }
+        #endregion
+
+        #region ColorPressed
+        public static readonly BindableProperty ColorPressedProperty = BindableProperty.Create(nameof(ColorPressed), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        {
+            var me = obj as FloatingActionButton;
+            if (newV != null && !(newV is Color)) return;
+            var oldColorPressed = (Color)old;
+            var newColorPressed = (Color)newV;
+            me?.ColorPressedChanged(oldColorPressed, newColorPressed);
+        });
+
+        private void ColorPressedChanged(Color oldColorPressed, Color newColorPressed)
+        {
+
+        }
 
         /// <summary>
-        /// Bindable property pointing to the normal color property for this FAB
+        /// The color to use when this <see cref="FloatingActionButton"/> is pressed by the user
         /// </summary>
-        /// <seealso cref="ColorNormal"/>
-        public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create(nameof(ColorNormal), typeof(Color), typeof(FAB), Color.Accent);
+        public Color ColorPressed
+        {
+            get => (Color)GetValue(ColorPressedProperty);
+            set => SetValue(ColorPressedProperty, value);
+        }
+        #endregion
+
+        #region ColorRipple
+        public static readonly BindableProperty ColorRippleProperty = BindableProperty.Create(nameof(ColorRipple), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        {
+            var me = obj as FloatingActionButton;
+            if (newV != null && !(newV is Color)) return;
+            var oldColorRipple = (Color)old;
+            var newColorRipple = (Color)newV;
+            me?.ColorRippleChanged(oldColorRipple, newColorRipple);
+        });
+
+        private void ColorRippleChanged(Color oldColorRipple, Color newColorRipple)
+        {
+
+        }
 
         /// <summary>
-        /// Bindable property pointing to the pressed color property for this FAB
+        /// The color to use for this <see cref="FloatinActionMenu"/> for the ripple created after the user pressed 
         /// </summary>
-        /// <seealso cref="ColorPressed"/>
-        public static readonly BindableProperty ColorPressedProperty = BindableProperty.Create(nameof(ColorPressed), typeof(Color), typeof(FAB), Color.Accent);
-
-        /// <summary>
-        /// Bindable property pointing to the ripple color property for this FAB
-        /// </summary>
-        /// <seealso cref="ColorRipple"/>
-        public static readonly BindableProperty ColorRippleProperty = BindableProperty.Create(nameof(ColorRipple), typeof(Color), typeof(FAB), Color.Accent);
-
-        /// <summary>
-        /// Bindable property pointing to the size property for this FAB
-        /// </summary>
-        /// <seealso cref="Size"/>
-        public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(FloatingActionButtonSize), typeof(FAB), FloatingActionButtonSize.Normal);
-
-        /// <summary>
-        /// Bindable property pointing to the has shadow property for this FAB
-        /// </summary>
-        /// <seealso cref="HasShadow"/>
-        public static readonly BindableProperty HasShadowProperty = BindableProperty.Create(nameof(HasShadow), typeof(bool), typeof(FAB), true);
-
-
+        public Color ColorRipple
+        {
+            get => (Color)GetValue(ColorRippleProperty);
+            set => SetValue(ColorRippleProperty, value);
+        }
+        #endregion
 
         #region ClickedCommand
-        public static readonly BindableProperty ClickedCommandProperty = BindableProperty.Create(nameof(ClickedCommand), typeof(ICommand), typeof(FAB), propertyChanged: (obj, old, newV) =>
+        public static readonly BindableProperty ClickedCommandProperty = BindableProperty.Create(nameof(ClickedCommand), typeof(ICommand), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
         {
-            var me = obj as FAB;
+            var me = obj as FloatingActionButton;
             if (!(newV is ICommand)) return;
             var oldClicked = (ICommand)old;
             var newClicked = (ICommand)newV;
@@ -87,93 +188,32 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             get => (ICommand)GetValue(ClickedCommandProperty);
             set => SetValue(ClickedCommandProperty, value);
         }
+        #endregion 
         #endregion
 
-
-
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// The text that describes the main action of this FAB
-        /// </summary>
-        public string Detail
+        #region Size
+        public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(FloatingActionButtonSize), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
         {
-            get { return (string)GetValue(DetailProperty); }
-            set { SetValue(DetailProperty, value); }
+            var me = obj as FloatingActionButton;
+            if (newV != null && !(newV is FloatingActionButtonSize)) return;
+            var oldSize = (FloatingActionButtonSize)old;
+            var newSize = (FloatingActionButtonSize)newV;
+            me?.SizeChanged(oldSize, newSize);
+        });
+
+        private void SizeChanged(FloatingActionButtonSize oldSize, FloatingActionButtonSize newSize)
+        {
+
         }
 
         /// <summary>
-        /// The click id for this FAB
-        /// </summary>
-        /// <remarks>
-        /// This allows to identify which menu button has been pressed when responding to the SelectIndexChanged event of a FABMenu
-        /// </remarks>
-        public int ClickId
-        {
-            get { return (int)GetValue(ClickIdProperty); }
-            set { SetValue(ClickIdProperty, value); }
-        }
-
-        /// <summary>
-        /// The name of the image this FAB should print to the screen
-        /// </summary>
-        public string ImageName
-        {
-            get { return (string)GetValue(ImageNameProperty); }
-            set { SetValue(ImageNameProperty, value); }
-        }
-
-        /// <summary>
-        /// The normal color for this FAB 
-        /// </summary>
-        /// <remarks>
-        /// The color is normal when the button isn't pressed and isn't rippling
-        /// </remarks>
-        public Color ColorNormal
-        {
-            get { return (Color)GetValue(ColorNormalProperty); }
-            set { SetValue(ColorNormalProperty, value); }
-        }
-
-        /// <summary>
-        /// The color of this FAB when it is pressed (while the finger is on it)
-        /// </summary>
-        public Color ColorPressed
-        {
-            get { return (Color)GetValue(ColorPressedProperty); }
-            set { SetValue(ColorPressedProperty, value); }
-        }
-
-        /// <summary>
-        /// The color of this FAB when it is rippling (being animated after having pressed it)
-        /// </summary>
-        public Color ColorRipple
-        {
-            get { return (Color)GetValue(ColorRippleProperty); }
-            set { SetValue(ColorRippleProperty, value); }
-        }
-
-        /// <summary>
-        /// The size property for this FAB
+        /// The size for this <see cref="FloatingActionButton"/>
         /// </summary>
         public FloatingActionButtonSize Size
         {
-            get { return (FloatingActionButtonSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get => (FloatingActionButtonSize)GetValue(SizeProperty);
+            set => SetValue(SizeProperty, value);
         }
-
-        /// <summary>
-        /// Defines whether this FAB has a shadow or not
-        /// </summary>
-        public bool HasShadow
-        {
-            get { return (bool)GetValue(HasShadowProperty); }
-            set { SetValue(HasShadowProperty, value); }
-        }
-
         #endregion
 
         #region Events
@@ -188,9 +228,13 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             {
                 ClickedCommand.Execute(this);
             }
+
+            PathPart.Layout(PathPart.Bounds);
         }
 
         #endregion
+
+
 
     }
 

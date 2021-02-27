@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EnigmatiKreations.Framework.Controls.Shared.Floating
+namespace EnigmatiKreations.Framework.Controls.Floating
 {
     /// <summary>
     /// Enumerates the possible sizes for a FAB

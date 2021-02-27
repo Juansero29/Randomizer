@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionButton.Themes
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Generic : ContentView
+    public partial class Generic : ResourceDictionary
     {
         public Generic()
         {

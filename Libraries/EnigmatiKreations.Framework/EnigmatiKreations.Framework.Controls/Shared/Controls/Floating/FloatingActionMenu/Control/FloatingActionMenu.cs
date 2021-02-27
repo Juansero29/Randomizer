@@ -17,152 +17,34 @@ namespace EnigmatiKreations.Framework.Controls.Floating
     /// <seealso cref="FAB"/>
     public class FloatingActionMenu : View
     {
-        #region Delegates
-
-        public delegate void ShowHideDelegate(bool animate = true);
-
-        public delegate bool GetOpen();
-
-        #endregion
-
-        #region Bindable Properties
-        /// <summary>
-        /// The bindable property pointing to the children of this MenuFAB
-        /// </summary>
-        public static readonly BindableProperty ChildrenProperty = BindableProperty.Create(nameof(Children), typeof(ObservableCollection<FAB>), typeof(FABMenu));
-
-        /// <summary>
-        /// The bindable property for this FAB Menu's detail
-        /// </summary>
-        public static readonly BindableProperty DetailProperty = BindableProperty.Create(nameof(Detail), typeof(string), typeof(FABMenu), string.Empty);
-
-        /// <summary>
-        /// The bindable property for this FAB Menu's main button normal color
-        /// </summary>
-        public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create(nameof(ColorNormal), typeof(Color), typeof(FABMenu), Color.Accent);
-
-        /// <summary>
-        /// Bindable property pointing to the image name property for this FAB
-        /// </summary>
-        /// <seealso cref="ImageName"/>
-        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(ImageName), typeof(string), typeof(FAB), string.Empty);
-
-        /// <summary>
-        /// Bindable property pointing to the pressed color property for this FAB
-        /// </summary>
-        /// <seealso cref="ColorPressed"/>
-        public static readonly BindableProperty ColorPressedProperty = BindableProperty.Create(nameof(ColorPressed), typeof(Color), typeof(FAB), Color.Accent);
-
-        /// <summary>
-        /// Bindable property pointing to the ripple color property for this FAB
-        /// </summary>
-        /// <seealso cref="ColorRipple"/>
-        public static readonly BindableProperty ColorRippleProperty = BindableProperty.Create(nameof(ColorRipple), typeof(Color), typeof(FAB), Color.Accent);
-
-        public static readonly BindableProperty IsMenuProperty = BindableProperty.Create(nameof(IsMenu), typeof(bool), typeof(FABMenu), true);
-
-        #endregion
 
         #region Private Fields
         private bool _isOpened;
         #endregion
 
-        #region Properties
+        #region Children
+        public static readonly BindableProperty ChildrenProperty = BindableProperty.Create(nameof(Children), typeof(ObservableCollection<FloatingActionButton>), typeof(FloatingActionMenu), propertyChanged: (obj, old, newV) =>
+        {
+            var me = obj as FloatingActionMenu;
+            if (newV != null && !(newV is ObservableCollection<FloatingActionButton>)) return;
+            var oldChildren = (ObservableCollection<FloatingActionButton>)old;
+            var newChildren = (ObservableCollection<FloatingActionButton>)newV;
+            me?.ChildrenChanged(oldChildren, newChildren);
+        });
+
+        private void ChildrenChanged(ObservableCollection<FloatingActionButton> oldChildren, ObservableCollection<FloatingActionButton> newChildren)
+        {
+
+        }
 
         /// <summary>
-        /// The FAB Menu's Children
+        /// The children <see cref="FloatingActionButton"/>s for this <see cref="FloatingActionMenu"/>
         /// </summary>
-        public ObservableCollection<FAB> Children
+        public ObservableCollection<FloatingActionButton> Children
         {
-            get => (ObservableCollection<FAB>)GetValue(ChildrenProperty);
+            get => (ObservableCollection<FloatingActionButton>)GetValue(ChildrenProperty);
             set => SetValue(ChildrenProperty, value);
         }
-
-        /// <summary>
-        /// A property indicating if the FAB Menu is open or not
-        /// </summary>
-        public bool IsOpened
-        {
-            get { return _isOpened; }
-            set
-            {
-                _isOpened = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// The detail of this FAB Menu
-        /// </summary>
-        public string Detail
-        {
-            get { return (string)GetValue(DetailProperty); }
-            set { SetValue(DetailProperty, value); }
-        }
-
-        /// <summary>
-        /// The normal color for this FAB Menu 
-        /// </summary>
-        /// <remarks>
-        /// The color is normal when the button isn't pressed and isn't rippling (extending)
-        /// </remarks>
-        public Color ColorNormal
-        {
-            get { return (Color)GetValue(ColorNormalProperty); }
-            set { SetValue(ColorNormalProperty, value); }
-        }
-
-        /// <summary>
-        /// A delegate for when the FAB shows itself
-        /// </summary>
-        public ShowHideDelegate Show { get; set; }
-
-        /// <summary>
-        /// A delegate for when the FAB Menu hides itself
-        /// </summary>
-        public ShowHideDelegate Hide { get; set; }
-
-        /// <summary>
-        /// The delegate for when the FAB Menu has to get open
-        /// </summary>
-        public GetOpen GetFabIsOpen { get; set; }
-
-        /// <summary>
-        /// The name of the image this FAB should print to the screen
-        /// </summary>
-        public string ImageName
-        {
-            get { return (string)GetValue(ImageNameProperty); }
-            set { SetValue(ImageNameProperty, value); }
-        }
-
-        /// <summary>
-        /// The color of this FAB when it is pressed (while the finger is on it)
-        /// </summary>
-        public Color ColorPressed
-        {
-            get { return (Color)GetValue(ColorPressedProperty); }
-            set { SetValue(ColorPressedProperty, value); }
-        }
-
-        /// <summary>
-        /// The color of this FAB when it is rippling (being animated after having pressed it)
-        /// </summary>
-        public Color ColorRipple
-        {
-            get { return (Color)GetValue(ColorRippleProperty); }
-            set { SetValue(ColorRippleProperty, value); }
-        }
-
-        /// <summary>
-        /// Property indicating if this is a menu or not
-        /// </summary>
-        public bool IsMenu
-        {
-            get => (bool)GetValue(IsMenuProperty);
-            set => SetValue(IsMenuProperty, value);
-        }
-
         #endregion
 
         #region Events
@@ -194,31 +76,34 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         public event EventHandler<FABMenuIndexChangedArgs> MenuButtonClicked;
         public void RaiseMenuButtonClicked()
         {
-            MenuButtonClicked?.Invoke(this, new FABMenuIndexChangedArgs("MenuButtonClicked", !GetFabIsOpen()));
+            MenuButtonClicked?.Invoke(this, new FABMenuIndexChangedArgs("MenuButtonClicked", IsOpened));
         }
 
 
         #endregion
 
+        /// <summary>
+        /// A property indicating if the FAB Menu is open or not
+        /// </summary>
+        public bool IsOpened
+        {
+            get { return _isOpened; }
+            set
+            {
+                _isOpened = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region Constructor
 
         public FloatingActionMenu()
         {
-            Children = new ObservableCollection<FAB>();
+            Children = new ObservableCollection<FloatingActionButton>();
             IsOpened = false;
         }
 
         #endregion
     }
 
-
-    /// <summary>
-    /// Enumerates the possible sizes for a FAB
-    /// </summary>
-    /// <seealso cref="FAB"/>
-    public enum FloatingActionButtonSize
-    {
-        Normal = 0,
-        Mini = 1
-    }
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ResourceDictionary
-    x:Class="EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionButton.Themes.Generic"
+    x:Class="EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionMenu.Themes.Generic"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating">

@@ -1,10 +1,57 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ResourceDictionary
-    x:Class="EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionMenu.Themes.Generic"
+    x:Class="EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionButton.Themes.Generic"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating">
+    xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls"
+    xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
-    <Style TargetType="floating:FloatingActionButton" />
+    <ResourceDictionary.MergedDictionaries>
+        <controls:Themes />
+        <controls:Icons />
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style TargetType="floating:FloatingActionButton">
+        <Style.Setters>
+            <Setter Property="ColorNormal" Value="{DynamicResource AccentColor}" />
+            <Setter Property="ColorRipple" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="ColorPressed" Value="{DynamicResource TertiaryColor}" />
+            <Setter Property="ControlTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+
+                        <Grid>
+
+                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                                <Button
+                                    x:Name="PART_Button"
+                                    xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                    xct:TouchEffect.NativeAnimationShadowRadius="15"
+                                    xct:TouchEffect.PressedAnimationDuration="150"
+                                    xct:TouchEffect.PressedOpacity="0.8"
+                                    BackgroundColor="{DynamicResource AccentColor}"
+                                    CornerRadius="100"
+                                    HeightRequest="64"
+                                    WidthRequest="64" />
+                            </Grid>
+
+                            <Path
+                                x:Name="PART_Path"
+                                Fill="{DynamicResource TertiaryBrush}"
+                                HeightRequest="64"
+                                HorizontalOptions="Center"
+                                Style="{StaticResource PlusSVG}"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
 
 </ResourceDictionary>
