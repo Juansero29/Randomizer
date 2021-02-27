@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
@@ -14,9 +15,8 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
     public class FloatingActionButton : ContentView
     {
-
         #region Template Parts
-    
+
         #region Button
         private const string PART_Button = "PART_Button";
         private Button ButtonPart;
@@ -33,9 +33,19 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             ButtonPart.Clicked += ButtonPart_Clicked;
         }
 
-        private void ButtonPart_Clicked(object sender, EventArgs e)
+        private async void ButtonPart_Clicked(object sender, EventArgs e)
         {
             RaiseClicked();
+            await MakeIconRotate();
+        }
+
+        private async Task MakeIconRotate()
+        {
+            var path = PathPart;
+            if (path == null) return;
+            uint milisecondsDuration = 1000;
+            await path.RotateTo(360, milisecondsDuration, Easing.SpringIn);
+            await path.RotateTo(0, 0);
         }
         #endregion
 
