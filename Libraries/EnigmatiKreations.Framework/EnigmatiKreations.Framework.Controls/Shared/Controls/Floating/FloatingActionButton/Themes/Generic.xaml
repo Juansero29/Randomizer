@@ -52,11 +52,12 @@
 
                             <Grid AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="PositionProportional">
                                 <Grid>
-                                    <Button
+                                    <Frame
                                         x:Name="PART_Button"
                                         Margin="0"
                                         Padding="0"
                                         xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                        xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
                                         xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
                                         xct:TouchEffect.LongPressDuration="1000"
                                         xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
@@ -65,8 +66,7 @@
                                         xct:TouchEffect.PressedAnimationDuration="100"
                                         xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
                                         xct:TouchEffect.PressedOpacity="0.8"
-                                        xct:TouchEffect.PulseCount="2"
-                                        CornerRadius="100" />
+                                        xct:TouchEffect.PulseCount="2" />
                                 </Grid>
                                 <Path
                                     x:Name="PART_Path"

@@ -18,7 +18,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         #region Button
         private const string PART_Button = "PART_Button";
-        private Button ButtonPart;
+        private Frame ButtonPart;
         #endregion
 
         #region Path
@@ -26,10 +26,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         private Path PathPart;
         #endregion
 
-        #region Root
-        private const string PART_Root = "PART_Root";
-        private AbsoluteLayout RootPart;
-        #endregion
+
 
         #region Frame
         private const string PART_DetailFrame = "PART_DetailFrame";
@@ -51,7 +48,9 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private void DetailChanged(string oldDetail, string newDetail)
         {
-
+            if (ButtonPart == null || ButtonPart.Content == null) return;
+            if (ButtonPart.Content is not Label label) return;
+            label.Text = newDetail;
         }
 
         /// <summary>
@@ -217,8 +216,8 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         #endregion
 
         #region Commands
-
         public ICommand LongPressCommand { get; set; }
+        public ICommand ButtonClickedCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -226,32 +225,12 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         public FloatingActionButton()
         {
             LongPressCommand = new AsyncCommand(OnLongPress, CanExecuteLongPress);
-            // need to notify the property changed because the constructor gets called after OnApplyTemplate
+            ButtonClickedCommand = new AsyncCommand(OnButtonClicked, CanExecuteClick);
+
+            // Need to notify the property changed because the constructor gets called after OnApplyTemplate
             OnPropertyChanged(nameof(LongPressCommand));
-
+            OnPropertyChanged(nameof(ButtonClickedCommand));
             ApplyCurrentSize();
-        }
-
-        private void ApplyCurrentSize()
-        {
-            // FAB containers come in two sizes:
-            // 1. Default(56 x 56dp) - the default size of this class
-            // 2. Mini(40 x 40dp) - 5/7ths smaller than default
-            switch (Size)
-            {
-                case FloatingActionButtonSize.Normal:
-                    ButtonPart.HeightRequest = 56;
-                    ButtonPart.WidthRequest = 56;
-                    break;
-
-                case FloatingActionButtonSize.Mini:
-                    ButtonPart.HeightRequest = 40;
-                    ButtonPart.WidthRequest = 40;
-                    break;
-                case FloatingActionButtonSize.Extended:
-                    break;
-            }
-
         }
 
         protected override void OnApplyTemplate()
@@ -259,10 +238,8 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             // for some reason, this is called after the constructor
             base.OnApplyTemplate();
             PathPart = GetTemplateChild(PART_Path) as Path;
-            ButtonPart = GetTemplateChild(PART_Button) as Button;
-            RootPart = GetTemplateChild(PART_Root) as AbsoluteLayout;
+            ButtonPart = GetTemplateChild(PART_Button) as Frame;
             DetailFrame = GetTemplateChild(PART_DetailFrame) as Frame;
-            ButtonPart.Clicked += ButtonPart_Clicked;
         }
 
         #endregion
@@ -280,6 +257,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private async Task MakeDetailAppearAndDisappear()
         {
+            if (Size == FloatingActionButtonSize.Extended) return;
 
             await Task.WhenAll(
                 DetailFrame.ScaleTo(0.1, 10),
@@ -287,7 +265,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             );
 
             DetailFrame.IsVisible = true;
-
 
             await Task.WhenAll(
                 DetailFrame.ScaleTo(1, 100),
@@ -307,12 +284,44 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         #endregion
 
         #region Utility Methods
+        private void ApplyCurrentSize()
+        {
+            // FAB containers come in two sizes:
+            // 1. Default(56 x 56dp) - the default size of this class
+            // 2. Mini(40 x 40dp) - 5/7ths smaller than default
+            switch (Size)
+            {
+                case FloatingActionButtonSize.Normal:
+                    ButtonPart.Content = null;
+                    ButtonPart.CornerRadius = 100;
+                    ButtonPart.HeightRequest = 56;
+                    ButtonPart.WidthRequest = 56;
+                    break;
 
-        private async void ButtonPart_Clicked(object sender, EventArgs e)
+                case FloatingActionButtonSize.Mini:
+                    ButtonPart.Content = null;
+                    ButtonPart.HeightRequest = 40;
+                    ButtonPart.WidthRequest = 40;
+                    ButtonPart.CornerRadius = 100;
+                    break;
+                case FloatingActionButtonSize.Extended:
+                    ButtonPart.Content = new Label() { Text = Detail };
+                    ButtonPart.CornerRadius = 80;
+                    break;
+            }
+        }
+        private bool CanExecuteClick(object arg)
+        {
+            if (ClickedCommand == null) return true;
+            return ClickedCommand.CanExecute(arg);
+        }
+
+        private async Task OnButtonClicked()
         {
             RaiseClicked();
             await MakeIconRotate();
         }
+
         private bool CanExecuteLongPress(object arg)
         {
             //(koa/onboard)
@@ -324,13 +333,11 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             return ClickedCommand.CanExecute(arg);
         }
 
-
         private async Task OnLongPress()
         {
             if (string.IsNullOrEmpty(Detail)) return;
             await MakeDetailAppearAndDisappear();
         }
-
 
         #endregion
 
@@ -341,13 +348,11 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             Clicked?.Invoke(this, new FABMenuIndexChangedArgs(nameof(Clicked), this));
             if (ClickedCommand == null) return;
-
             if (ClickedCommand.CanExecute(this))
             {
                 ClickedCommand.Execute(this);
             }
         }
-
         #endregion
     }
 
