@@ -37,7 +37,7 @@
                                 AbsoluteLayout.LayoutFlags="All"
                                 AnchorX="1"
                                 BackgroundColor="{TemplateBinding ColorNormal}"
-                                CornerRadius="10"
+                                CornerRadius="5"
                                 HorizontalOptions="FillAndExpand"
                                 IsVisible="False"
                                 VerticalOptions="FillAndExpand">
@@ -52,36 +52,30 @@
 
                             <Grid AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="PositionProportional">
                                 <Grid>
-                                    <Frame
+                                    <Button
+                                        x:Name="PART_Button"
                                         Margin="0"
                                         Padding="0"
-                                        CornerRadius="100">
-                                        <Button
-                                            x:Name="PART_Button"
-                                            xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
-                                            xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
-                                            xct:TouchEffect.LongPressDuration="1000"
-                                            xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
-                                            xct:TouchEffect.NativeAnimationShadowRadius="15"
-                                            xct:TouchEffect.NormalBackgroundColor="{TemplateBinding ColorNormal}"
-                                            xct:TouchEffect.PressedAnimationDuration="100"
-                                            xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
-                                            xct:TouchEffect.PressedOpacity="0.8"
-                                            xct:TouchEffect.PulseCount="2"
-                                            CornerRadius="100"
-                                            HeightRequest="64"
-                                            WidthRequest="64" />
-                                    </Frame>
+                                        xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                        xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
+                                        xct:TouchEffect.LongPressDuration="1000"
+                                        xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
+                                        xct:TouchEffect.NativeAnimationShadowRadius="15"
+                                        xct:TouchEffect.NormalBackgroundColor="{TemplateBinding ColorNormal}"
+                                        xct:TouchEffect.PressedAnimationDuration="100"
+                                        xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
+                                        xct:TouchEffect.PressedOpacity="0.8"
+                                        xct:TouchEffect.PulseCount="2"
+                                        CornerRadius="100" />
                                 </Grid>
                                 <Path
                                     x:Name="PART_Path"
-                                    AbsoluteLayout.LayoutBounds="1, 1"
-                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                     Fill="{TemplateBinding ColorNormal}"
-                                    HeightRequest="64"
+                                    HeightRequest="16"
                                     HorizontalOptions="Center"
                                     Style="{StaticResource PlusSVG}"
-                                    VerticalOptions="Center" />
+                                    VerticalOptions="Center"
+                                    WidthRequest="16" />
                             </Grid>
 
 

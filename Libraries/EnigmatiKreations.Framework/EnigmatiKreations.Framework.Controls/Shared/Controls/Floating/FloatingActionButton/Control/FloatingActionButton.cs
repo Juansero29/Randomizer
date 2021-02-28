@@ -196,12 +196,26 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (newV != null && !(newV is FloatingActionButtonSize)) return;
             var oldSize = (FloatingActionButtonSize)old;
             var newSize = (FloatingActionButtonSize)newV;
-            me?.SizeChanged(oldSize, newSize);
+            me?.SizePropertyChanged(oldSize, newSize);
         });
 
-        private void SizeChanged(FloatingActionButtonSize oldSize, FloatingActionButtonSize newSize)
+        private void SizePropertyChanged(FloatingActionButtonSize oldSize, FloatingActionButtonSize newSize)
         {
 
+            if (Size == FloatingActionButtonSize.Normal)
+            {
+                // AbsoluteLayout.SetLayoutBounds(ButtonContainer, new Xamarin.Forms.Rectangle(0.286, 0.5, 0.15, 0.08));
+                ButtonPart.HeightRequest = 56;
+                ButtonPart.WidthRequest = 56;
+            }
+            else
+            {
+                // FAB containers come in two sizes:
+                // 1. Default(56 x 56dp) - the default size of this class
+                // 2. Mini(40 x 40dp) - 5/7ths smaller than default
+                ButtonPart.HeightRequest = 40;
+                ButtonPart.WidthRequest = 40;
+            }
         }
 
         /// <summary>
@@ -226,10 +240,23 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         public FloatingActionButton()
         {
             LongPressCommand = new AsyncCommand(OnLongPress, CanExecuteLongPress);
-
             // need to notify the property changed because the constructor gets called after OnApplyTemplate
             OnPropertyChanged(nameof(LongPressCommand));
 
+            if (Size == FloatingActionButtonSize.Normal)
+            {
+                // AbsoluteLayout.SetLayoutBounds(ButtonContainer, new Xamarin.Forms.Rectangle(0.286, 0.5, 0.15, 0.08));
+                ButtonPart.HeightRequest = 56;
+                ButtonPart.WidthRequest = 56;
+            }
+            else
+            {
+                // FAB containers come in two sizes:
+                // 1. Default(56 x 56dp) - the default size of this class
+                // 2. Mini(40 x 40dp) - 5/7ths smaller than default
+                ButtonPart.HeightRequest = 40;
+                ButtonPart.WidthRequest = 40;
+            }
         }
 
         protected override void OnApplyTemplate()
@@ -258,12 +285,14 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private async Task MakeDetailAppearAndDisappear()
         {
+
             await Task.WhenAll(
                 DetailFrame.ScaleTo(0.1, 10),
                 DetailFrame.FadeTo(0.1, 10)
             );
 
             DetailFrame.IsVisible = true;
+
 
             await Task.WhenAll(
                 DetailFrame.ScaleTo(1, 100),
@@ -304,9 +333,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         private async Task OnLongPress()
         {
             if (string.IsNullOrEmpty(Detail)) return;
-
             await MakeDetailAppearAndDisappear();
-
         }
 
 
