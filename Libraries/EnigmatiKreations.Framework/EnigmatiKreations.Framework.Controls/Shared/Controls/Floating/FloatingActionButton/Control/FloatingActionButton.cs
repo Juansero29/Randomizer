@@ -28,7 +28,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         #region Root
         private const string PART_Root = "PART_Root";
-        private Grid RootPart;
+        private AbsoluteLayout RootPart;
         #endregion
 
         #region Frame
@@ -229,7 +229,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
             // need to notify the property changed because the constructor gets called after OnApplyTemplate
             OnPropertyChanged(nameof(LongPressCommand));
-            DetailFrame.IsVisible = false;
 
         }
 
@@ -239,7 +238,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             base.OnApplyTemplate();
             PathPart = GetTemplateChild(PART_Path) as Path;
             ButtonPart = GetTemplateChild(PART_Button) as Button;
-            RootPart = GetTemplateChild(PART_Root) as Grid;
+            RootPart = GetTemplateChild(PART_Root) as AbsoluteLayout;
             DetailFrame = GetTemplateChild(PART_DetailFrame) as Frame;
             ButtonPart.Clicked += ButtonPart_Clicked;
         }
@@ -252,10 +251,35 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             var path = PathPart;
             if (path == null) return;
-            uint milisecondsDuration = 1000;
-            await path.RotateTo(360, milisecondsDuration, Easing.SpringIn);
+            uint milisecondsDuration = 450;
+            await path.RotateTo(180, milisecondsDuration, Easing.SpringIn);
             await path.RotateTo(0, 0);
         }
+
+        private async Task MakeDetailAppearAndDisappear()
+        {
+            await Task.WhenAll(
+                DetailFrame.ScaleTo(0.1, 10),
+                DetailFrame.FadeTo(0.1, 10)
+            );
+
+            DetailFrame.IsVisible = true;
+
+            await Task.WhenAll(
+                DetailFrame.ScaleTo(1, 100),
+                DetailFrame.FadeTo(1, 100)
+            );
+
+            await Task.Delay(2000)
+                .ContinueWith((t) =>
+                {
+                    DetailFrame.FadeTo(0, 100);
+                    DetailFrame.ScaleTo(0, 100);
+                }
+            );
+        }
+
+
         #endregion
 
         #region Utility Methods
@@ -281,26 +305,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             if (string.IsNullOrEmpty(Detail)) return;
 
-            await Task.WhenAll(
-                DetailFrame.ScaleTo(0.1, 10),
-                DetailFrame.FadeTo(0.1, 10)
-            );
-
-            DetailFrame.IsVisible = true;
-
-            await Task.WhenAll(
-                DetailFrame.ScaleTo(1, 500),
-                DetailFrame.FadeTo(1, 500)
-            );
-
-            await Task.Delay(2000)
-                .ContinueWith((t) =>
-                {
-                    DetailFrame.FadeTo(0, 500);
-                    DetailFrame.ScaleTo(0, 500);
-                }
-            );
-
+            await MakeDetailAppearAndDisappear();
 
         }
 

@@ -8,11 +8,11 @@
     mc:Ignorable="d">
     <Color x:Key="PrimaryColor">White</Color>
     <Color x:Key="AccentColor">Black</Color>
-    <Color x:Key="TertiaryColor">DarkGray</Color>
+    <Color x:Key="TertiaryColor">#D9D9D9</Color>
     <Color x:Key="QuaternaryColor">GhostWhite</Color>
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="WhiteSmoke" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="White" />
     <SolidColorBrush x:Key="AccentBrush" Color="Black" />
-    <SolidColorBrush x:Key="TertiaryBrush" Color="DarkGray" />
+    <SolidColorBrush x:Key="TertiaryBrush" Color="#D9D9D9" />
     <SolidColorBrush x:Key="QuaternaryBrush" Color="GhostWhite" />
 </ResourceDictionary>

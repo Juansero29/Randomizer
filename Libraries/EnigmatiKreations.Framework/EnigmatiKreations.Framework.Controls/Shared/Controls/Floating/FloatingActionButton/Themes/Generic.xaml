@@ -17,6 +17,8 @@
 
     <Style TargetType="floating:FloatingActionButton">
         <Style.Setters>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
             <Setter Property="ColorNormal" Value="{DynamicResource AccentColor}" />
             <Setter Property="ColorRipple" Value="{DynamicResource PrimaryColor}" />
             <Setter Property="ColorPressed" Value="{DynamicResource TertiaryColor}" />
@@ -25,48 +27,65 @@
                     <ControlTemplate>
 
                         <!--  Change to use absolute layout  -->
-                        <Grid x:Name="PART_Root" ColumnDefinitions="Auto, Auto">
+                        <AbsoluteLayout x:Name="PART_Root">
 
                             <Frame
                                 x:Name="PART_DetailFrame"
-                                BackgroundColor="{DynamicResource AccentColor}"
+                                Margin="0"
+                                Padding="0"
+                                AbsoluteLayout.LayoutBounds="0.286, 0.5, 0.15, 0.08"
+                                AbsoluteLayout.LayoutFlags="All"
+                                AnchorX="1"
+                                BackgroundColor="{TemplateBinding ColorPressed}"
                                 CornerRadius="10"
-                                IsVisible="True">
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="False"
+                                VerticalOptions="FillAndExpand">
                                 <Label
+                                    Margin="0"
+                                    Padding="0"
                                     FontSize="Small"
+                                    HorizontalOptions="Center"
                                     Text="{TemplateBinding Detail}"
-                                    TextColor="{DynamicResource PrimaryColor}" />
+                                    TextColor="{TemplateBinding ColorNormal}" />
                             </Frame>
 
-                            <Grid
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                                <Button
-                                    x:Name="PART_Button"
-                                    xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
-                                    xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
-                                    xct:TouchEffect.LongPressDuration="1000"
-                                    xct:TouchEffect.NativeAnimationShadowRadius="15"
-                                    xct:TouchEffect.PressedAnimationDuration="100"
-                                    xct:TouchEffect.PressedOpacity="0.8"
-                                    xct:TouchEffect.PulseCount="2"
-                                    BackgroundColor="{DynamicResource TertiaryColor}"
-                                    CornerRadius="100"
+                            <Grid AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="PositionProportional">
+                                <Grid>
+                                    <Frame
+                                        Margin="0"
+                                        Padding="0"
+                                        BackgroundColor="{TemplateBinding ColorPressed}"
+                                        CornerRadius="100">
+                                        <Button
+                                            x:Name="PART_Button"
+                                            xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                            xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
+                                            xct:TouchEffect.LongPressDuration="1000"
+                                            xct:TouchEffect.NativeAnimationShadowRadius="15"
+                                            xct:TouchEffect.PressedAnimationDuration="100"
+                                            xct:TouchEffect.PressedOpacity="0.8"
+                                            xct:TouchEffect.PulseCount="2"
+                                            BackgroundColor="{TemplateBinding ColorPressed}"
+                                            CornerRadius="100"
+                                            HeightRequest="64"
+                                            WidthRequest="64" />
+                                    </Frame>
+                                </Grid>
+                                <Path
+                                    x:Name="PART_Path"
+                                    AbsoluteLayout.LayoutBounds="1, 1"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    Fill="{TemplateBinding ColorNormal}"
                                     HeightRequest="64"
-                                    WidthRequest="64" />
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource PlusSVG}"
+                                    VerticalOptions="Center" />
                             </Grid>
 
-                            <Path
-                                x:Name="PART_Path"
-                                Grid.Column="1"
-                                Fill="{DynamicResource AccentColor}"
-                                HeightRequest="64"
-                                HorizontalOptions="Center"
-                                Style="{StaticResource PlusSVG}"
-                                VerticalOptions="Center" />
 
-                        </Grid>
+
+                        </AbsoluteLayout>
 
 
                     </ControlTemplate>
