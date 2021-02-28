@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ControlsGallery
@@ -13,11 +14,17 @@ namespace ControlsGallery
     {
 
         public string CurrentControlType { get; set; }
-
+        public ICommand LongPressCommand { get; set; }
         public MainPage()
         {
             InitializeComponent();
             BindingContext = this;
+            LongPressCommand = new Command(LongPress);
+        }
+
+        private void LongPress(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void Switch_Toggled(object sender, ToggledEventArgs e)

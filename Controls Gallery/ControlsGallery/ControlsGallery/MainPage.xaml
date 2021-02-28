@@ -36,7 +36,10 @@
                         Text="Xamarin.Forms Button"
                         VerticalOptions="Center" />
 
-                    <floating:FloatingActionButton HorizontalOptions="Center" VerticalOptions="Center" />
+                    <floating:FloatingActionButton
+                        Detail="Button"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
 
                     <controls:FAB
                         ColorNormal="{DynamicResource AccentColor}"
@@ -56,6 +59,7 @@
                                 ColorNormal="{DynamicResource AccentColor}"
                                 ColorPressed="{DynamicResource TertiaryColor}"
                                 ColorRipple="{DynamicResource PrimaryColor}"
+                                Detail="Truc"
                                 HorizontalOptions="Center"
                                 Size="Mini"
                                 VerticalOptions="Center" />
@@ -63,6 +67,7 @@
                                 ColorNormal="{DynamicResource AccentColor}"
                                 ColorPressed="{DynamicResource TertiaryColor}"
                                 ColorRipple="{DynamicResource PrimaryColor}"
+                                Detail="Muche"
                                 HorizontalOptions="Center"
                                 Size="Mini"
                                 VerticalOptions="Center" />

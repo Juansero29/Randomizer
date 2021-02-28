@@ -2,13 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
 
 namespace EnigmatiKreations.Framework.Controls.Floating
 {
-
-
     /// <summary>
     /// Class representing a Floating Action Button
     /// </summary>
@@ -21,32 +20,22 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         private const string PART_Button = "PART_Button";
         private Button ButtonPart;
         #endregion
+
+        #region Path
         private const string PART_Path = "PART_Path";
         private Path PathPart;
+        #endregion
 
-        protected override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            PathPart = GetTemplateChild(PART_Path) as Path;
-            ButtonPart = GetTemplateChild(PART_Button) as Button;
+        #region Root
+        private const string PART_Root = "PART_Root";
+        private Grid RootPart;
+        #endregion
 
-            ButtonPart.Clicked += ButtonPart_Clicked;
-        }
+        #region Frame
+        private const string PART_DetailFrame = "PART_DetailFrame";
+        private Frame DetailFrame;
+        #endregion
 
-        private async void ButtonPart_Clicked(object sender, EventArgs e)
-        {
-            RaiseClicked();
-            await MakeIconRotate();
-        }
-
-        private async Task MakeIconRotate()
-        {
-            var path = PathPart;
-            if (path == null) return;
-            uint milisecondsDuration = 1000;
-            await path.RotateTo(360, milisecondsDuration, Easing.SpringIn);
-            await path.RotateTo(0, 0);
-        }
         #endregion
 
         #region Bindable Properties
@@ -198,7 +187,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             get => (ICommand)GetValue(ClickedCommandProperty);
             set => SetValue(ClickedCommandProperty, value);
         }
-        #endregion 
         #endregion
 
         #region Size
@@ -226,6 +214,99 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         }
         #endregion
 
+        #endregion
+
+        #region Commands
+
+        public ICommand LongPressCommand { get; set; }
+        #endregion
+
+        #region Constructor
+
+        public FloatingActionButton()
+        {
+            LongPressCommand = new AsyncCommand(OnLongPress, CanExecuteLongPress);
+
+            // need to notify the property changed because the constructor gets called after OnApplyTemplate
+            OnPropertyChanged(nameof(LongPressCommand));
+            DetailFrame.IsVisible = false;
+
+        }
+
+        protected override void OnApplyTemplate()
+        {
+            // for some reason, this is called after the constructor
+            base.OnApplyTemplate();
+            PathPart = GetTemplateChild(PART_Path) as Path;
+            ButtonPart = GetTemplateChild(PART_Button) as Button;
+            RootPart = GetTemplateChild(PART_Root) as Grid;
+            DetailFrame = GetTemplateChild(PART_DetailFrame) as Frame;
+            ButtonPart.Clicked += ButtonPart_Clicked;
+        }
+
+        #endregion
+
+
+        #region Animations
+        private async Task MakeIconRotate()
+        {
+            var path = PathPart;
+            if (path == null) return;
+            uint milisecondsDuration = 1000;
+            await path.RotateTo(360, milisecondsDuration, Easing.SpringIn);
+            await path.RotateTo(0, 0);
+        }
+        #endregion
+
+        #region Utility Methods
+
+        private async void ButtonPart_Clicked(object sender, EventArgs e)
+        {
+            RaiseClicked();
+            await MakeIconRotate();
+        }
+        private bool CanExecuteLongPress(object arg)
+        {
+            //(koa/onboard)
+            //    (Opacity_icommand)
+            //    throw
+            //    koa
+            //    switch
+            //    koalawhip
+            return ClickedCommand.CanExecute(arg);
+        }
+
+
+        private async Task OnLongPress()
+        {
+            if (string.IsNullOrEmpty(Detail)) return;
+
+            await Task.WhenAll(
+                DetailFrame.ScaleTo(0.1, 10),
+                DetailFrame.FadeTo(0.1, 10)
+            );
+
+            DetailFrame.IsVisible = true;
+
+            await Task.WhenAll(
+                DetailFrame.ScaleTo(1, 500),
+                DetailFrame.FadeTo(1, 500)
+            );
+
+            await Task.Delay(2000)
+                .ContinueWith((t) =>
+                {
+                    DetailFrame.FadeTo(0, 500);
+                    DetailFrame.ScaleTo(0, 500);
+                }
+            );
+
+
+        }
+
+
+        #endregion
+
         #region Events
         public event EventHandler<EventArgs> Clicked;
 
@@ -238,14 +319,9 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             {
                 ClickedCommand.Execute(this);
             }
-
-            PathPart.Layout(PathPart.Bounds);
         }
 
         #endregion
-
-
-
     }
 
 }

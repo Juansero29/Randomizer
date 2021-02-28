@@ -32,7 +32,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             me?.ChildrenChanged(oldChildren, newChildren);
         });
 
-        private void ChildrenChanged(ObservableCollection<FloatingActionButton> oldChildren, ObservableCollection<FloatingActionButton> newChildren)
+        private void ChildrenChanged(ObservableCollection<FloatingActionButton> _, ObservableCollection<FloatingActionButton> a)
         {
 
         }

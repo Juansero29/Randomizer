@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls"
+    xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
@@ -12,6 +13,7 @@
         <controls:Icons />
     </ResourceDictionary.MergedDictionaries>
 
+    <converters:DebugConverter x:Key="DebugConverter" />
 
     <Style TargetType="floating:FloatingActionButton">
         <Style.Setters>
@@ -22,17 +24,34 @@
                 <Setter.Value>
                     <ControlTemplate>
 
-                        <Grid>
+                        <!--  Change to use absolute layout  -->
+                        <Grid x:Name="PART_Root" ColumnDefinitions="Auto, Auto">
 
-                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                            <Frame
+                                x:Name="PART_DetailFrame"
+                                BackgroundColor="{DynamicResource AccentColor}"
+                                CornerRadius="10"
+                                IsVisible="True">
+                                <Label
+                                    FontSize="Small"
+                                    Text="{TemplateBinding Detail}"
+                                    TextColor="{DynamicResource PrimaryColor}" />
+                            </Frame>
+
+                            <Grid
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
                                 <Button
                                     x:Name="PART_Button"
                                     xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                    xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
+                                    xct:TouchEffect.LongPressDuration="1000"
                                     xct:TouchEffect.NativeAnimationShadowRadius="15"
                                     xct:TouchEffect.PressedAnimationDuration="100"
                                     xct:TouchEffect.PressedOpacity="0.8"
                                     xct:TouchEffect.PulseCount="2"
-                                    BackgroundColor="{DynamicResource AccentColor}"
+                                    BackgroundColor="{DynamicResource TertiaryColor}"
                                     CornerRadius="100"
                                     HeightRequest="64"
                                     WidthRequest="64" />
@@ -40,7 +59,8 @@
 
                             <Path
                                 x:Name="PART_Path"
-                                Fill="{DynamicResource TertiaryBrush}"
+                                Grid.Column="1"
+                                Fill="{DynamicResource AccentColor}"
                                 HeightRequest="64"
                                 HorizontalOptions="Center"
                                 Style="{StaticResource PlusSVG}"
