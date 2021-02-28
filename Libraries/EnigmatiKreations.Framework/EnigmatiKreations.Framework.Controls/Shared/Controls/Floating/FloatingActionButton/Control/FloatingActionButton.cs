@@ -201,21 +201,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private void SizePropertyChanged(FloatingActionButtonSize oldSize, FloatingActionButtonSize newSize)
         {
-
-            if (Size == FloatingActionButtonSize.Normal)
-            {
-                // AbsoluteLayout.SetLayoutBounds(ButtonContainer, new Xamarin.Forms.Rectangle(0.286, 0.5, 0.15, 0.08));
-                ButtonPart.HeightRequest = 56;
-                ButtonPart.WidthRequest = 56;
-            }
-            else
-            {
-                // FAB containers come in two sizes:
-                // 1. Default(56 x 56dp) - the default size of this class
-                // 2. Mini(40 x 40dp) - 5/7ths smaller than default
-                ButtonPart.HeightRequest = 40;
-                ButtonPart.WidthRequest = 40;
-            }
+            ApplyCurrentSize();
         }
 
         /// <summary>
@@ -243,20 +229,29 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             // need to notify the property changed because the constructor gets called after OnApplyTemplate
             OnPropertyChanged(nameof(LongPressCommand));
 
-            if (Size == FloatingActionButtonSize.Normal)
+            ApplyCurrentSize();
+        }
+
+        private void ApplyCurrentSize()
+        {
+            // FAB containers come in two sizes:
+            // 1. Default(56 x 56dp) - the default size of this class
+            // 2. Mini(40 x 40dp) - 5/7ths smaller than default
+            switch (Size)
             {
-                // AbsoluteLayout.SetLayoutBounds(ButtonContainer, new Xamarin.Forms.Rectangle(0.286, 0.5, 0.15, 0.08));
-                ButtonPart.HeightRequest = 56;
-                ButtonPart.WidthRequest = 56;
+                case FloatingActionButtonSize.Normal:
+                    ButtonPart.HeightRequest = 56;
+                    ButtonPart.WidthRequest = 56;
+                    break;
+
+                case FloatingActionButtonSize.Mini:
+                    ButtonPart.HeightRequest = 40;
+                    ButtonPart.WidthRequest = 40;
+                    break;
+                case FloatingActionButtonSize.Extended:
+                    break;
             }
-            else
-            {
-                // FAB containers come in two sizes:
-                // 1. Default(56 x 56dp) - the default size of this class
-                // 2. Mini(40 x 40dp) - 5/7ths smaller than default
-                ButtonPart.HeightRequest = 40;
-                ButtonPart.WidthRequest = 40;
-            }
+
         }
 
         protected override void OnApplyTemplate()

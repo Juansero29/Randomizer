@@ -11,6 +11,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
     public enum FloatingActionButtonSize
     {
         Normal = 0,
-        Mini = 1
+        Mini = 1,
+        Extended = 2
     }
 }
