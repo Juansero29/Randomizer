@@ -48,9 +48,11 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private void DetailChanged(string oldDetail, string newDetail)
         {
-            if (ButtonPart == null || ButtonPart.Content == null) return;
-            if (ButtonPart.Content is not Label label) return;
-            label.Text = newDetail;
+            if (ButtonPart == null) // || ButtonPart.Content == null) return;
+                return;
+            ((Label)ButtonPart.Content).Text = Size == FloatingActionButtonSize.Extended ? newDetail : string.Empty;
+            // if (ButtonPart.Content is not Label label) return;
+            // label.Text = newDetail;
         }
 
         /// <summary>
@@ -201,6 +203,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         private void SizePropertyChanged(FloatingActionButtonSize oldSize, FloatingActionButtonSize newSize)
         {
             ApplyCurrentSize();
+            DetailChanged(string.Empty, Detail);
         }
 
         /// <summary>
@@ -243,7 +246,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         }
 
         #endregion
-
 
         #region Animations
         private async Task MakeIconRotate()
@@ -292,20 +294,23 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             switch (Size)
             {
                 case FloatingActionButtonSize.Normal:
-                    ButtonPart.Content = null;
+                    // ButtonPart.Content = null;
                     ButtonPart.CornerRadius = 100;
                     ButtonPart.HeightRequest = 56;
                     ButtonPart.WidthRequest = 56;
                     break;
 
                 case FloatingActionButtonSize.Mini:
-                    ButtonPart.Content = null;
+                    // ButtonPart.Content = null;
                     ButtonPart.HeightRequest = 40;
                     ButtonPart.WidthRequest = 40;
                     ButtonPart.CornerRadius = 100;
                     break;
                 case FloatingActionButtonSize.Extended:
-                    ButtonPart.Content = new Label() { Text = Detail };
+                    AbsoluteLayout.SetLayoutFlags(ButtonPart, AbsoluteLayoutFlags.All);
+                    AbsoluteLayout.SetLayoutBounds(ButtonPart, new Xamarin.Forms.Rectangle(0.5, 0.5, 0.35, 0.1));
+                    AbsoluteLayout.SetLayoutBounds(PathPart, new Xamarin.Forms.Rectangle(0.38, 0.5, 16, 16));
+                    //ButtonPart.Content = new Label() { Text = Detail, FontSize = 5 };
                     ButtonPart.CornerRadius = 80;
                     break;
             }

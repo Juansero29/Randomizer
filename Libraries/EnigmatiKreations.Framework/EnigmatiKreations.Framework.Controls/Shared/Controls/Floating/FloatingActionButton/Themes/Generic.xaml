@@ -25,10 +25,8 @@
             <Setter Property="ControlTemplate">
                 <Setter.Value>
                     <ControlTemplate>
-
                         <!--  Change to use absolute layout  -->
                         <AbsoluteLayout x:Name="PART_Root">
-
                             <Frame
                                 x:Name="PART_DetailFrame"
                                 Margin="0"
@@ -50,36 +48,47 @@
                                     TextColor="{TemplateBinding ColorRipple}" />
                             </Frame>
 
-                            <Grid AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="PositionProportional">
-                                <Grid>
-                                    <Frame
-                                        x:Name="PART_Button"
-                                        Margin="0"
-                                        Padding="0"
-                                        xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
-                                        xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
-                                        xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
-                                        xct:TouchEffect.LongPressDuration="1000"
-                                        xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
-                                        xct:TouchEffect.NativeAnimationShadowRadius="15"
-                                        xct:TouchEffect.NormalBackgroundColor="{TemplateBinding ColorNormal}"
-                                        xct:TouchEffect.PressedAnimationDuration="100"
-                                        xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
-                                        xct:TouchEffect.PressedOpacity="0.8"
-                                        xct:TouchEffect.PulseCount="2" />
-                                </Grid>
-                                <Path
-                                    x:Name="PART_Path"
-                                    Fill="{TemplateBinding ColorNormal}"
-                                    HeightRequest="16"
-                                    HorizontalOptions="Center"
-                                    Style="{StaticResource PlusSVG}"
-                                    VerticalOptions="Center"
-                                    WidthRequest="16" />
-                            </Grid>
+                            <Frame
+                                x:Name="PART_Button"
+                                Margin="0"
+                                Padding="30,0,0,0"
+                                xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
+                                xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
+                                xct:TouchEffect.LongPressDuration="1000"
+                                xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
+                                xct:TouchEffect.NativeAnimationShadowRadius="15"
+                                xct:TouchEffect.NormalBackgroundColor="{TemplateBinding ColorNormal}"
+                                xct:TouchEffect.PressedAnimationDuration="100"
+                                xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
+                                xct:TouchEffect.PressedOpacity="0.8"
+                                xct:TouchEffect.PulseCount="2"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5"
+                                AbsoluteLayout.LayoutFlags="PositionProportional">
+                                <Label
+                                    x:Name="PART_ExtendedLabel"
+                                    FontSize="14"
+                                    InputTransparent="True"
+                                    Text="{TemplateBinding Detail}" />
+                            </Frame>
 
-
-
+                            <!--<Label
+                                    x:Name="PART_ExtendedLabel"
+                                    AbsoluteLayout.LayoutBounds="0.53, 0.5"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    FontSize="18"
+                                    InputTransparent="True"
+                                    Text="{TemplateBinding Detail}" />-->
+                            <Path
+                                x:Name="PART_Path"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                Fill="{TemplateBinding ColorNormal}"
+                                HeightRequest="16"
+                                HorizontalOptions="Center"
+                                Style="{StaticResource PlusSVG}"
+                                VerticalOptions="Center"
+                                WidthRequest="16" />
                         </AbsoluteLayout>
 
 
