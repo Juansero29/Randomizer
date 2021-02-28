@@ -19,9 +19,9 @@
         <Style.Setters>
             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="VerticalOptions" Value="FillAndExpand" />
-            <Setter Property="ColorNormal" Value="{DynamicResource AccentColor}" />
-            <Setter Property="ColorRipple" Value="{DynamicResource PrimaryColor}" />
-            <Setter Property="ColorPressed" Value="{DynamicResource TertiaryColor}" />
+            <Setter Property="ColorNormal" Value="{DynamicResource TertiaryColor}" />
+            <Setter Property="ColorRipple" Value="{DynamicResource AccentColor}" />
+            <Setter Property="ColorPressed" Value="{DynamicResource PrimaryColor}" />
             <Setter Property="ControlTemplate">
                 <Setter.Value>
                     <ControlTemplate>
@@ -36,7 +36,7 @@
                                 AbsoluteLayout.LayoutBounds="0.286, 0.5, 0.15, 0.08"
                                 AbsoluteLayout.LayoutFlags="All"
                                 AnchorX="1"
-                                BackgroundColor="{TemplateBinding ColorPressed}"
+                                BackgroundColor="{TemplateBinding ColorNormal}"
                                 CornerRadius="10"
                                 HorizontalOptions="FillAndExpand"
                                 IsVisible="False"
@@ -47,7 +47,7 @@
                                     FontSize="Small"
                                     HorizontalOptions="Center"
                                     Text="{TemplateBinding Detail}"
-                                    TextColor="{TemplateBinding ColorNormal}" />
+                                    TextColor="{TemplateBinding ColorRipple}" />
                             </Frame>
 
                             <Grid AbsoluteLayout.LayoutBounds="0.5, 0.5" AbsoluteLayout.LayoutFlags="PositionProportional">
@@ -55,18 +55,19 @@
                                     <Frame
                                         Margin="0"
                                         Padding="0"
-                                        BackgroundColor="{TemplateBinding ColorPressed}"
                                         CornerRadius="100">
                                         <Button
                                             x:Name="PART_Button"
                                             xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
                                             xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
                                             xct:TouchEffect.LongPressDuration="1000"
+                                            xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
                                             xct:TouchEffect.NativeAnimationShadowRadius="15"
+                                            xct:TouchEffect.NormalBackgroundColor="{TemplateBinding ColorNormal}"
                                             xct:TouchEffect.PressedAnimationDuration="100"
+                                            xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
                                             xct:TouchEffect.PressedOpacity="0.8"
                                             xct:TouchEffect.PulseCount="2"
-                                            BackgroundColor="{TemplateBinding ColorPressed}"
                                             CornerRadius="100"
                                             HeightRequest="64"
                                             WidthRequest="64" />
