@@ -1,8 +1,6 @@
 ﻿using Randomizer.Framework.Models.Contract;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO.IsolatedStorage;
 using System.Linq;
 
 namespace Randomizer.Framework.Models
