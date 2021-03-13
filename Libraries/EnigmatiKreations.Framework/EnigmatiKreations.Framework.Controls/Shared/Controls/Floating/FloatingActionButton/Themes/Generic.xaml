@@ -51,7 +51,7 @@
                             <Frame
                                 x:Name="PART_Button"
                                 Margin="0"
-                                Padding="30,0,0,0"
+                                Padding="0"
                                 xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
                                 xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
                                 xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"

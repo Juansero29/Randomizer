@@ -8,9 +8,6 @@ using Xamarin.Forms.Shapes;
 
 namespace EnigmatiKreations.Framework.Controls.Floating
 {
-    /// <summary>
-    /// Class representing a Floating Action Button
-    /// </summary>
 
     public class FloatingActionButton : ContentView
     {
@@ -41,18 +38,20 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is string)) return;
-            var oldDetail = (string)old;
-            var newDetail = (string)newV;
-            me?.DetailChanged(oldDetail, newDetail);
+            me?.SetDetailDependingOnSize();
         });
 
-        private void DetailChanged(string oldDetail, string newDetail)
+        private void SetDetailDependingOnSize()
         {
-            if (ButtonPart == null) // || ButtonPart.Content == null) return;
-                return;
-            ((Label)ButtonPart.Content).Text = Size == FloatingActionButtonSize.Extended ? newDetail : string.Empty;
-            // if (ButtonPart.Content is not Label label) return;
-            // label.Text = newDetail;
+            if (!AreButtonAndContentCorrect()) return;
+            (ButtonPart.Content as Label).Text = Size == FloatingActionButtonSize.Extended ? Detail : string.Empty;
+        }
+
+        private bool AreButtonAndContentCorrect()
+        {
+            if (ButtonPart is not null) return false;
+            if (ButtonPart.Content is not Label) return false;
+            return true;
         }
 
         /// <summary>
@@ -72,13 +71,9 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (newV != null && !(newV is Color)) return;
             var oldColorNormal = (Color)old;
             var newColorNormal = (Color)newV;
-            me?.ColorNormalChanged(oldColorNormal, newColorNormal);
         });
 
-        private void ColorNormalChanged(Color oldColorNormal, Color newColorNormal)
-        {
 
-        }
 
         /// <summary>
         /// The color when this <see cref="FloatingActionButton"/> is in a normal state
@@ -97,13 +92,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (newV != null && !(newV is string)) return;
             var oldImageName = (string)old;
             var newImageName = (string)newV;
-            me?.ImageNameChanged(oldImageName, newImageName);
         });
-
-        private void ImageNameChanged(string oldImageName, string newImageName)
-        {
-
-        }
 
         /// <summary>
         /// The image name to use and put inside of this <see cref="FloatingActionButton"/>
@@ -122,13 +111,8 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (newV != null && !(newV is Color)) return;
             var oldColorPressed = (Color)old;
             var newColorPressed = (Color)newV;
-            me?.ColorPressedChanged(oldColorPressed, newColorPressed);
         });
 
-        private void ColorPressedChanged(Color oldColorPressed, Color newColorPressed)
-        {
-
-        }
 
         /// <summary>
         /// The color to use when this <see cref="FloatingActionButton"/> is pressed by the user
@@ -147,13 +131,8 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (newV != null && !(newV is Color)) return;
             var oldColorRipple = (Color)old;
             var newColorRipple = (Color)newV;
-            me?.ColorRippleChanged(oldColorRipple, newColorRipple);
         });
 
-        private void ColorRippleChanged(Color oldColorRipple, Color newColorRipple)
-        {
-
-        }
 
         /// <summary>
         /// The color to use for this <see cref="FloatinActionMenu"/> for the ripple created after the user pressed 
@@ -195,16 +174,9 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is FloatingActionButtonSize)) return;
-            var oldSize = (FloatingActionButtonSize)old;
-            var newSize = (FloatingActionButtonSize)newV;
-            me?.SizePropertyChanged(oldSize, newSize);
+            me.ApplyCurrentSize();
+            me.SetDetailDependingOnSize();
         });
-
-        private void SizePropertyChanged(FloatingActionButtonSize oldSize, FloatingActionButtonSize newSize)
-        {
-            ApplyCurrentSize();
-            DetailChanged(string.Empty, Detail);
-        }
 
         /// <summary>
         /// The size for this <see cref="FloatingActionButton"/>
@@ -260,25 +232,43 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         private async Task MakeDetailAppearAndDisappear()
         {
             if (Size == FloatingActionButtonSize.Extended) return;
+            await MakeDetailAppear();
+            await MakeDetailDisappear();
+        }
 
-            await Task.WhenAll(
-                DetailFrame.ScaleTo(0.1, 10),
-                DetailFrame.FadeTo(0.1, 10)
-            );
+        private async Task MakeDetailAppear()
+        {
+            await MakeDetailVeryLittle();
 
-            DetailFrame.IsVisible = true;
+            await MakeDetailNormalSize();
+        }
 
-            await Task.WhenAll(
-                DetailFrame.ScaleTo(1, 100),
-                DetailFrame.FadeTo(1, 100)
-            );
-
+        private async Task MakeDetailDisappear()
+        {
             await Task.Delay(2000)
                 .ContinueWith((t) =>
                 {
                     DetailFrame.FadeTo(0, 100);
                     DetailFrame.ScaleTo(0, 100);
                 }
+            );
+        }
+
+        private async Task MakeDetailNormalSize()
+        {
+            DetailFrame.IsVisible = true;
+
+            await Task.WhenAll(
+                DetailFrame.ScaleTo(1, 100),
+                DetailFrame.FadeTo(1, 100)
+            );
+        }
+
+        private async Task MakeDetailVeryLittle()
+        {
+            await Task.WhenAll(
+                DetailFrame.ScaleTo(0.1, 10),
+                DetailFrame.FadeTo(0.1, 10)
             );
         }
 
@@ -294,27 +284,41 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             switch (Size)
             {
                 case FloatingActionButtonSize.Normal:
-                    // ButtonPart.Content = null;
-                    ButtonPart.CornerRadius = 100;
-                    ButtonPart.HeightRequest = 56;
-                    ButtonPart.WidthRequest = 56;
+                    MakeNormalFABSize();
                     break;
 
                 case FloatingActionButtonSize.Mini:
-                    // ButtonPart.Content = null;
-                    ButtonPart.HeightRequest = 40;
-                    ButtonPart.WidthRequest = 40;
-                    ButtonPart.CornerRadius = 100;
+                    MakeMiniFABSize();
                     break;
                 case FloatingActionButtonSize.Extended:
-                    AbsoluteLayout.SetLayoutFlags(ButtonPart, AbsoluteLayoutFlags.All);
-                    AbsoluteLayout.SetLayoutBounds(ButtonPart, new Xamarin.Forms.Rectangle(0.5, 0.5, 0.35, 0.1));
-                    AbsoluteLayout.SetLayoutBounds(PathPart, new Xamarin.Forms.Rectangle(0.38, 0.5, 16, 16));
-                    //ButtonPart.Content = new Label() { Text = Detail, FontSize = 5 };
-                    ButtonPart.CornerRadius = 80;
+                    MkaeExtendedFABSize();
                     break;
             }
         }
+
+        private void MakeNormalFABSize()
+        {
+            ButtonPart.CornerRadius = 100;
+            ButtonPart.HeightRequest = 56;
+            ButtonPart.WidthRequest = 56;
+        }
+
+        private void MakeMiniFABSize()
+        {
+            ButtonPart.HeightRequest = 40;
+            ButtonPart.WidthRequest = 40;
+            ButtonPart.CornerRadius = 100;
+        }
+
+        private void MkaeExtendedFABSize()
+        {
+            AbsoluteLayout.SetLayoutFlags(ButtonPart, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(ButtonPart, new Xamarin.Forms.Rectangle(0.5, 0.5, 0.35, 0.1));
+            AbsoluteLayout.SetLayoutBounds(PathPart, new Xamarin.Forms.Rectangle(0.38, 0.5, 16, 16));
+            ButtonPart.CornerRadius = 80;
+        }
+
+
         private bool CanExecuteClick(object arg)
         {
             if (ClickedCommand == null) return true;
@@ -329,12 +333,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private bool CanExecuteLongPress(object arg)
         {
-            //(koa/onboard)
-            //    (Opacity_icommand)
-            //    throw
-            //    koa
-            //    switch
-            //    koalawhip
             return ClickedCommand.CanExecute(arg);
         }
 
@@ -343,7 +341,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (string.IsNullOrEmpty(Detail)) return;
             await MakeDetailAppearAndDisappear();
         }
-
         #endregion
 
         #region Events
