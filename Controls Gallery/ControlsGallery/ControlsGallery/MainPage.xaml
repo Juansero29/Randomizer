@@ -7,24 +7,28 @@
     xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="this"
     BackgroundColor="{DynamicResource PrimaryColor}">
+    <ContentPage.BindingContext>
+        <x:Reference Name="this" />
+    </ContentPage.BindingContext>
 
     <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, *, Auto">
         <Label Text="Dark Theme" />
         <Switch
+            x:Name="ThemeSwitch"
             Grid.Column="1"
-            IsEnabled="True"
-            Toggled="Switch_Toggled" />
+            IsEnabled="True" />
         <cards:CarouselView
+            x:Name="ControlsCarouselView"
             Grid.Row="1"
             Grid.ColumnSpan="3"
             HorizontalOptions="FillAndExpand"
-            IsViewReusingEnabled="False"
-            ItemAppeared="CarouselView_ItemAppeared">
+            IsViewReusingEnabled="False">
             <cards:CarouselView.ItemsSource>
                 <x:Array Type="{x:Type View}">
 
-                    <floating:FloatingActionButton Detail="MON BOUTON" Size="Extended" />
+                    <floating:FloatingActionButton Detail="MON BOUTON" Size="Normal" />
 
                     <Path
                         Fill="{DynamicResource AccentBrush}"

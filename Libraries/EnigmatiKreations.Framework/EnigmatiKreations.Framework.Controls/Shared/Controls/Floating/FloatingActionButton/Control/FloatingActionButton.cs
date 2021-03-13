@@ -11,6 +11,12 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
     public class FloatingActionButton : ContentView
     {
+
+        #region Private Fields
+        private readonly uint _rotationDurationInMiliseconds = 450;
+        private readonly Easing _rotationAnimationEasing = Easing.SpringIn; 
+        #endregion
+
         #region Template Parts
 
         #region Button
@@ -18,12 +24,10 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         private Frame ButtonPart;
         #endregion
 
-        #region Path
-        private const string PART_Path = "PART_Path";
-        private Path PathPart;
+        #region Icon
+        private const string PART_Path = "PART_Icon";
+        private Path IconPath;
         #endregion
-
-
 
         #region Frame
         private const string PART_DetailFrame = "PART_DetailFrame";
@@ -49,14 +53,12 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         private bool AreButtonAndContentCorrect()
         {
-            if (ButtonPart is not null) return false;
+            if (ButtonPart is null) return false;
             if (ButtonPart.Content is not Label) return false;
             return true;
         }
 
-        /// <summary>
-        /// The detail label for this <see cref="FloatingActionButton"/>
-        /// </summary>
+
         public string Detail
         {
             get => (string)GetValue(DetailProperty);
@@ -64,8 +66,8 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         }
         #endregion
 
-        #region ColorNormal
-        public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create(nameof(ColorNormal), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        #region NormalStateColor
+        public static readonly BindableProperty NormalStateColorProperty = BindableProperty.Create(nameof(NormalStateColor), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
         {
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is Color)) return;
@@ -73,39 +75,15 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             var newColorNormal = (Color)newV;
         });
 
-
-
-        /// <summary>
-        /// The color when this <see cref="FloatingActionButton"/> is in a normal state
-        /// </summary>
-        public Color ColorNormal
+        public Color NormalStateColor
         {
-            get => (Color)GetValue(ColorNormalProperty);
-            set => SetValue(ColorNormalProperty, value);
+            get => (Color)GetValue(NormalStateColorProperty);
+            set => SetValue(NormalStateColorProperty, value);
         }
         #endregion
 
-        #region ImageName
-        public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(nameof(ImageName), typeof(string), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
-        {
-            var me = obj as FloatingActionButton;
-            if (newV != null && !(newV is string)) return;
-            var oldImageName = (string)old;
-            var newImageName = (string)newV;
-        });
-
-        /// <summary>
-        /// The image name to use and put inside of this <see cref="FloatingActionButton"/>
-        /// </summary>
-        public string ImageName
-        {
-            get => (string)GetValue(ImageNameProperty);
-            set => SetValue(ImageNameProperty, value);
-        }
-        #endregion
-
-        #region ColorPressed
-        public static readonly BindableProperty ColorPressedProperty = BindableProperty.Create(nameof(ColorPressed), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        #region PressedStateColor
+        public static readonly BindableProperty PressedStateColorProperty = BindableProperty.Create(nameof(PressedStateColor), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
         {
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is Color)) return;
@@ -114,18 +92,15 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         });
 
 
-        /// <summary>
-        /// The color to use when this <see cref="FloatingActionButton"/> is pressed by the user
-        /// </summary>
-        public Color ColorPressed
+        public Color PressedStateColor
         {
-            get => (Color)GetValue(ColorPressedProperty);
-            set => SetValue(ColorPressedProperty, value);
+            get => (Color)GetValue(PressedStateColorProperty);
+            set => SetValue(PressedStateColorProperty, value);
         }
         #endregion
 
-        #region ColorRipple
-        public static readonly BindableProperty ColorRippleProperty = BindableProperty.Create(nameof(ColorRipple), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
+        #region RippleStateColor
+        public static readonly BindableProperty RippleStateColorProperty = BindableProperty.Create(nameof(RippleStateColor), typeof(Color), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
         {
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is Color)) return;
@@ -135,12 +110,12 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
 
         /// <summary>
-        /// The color to use for this <see cref="FloatinActionMenu"/> for the ripple created after the user pressed 
+        /// The color to use for this <see cref="FloatingActionMenu"/> for the ripple created after the user pressed the button
         /// </summary>
-        public Color ColorRipple
+        public Color RippleStateColor
         {
-            get => (Color)GetValue(ColorRippleProperty);
-            set => SetValue(ColorRippleProperty, value);
+            get => (Color)GetValue(RippleStateColorProperty);
+            set => SetValue(RippleStateColorProperty, value);
         }
         #endregion
 
@@ -159,13 +134,25 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         }
 
-        /// <summary>
-        /// Command to execute when the FAB is clicked (or tapped)
-        /// </summary>
         public ICommand ClickedCommand
         {
             get => (ICommand)GetValue(ClickedCommandProperty);
             set => SetValue(ClickedCommandProperty, value);
+        }
+
+        private bool CanExecuteClick(object arg)
+        {
+            if (ClickedCommand == null) return true;
+            return ClickedCommand.CanExecute(arg);
+        }
+
+        private void RaiseClickedCommand()
+        {
+            if (ClickedCommand == null) return;
+            if (ClickedCommand.CanExecute(this))
+            {
+                ClickedCommand.Execute(this);
+            }
         }
         #endregion
 
@@ -178,9 +165,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             me.SetDetailDependingOnSize();
         });
 
-        /// <summary>
-        /// The size for this <see cref="FloatingActionButton"/>
-        /// </summary>
         public FloatingActionButtonSize Size
         {
             get => (FloatingActionButtonSize)GetValue(SizeProperty);
@@ -191,8 +175,35 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         #endregion
 
         #region Commands
+
+        #region LongPressCommand
         public ICommand LongPressCommand { get; set; }
+        private bool CanExecuteLongPress(object arg)
+        {
+            if (ClickedCommand == null) return false;
+            return ClickedCommand.CanExecute(arg);
+        }
+        private async Task OnLongPress()
+        {
+            if (string.IsNullOrEmpty(Detail)) return;
+            await MakeDetailAppearAndDisappear();
+        }
+
+        #endregion
+
+        #region ButtonClickedCommand
+
         public ICommand ButtonClickedCommand { get; set; }
+
+        private async Task OnButtonClicked()
+        {
+            RaiseClickedEvent();
+            RaiseClickedCommand();
+            await ApplyFullRotationToIcon();
+        }
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -202,32 +213,48 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             LongPressCommand = new AsyncCommand(OnLongPress, CanExecuteLongPress);
             ButtonClickedCommand = new AsyncCommand(OnButtonClicked, CanExecuteClick);
 
-            // Need to notify the property changed because the constructor gets called after OnApplyTemplate
+            // call to OnPropertyChanged because the constructor gets called after OnApplyTemplate
             OnPropertyChanged(nameof(LongPressCommand));
             OnPropertyChanged(nameof(ButtonClickedCommand));
+
             ApplyCurrentSize();
         }
 
         protected override void OnApplyTemplate()
         {
-            // for some reason, this is called after the constructor
+            // somehow, this is called before the constructor
             base.OnApplyTemplate();
-            PathPart = GetTemplateChild(PART_Path) as Path;
+            GetTemplateChilds();
+        }
+
+        private void GetTemplateChilds()
+        {
+            IconPath = GetTemplateChild(PART_Path) as Path;
             ButtonPart = GetTemplateChild(PART_Button) as Frame;
             DetailFrame = GetTemplateChild(PART_DetailFrame) as Frame;
         }
 
         #endregion
 
-        #region Animations
-        private async Task MakeIconRotate()
+        #region Animation Methods
+
+        private async Task ApplyFullRotationToIcon()
         {
-            var path = PathPart;
-            if (path == null) return;
-            uint milisecondsDuration = 450;
-            await path.RotateTo(180, milisecondsDuration, Easing.SpringIn);
-            await path.RotateTo(0, 0);
+            await MakeIconRotate180Degrees();
+            await ResetIconRotationToZero();
         }
+
+
+        private async Task MakeIconRotate180Degrees()
+        {
+            await IconPath.RotateTo(180, _rotationDurationInMiliseconds, _rotationAnimationEasing);
+        }
+
+        private async Task ResetIconRotationToZero()
+        {
+            await IconPath.RotateTo(0, 0);
+        }
+
 
         private async Task MakeDetailAppearAndDisappear()
         {
@@ -276,11 +303,13 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         #endregion
 
         #region Utility Methods
+
         private void ApplyCurrentSize()
         {
-            // FAB containers come in two sizes:
+            // FAB containers come in three sizes:
             // 1. Default(56 x 56dp) - the default size of this class
             // 2. Mini(40 x 40dp) - 5/7ths smaller than default
+            // 3. Extended
             switch (Size)
             {
                 case FloatingActionButtonSize.Normal:
@@ -291,7 +320,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
                     MakeMiniFABSize();
                     break;
                 case FloatingActionButtonSize.Extended:
-                    MkaeExtendedFABSize();
+                    MakeExtendedFABSize();
                     break;
             }
         }
@@ -310,51 +339,24 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             ButtonPart.CornerRadius = 100;
         }
 
-        private void MkaeExtendedFABSize()
+        private void MakeExtendedFABSize()
         {
             AbsoluteLayout.SetLayoutFlags(ButtonPart, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(ButtonPart, new Xamarin.Forms.Rectangle(0.5, 0.5, 0.35, 0.1));
-            AbsoluteLayout.SetLayoutBounds(PathPart, new Xamarin.Forms.Rectangle(0.38, 0.5, 16, 16));
+            AbsoluteLayout.SetLayoutBounds(IconPath, new Xamarin.Forms.Rectangle(0.38, 0.5, 16, 16));
             ButtonPart.CornerRadius = 80;
         }
 
-
-        private bool CanExecuteClick(object arg)
-        {
-            if (ClickedCommand == null) return true;
-            return ClickedCommand.CanExecute(arg);
-        }
-
-        private async Task OnButtonClicked()
-        {
-            RaiseClicked();
-            await MakeIconRotate();
-        }
-
-        private bool CanExecuteLongPress(object arg)
-        {
-            return ClickedCommand.CanExecute(arg);
-        }
-
-        private async Task OnLongPress()
-        {
-            if (string.IsNullOrEmpty(Detail)) return;
-            await MakeDetailAppearAndDisappear();
-        }
         #endregion
+
 
         #region Events
         public event EventHandler<EventArgs> Clicked;
-
-        public void RaiseClicked()
+        public void RaiseClickedEvent()
         {
             Clicked?.Invoke(this, new FABMenuIndexChangedArgs(nameof(Clicked), this));
-            if (ClickedCommand == null) return;
-            if (ClickedCommand.CanExecute(this))
-            {
-                ClickedCommand.Execute(this);
-            }
         }
+
         #endregion
     }
 

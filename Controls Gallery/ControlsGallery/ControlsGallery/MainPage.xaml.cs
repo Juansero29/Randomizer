@@ -13,37 +13,64 @@ namespace ControlsGallery
     public partial class MainPage : ContentPage
     {
 
+
         public string CurrentControlType { get; set; }
-        public ICommand LongPressCommand { get; set; }
+
+        private readonly ResourceDictionary _ThemeDictionary;
+        private bool _isDarkThemeSwitchedOn;
+
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = this;
-            LongPressCommand = new Command(LongPress);
+            ThemeSwitch.Toggled += Switch_Toggled;
+            ControlsCarouselView.ItemAppeared += CarouselView_ItemAppeared;
+            _ThemeDictionary = GetThemeDictionaryFromApp();
         }
-
-        private void LongPress(object obj)
+        private ResourceDictionary GetThemeDictionaryFromApp()
         {
-            throw new NotImplementedException();
+            if (Application.Current is not App app) throw new InvalidCastException();
+            return app.ThemeResourceDictionary;
         }
 
+        #region Switch Theme
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
-            if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
-            if (e.Value)
+            _isDarkThemeSwitchedOn = e.Value;
+            SetDarkThemeOrLightTheme();
+        }
+
+        private void SetDarkThemeOrLightTheme()
+        {
+            if (_ThemeDictionary == null) return;
+            ClearCurrentTheme();
+            if (_isDarkThemeSwitchedOn)
             {
-                Application.Current.UserAppTheme = OSAppTheme.Light;
-                themeMergedDictionary.MergedDictionaries.Add(new LightTheme());
+                SetDarkTheme();
             }
             else
             {
-                Application.Current.UserAppTheme = OSAppTheme.Dark;
-                themeMergedDictionary.MergedDictionaries.Add(new DarkTheme());
+                SetLightTheme();
             }
         }
 
+        private void ClearCurrentTheme()
+        {
+            _ThemeDictionary.MergedDictionaries.Clear();
+        }
 
+        private void SetDarkTheme()
+        {
+            Application.Current.UserAppTheme = OSAppTheme.Dark;
+            _ThemeDictionary.MergedDictionaries.Add(new DarkTheme());
+        }
+
+        private void SetLightTheme()
+        {
+            Application.Current.UserAppTheme = OSAppTheme.Light;
+            _ThemeDictionary.MergedDictionaries.Add(new LightTheme());
+        }
+
+        #endregion
 
         private void CarouselView_ItemAppeared(PanCardView.CardsView view, PanCardView.EventArgs.ItemAppearedEventArgs _)
         {

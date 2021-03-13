@@ -19,13 +19,12 @@
         <Style.Setters>
             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="VerticalOptions" Value="FillAndExpand" />
-            <Setter Property="ColorNormal" Value="{DynamicResource TertiaryColor}" />
-            <Setter Property="ColorRipple" Value="{DynamicResource AccentColor}" />
-            <Setter Property="ColorPressed" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="NormalStateColor" Value="{DynamicResource TertiaryColor}" />
+            <Setter Property="RippleStateColor" Value="{DynamicResource AccentColor}" />
+            <Setter Property="PressedStateColor" Value="{DynamicResource PrimaryColor}" />
             <Setter Property="ControlTemplate">
                 <Setter.Value>
                     <ControlTemplate>
-                        <!--  Change to use absolute layout  -->
                         <AbsoluteLayout x:Name="PART_Root">
                             <Frame
                                 x:Name="PART_DetailFrame"
@@ -34,7 +33,7 @@
                                 AbsoluteLayout.LayoutBounds="0.286, 0.5, 0.15, 0.08"
                                 AbsoluteLayout.LayoutFlags="All"
                                 AnchorX="1"
-                                BackgroundColor="{TemplateBinding ColorNormal}"
+                                BackgroundColor="{TemplateBinding NormalStateColor}"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand"
                                 IsVisible="False"
@@ -45,7 +44,7 @@
                                     FontSize="Small"
                                     HorizontalOptions="Center"
                                     Text="{TemplateBinding Detail}"
-                                    TextColor="{TemplateBinding ColorRipple}" />
+                                    TextColor="{TemplateBinding RippleStateColor}" />
                             </Frame>
 
                             <Frame
@@ -56,11 +55,11 @@
                                 xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
                                 xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
                                 xct:TouchEffect.LongPressDuration="1000"
-                                xct:TouchEffect.NativeAnimationColor="{TemplateBinding ColorRipple}"
+                                xct:TouchEffect.NativeAnimationColor="{TemplateBinding RippleStateColor}"
                                 xct:TouchEffect.NativeAnimationShadowRadius="15"
-                                xct:TouchEffect.NormalBackgroundColor="{TemplateBinding ColorNormal}"
+                                xct:TouchEffect.NormalBackgroundColor="{TemplateBinding NormalStateColor}"
                                 xct:TouchEffect.PressedAnimationDuration="100"
-                                xct:TouchEffect.PressedBackgroundColor="{TemplateBinding ColorPressed}"
+                                xct:TouchEffect.PressedBackgroundColor="{TemplateBinding PressedStateColor}"
                                 xct:TouchEffect.PressedOpacity="0.8"
                                 xct:TouchEffect.PulseCount="2"
                                 AbsoluteLayout.LayoutBounds="0.5, 0.5"
@@ -72,18 +71,11 @@
                                     Text="{TemplateBinding Detail}" />
                             </Frame>
 
-                            <!--<Label
-                                    x:Name="PART_ExtendedLabel"
-                                    AbsoluteLayout.LayoutBounds="0.53, 0.5"
-                                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                                    FontSize="18"
-                                    InputTransparent="True"
-                                    Text="{TemplateBinding Detail}" />-->
                             <Path
-                                x:Name="PART_Path"
+                                x:Name="PART_Icon"
                                 AbsoluteLayout.LayoutBounds="0.5, 0.5"
                                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                                Fill="{TemplateBinding ColorNormal}"
+                                Fill="{TemplateBinding NormalStateColor}"
                                 HeightRequest="16"
                                 HorizontalOptions="Center"
                                 Style="{StaticResource PlusSVG}"
