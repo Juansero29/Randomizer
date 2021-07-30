@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
+    xmlns:f9p="clr-namespace:Forms9Patch;assembly=Forms9Patch"
     xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
@@ -29,20 +30,22 @@
                             <Frame
                                 x:Name="PART_DetailFrame"
                                 Margin="0"
-                                Padding="0"
-                                AbsoluteLayout.LayoutBounds="0.286, 0.5, 0.15, 0.08"
-                                AbsoluteLayout.LayoutFlags="All"
+                                Padding="5"
+                                AbsoluteLayout.LayoutBounds="0.24, 0.5, AutoSize, AutoSize"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
                                 AnchorX="1"
                                 BackgroundColor="{TemplateBinding NormalStateColor}"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand"
                                 IsVisible="False"
                                 VerticalOptions="FillAndExpand">
-                                <Label
+                                <f9p:Label
                                     Margin="0"
                                     Padding="0"
                                     FontSize="Small"
                                     HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    LineBreakMode="WordWrap"
                                     Text="{TemplateBinding Detail}"
                                     TextColor="{TemplateBinding RippleStateColor}" />
                             </Frame>
@@ -54,7 +57,7 @@
                                 xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
                                 xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
                                 xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
-                                xct:TouchEffect.LongPressDuration="1000"
+                                xct:TouchEffect.LongPressDuration="800"
                                 xct:TouchEffect.NativeAnimationColor="{TemplateBinding RippleStateColor}"
                                 xct:TouchEffect.NativeAnimationShadowRadius="15"
                                 xct:TouchEffect.NormalBackgroundColor="{TemplateBinding NormalStateColor}"

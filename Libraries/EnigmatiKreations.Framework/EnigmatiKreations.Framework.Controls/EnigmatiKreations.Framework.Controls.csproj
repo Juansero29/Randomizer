@@ -55,6 +55,7 @@
 
     <!--NuGet packages for all platforms-->
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Forms9Patch" Version="2.4.9" />
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->

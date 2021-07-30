@@ -12,9 +12,8 @@ namespace ControlsGallery
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
             ThemeResourceDictionary = GetCurrentThemesResourceDictionary();
+            MainPage = new MainPage();
         }
 
         private ResourceDictionary GetCurrentThemesResourceDictionary()

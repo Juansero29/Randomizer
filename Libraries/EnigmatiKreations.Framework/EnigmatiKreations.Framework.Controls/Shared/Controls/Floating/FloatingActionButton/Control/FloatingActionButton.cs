@@ -8,13 +8,12 @@ using Xamarin.Forms.Shapes;
 
 namespace EnigmatiKreations.Framework.Controls.Floating
 {
-
     public class FloatingActionButton : ContentView
     {
 
         #region Private Fields
         private readonly uint _rotationDurationInMiliseconds = 450;
-        private readonly Easing _rotationAnimationEasing = Easing.SpringIn; 
+        private readonly Easing _rotationAnimationEasing = Easing.SpringIn;
         #endregion
 
         #region Template Parts
@@ -37,15 +36,16 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         #endregion
 
         #region Bindable Properties
+
         #region Detail
         public static readonly BindableProperty DetailProperty = BindableProperty.Create(nameof(Detail), typeof(string), typeof(FloatingActionButton), propertyChanged: (obj, old, newV) =>
         {
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is string)) return;
-            me?.SetDetailDependingOnSize();
+            me?.SetButtonContentDependingOnSize();
         });
 
-        private void SetDetailDependingOnSize()
+        private void SetButtonContentDependingOnSize()
         {
             if (!AreButtonAndContentCorrect()) return;
             (ButtonPart.Content as Label).Text = Size == FloatingActionButtonSize.Extended ? Detail : string.Empty;
@@ -57,7 +57,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             if (ButtonPart.Content is not Label) return false;
             return true;
         }
-
 
         public string Detail
         {
@@ -162,7 +161,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             var me = obj as FloatingActionButton;
             if (newV != null && !(newV is FloatingActionButtonSize)) return;
             me.ApplyCurrentSize();
-            me.SetDetailDependingOnSize();
+            me.SetButtonContentDependingOnSize();
         });
 
         public FloatingActionButtonSize Size
@@ -344,11 +343,11 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             AbsoluteLayout.SetLayoutFlags(ButtonPart, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(ButtonPart, new Xamarin.Forms.Rectangle(0.5, 0.5, 0.35, 0.1));
             AbsoluteLayout.SetLayoutBounds(IconPath, new Xamarin.Forms.Rectangle(0.38, 0.5, 16, 16));
+            ButtonPart.Padding = new Thickness(left:30, 0, 0, 0);
             ButtonPart.CornerRadius = 80;
         }
 
         #endregion
-
 
         #region Events
         public event EventHandler<EventArgs> Clicked;
@@ -359,5 +358,4 @@ namespace EnigmatiKreations.Framework.Controls.Floating
 
         #endregion
     }
-
 }

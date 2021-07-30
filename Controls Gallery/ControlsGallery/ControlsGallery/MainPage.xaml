@@ -28,7 +28,7 @@
             <cards:CarouselView.ItemsSource>
                 <x:Array Type="{x:Type View}">
 
-                    <floating:FloatingActionButton Detail="MON BOUTON" Size="Normal" />
+                    <floating:FloatingActionButton Detail="Add New List" Size="Mini" />
 
                     <Path
                         Fill="{DynamicResource AccentBrush}"
