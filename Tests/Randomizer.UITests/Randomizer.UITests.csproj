@@ -33,8 +33,8 @@
     <PackageReference Include="FluentAssertions">
       <Version>5.10.3</Version>
     </PackageReference>
-    <PackageReference Include="NUnit" Version="3.13.1" />
-    <PackageReference Include="Xamarin.UITest" Version="3.0.14" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="Xamarin.UITest" Version="3.1.0" />
     <PackageReference Include="NUnitTestAdapter" Version="2.3.0" />
   </ItemGroup>
   <ItemGroup>

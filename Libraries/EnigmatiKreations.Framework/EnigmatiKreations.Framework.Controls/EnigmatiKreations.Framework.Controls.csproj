@@ -51,7 +51,7 @@
 
     <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.3" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
 
     <!--NuGet packages for all platforms-->
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />

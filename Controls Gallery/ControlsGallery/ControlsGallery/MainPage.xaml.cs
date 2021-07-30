@@ -23,9 +23,16 @@ namespace ControlsGallery
         {
             InitializeComponent();
             ThemeSwitch.Toggled += Switch_Toggled;
-            ControlsCarouselView.ItemAppeared += CarouselView_ItemAppeared;
+            ControlsCarouselView.ItemAppearing += ControlsCarouselView_ItemAppearing; ;
             _ThemeDictionary = GetThemeDictionaryFromApp();
         }
+
+        private void ControlsCarouselView_ItemAppearing(PanCardView.CardsView view, PanCardView.EventArgs.ItemAppearingEventArgs args)
+        {
+            CurrentControlType = view.CurrentView.GetType().ToString();
+            OnPropertyChanged(nameof(CurrentControlType));
+        }
+
         private ResourceDictionary GetThemeDictionaryFromApp()
         {
             if (Application.Current is not App app) throw new InvalidCastException();
@@ -72,10 +79,6 @@ namespace ControlsGallery
 
         #endregion
 
-        private void CarouselView_ItemAppeared(PanCardView.CardsView view, PanCardView.EventArgs.ItemAppearedEventArgs _)
-        {
-            CurrentControlType = view.CurrentView.GetType().ToString();
-            OnPropertyChanged(nameof(CurrentControlType));
-        }
+
     }
 }
