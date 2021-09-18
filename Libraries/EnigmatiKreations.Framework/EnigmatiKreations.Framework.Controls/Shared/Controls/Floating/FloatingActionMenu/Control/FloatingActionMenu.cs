@@ -1,10 +1,4 @@
-﻿// ========================================================================
-// Module       : NomadMobile - Source File
-// Author       : Juan Rodríguez
-// Creation date: 2018-05-25
-// ========================================================================
-
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -12,16 +6,11 @@ using Xamarin.Forms;
 namespace EnigmatiKreations.Framework.Controls.Floating
 {
     /// <summary>
-    /// A class representing a Floating Action Menu. This is a FAB that can contain and show other Floating Action Menu
+    /// A class representing a Floating Action Menu. This is a FAB that can contain and show other Floating Action Buttons <see cref="FloatingActionButton"/>
     /// </summary>
     /// <seealso cref="FAB"/>
     public class FloatingActionMenu : View
     {
-
-        #region Private Fields
-        private bool _isOpened;
-        #endregion
-
         #region Children
         public static readonly BindableProperty ChildrenProperty = BindableProperty.Create(nameof(Children), typeof(ObservableCollection<FloatingActionButton>), typeof(FloatingActionMenu), propertyChanged: (obj, old, newV) =>
         {
@@ -78,22 +67,24 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             MenuButtonClicked?.Invoke(this, new FABMenuIndexChangedArgs("MenuButtonClicked", IsOpened));
         }
-
-
         #endregion
 
+        #region Properties
         /// <summary>
         /// A property indicating if the FAB Menu is open or not
         /// </summary>
+        private bool _isOpened;
+        /// 
         public bool IsOpened
         {
-            get { return _isOpened; }
+            get => _isOpened;
             set
             {
                 _isOpened = value;
                 OnPropertyChanged();
             }
         }
+        #endregion
 
         #region Constructor
 

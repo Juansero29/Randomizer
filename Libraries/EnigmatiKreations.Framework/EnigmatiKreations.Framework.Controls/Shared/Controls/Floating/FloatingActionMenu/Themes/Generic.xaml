@@ -5,6 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating">
 
-    <Style TargetType="floating:FloatingActionMenu" />
+    <Style TargetType="floating:FloatingActionMenu">
+        <Style.Setters>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+        </Style.Setters>
+    </Style>
 
 </ResourceDictionary>

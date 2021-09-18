@@ -8,6 +8,9 @@ using Xamarin.Forms.Shapes;
 
 namespace EnigmatiKreations.Framework.Controls.Floating
 {
+    /// <summary>
+    /// A highly customizable floating action button with different sizes <see cref="FloatingActionButtonSize"/> and a detail text that appears when long pressed
+    /// </summary>
     public class FloatingActionButton : ContentView
     {
 

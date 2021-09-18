@@ -21,7 +21,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         /// </summary>
         public readonly int EventIndex;
 
-        public readonly string EventDesc;
+        public readonly string EventDescription;
 
         public readonly object CastObject;
 
@@ -54,7 +54,7 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         {
             EventName = eventName;
             EventIndex = eventIndex;
-            EventDesc = desc;
+            EventDescription = desc;
         }
     }
 
