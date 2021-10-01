@@ -72,7 +72,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlsGallery.Android", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlsGallery.iOS", "Controls Gallery\ControlsGallery\ControlsGallery.iOS\ControlsGallery.iOS.csproj", "{D8B13645-CDCB-4C96-A0F4-3D189112F02C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlsGallery", "Controls Gallery\ControlsGallery\ControlsGallery\ControlsGallery.csproj", "{56ACE976-BAB0-45DC-80C6-3567F8CC8B31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlsGallery", "Controls Gallery\ControlsGallery\ControlsGallery\ControlsGallery.csproj", "{56ACE976-BAB0-45DC-80C6-3567F8CC8B31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{C922E52E-F199-4F92-BF67-9A8856850B56}"
 EndProject
