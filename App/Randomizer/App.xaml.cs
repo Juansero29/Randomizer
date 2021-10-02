@@ -29,13 +29,16 @@ namespace Randomizer
         public App()
         {
             InitializeComponent();
-            MainPage = new AppShellPage();
+            SvgImageSource.RegisterAssembly();
             SetCurrentLanguage();
             SetCurrentTheme();
-            RegisterServicesInContainer();
-            (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
             PrintEmbeddedResources();
-            SvgImageSource.RegisterAssembly();
+
+
+            MainPage = new AppShellPage();
+            RegisterServicesInContainer();
+
+            (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
         }
 
         private void SetCurrentTheme()

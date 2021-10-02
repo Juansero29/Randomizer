@@ -218,15 +218,16 @@ namespace EnigmatiKreations.Framework.Controls.Floating
             // call to OnPropertyChanged because the constructor gets called after OnApplyTemplate
             OnPropertyChanged(nameof(LongPressCommand));
             OnPropertyChanged(nameof(ButtonClickedCommand));
-
-            ApplyCurrentSize();
         }
 
         protected override void OnApplyTemplate()
         {
             // somehow, this is called before the constructor
             base.OnApplyTemplate();
+
             GetTemplateChilds();
+
+            ApplyCurrentSize();
         }
 
         private void GetTemplateChilds()

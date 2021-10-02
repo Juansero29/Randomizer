@@ -11,6 +11,7 @@
                 <Controls:Themes />
                 <Controls:Templates />
                 <Controls:Icons />
+                <Controls:GenericControls />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

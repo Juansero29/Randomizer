@@ -41,7 +41,11 @@
 
         <Tab Title="{i18:Translate ResourceKey=HomePageTitle}" TabIndex="0">
             <Tab.Icon>
-                home_white.png
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="home.svg"
+                    Color="White" />
             </Tab.Icon>
             <ShellContent Route="home">
                 <Pages:HomePage />
@@ -49,20 +53,28 @@
         </Tab>
 
 
-        <Tab
-            Title="{i18:Translate ResourceKey=SettingsPageTitle}"
-            Icon="settings_white.png"
-            TabIndex="1">
+        <Tab Title="{i18:Translate ResourceKey=SettingsPageTitle}" TabIndex="1">
+            <Tab.Icon>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="cog.svg"
+                    Color="White" />
+            </Tab.Icon>
             <ShellContent Route="settings">
                 <Pages:SettingsPage />
             </ShellContent>
         </Tab>
 
 
-        <Tab
-            Title="{i18:Translate ResourceKey=AboutPageTitle}"
-            Icon="information_white.png"
-            TabIndex="2">
+        <Tab Title="{i18:Translate ResourceKey=AboutPageTitle}" TabIndex="2">
+            <Tab.Icon>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="information.svg"
+                    Color="White" />
+            </Tab.Icon>
             <ShellContent Route="about">
                 <ContentPage>
                     <Label Text="{i18:Translate ResourceKey=NothingHereLabel}" />
