@@ -73,7 +73,8 @@ namespace Randomizer
         {
             try
             {
-                var ci = DependencyService.Get<ILocalizationService>().GetCurrentCultureInfo();
+                var localizationService = DependencyService.Get<ILocalizationService>();
+                var ci = localizationService.GetCurrentCultureInfo();
                 TextResources.Culture = ci;
                 DependencyService.Get<ILocalizationService>().SetLocale(ci); // set the Thread for locale-aware methods
             }

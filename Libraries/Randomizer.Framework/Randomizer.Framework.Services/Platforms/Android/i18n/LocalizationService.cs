@@ -4,10 +4,10 @@ using System.Globalization;
 using System.Threading;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(Localize))]
+[assembly: Dependency(typeof(LocalizationService))]
 namespace Randomizer.Framework.Services.Platforms.Droid.i18n
 {
-    public class Localize : ILocalizationService
+    public class LocalizationService : ILocalizationService
     {
         public void SetLocale(CultureInfo ci)
         {

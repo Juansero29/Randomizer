@@ -10,7 +10,7 @@ namespace Randomizer.Framework.Services.Platforms.iOS
     {
         public static void Init()
         {
-            System.Diagnostics.Debug.WriteLine($"Initialized{typeof(i18n.Localize)}");
+            System.Diagnostics.Debug.WriteLine($"Initialized{typeof(i18n.LocalizationService)}");
         }
     }
 }
