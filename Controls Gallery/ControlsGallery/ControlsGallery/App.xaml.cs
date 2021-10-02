@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Xamarin.Forms;
+using Xamarin.Forms.Svg;
 using Xamarin.Forms.Xaml;
 
 namespace ControlsGallery
@@ -13,6 +14,7 @@ namespace ControlsGallery
         {
             InitializeComponent();
             ThemeResourceDictionary = GetCurrentThemesResourceDictionary();
+            SvgImageSource.RegisterAssembly();
             MainPage = new MainPage();
         }
 

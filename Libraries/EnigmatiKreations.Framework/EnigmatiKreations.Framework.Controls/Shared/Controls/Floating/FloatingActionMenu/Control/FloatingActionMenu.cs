@@ -74,7 +74,6 @@ namespace EnigmatiKreations.Framework.Controls.Floating
         /// A property indicating if the FAB Menu is open or not
         /// </summary>
         private bool _isOpened;
-        /// 
         public bool IsOpened
         {
             get => _isOpened;

@@ -28,6 +28,8 @@ namespace Randomizer.Droid
 
             Randomizer.Framework.Services.Platforms.Droid.Tools.Init();
             EnigmatiKreations.Framework.Controls.Platforms.Droid.Tools.Init();
+            Xamarin.Forms.Svg.Droid.SvgImage.Init(this); 
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 

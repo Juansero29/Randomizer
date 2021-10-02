@@ -13,13 +13,13 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <x:String x:Key="PlusPathData">M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z</x:String>
+
 
     <Style
         x:Key="PlusSVG"
         BasedOn="{StaticResource BaseSVGStyle}"
         TargetType="Path">
-        <Setter Property="Data" Value="{StaticResource PlusPathData}" />
+        <Setter Property="Data" Value="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
         <Setter Property="HeightRequest" Value="64" />
     </Style>
 

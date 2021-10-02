@@ -1,10 +1,4 @@
-﻿// ========================================================================
-// Module       : NomadMobile - Source File
-// Author       : Juan Rodríguez
-// Creation date: 2018-05-25
-// ========================================================================
-
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;

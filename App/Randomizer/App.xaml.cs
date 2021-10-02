@@ -20,6 +20,7 @@ using EnigmatiKreations.Framework.Controls;
 using EnigmatiKreations.Framework.Utils;
 using System.Reflection;
 using System.Diagnostics;
+using Xamarin.Forms.Svg;
 
 namespace Randomizer
 {
@@ -34,6 +35,7 @@ namespace Randomizer
             RegisterServicesInContainer();
             (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
             PrintEmbeddedResources();
+            SvgImageSource.RegisterAssembly();
         }
 
         private void SetCurrentTheme()

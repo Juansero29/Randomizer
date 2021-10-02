@@ -6,6 +6,7 @@
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating;assembly=EnigmatiKreations.Framework.Controls"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="this"
     BackgroundColor="{DynamicResource PrimaryColor}">
@@ -28,7 +29,7 @@
             <cards:CarouselView.ItemsSource>
                 <x:Array Type="{x:Type View}">
 
-                    <floating:FloatingActionButton Detail="Add New List" Size="Mini" />
+                    <floating:FloatingActionButton Detail="Add New List" Size="Normal" />
 
                     <Path
                         Fill="{DynamicResource AccentBrush}"
@@ -82,6 +83,16 @@
                                 VerticalOptions="Center" />
                         </controls:FABMenu.Children>
                     </controls:FABMenu>
+
+                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image.Source>
+                            <svg:SvgImageSource
+                                Width="1000"
+                                Height="1000"
+                                Source="home.svg"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
                 </x:Array>
             </cards:CarouselView.ItemsSource>
 

@@ -4,7 +4,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Pages="clr-namespace:Randomizer.Pages"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     x:Name="shell"
     Title="Randomizer"
     BackgroundColor="#212121"
@@ -36,10 +39,10 @@
     <!--  Your Pages  -->
     <FlyoutItem TabIndex="0">
 
-        <Tab
-            Title="{i18:Translate ResourceKey=HomePageTitle}"
-            Icon="home_white.png"
-            TabIndex="0">
+        <Tab Title="{i18:Translate ResourceKey=HomePageTitle}" TabIndex="0">
+            <Tab.Icon>
+                home_white.png
+            </Tab.Icon>
             <ShellContent Route="home">
                 <Pages:HomePage />
             </ShellContent>

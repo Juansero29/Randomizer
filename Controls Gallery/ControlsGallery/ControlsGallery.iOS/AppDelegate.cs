@@ -24,6 +24,7 @@ namespace ControlsGallery.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
             EnigmatiKreations.Framework.Controls.Platforms.iOS.Tools.Init();
+            Xamarin.Forms.Svg.iOS.SvgImage.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
