@@ -10,6 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <Controls:Themes />
                 <Controls:Templates />
+                <Controls:Icons />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

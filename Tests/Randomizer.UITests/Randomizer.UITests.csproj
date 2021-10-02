@@ -41,5 +41,10 @@
     <Compile Include="HomePageUITests.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

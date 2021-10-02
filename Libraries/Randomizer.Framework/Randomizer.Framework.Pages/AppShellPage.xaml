@@ -9,7 +9,7 @@
     Title="Randomizer"
     BackgroundColor="#212121"
     FlyoutBackgroundColor="#212121"
-    FlyoutBehavior="Disabled">
+    FlyoutBehavior="Flyout">
 
     <!--
         Shell is an all new way to quickly get started with your application. There are 3 levels to a Shell app:
@@ -27,6 +27,9 @@
         
         Thanks for trying out this preview!
         - David Ortinau, Senior Program Manager for Mobile Dev Tools [david.ortinau@microsoft.com]
+        
+        
+        https://stackoverflow.com/questions/65400688/xamarin-forms-how-can-i-change-the-flyoutitem-icons-color-when-it-is-selected
     -->
 
 

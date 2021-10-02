@@ -17,6 +17,9 @@ using System.Globalization;
 using Randomizer.Framework.Pages.Navigation;
 using System.Linq;
 using EnigmatiKreations.Framework.Controls;
+using EnigmatiKreations.Framework.Utils;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Randomizer
 {
@@ -30,7 +33,7 @@ namespace Randomizer
             SetCurrentTheme();
             RegisterServicesInContainer();
             (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
-            
+            PrintEmbeddedResources();
         }
 
         private void SetCurrentTheme()
@@ -40,7 +43,7 @@ namespace Randomizer
                 Current.UserAppTheme = OSAppTheme.Dark;
             }
 
-            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
+            var themeMergedDictionary = Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
             if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
             if (Current.UserAppTheme == OSAppTheme.Light)
             {
@@ -98,6 +101,18 @@ namespace Randomizer
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        public static void PrintEmbeddedResources()
+        {
+#if DEBUG
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            var embeddedResources = "Embedded Resources:" + Environment.NewLine;
+            foreach (var resourceName in assembly.GetManifestResourceNames())
+            {
+                Debug.WriteLine("Found Resource: " + resourceName);
+            }
+#endif
         }
     }
 }
