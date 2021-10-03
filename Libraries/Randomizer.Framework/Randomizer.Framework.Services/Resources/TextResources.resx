@@ -126,11 +126,11 @@
     <comment>The app's name</comment>
   </data>
   <data name="EnterAnItemPlaceholder" xml:space="preserve">
-    <value>Enter an item...</value>
+    <value>Enter an item</value>
     <comment>A placeholder label suggesting the user to enter an item's name</comment>
   </data>
   <data name="EnterListNamePlaceholder" xml:space="preserve">
-    <value>Enter your list's name...</value>
+    <value>Enter list name</value>
     <comment>A placeholder label suggesting the user to enter their list's name</comment>
   </data>
   <data name="ErrorAddingItem" xml:space="preserve">

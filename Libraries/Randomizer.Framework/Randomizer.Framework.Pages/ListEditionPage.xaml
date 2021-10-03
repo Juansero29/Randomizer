@@ -8,6 +8,7 @@
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    xmlns:rainbows="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
     xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     x:Name="this"
     Title="{Binding Title}"
@@ -65,18 +66,30 @@
 
     <!--  Page content  -->
     <ContentPage.Content>
-        <StackLayout Padding="16" BackgroundColor="{DynamicResource TertiaryColor}">
+        <Grid
+            Padding="16"
+            BackgroundColor="{DynamicResource TertiaryColor}"
+            HorizontalOptions="StartAndExpand"
+            VerticalOptions="StartAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
             <Entry
+                Grid.Row="0"
                 FontSize="20"
-                HorizontalOptions="StartAndExpand"
+                HorizontalOptions="CenterAndExpand"
                 Placeholder="{i18:Translate ResourceKey=EnterListNamePlaceholder}"
                 PlaceholderColor="WhiteSmoke"
+                ReturnType="Next"
                 Text="{Binding ListVM.Name, Mode=TwoWay}"
                 TextColor="White" />
 
             <CollectionView
                 x:Name="ItemsList"
+                Grid.Row="1"
                 HorizontalOptions="StartAndExpand"
                 ItemsSource="{Binding ListVM.ItemsVM}"
                 VerticalOptions="Start">
@@ -112,7 +125,9 @@
 
             <Entry
                 x:Name="ItemEntry"
+                Grid.Row="2"
                 HorizontalOptions="StartAndExpand"
+                MinimumWidthRequest="300"
                 Placeholder="{i18:Translate ResourceKey=EnterAnItemPlaceholder}"
                 PlaceholderColor="{DynamicResource TertiaryColor}"
                 ReturnCommand="{Binding AddItemCommand}"
@@ -120,21 +135,23 @@
                 ReturnType="Next"
                 Text="{Binding ItemEntryText, Mode=TwoWay}"
                 TextColor="{DynamicResource AccentColor}">
-                <Entry.Keyboard>
+                <!--<Entry.Keyboard>
                     <Keyboard x:FactoryMethod="Create">
                         <x:Arguments>
                             <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
                         </x:Arguments>
                     </Keyboard>
-                </Entry.Keyboard>
+                </Entry.Keyboard>-->
             </Entry>
 
             <Button
+                Grid.RowSpan="3"
                 Command="{Binding RandomizeCommand}"
-                HorizontalOptions="StartAndExpand"
-                Text="{i18:Translate ResourceKey=RandomizeLabel}" />
+                HorizontalOptions="End"
+                Text="{i18:Translate ResourceKey=RandomizeLabel}"
+                VerticalOptions="End" />
 
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 
 </ContentPage>

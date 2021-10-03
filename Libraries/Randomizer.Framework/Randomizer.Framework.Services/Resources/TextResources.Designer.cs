@@ -79,7 +79,7 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter an item....
+        ///   Looks up a localized string similar to Enter an item.
         /// </summary>
         public static string EnterAnItemPlaceholder {
             get {
@@ -88,7 +88,7 @@ namespace Randomizer.Framework.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your list&apos;s name....
+        ///   Looks up a localized string similar to Enter list name.
         /// </summary>
         public static string EnterListNamePlaceholder {
             get {
