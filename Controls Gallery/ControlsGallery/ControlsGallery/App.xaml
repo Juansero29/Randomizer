@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="ControlsGallery.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!--  Imports the app themes (color palettes, and default styles for native controls)  -->
+                <!--  Every other template and control depends on this import  -->
+                <Controls:Themes />
+
+                <!--  Imports data templates and templates to be reused across the app  -->
+                <!--  They themselves make use of themes  -->
+                <Controls:Templates />
+
+                <!--  Imports XAML styles and templates for custom controls, templated controls and inherited controls from the app  -->
+                <!--  They themselves make use of templates and themes  -->
+                <Controls:GenericControls />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <!--  Default is set apart to identify it easily when changing it dynamically with switch  -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <Controls:DarkTheme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

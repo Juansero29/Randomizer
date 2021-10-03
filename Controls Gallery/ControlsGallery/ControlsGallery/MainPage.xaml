@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ControlsGallery.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls;assembly=EnigmatiKreations.Framework.Controls"
+    xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating;assembly=EnigmatiKreations.Framework.Controls"
+    xmlns:patchNine="clr-namespace:Forms9Patch;assembly=Forms9Patch"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="this"
+    BackgroundColor="{DynamicResource PrimaryColor}">
+    <ContentPage.BindingContext>
+        <x:Reference Name="this" />
+    </ContentPage.BindingContext>
+
+    <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, *, Auto">
+        <Label Text="Dark Theme" />
+        <Switch
+            x:Name="ThemeSwitch"
+            Grid.Column="1"
+            IsEnabled="True" />
+        <cards:CarouselView
+            x:Name="ControlsCarouselView"
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            HorizontalOptions="FillAndExpand"
+            IsViewReusingEnabled="False">
+            <cards:CarouselView.ItemsSource>
+                <x:Array Type="{x:Type View}">
+
+                    <floating:FloatingActionButton Detail="Add New List" Size="Normal" />
+
+                    <Path
+                        Fill="{DynamicResource AccentBrush}"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PlusSVG}"
+                        VerticalOptions="Center" />
+
+                    <Button
+                        HorizontalOptions="Center"
+                        Text="Xamarin.Forms Button"
+                        VerticalOptions="Center" />
+
+
+
+                    <controls:FAB
+                        ColorNormal="{DynamicResource AccentColor}"
+                        ColorPressed="{DynamicResource TertiaryColor}"
+                        ColorRipple="{DynamicResource PrimaryColor}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                    <controls:FABMenu
+                        ColorNormal="{DynamicResource AccentColor}"
+                        ColorPressed="{DynamicResource TertiaryColor}"
+                        ColorRipple="{DynamicResource PrimaryColor}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <controls:FABMenu.Children>
+                            <controls:FAB
+                                ColorNormal="{DynamicResource AccentColor}"
+                                ColorPressed="{DynamicResource TertiaryColor}"
+                                ColorRipple="{DynamicResource PrimaryColor}"
+                                Detail="Truc"
+                                HorizontalOptions="Center"
+                                Size="Mini"
+                                VerticalOptions="Center" />
+                            <controls:FAB
+                                ColorNormal="{DynamicResource AccentColor}"
+                                ColorPressed="{DynamicResource TertiaryColor}"
+                                ColorRipple="{DynamicResource PrimaryColor}"
+                                Detail="Muche"
+                                HorizontalOptions="Center"
+                                Size="Mini"
+                                VerticalOptions="Center" />
+                            <controls:FAB
+                                ColorNormal="{DynamicResource AccentColor}"
+                                ColorPressed="{DynamicResource TertiaryColor}"
+                                ColorRipple="{DynamicResource PrimaryColor}"
+                                HorizontalOptions="Center"
+                                Size="Mini"
+                                VerticalOptions="Center" />
+                        </controls:FABMenu.Children>
+                    </controls:FABMenu>
+
+                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image.Source>
+                            <svg:SvgImageSource
+                                Width="1000"
+                                Height="1000"
+                                Source="home.svg"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
+
+
+                </x:Array>
+            </cards:CarouselView.ItemsSource>
+
+        </cards:CarouselView>
+        <Label
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="{Binding CurrentControlType}"
+            VerticalOptions="Center" />
+    </Grid>
+
+</ContentPage>

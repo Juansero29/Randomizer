@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceAssemblyReference>true</ProduceAssemblyReference>
   </PropertyGroup>
 
@@ -11,10 +11,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <None Remove="Resources\SVG\check.svg" />
+    <None Remove="Resources\SVG\close-circle.svg" />
+    <None Remove="Resources\SVG\cog.svg" />
+    <None Remove="Resources\SVG\delete.svg" />
+    <None Remove="Resources\SVG\home.svg" />
+    <None Remove="Resources\SVG\information.svg" />
+    <None Remove="Resources\SVG\pencil.svg" />
+    <None Remove="Resources\SVG\plus.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SVG\check.svg" />
+    <EmbeddedResource Include="Resources\SVG\close-circle.svg" />
+    <EmbeddedResource Include="Resources\SVG\cog.svg" />
+    <EmbeddedResource Include="Resources\SVG\delete.svg" />
+    <EmbeddedResource Include="Resources\SVG\home.svg" />
+    <EmbeddedResource Include="Resources\SVG\information.svg" />
+    <EmbeddedResource Include="Resources\SVG\pencil.svg" />
+    <EmbeddedResource Include="Resources\SVG\plus.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />  
+    <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

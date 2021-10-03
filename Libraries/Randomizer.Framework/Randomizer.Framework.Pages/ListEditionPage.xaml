@@ -8,6 +8,7 @@
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     x:Name="this"
     Title="{Binding Title}"
     Background="{DynamicResource PrimaryColor}">
@@ -27,26 +28,38 @@
 
     <!--  Toolbar items  -->
     <ContentPage.ToolbarItems>
-
         <Controls:ToolbarItem
             Name="DeleteListMenuItem"
             Command="{Binding DeleteListCommand}"
-            IconImageSource="closed_circle_white.png"
             IsVisible="{Binding ShowDeleteListToolbarItem}"
             Order="Secondary"
             Priority="1"
             Text="Delete"
-            ToolbarParent="{x:Reference this}" />
-
+            ToolbarParent="{x:Reference this}">
+            <Controls:ToolbarItem.IconImageSource>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="close-circle.svg"
+                    Color="White" />
+            </Controls:ToolbarItem.IconImageSource>
+        </Controls:ToolbarItem>
         <Controls:ToolbarItem
             Name="SaveListMenuItem"
             Command="{Binding SaveListCommand}"
-            IconImageSource="check_white.png"
             IsVisible="{Binding IsNew}"
             Order="Primary"
             Priority="2"
             Text="Save"
-            ToolbarParent="{x:Reference this}" />
+            ToolbarParent="{x:Reference this}">
+            <Controls:ToolbarItem.IconImageSource>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="check.svg"
+                    Color="White" />
+            </Controls:ToolbarItem.IconImageSource>
+        </Controls:ToolbarItem>
 
     </ContentPage.ToolbarItems>
 
@@ -79,9 +92,15 @@
                             <Image
                                 Margin="8,0,0,0"
                                 MinimumHeightRequest="32"
-                                Source="closed_circle_white.png"
                                 VerticalOptions="Center"
                                 WidthRequest="32">
+                                <Image.Source>
+                                    <svg:SvgImageSource
+                                        Width="30"
+                                        Height="30"
+                                        Source="close-circle.svg"
+                                        Color="White" />
+                                </Image.Source>
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.ListVM.RemoveItemCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
                                 </Image.GestureRecognizers>

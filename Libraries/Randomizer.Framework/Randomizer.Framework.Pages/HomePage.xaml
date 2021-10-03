@@ -10,9 +10,11 @@
     xmlns:behaviors="clr-namespace:EnigmatiKreations.Framework.Utils.Behaviors;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
     xmlns:lifecycle="clr-namespace:EnigmatiKreations.Framework.Controls.Shared.Behaviors;assembly=EnigmatiKreations.Framework.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     x:Name="this"
     BackgroundColor="{DynamicResource PrimaryColor}"
     mc:Ignorable="d">
@@ -40,11 +42,12 @@
                 x:Name="grid"
                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                 AbsoluteLayout.LayoutFlags="All">
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+
+
 
                 <!--  Page 'title label  -->
                 <StackLayout
@@ -108,18 +111,13 @@
 
             </Grid>
 
-            <!--  Floating Action Button  -->
-            <Controls:FAB
-                Margin="16"
+            <floating:FloatingActionButton
+                Margin="24"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AutomationId="FloatingButton"
                 ClickedCommand="{Binding NewRandomizerListCommand}"
-                ColorNormal="{DynamicResource PrimaryColor}"
-                ColorPressed="{DynamicResource TertiaryColor}"
-                ColorRipple="{DynamicResource AccentColor}"
-                HasShadow="True"
-                ImageName="plus_white.png" />
+                Size="Normal" />
 
         </AbsoluteLayout>
 

@@ -11,7 +11,7 @@ namespace Randomizer.Framework.Services.Platforms.Droid
     {
         public static void Init()
         {
-            System.Diagnostics.Debug.WriteLine($"Initialized {typeof(Localize)}");
+            System.Diagnostics.Debug.WriteLine($"Initialized {typeof(LocalizationService)}");
         }
     }
 }

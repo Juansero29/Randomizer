@@ -17,6 +17,10 @@ using System.Globalization;
 using Randomizer.Framework.Pages.Navigation;
 using System.Linq;
 using EnigmatiKreations.Framework.Controls;
+using EnigmatiKreations.Framework.Utils;
+using System.Reflection;
+using System.Diagnostics;
+using Xamarin.Forms.Svg;
 
 namespace Randomizer
 {
@@ -25,12 +29,16 @@ namespace Randomizer
         public App()
         {
             InitializeComponent();
-            MainPage = new AppShellPage();
+            SvgImageSource.RegisterAssembly();
             SetCurrentLanguage();
             SetCurrentTheme();
+            PrintEmbeddedResources();
+
+
+            MainPage = new AppShellPage();
             RegisterServicesInContainer();
+
             (Container.Resolve<INavigationService>().GetCurrentPage().BindingContext as BasePageViewModel).LoadCommand.Execute(null);
-            
         }
 
         private void SetCurrentTheme()
@@ -40,7 +48,7 @@ namespace Randomizer
                 Current.UserAppTheme = OSAppTheme.Dark;
             }
 
-            var themeMergedDictionary = Application.Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
+            var themeMergedDictionary = Current.Resources.MergedDictionaries.Where(d => d.MergedDictionaries.Count == 1).FirstOrDefault();
             if (themeMergedDictionary != null) themeMergedDictionary.MergedDictionaries.Clear();
             if (Current.UserAppTheme == OSAppTheme.Light)
             {
@@ -70,7 +78,8 @@ namespace Randomizer
         {
             try
             {
-                var ci = DependencyService.Get<ILocalizationService>().GetCurrentCultureInfo();
+                var localizationService = DependencyService.Get<ILocalizationService>();
+                var ci = localizationService.GetCurrentCultureInfo();
                 TextResources.Culture = ci;
                 DependencyService.Get<ILocalizationService>().SetLocale(ci); // set the Thread for locale-aware methods
             }
@@ -98,6 +107,18 @@ namespace Randomizer
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        public static void PrintEmbeddedResources()
+        {
+#if DEBUG
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            var embeddedResources = "Embedded Resources:" + Environment.NewLine;
+            foreach (var resourceName in assembly.GetManifestResourceNames())
+            {
+                Debug.WriteLine("Found Resource: " + resourceName);
+            }
+#endif
         }
     }
 }

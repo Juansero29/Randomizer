@@ -13,7 +13,7 @@
 
     
     <!--The frameworks we're targeting-->
-    <TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
 
     <!--Assembly and Namespace info -->
     <RootNamespace>EnigmatiKreations.Framework.Controls</RootNamespace>
@@ -53,7 +53,10 @@
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 
     <!--NuGet packages for all platforms-->
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Forms9Patch" Version="2.4.9" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
+    
 
     <!--Project references for all platforms-->
     <!-- <ProjectReference Include="..\..\..\Framework\Company.SomeLibrary.csproj" /> -->
@@ -74,7 +77,7 @@
     <Compile Include="Shared\**\*.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
   </ItemGroup>
 
   <!--Do this exclusively for Android-->
@@ -107,12 +110,16 @@
     </Content>-->
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Shared\Controls\Floating\FloatingActionMenu\Control\FABMenuIndexChangedArgs.cs" />
     <Compile Remove="Shared\Themes.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Platforms\Android\Shell\RandomizerShellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Shared\Icons\Icons.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Shared\Themes\LightTheme.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -127,12 +134,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Shared\Themes\LightTheme.cs">
+    <Compile Update="Shared\Controls\Floating\FloatingActionMenu\Themes\Generic.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="Shared\Themes\DarkTheme.cs">
+    <Compile Update="Shared\Controls\GenericControls.xaml.cs">
+      <DependentUpon>GenericControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Shared\Icons\Icons.xaml.cs">
+      <DependentUpon>Icons.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Shared\Themes\LightTheme.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <Compile Update="Shared\Themes\DarkTheme.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\Icons\Themes.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\Controls\Floating\FloatingActionMenu\Themes\Generic.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Shared\Controls\Generic.xaml.cs" />
   </ItemGroup>
 
 </Project>

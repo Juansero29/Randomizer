@@ -19,9 +19,8 @@ namespace Randomizer.Framework.Services.Navigation
 {
     public class ShellNavigationService : INavigationService
     {
-        #region Private Fields
 
-        private Page _CurrentPage;
+        #region Private Fields
         private NavigableElement _NavigationRoot;
         private Shell _Shell;
 

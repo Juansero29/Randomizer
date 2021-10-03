@@ -3,6 +3,7 @@
     x:Class="Randomizer.Pages.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     x:Name="Page"
     BackgroundColor="{DynamicResource PrimaryColor}">
     <ContentPage.Content>
@@ -12,14 +13,16 @@
             VerticalOptions="FillAndExpand">
 
             <Grid
-                
                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                 AbsoluteLayout.LayoutFlags="All"
                 VerticalOptions="Center">
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+
+
                 <Label
                     Grid.Row="0"
                     HorizontalOptions="Center"

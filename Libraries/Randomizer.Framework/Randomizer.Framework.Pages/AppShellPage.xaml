@@ -4,12 +4,15 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Pages="clr-namespace:Randomizer.Pages"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18="clr-namespace:Randomizer.Framework.Services.Shared.Localization;assembly=Randomizer.Framework.Services"
+    xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
     x:Name="shell"
     Title="Randomizer"
     BackgroundColor="#212121"
     FlyoutBackgroundColor="#212121"
-    FlyoutBehavior="Disabled">
+    FlyoutBehavior="Flyout">
 
     <!--
         Shell is an all new way to quickly get started with your application. There are 3 levels to a Shell app:
@@ -27,36 +30,51 @@
         
         Thanks for trying out this preview!
         - David Ortinau, Senior Program Manager for Mobile Dev Tools [david.ortinau@microsoft.com]
+        
+        
+        https://stackoverflow.com/questions/65400688/xamarin-forms-how-can-i-change-the-flyoutitem-icons-color-when-it-is-selected
     -->
 
 
     <!--  Your Pages  -->
     <FlyoutItem TabIndex="0">
 
-        <Tab
-            Title="{i18:Translate ResourceKey=HomePageTitle}"
-            Icon="home_white.png"
-            TabIndex="0">
+        <Tab Title="{i18:Translate ResourceKey=HomePageTitle}" TabIndex="0">
+            <Tab.Icon>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="home.svg"
+                    Color="White" />
+            </Tab.Icon>
             <ShellContent Route="home">
                 <Pages:HomePage />
             </ShellContent>
         </Tab>
 
 
-        <Tab
-            Title="{i18:Translate ResourceKey=SettingsPageTitle}"
-            Icon="settings_white.png"
-            TabIndex="1">
+        <Tab Title="{i18:Translate ResourceKey=SettingsPageTitle}" TabIndex="1">
+            <Tab.Icon>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="cog.svg"
+                    Color="White" />
+            </Tab.Icon>
             <ShellContent Route="settings">
                 <Pages:SettingsPage />
             </ShellContent>
         </Tab>
 
 
-        <Tab
-            Title="{i18:Translate ResourceKey=AboutPageTitle}"
-            Icon="information_white.png"
-            TabIndex="2">
+        <Tab Title="{i18:Translate ResourceKey=AboutPageTitle}" TabIndex="2">
+            <Tab.Icon>
+                <svg:SvgImageSource
+                    Width="30"
+                    Height="30"
+                    Source="information.svg"
+                    Color="White" />
+            </Tab.Icon>
             <ShellContent Route="about">
                 <ContentPage>
                     <Label Text="{i18:Translate ResourceKey=NothingHereLabel}" />

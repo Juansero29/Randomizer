@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="EnigmatiKreations.Framework.Controls.Shared.Controls.Floating.FloatingActionButton.Themes.Generic"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:EnigmatiKreations.Framework.Controls"
+    xmlns:converters="clr-namespace:EnigmatiKreations.Framework.Utils.Converters;assembly=EnigmatiKreations.Framework.Utils"
+    xmlns:f9p="clr-namespace:Forms9Patch;assembly=Forms9Patch"
+    xmlns:floating="clr-namespace:EnigmatiKreations.Framework.Controls.Floating"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ResourceDictionary.MergedDictionaries>
+        <controls:Themes />
+        <controls:Icons />
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:DebugConverter x:Key="DebugConverter" />
+
+    <Style TargetType="floating:FloatingActionButton">
+        <Style.Setters>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            <Setter Property="NormalStateColor" Value="{DynamicResource TertiaryColor}" />
+            <Setter Property="RippleStateColor" Value="{DynamicResource AccentColor}" />
+            <Setter Property="PressedStateColor" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="ControlTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <AbsoluteLayout x:Name="PART_Root">
+                            <Frame
+                                x:Name="PART_DetailFrame"
+                                Margin="0"
+                                Padding="5"
+                                AbsoluteLayout.LayoutBounds="0.24, 0.5, AutoSize, AutoSize"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AnchorX="1"
+                                BackgroundColor="{TemplateBinding NormalStateColor}"
+                                CornerRadius="5"
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="False"
+                                VerticalOptions="FillAndExpand">
+                                <f9p:Label
+                                    Margin="0"
+                                    Padding="0"
+                                    FontSize="Small"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    LineBreakMode="WordWrap"
+                                    Text="{TemplateBinding Detail}"
+                                    TextColor="{TemplateBinding RippleStateColor}" />
+                            </Frame>
+
+                            <Frame
+                                x:Name="PART_Button"
+                                Margin="0"
+                                Padding="0"
+                                xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                xct:TouchEffect.Command="{Binding Parent.ButtonClickedCommand, Source={x:Reference PART_Root}}"
+                                xct:TouchEffect.LongPressCommand="{Binding Parent.LongPressCommand, Source={x:Reference PART_Root}}"
+                                xct:TouchEffect.LongPressDuration="800"
+                                xct:TouchEffect.NativeAnimationColor="{TemplateBinding RippleStateColor}"
+                                xct:TouchEffect.NativeAnimationShadowRadius="15"
+                                xct:TouchEffect.NormalBackgroundColor="{TemplateBinding NormalStateColor}"
+                                xct:TouchEffect.PressedAnimationDuration="100"
+                                xct:TouchEffect.PressedBackgroundColor="{TemplateBinding PressedStateColor}"
+                                xct:TouchEffect.PressedOpacity="0.8"
+                                xct:TouchEffect.PulseCount="2"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5"
+                                AbsoluteLayout.LayoutFlags="PositionProportional">
+                                <Label
+                                    x:Name="PART_ExtendedLabel"
+                                    FontSize="14"
+                                    InputTransparent="True"
+                                    Text="{TemplateBinding Detail}" />
+                            </Frame>
+
+                            <Path
+                                x:Name="PART_Icon"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                Fill="{TemplateBinding NormalStateColor}"
+                                HeightRequest="16"
+                                HorizontalOptions="Center"
+                                Style="{StaticResource PlusSVG}"
+                                VerticalOptions="Center"
+                                WidthRequest="16" />
+                        </AbsoluteLayout>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+</ResourceDictionary>

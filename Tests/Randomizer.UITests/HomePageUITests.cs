@@ -38,10 +38,11 @@ namespace UITests
             if (platform == Platform.iOS)
             {
                 // We try to get an element containing the text 'New List' and get the Text property inside that element
-                var title = app.Query(Randomizer.Framework.Services.Resources.TextResources.NewListPageTitle).Where(t => t.Class.Equals("UILabel")).FirstOrDefault().Text;
+                // TODO USE HARDCODED STRING
+                // var title = app.Query(Randomizer.Framework.Services.Resources.TextResources.NewListPageTitle).Where(t => t.Class.Equals("UILabel")).FirstOrDefault().Text;
                 // We test that the title should be 'New List' because we should be in another page
-                
-                title.Should().Be(Randomizer.Framework.Services.Resources.TextResources.NewListPageTitle);
+                // TODO USE HARDCODED STRING
+                // title.Should().Be(Randomizer.Framework.Services.Resources.TextResources.NewListPageTitle);
             }
 
             if (platform == Platform.Android)

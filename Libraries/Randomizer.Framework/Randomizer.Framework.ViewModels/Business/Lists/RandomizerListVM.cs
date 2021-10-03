@@ -23,16 +23,12 @@ namespace Randomizer.Framework.ViewModels.Business
     {
 
         #region Private Fields
-        private ObservableCollection<RandomizerItemVM> _ItemsVM = new ObservableCollection<RandomizerItemVM>();
+        private readonly ObservableCollection<RandomizerItemVM> _ItemsVM = new ObservableCollection<RandomizerItemVM>();
         private readonly ReadOnlyObservableCollection<RandomizerItemVM> _ReadOnlyItemsVM;
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// A manager use to link vm data to the model
-        /// </summary>
-        private ListsManagerVM Manager => Container.Resolve<ListsManagerVM>();
 
         /// <summary>
         /// The name of the list
