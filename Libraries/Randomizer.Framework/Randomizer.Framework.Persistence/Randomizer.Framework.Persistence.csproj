@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Managers\EnigmatiKreations.Framework.Managers.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
   </ItemGroup>
 

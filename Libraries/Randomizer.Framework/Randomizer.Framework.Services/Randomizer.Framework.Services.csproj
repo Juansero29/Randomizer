@@ -150,11 +150,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Controls\EnigmatiKreations.Framework.Controls.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Shared\Navigation\NavigationRoutes.cs" />
   </ItemGroup>
 
