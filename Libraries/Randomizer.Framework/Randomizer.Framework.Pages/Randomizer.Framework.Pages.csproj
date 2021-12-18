@@ -13,12 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.ApiManager\EnigmatiKreations.Framework.ApiManager.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Controls\EnigmatiKreations.Framework.Controls.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Managers\EnigmatiKreations.Framework.Managers.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Persistence\EnigmatiKreations.Framework.Persistence.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Services\Randomizer.Framework.Services.csproj" />

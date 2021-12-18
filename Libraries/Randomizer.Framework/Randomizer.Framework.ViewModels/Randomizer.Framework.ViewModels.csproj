@@ -5,9 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.MVVM\EnigmatiKreations.Framework.MVVM.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Persistence\EnigmatiKreations.Framework.Persistence.csproj" />
-    <ProjectReference Include="..\..\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
+    <PackageReference Include="EnigmatiKreations.Framework.MVVM" Version="1.0.0-pre-alpha.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
     <ProjectReference Include="..\Randomizer.Framework.Services\Randomizer.Framework.Services.csproj" />

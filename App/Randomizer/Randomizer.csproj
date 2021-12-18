@@ -34,6 +34,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="EnigmatiKreations.Framework.Controls" Version="1.0.0-pre-alpha.1.1" />
+    <PackageReference Include="EnigmatiKreations.Framework.MVVM" Version="1.0.0-pre-alpha.1.1" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
@@ -43,10 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\EnigmatiKreations.Framework\EnigmatiKreations.Framework.ApiManager\EnigmatiKreations.Framework.ApiManager.csproj" />
-    <ProjectReference Include="..\..\Libraries\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Controls\EnigmatiKreations.Framework.Controls.csproj" />
-    <ProjectReference Include="..\..\Libraries\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Persistence\EnigmatiKreations.Framework.Persistence.csproj" />
-    <ProjectReference Include="..\..\Libraries\EnigmatiKreations.Framework\EnigmatiKreations.Framework.Utils\EnigmatiKreations.Framework.Utils.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Models\Randomizer.Framework.Models.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Pages\Randomizer.Framework.Pages.csproj" />
     <ProjectReference Include="..\..\Libraries\Randomizer.Framework\Randomizer.Framework.Persistence\Randomizer.Framework.Persistence.csproj" />
