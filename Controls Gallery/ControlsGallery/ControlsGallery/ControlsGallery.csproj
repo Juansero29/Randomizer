@@ -35,6 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EnigmatiKreations.Framework.Controls" Version="1.0.0-pre-alpha.1.1" />
+    <PackageReference Include="EnigmatiKreations.Framework.MVVM" Version="1.0.0-pre-alpha.1.1" />
     <PackageReference Include="Forms9Patch" Version="2.4.9" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />

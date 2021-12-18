@@ -67,6 +67,12 @@
     <PackageReference Include="CardsView">
       <Version>2.8.0</Version>
     </PackageReference>
+    <PackageReference Include="EnigmatiKreations.Framework.Controls">
+      <Version>1.0.0-pre-alpha.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="EnigmatiKreations.Framework.MVVM">
+      <Version>1.0.0-pre-alpha.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>4.3.0</Version>
     </PackageReference>
@@ -205,7 +211,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionRandomizerAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionRandomizerAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
